@@ -1,0 +1,17 @@
+# Seed catalog for Schedule C (Form 1040) — Profit or Loss from Business
+# (Sole Proprietorship).
+#
+# Unlike Schedule 1/1-A, Schedule C has its own dedicated "About" page and its
+# own standalone instructions document (i1040sc) — not folded into the
+# general i1040gi booklet — so this catalog crawls its own entry point rather
+# than piggy-backing on form_1040.yaml.
+form_number: "1040sc"
+tax_year: 2025
+
+entry_points:
+  - url: https://www.irs.gov/forms-pubs/about-schedule-c-form-1040
+    role: primary_form
+
+include_doc_types:
+  - instructions
+  - form

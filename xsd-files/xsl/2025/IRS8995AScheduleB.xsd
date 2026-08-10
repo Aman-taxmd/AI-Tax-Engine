@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form 8995-A Schedule B</Description>
+			<TaxYear>2025</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>February 19 2026</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../Common/efileTypes.xsd"/>
+
+	<!-- =================================================================== -->
+	<!-- =================== IRS Form 8995-A Schedule B ==================== -->
+	<!-- =================================================================== -->
+
+	<xsd:element name="IRS8995AScheduleB">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 8995-A Schedule B</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS8995AScheduleBType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="StringType" fixed="IRS8995AScheduleB">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="referenceDocumentId" type="IdListType">
+						<xsd:annotation>
+							<xsd:documentation>List of document ID's of forms, schedules, supporting info. etc. attached to this form</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="BinaryAttachment"/>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS8995AScheduleBType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 8995-A Schedule B</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<xsd:element name="BusOperationAggregationGrp" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:annotation>
+						<xsd:documentation>BusOperationAggregationGrpType</xsd:documentation>
+					</xsd:annotation>
+					<xsd:sequence>
+
+						<!-- Trade Or Business Aggregation Description -->
+						<xsd:element name="TradeOrBusinessAggregationDesc" type="ShortExplanationType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Trade Or Business Aggregation Description</Description>
+									<LineNumber>1</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Prior Year Change Description -->
+						<xsd:element name="PriorYearChangeDesc" type="ShortExplanationType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Prior Year Change Description</Description>
+									<LineNumber>2</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<xsd:element name="BusinessAggregationInfoGrp" minOccurs="0" maxOccurs="unbounded">
+							<xsd:complexType>
+								<xsd:annotation>
+									<xsd:documentation>BusinessAggregationInfoGrpType</xsd:documentation>
+								</xsd:annotation>
+								<xsd:sequence>
+
+									<xsd:choice>
+									  <!-- Trade Or Business Name -->
+										<xsd:element name="TradeOrBusinessName" type="BusinessNameType">
+											<xsd:annotation>
+												<xsd:documentation>
+													<Description>Trade Or Business Name</Description>
+													<LineNumber>3(a)</LineNumber>
+												</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+									  <!-- Person Name -->
+										<xsd:element name="PersonNm" type="PersonNameType">
+											<xsd:annotation>
+												<xsd:documentation>
+													<Description>Person Name</Description>
+													<LineNumber>3(a)</LineNumber>
+												</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+									</xsd:choice>
+
+									<xsd:choice minOccurs="0">
+										<!-- EIN -->
+										<xsd:element name="EIN" type="EINType">
+											<xsd:annotation>
+												<xsd:documentation>
+													<Description>EIN</Description>
+													<LineNumber>3(b)</LineNumber>
+												</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<!-- Missing EIN Reason Code -->
+										<xsd:element name="MissingEINReasonCd">
+											<xsd:annotation>
+											  	<xsd:documentation>
+											  		<Description>Missing EIN Reason Code</Description>
+														<LineNumber>3(b)</LineNumber>
+											  	</xsd:documentation>
+											</xsd:annotation>
+											<xsd:simpleType>
+												<xsd:restriction base="TextType">
+													<xsd:enumeration value="APPLD FOR"/>
+													<xsd:enumeration value="FOREIGNUS"/>
+												</xsd:restriction>
+											</xsd:simpleType>
+										</xsd:element>
+										<!-- SSN -->
+										<xsd:element name="SSN" type="SSNType">
+											<xsd:annotation>
+												<xsd:documentation>
+													<Description>SSN</Description>
+													<LineNumber>3(b)</LineNumber>
+												</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+									</xsd:choice>
+
+									<!-- Qualified Business Income Or Loss Amount -->
+									<xsd:element name="QlfyBusinessIncomeOrLossAmt" type="USAmountType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Qualified Business Income Or Loss Amount</Description>
+												<LineNumber>3(c)</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+
+									<!-- W-2 Wages Amount -->
+									<xsd:element name="W2WagesAmt" type="USAmountNNType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>W-2 Wages Amount</Description>
+												<LineNumber>3(d)</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+
+									<!-- Unadjusted Basis Immediately After Acquisition (UBIA) Amount -->
+									<xsd:element name="UBIAAmt" type="USAmountType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Unadjusted Basis Immediately After Acquisition (UBIA) Amount</Description>
+												<LineNumber>3(e)</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+
+						<!-- Total Qualified Business Income Or Loss Amount -->
+						<xsd:element name="TotQlfyBusinessIncomeOrLossAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total Qualified Business Income Or Loss Amount</Description>
+									<LineNumber>4(c)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Total W-2 Wages Amount -->
+						<xsd:element name="TotalW2WagesAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total W-2 Wages Amount</Description>
+									<LineNumber>4(d)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Total UBIA Amount -->
+						<xsd:element name="TotalUBIAAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total UBIA Amount</Description>
+									<LineNumber>4(e)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

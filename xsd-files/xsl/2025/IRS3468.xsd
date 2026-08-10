@@ -1,0 +1,3366 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form 3468</Description>
+			<TaxYear>2025</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>February 19 2026</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+	<!-- =============================================================== -->
+	<!-- ====================== IRS Form 3468 ============================ -->
+	<!-- =============================================================== -->
+	<xsd:element name="IRS3468">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 3468</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS3468Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS3468">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="BinaryAttachment GeneralDependencySmall RehabilitationCreditClaimedInPriorYearExplanation Sect14812b2viiiAdjBasisOfBuildingStatement"/>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS3468Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 3468</xsd:documentation>
+		</xsd:annotation>
+
+		<xsd:sequence>
+
+			<!-- Part I -->
+
+			<!-- IRS-issued registration number for the facility -->
+			<xsd:element name="FacilityIRSIssdRegistrationNum" type="FacilityIRSIssdRegistrationNumType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>IRS-issued registration number for the facility</Description>
+						<LineNumber>Part I, Line 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Facility's emissions value or rate (kg of CO2e per kg of qualified clean hydrogen) -->
+			<xsd:element name="FacilityEmissionsValueOrRt" type="LargeRatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Facility's emissions value or rate (kg of CO2e per kg of qualified clean hydrogen)</Description>
+						<LineNumber>Part I, Line 2a(i)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- DOE control number -->
+			<xsd:element name="DOEControlNum" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>DOE control number</Description>
+						<LineNumber>Part I, Line 2a(ii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="TextType">
+						<xsd:pattern value="[0-9]{4}-[0-9]{4}"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			
+			<xsd:choice minOccurs="0">
+
+				<!-- Emissions value was received from the Department of Energy (DOE) -->
+				<xsd:element name="EmissionsValueRcvdDOEInd" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Emissions value was received from the Department of Energy (DOE)</Description>
+							<LineNumber>Part I, Line 2b(i)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Lifecycle analysis model was used to determine an emissions value -->
+				<xsd:element name="LCAModelInd" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Lifecycle analysis model was used to determine an emissions value</Description>
+							<LineNumber>Part I, Line 2b(ii)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+			</xsd:choice>
+			
+			<!-- Provisional emissions rate (PER) Department of Energy (DOE) control number if applicable -->
+			<xsd:element name="PERDOEControlNum" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Provisional emissions rate (PER) Department of Energy (DOE) control number if applicable</Description>
+						<LineNumber>Part I, Line 2b(iii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="TextType">
+						<xsd:pattern value="[0-9]{4}-[0-9]{4}"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>			
+
+			<!-- Type of facility -->
+			<xsd:element name="FacilityTypeDesc" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Type of facility</Description>
+						<LineNumber>Part I, Line 3a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="TextType">
+						<xsd:maxLength value="50"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			
+			<xsd:choice minOccurs="0">
+				   <xsd:sequence>
+						 <!-- If different than filer, enter owner's person name -->
+						 <xsd:element name="FacilityOwnerPersonNm" type="PersonNameType">
+								<xsd:annotation>
+									   <xsd:documentation>
+											  <Description>If different than filer, enter owner's person name</Description>
+											  <LineNumber>Part I, Line 3b (i)</LineNumber>
+									   </xsd:documentation>
+								</xsd:annotation>
+						 </xsd:element>
+						 <!-- If different than filer, enter owner's SSN -->
+						 <xsd:element name="FacilityOwnerSSN" type="SSNType">
+								<xsd:annotation>
+									   <xsd:documentation>
+											  <Description>If different than filer, enter owner's SSN</Description>
+											  <LineNumber>Part I, Line 3b (ii)</LineNumber>
+									   </xsd:documentation>
+								</xsd:annotation>
+						 </xsd:element>
+				   </xsd:sequence>
+				   <xsd:sequence>
+						 <!-- If different than filer, enter owner's business name -->
+						 <xsd:element name="FacilityOwnerBusinessName" type="BusinessNameType">
+								<xsd:annotation>
+									   <xsd:documentation>
+											  <Description>If different than filer, enter owner's business name</Description>
+											  <LineNumber>Part I, Line 3b (i)</LineNumber>
+									   </xsd:documentation>
+								</xsd:annotation>
+						 </xsd:element>
+						 <!-- If different than filer, enter owner's EIN -->
+						 <xsd:element name="FacilityOwnerEIN" type="EINType">
+								<xsd:annotation>
+									   <xsd:documentation>
+											  <Description>If different than filer, enter owner's EIN</Description>
+											  <LineNumber>Part I, Line 3b (ii)</LineNumber>
+									   </xsd:documentation>
+								</xsd:annotation>
+						 </xsd:element>
+				   </xsd:sequence>
+			</xsd:choice>
+			
+			<!-- Address of facility -->
+			<xsd:element name="FacilityUSAddress" type="USAddressType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Address of facility</Description>
+						<LineNumber>Part I, Line 3c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Location coordinates (Latitude) -->
+			<xsd:element name="FacilityLatitudeNum" type="LatitudeCoordinateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Location coordinates (Latitude)</Description>
+						<LineNumber>Part I, Line 3d(i)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Location coordinates (Longitude) -->
+			<xsd:element name="FacilityLongitudeNum" type="LongitudeCoordinateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Location coordinates (Longitude)</Description>
+						<LineNumber>Part I, Line 3d(ii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Qualified interconnection property under section 48(a)(8) OR 48E(b)(1)(B) -->
+			<xsd:element name="QlfyInterconnectionPropInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified interconnection property under section 48(a)(8) OR 48E(b)(1)(B)</Description>
+						<LineNumber>Part I, Line 3e</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Date the construction began on the facility -->
+			<xsd:element name="FacilityConstructionStartDt" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date the construction began on the facility</Description>
+						<LineNumber>Part I, Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Date the facility was placed in service -->
+			<xsd:element name="FacilityPlacedInServiceDt" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date the facility was placed in service</Description>
+						<LineNumber>Part I, Line 5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Is the facility expansion of an existing facility? -->
+			<xsd:element name="ExistingFacilityExpansionInd" type="BooleanType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Is the facility expansion of an existing facility?</Description>
+						<LineNumber>Part I, Line 6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Net output less than 1 MW, ac, or equivilent current question -->
+			<xsd:element name="NetOutLess1MWOrThermalEgyCd">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Net output less than 1 MW, ac, or equivilent current question</Description>
+						<LineNumber>Part I, Line 7a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="TextType">
+						<xsd:enumeration value="YES"/>
+						<xsd:enumeration value="NO"/>
+						<xsd:enumeration value="N/A"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:choice minOccurs="0">
+
+				<!-- Prevailing wage and apprenticeship section 48(C)(e)(5) and (6) apply question -->
+				<xsd:element name="ProjWageRqrSect48Ce5And6Ind" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Prevailing wage and apprenticeship section 48(C)(e)(5) and (6) apply question</Description>
+							<LineNumber>Part I, Line 8a</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Prevailing wage and apprenticeship section 48(a)(10) and (11) apply question or 48E(d)(3) and (4) apply question -->
+				<xsd:element name="ProjWageRqrSect48a10And11Ind" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Prevailing wage and apprenticeship section 48(a)(10) and (11) apply question or 48E(d)(3) and (4) apply question</Description>
+							<LineNumber>Part I, Line 8b</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- No prevailing wage and apprenticeship question -->
+				<xsd:element name="ProjWageRqrNotStsfdInd" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>No prevailing wage and apprenticeship question</Description>
+							<LineNumber>Part I, Line 8c</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Not applicable prevailing wage and apprenticeship question -->
+				<xsd:element name="ProjWageRqrNAInd" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Not applicable prevailing wage and apprenticeship question</Description>
+							<LineNumber>Part I, Line 8d</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+			</xsd:choice>
+			
+			<xsd:choice minOccurs="0">
+
+				<!-- Domestic content bonus credit per section 48(a)(12)(B) or 48E(a)(3)(B) and section 48(a)(9)(B) or 48E(a)(2)(A)(ii) or 48E(a)2(B)(ii) satisfied question -->
+				<xsd:element name="DomContentCrStsfdPctInd" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Domestic content bonus credit per section 48(a)(12)(B) or 48E(a)(3)(B) and section 48(a)(9)(B) or 48E(a)(2)(A)(ii) or 48E(a)2(B)(ii) satisfied question</Description>
+							<LineNumber>Part I, Line 9a</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Domestic content bonus credit per sections 48(a)(12)(B) or 48E(a)(3)(B) and section 48(a)(9)(B) or 48E(a)(2)(A)(ii) or 48E(a)2(B)(ii) is not satified question -->
+				<xsd:element name="DomContentCrNotStsfdPctInd" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Domestic content bonus credit per sections 48(a)(12)(B) or 48E(a)(3)(B) and section 48(a)(9)(B) or 48E(a)(2)(A)(ii) or 48E(a)2(B)(ii) is not satified question</Description>
+							<LineNumber>Part I, Line 9b</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- No domestic content bonus credit -->
+				<xsd:element name="DomContentCrNotQlfyInd" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>No domestic content bonus credit</Description>
+							<LineNumber>Part I, Line 9c</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+			</xsd:choice>
+			
+			<xsd:choice minOccurs="0">
+			
+				<!-- Energy community bonus credit per section 48(a)(14) or 48E(a)(3)(A) and section 48(a)(9)(B) or 48E(a)(2)(A)(ii) or 48E(a)2(B)(ii) satisfied question -->
+				<xsd:element name="EgyComBonusCrStsfdPctInd" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Energy community bonus credit per section 48(a)(14) or 48E(a)(3)(A) and section 48(a)(9)(B) or 48E(a)(2)(A)(ii) or 48E(a)2(B)(ii) satisfied question</Description>
+							<LineNumber>Part I, Line 10a</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Energy community bonus credit per section 48(a)(14) or 48E(a)(3)(A) and section 48(a)(9)(B) or 48E(a)(2)(A)(ii) or 48E(a)2(B)(ii) not satisified question -->
+				<xsd:element name="EgyComBonusCrNotStsfdPctInd" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Energy community bonus credit per section 48(a)(14) or 48E(a)(3)(A) and section 48(a)(9)(B) or 48E(a)(2)(A)(ii) or 48E(a)2(B)(ii) not satisified question</Description>
+							<LineNumber>Part I, Line 10b</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- No energy community bonus credit per section 48(a)(14) question -->
+				<xsd:element name="EgyComBonusCrNotQlfyInd" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>No energy community bonus credit per section 48(a)(14) question</Description>
+							<LineNumber>Part I, Line 10c</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+			</xsd:choice>
+			
+			<xsd:choice minOccurs="0">
+			
+				<!-- Low income community wind or solar facility per section 48(e)(2) and section 45D(e) question -->
+				<xsd:element name="SolarWindCrComSect45DeInd" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Low income community wind or solar facility per section 48(e)(2) and section 45D(e) question</Description>
+							<LineNumber>Part I, Line 11a</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Low income community wind or solar facility per section 4(e)(2) and is located on indian land per section 2601(2) of P.L. 102-486 question -->
+				<xsd:element name="SolarWindCrComIndianLandInd" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Low income community wind or solar facility per section 4(e)(2) and is located on indian land per section 2601(2) of P.L. 102-486 question</Description>
+							<LineNumber>Part I, Line 11b</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Low income community wind or solar facility per section 4(e)(2) and is a residential building project per section 48(e)(2)(B) or 48E(h)(2)(B) question -->
+				<xsd:element name="SolarWindCrComRsdntlBldgInd" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Low income community wind or solar facility per section 4(e)(2) and is a residential building project per section 48(e)(2)(B) or 48E(h)(2)(B) question</Description>
+							<LineNumber>Part I, Line 11c</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Low income community wind or solar facility per section 4(e)(2) and is an economic benefit project per section 48(e)(2)(C) or 48E(h)(2)(C) question -->
+				<xsd:element name="SolarWindCrComEconomicBnftInd" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Low income community wind or solar facility per section 4(e)(2) and is an economic benefit project per section 48(e)(2)(C) or 48E(h)(2)(C) question</Description>
+							<LineNumber>Part I, Line 11d</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- No low income community wind or solar facility per section 4(e)(2) question -->
+				<xsd:element name="SolarWindCrComNotQlfyInd" type="CheckboxType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>No low income community wind or solar facility per section 4(e)(2) question</Description>
+						<LineNumber>Part I, Line 11g</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			</xsd:choice>
+						
+			<!-- Section 48(e) or 48E(h) control number -->
+			<xsd:element name="Section48eOr48EhControlNum" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<LineNumber>Part I, Line 11e</LineNumber>
+						<Description>Section 48(e) or 48E(h) control number</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="IntegerType">
+					  <xsd:minInclusive value="000000001"/>
+					  <xsd:maxInclusive value="999999999"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!-- Originating pass-through entity's employer identification number (EIN) (if applicable) -->
+			<xsd:element name="OrigPassThruEntityEIN" type="EINType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Originating pass-through entity's employer identification number (EIN) (if applicable)</Description>
+						<LineNumber>Part I, Line 11f</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Solar energy property or facility nameplate capacity checkbox -->
+			<xsd:element name="SolarEnergyPropOrFacilityInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Solar energy property or facility nameplate capacity checkbox</Description>
+						<LineNumber>Part I, Line 12a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Solar energy nameplate capacity in kW dc description -->
+			<xsd:element name="DCNameplateCapKWQty" type="IntegerNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Solar energy nameplate capacity in kW dc description</Description>
+						<LineNumber>Part I, Line 12a (i)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Solar energy nameplate capacity in kW ac description -->
+			<xsd:element name="ACNameplateCapKWQty" type="IntegerNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Solar energy nameplate capacity in kW ac description</Description>
+						<LineNumber>Part I, Line 12a (ii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Solar energy property or facility includes a solar tracking device -->
+			<xsd:element name="SolarTrackingDeviceInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Solar energy property or facility includes a solar tracking device</Description>
+						<LineNumber>Part I, Line 12a (iii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Wind energy nameplace capacity checkbox -->
+			<xsd:element name="WindEnergyPropOrFacilityInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Wind energy nameplace capacity checkbox</Description>
+						<LineNumber>Part I, Line 12b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Wind or small wind energy nameplace capacity in kW ac description -->
+			<xsd:element name="ACNameplateCapWindEgyPropKWQty" type="IntegerNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Wind or small wind energy nameplace capacity in kW ac description</Description>
+						<LineNumber>Part I, Line 12b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other energy property or facility -->
+			<xsd:element name="OtherEnergyPropOrFacilityInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other energy property or facility</Description>
+						<LineNumber>Part I, Line 12c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Property or facility type description -->
+			<xsd:element name="PropOrFacilityTypeDesc" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Property or facility type description</Description>
+						<LineNumber>Part I, Line 12c (i)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other energy namplate capacity in kW -->
+			<xsd:element name="NameplateCapKWQty" type="IntegerNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other energy namplate capacity in kW</Description>
+						<LineNumber>Part I, Line 12c (ii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- ac or dc kilowatt type -->
+			<xsd:element name="ElectricCurrentTypeCd" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>ac or dc kilowatt type</Description>
+						<LineNumber>Part I, Line 12c (iii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="TextType">
+						<xsd:enumeration value="AC"/>
+						<xsd:enumeration value="DC"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!-- Energy storage power capacity rating associated with kW and energy storage capacity associated with the energy -->
+			<xsd:element name="EnergyStorageInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Energy storage power capacity rating associated with kW and energy storage capacity associated with the energy</Description>
+						<LineNumber>Part I, Line 12d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Power capacity rating in kW -->
+			<xsd:element name="PowerCapacityRatingKWQty" type="IntegerNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Power capacity rating in kW</Description>
+						<LineNumber>Part I, Line 12d (i)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Energy storage capacity in kilowatt-hours -->
+			<xsd:element name="EnergyStorageCapacityKWHQty" type="IntegerNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Energy storage capacity in kilowatt-hours</Description>
+						<LineNumber>Part I, Line 12d (ii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Is the energy storage intalled in connection with the solar or wind facility a thermal storage? -->
+			<xsd:element name="ThermalStorSolarWindCnnctInd" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Is the energy storage intalled in connection with the solar or wind facility a thermal storage?</Description>
+						<LineNumber>Part I, Line 12d (iii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Not applicable nameplate capacity or storage capacity -->
+			<xsd:element name="NotApplicableInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Not applicable nameplate capacity or storage capacity</Description>
+						<LineNumber>Part I, Line 12e</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Investment credit as a lessee based on section 48(d) question -->
+			<xsd:element name="InvstCreditLesseeSect48dInd" type="BooleanType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Investment credit as a lessee based on section 48(d) question</Description>
+						<LineNumber>Part I, Line 13</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!--  -->
+			<xsd:element name="InvstCreditLesseeSect48dGrp" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:annotation>
+							<xsd:documentation>
+								<LineNumber>Part I, Line 13a-e</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+						
+						<!-- Name of lessor -->
+						<xsd:element name="LessorBusinessName" type="BusinessNameType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Name of lessor</Description>
+									<LineNumber>Part I, Line 13a</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						
+						<xsd:choice minOccurs="0">
+
+							<!-- US address of lessor -->
+							<xsd:element name="LessorUSAddress" type="USAddressType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>US address of lessor</Description>
+										<LineNumber>Part I, Line 13b</LineNumber>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+
+							<!-- Foreign address of lessor -->
+							<xsd:element name="LessorForeignAddress" type="ForeignAddressType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Foreign address of lessor</Description>
+										<LineNumber>Part I, Line 13b</LineNumber>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+
+						</xsd:choice>
+
+						<!-- Description of property -->
+						<xsd:element name="PropertyDesc" type="LineExplanationType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Description of property</Description>
+									<LineNumber>Part I, Line 13c</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Amount treated as acquired property -->
+						<xsd:element name="TreatedAsAcquiredPropertyAmt" type="USAmountNNType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Amount treated as acquired property</Description>
+									<LineNumber>Part I, Line 13d</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Income inclusion reported under regulations section 1.50-1 amount. -->
+						<xsd:element name="Sect48dCreditRegs1501InclsnAmt" type="USAmountNNType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Income inclusion reported under regulations section 1.50-1 amount.</Description>
+									<LineNumber>Part I, Line 13e</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Part II -->
+
+			<!-- Section A -->
+
+			<!-- Integrated gas combined cycle property investment basis -->
+			<xsd:element name="InvstIntgrtGasCombCycPropAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Integrated gas combined cycle property investment basis</Description>
+						<LineNumber>Part II, Line 1a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Calculated gas combined cycle property investment credit -->
+			<xsd:element name="CalcGasCombCycPropInvstCrAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Calculated gas combined cycle property investment credit</Description>
+						<LineNumber>Part II, Line 1b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Advanced coal based technology amount -->
+			<xsd:element name="AdvancedCoalBaseTechnologyAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Advanced coal based technology amount</Description>
+						<LineNumber>Part II, Line 2a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Calculated advanced coal based technology amount -->
+			<xsd:element name="CalcAdvancedCoalBaseTechAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Calculated advanced coal based technology amount</Description>
+						<LineNumber>Part II, Line 2b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Qualified advanced coal based technology amount -->
+			<xsd:element name="QlfyAdvCoalBasedTechAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified advanced coal based technology amount</Description>
+						<LineNumber>Part II, Line 3a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Calculated advanced coal based technology amount -->
+			<xsd:element name="CalcAdvCoalBasedTechAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Calculated advanced coal based technology amount</Description>
+						<LineNumber>Part II, Line 3b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Section B -->
+
+			<!-- Qualifying gasification property basis -->
+			<xsd:element name="QlfyGasificationPropBssAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualifying gasification property basis</Description>
+						<LineNumber>Part II, Line 4a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Calculated qualified gasification project credit -->
+			<xsd:element name="CalcQlfyGasificationPropBssAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Calculated qualified gasification project credit</Description>
+						<LineNumber>Part II, Line 4b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other qualified investment property basis -->
+			<xsd:element name="OtherQlfyInvstPropertyBasisAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other qualified investment property basis</Description>
+						<LineNumber>Part II, Line 5a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Calculated other qualified investment property credit -->
+			<xsd:element name="CalcOtherQlfyInvstPropCrAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Calculated other qualified investment property credit</Description>
+						<LineNumber>Part II, Line 5b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Unused investment credit from cooperatives amount -->
+			<xsd:element name="UnusedCoopInvstGsfcnProjCrAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Unused investment credit from cooperatives amount</Description>
+						<LineNumber>Part II, Line 6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total advanced coal and gasification credit amount -->
+			<xsd:element name="TotAdvncCoalAndGsfctnCrAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total advanced coal and gasification credit amount</Description>
+						<LineNumber>Part II, Line 7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Part III -->
+
+			<!-- Qualified investment in advanced energy project amount -->
+			<xsd:element name="QlfyInvAdvncEnergyProjPropAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified investment in advanced energy project amount</Description>
+						<LineNumber>Part III, Line 1a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Prevailing wage and apprenticeship question percent -->
+			<xsd:element name="QlfyInvAdvncEgyProjProp48CPct" type="Decimal2RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Prevailing wage and apprenticeship question percent</Description>
+						<LineNumber>Part III, Line 1b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Calculate investment in advanced energy project amount -->
+			<xsd:element name="CalcQlfyInvAdvncEgyProjPropAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Calculate investment in advanced energy project amount</Description>
+						<LineNumber>Part III, Line 1c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Allocation 48C control number -->
+			<xsd:element name="Sect48CAllocationControlNum" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Allocation 48C control number</Description>
+						<LineNumber>Part III, Line 1d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="TextType">
+						<xsd:pattern value="([1-9][0-9]{3}-([1][5][0][1-9]|[1][5][1-9][0-9]|[1][6-9][0-9][0-9]|[2-9][0-9][0-9][0-9]))"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!-- Energy community census tract section 48C - Yes or No -->
+			<xsd:element name="Sect48CEnergyComFacilityInd" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Energy community census tract section 48C - Yes or No</Description>
+						<LineNumber>Part III, Line 1e</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Originating pass-through entitys EIN (if applicable) -->
+			<xsd:element name="OrigPassThroughEntityEIN" type="EINType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Originating pass-through entitys EIN (if applicable)</Description>
+						<LineNumber>Part III, Line 1f</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Unused investment credit from cooperatives amount -->
+			<xsd:element name="UnsdCoopInvstAdvncEnergyCrAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Unused investment credit from cooperatives amount</Description>
+						<LineNumber>Part III, Line 2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total advanced energy project amount. -->
+			<xsd:element name="TotQlfyInvAdvncEgyProjPropAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total advanced energy project amount.</Description>
+						<LineNumber>Part III, Line 3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Part IV -->
+
+			<xsd:choice minOccurs="0">
+
+				<!-- Advanced semiconductor manufacturing facility checkbox -->
+				<xsd:element name="SemiconductorMfrFacilityInd" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Advanced semiconductor manufacturing facility checkbox</Description>
+							<LineNumber>Part IV, Line 1a</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Semiconductor equipment manufacturing facility checkbox -->
+				<xsd:element name="SemiconductorEquipMfrFcltyInd" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Semiconductor equipment manufacturing facility checkbox</Description>
+							<LineNumber>Part IV, Line 1a</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- Basis qualified investment advanced manufacturing credit -->
+			<xsd:element name="BssAdvncMfrInvstCrAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Basis qualified investment advanced manufacturing credit</Description>
+						<LineNumber>Part IV, Line 1b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Calculated basis advanced manufacturing investment credit -->
+			<xsd:element name="CalcBssAdvncMfrInvstCrAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Calculated basis advanced manufacturing investment credit</Description>
+						<LineNumber>Part IV, Line 1c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Unused investment credit manufacturing facility from cooperatives amount -->
+			<xsd:element name="UnusedCoopInvstMfrFcltyCrAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Unused investment credit manufacturing facility from cooperatives amount</Description>
+						<LineNumber>Part IV, Line 2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total basis in qualified investment credit for advanced manufacturing -->
+			<xsd:element name="TotBssQlfyInvstCrAdvncMfrAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total basis in qualified investment credit for advanced manufacturing</Description>
+						<LineNumber>Part IV, Line 3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Part V -->
+
+			<!-- Section A -->
+
+			<!-- Qualified clean electricity facilities group -->
+			<xsd:element name="QlfyCleanElectricityFcltyGrp" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>Qualified clean electricity facilities group</Description>
+								<LineNumber>Part V, Line 1a, 1b, 1c, 1d, 1e1, 1f, 1g, 1h, 1i, 1j, 1k, 1l,1m, 1n, 2</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+
+						<!-- Basis qualified investment any qualified facility described in section 48E(b)(1) placed in service during the tax year -->
+						<xsd:element name="BssQlfyInvstSect48Eb1Amt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Basis qualified investment any qualified facility described in section 48E(b)(1) placed in service during the tax year</Description>
+									<LineNumber>Part V, Line 1a</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Applicable percentage for the net output and prevailing wage and apprenticeship questions -->
+						<xsd:element name="NetOutLss1MWACOrStsfdWgReqPct" type="Decimal2RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable percentage for the net output and prevailing wage and apprenticeship questions</Description>
+									<LineNumber>Part V, Line 1b</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Calculated qualified investment for qualified facility described in section 48E(b)(1) placed in service during the tax year -->
+						<xsd:element name="CalcBssQlfyInvstSect48Eb1Amt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Calculated qualified investment for qualified facility described in section 48E(b)(1) placed in service during the tax year</Description>
+									<LineNumber>Part V, Line 1c</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Applicable percentage for the domestic content bonus credit -->
+						<xsd:element name="DomContentBonusCreditPct" type="Decimal2RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable percentage for the domestic content bonus credit</Description>
+									<LineNumber>Part V, Line 1d</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Calculated qualified investment domestic content bonus credit  -->
+						<xsd:element name="CalcDomContentBonusCreditAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Calculated qualified investment domestic content bonus credit </Description>
+									<LineNumber>Part V, Line 1e</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Applicable percentage for the energy community bonus credit -->
+						<xsd:element name="EnergyComBonusCreditPct" type="Decimal2RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable percentage for the energy community bonus credit</Description>
+									<LineNumber>Part V, Line 1f</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Calculated qualified investment energy community bonus credit -->
+						<xsd:element name="CalcEnergyComBonusCreditAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Calculated qualified investment energy community bonus credit</Description>
+									<LineNumber>Part V, Line 1g</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Applicable percentage for low income wind or solar facility bonus credit -->
+						<xsd:element name="LowIncmSolarWindBonusCrPct" type="Decimal2RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable percentage for low income wind or solar facility bonus credit</Description>
+									<LineNumber>Part V, Line 1h</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Limitation capacity allocated in allocation letter -->
+						<xsd:element name="AllocLmtEnergyCapKWQty" type="IntegerNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Limitation capacity allocated in allocation letter</Description>
+									<LineNumber>Part V, Line 1i</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Qualified investment facility section 48E solar, wind, small wind or other credit   -->
+						<xsd:element name="CalcSolarWindOthrCapAllocAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Qualified investment facility section 48E solar, wind, small wind or other credit  </Description>
+									<LineNumber>Part V, Line 1j</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Qualified investment solar, wind, small wind or other credit -->
+						<xsd:element name="SolarWindOthrCapAllocRt" type="Decimal4RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Qualified investment solar, wind, small wind or other credit</Description>
+									<LineNumber>Part V, Line 1k</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Qualified investment facility section 48E credit -->
+						<xsd:element name="ApplcblCalcDomCntntBonusCrRt" type="Decimal4RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Qualified investment facility section 48E credit</Description>
+									<LineNumber>Part V, Line 1l</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Calculated qualified investment for qualified facility described in section 48E(b)(1) placed in service during the tax year -->
+						<xsd:element name="Calc2BssQlfyInvstSect48Eb1Amt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Calculated qualified investment for qualified facility described in section 48E(b)(1) placed in service during the tax year</Description>
+									<LineNumber>Part V, Line 1m</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Applicable qualified investment for qualified facility described in section 48E(b)(1) placed in service during the tax year -->
+						<xsd:element name="Calc3BssQlfyInvstSect48Eb1Amt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable qualified investment for qualified facility described in section 48E(b)(1) placed in service during the tax year</Description>
+									<LineNumber>Part V, Line 1n</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Total qualified clean electricity facilities credit -->
+						<xsd:element name="TotQlfyElecFcltySect48Eb1CrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total qualified clean electricity facilities credit</Description>
+									<LineNumber>Part V, Line 2</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Section B -->
+
+			<!-- Qualified energy storage technology group -->
+			<xsd:element name="QlfyEgyStorTechGrp" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:annotation>
+							<xsd:documentation>
+									<Description>Qualified energy storage technology group</Description>
+								<LineNumber>Part V, Line 3a, 3b, 3c, 3d, 3e, 3f, 3g, 4</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+
+						<!-- Qualified investment for any energy storage technology described in section 48E(c) placed in service during the tax year. -->
+						<xsd:element name="BssQlfyInvstEgyStorTechAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Qualified investment for any energy storage technology described in section 48E(c) placed in service during the tax year.</Description>
+									<LineNumber>Part V, Line 3a </LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Applicable percentage for the net output and prevailing wage and apprenticeship questions -->
+						<xsd:element name="NetOutLss1MWACOrStsfdWgReqPct" type="Decimal2RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable percentage for the net output and prevailing wage and apprenticeship questions</Description>
+									<LineNumber>Part V, Line 3b</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Calculated qualified investment for qualified energy storage described in section 48E(c) placed in service during the tax year -->
+						<xsd:element name="CalcBssQlfyInvstEgyStorTechAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Calculated qualified investment for qualified energy storage described in section 48E(c) placed in service during the tax year</Description>
+									<LineNumber>Part V, Line 3c</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Applicable percentage for the domestic content bonus credit -->
+						<xsd:element name="DomContentBonusCreditPct" type="Decimal2RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable percentage for the domestic content bonus credit</Description>
+									<LineNumber>Part V, Line 3d</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Calculated qualified investment domestic content bonus credit -->
+						<xsd:element name="CalcDomContentBonusCreditAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Calculated qualified investment domestic content bonus credit</Description>
+									<LineNumber>Part V, Line 3e</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Applicable percentage for the energy community bonus credit -->
+						<xsd:element name="EnergyComBonusCreditPct" type="Decimal2RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable percentage for the energy community bonus credit</Description>
+									<LineNumber>Part V, Line 3f</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Calculated qualified investment energy community bonus credit -->
+						<xsd:element name="CalcEnergyComBonusCreditAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Calculated qualified investment energy community bonus credit</Description>
+									<LineNumber>Part V, Line 3g</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Reserved - Part V, Line 3h -->
+
+						<!-- Reserved - Part V, Line 3i -->
+
+						<!-- Reserved - Part V, Line 3j -->
+
+						<!-- Reserved - Part V, Line 3k -->
+
+						<!-- Reserved - Part V, Line 3l -->
+
+						<!-- Reserved - Part V, Line 3m -->
+
+						<!-- Reserved - Part V, Line 3n -->
+
+						<!-- Total qualified energy storage technology credit -->
+						<xsd:element name="TotalQlfyEgyStorTechCrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total qualified energy storage technology credit</Description>
+									<LineNumber>Part V, Line 4</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Section C -->
+
+			<!-- Sum of clean electricity investment credit under section 48E -->
+			<xsd:element name="TotalQlfyElecEgyStorTechCrAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Sum of clean electricity investment credit under section 48E</Description>
+						<LineNumber>Part V, Line 5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Divide sum for the tax year and all prior tax years, of all processed subsidized energy financing or private activity bonds used to finance the qualified facility or qualified storage technology, as of the close of the tax year, by the aggregate amount of additions to the capital account for the qualified facility -->
+			<xsd:element name="CalcTotEgyFncOrBondPct" type="Decimal2RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Divide sum for the tax year and all prior tax years, of all processed subsidized energy financing or private activity bonds used to finance the qualified facility or qualified storage technology, as of the close of the tax year, by the aggregate amount of additions to the capital account for the qualified facility</Description>
+						<LineNumber>Part V, Line 6a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Sum all private activity bond proceeds for the tax year and all prior tax years or the subsidized energy financing and the amount of additions to the capital account for qualified facility, for the tax year and all prior tax years -->
+			<xsd:element name="CalcTotEgyFncCrOrBondAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Sum all private activity bond proceeds for the tax year and all prior tax years or the subsidized energy financing and the amount of additions to the capital account for qualified facility, for the tax year and all prior tax years</Description>
+						<LineNumber>Part V, Line 6b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Credit reduction for subsidized energy financial credit or private activity bonds, and credit phaseout -->
+			<xsd:element name="CalcEgyFncCrOrBondPctAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Credit reduction for subsidized energy financial credit or private activity bonds, and credit phaseout</Description>
+						<LineNumber>Part V, Line 6c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Smaller Credit Reduction for Subsidized Energy Financing or Private Activity Bonds, and Credit Phaseout -->
+			<xsd:element name="SmllrEgyFncCrOrBondAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Smaller Credit Reduction for Subsidized Energy Financing or Private Activity Bonds, and Credit Phaseout</Description>
+						<LineNumber>Part V, Line 6d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total clean electricity investment credit under section 48E, credit reduction for subsidized energy financing or private activity bonds, and credit phaseout -->
+			<xsd:element name="LessSmllrEgyFncCrOrBondAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total clean electricity investment credit under section 48E, credit reduction for subsidized energy financing or private activity bonds, and credit phaseout</Description>
+						<LineNumber>Part V, Line 6e</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Proceeds of subsidized energy financing or private activity bonds used to finance the facility. Otherwise, proceeds of subsidized energy financing or private activity bonds were not used to fiance qualified clean elerntricity facility or qualified enrgy storage technology. -->
+			<xsd:element name="FncFcltyEgyFncCrOrBondAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Proceeds of subsidized energy financing or private activity bonds used to finance the facility. Otherwise, proceeds of subsidized energy financing or private activity bonds were not used to fiance qualified clean elerntricity facility or qualified enrgy storage technology.</Description>
+						<LineNumber>Part V, Line 7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Elective payment election under section 6417 and the facility doesn't meet section 45Y(g)(12)(B)(i), doesn't have a maximum net output of less than 1 MW (as measured in ac), or meet an exception under section 45Y(g)(12)(D) and construction began in 2024 , 2025, or after 2025, multiply line 7 by line A. Construction began in 2024, 90% (0.90) or B. Construction began in 2025, 85% (0.85), or C. Construction began after 2025, 0% (0.00). -->
+			<xsd:element name="ACLess1MWEPEAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Elective payment election under section 6417 and the facility doesn't meet section 45Y(g)(12)(B)(i), doesn't have a maximum net output of less than 1 MW (as measured in ac), or meet an exception under section 45Y(g)(12)(D) and construction began in 2024 , 2025, or after 2025, multiply line 7 by line A. Construction began in 2024, 90% (0.90) or B. Construction began in 2025, 85% (0.85), or C. Construction began after 2025, 0% (0.00).</Description>
+						<LineNumber>Part V, Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Reserved - Part V, Line 9 -->
+			
+			<!-- Applicable unused investment credit from cooperatives -->
+			<xsd:element name="UnusedCoopInvstCrAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Applicable unused investment credit from cooperatives</Description>
+						<LineNumber>Part V, Line 10</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total credit reduction for subsidized energy financing or private activity bonds, and credit phaseout -->
+			<xsd:element name="TotReportableEgyFncCrAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total credit reduction for subsidized energy financing or private activity bonds, and credit phaseout</Description>
+						<LineNumber>Part V, Line 11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Part VI -->
+			
+			<!-- Section A -->
+
+			<xsd:element name="GeothermalEnergyPropCrGrp" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:annotation>
+							<xsd:documentation>
+								<LineNumber>Part VI, Lines 1a, 1b, 1c, 1d, 1e, 1f, 1g, 2</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+
+						<!-- Geothermal energy property basis amount -->
+						<xsd:element name="GeothermalEnergyPropBasisAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Geothermal energy property basis amount</Description>
+									<LineNumber>Part VI, Line 1a</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Applicable percentage for the net output and prevailing wage and apprenticeship questions -->
+						<xsd:element name="NetOutLss1MWACOrStsfdWgReqPct" type="Decimal2RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable percentage for the net output and prevailing wage and apprenticeship questions</Description>
+									<LineNumber>Part VI, Line 1b</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Calculated geothermal energy property amount -->
+						<xsd:element name="CalcGeothermalEgyPropBasisAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Calculated geothermal energy property amount</Description>
+									<LineNumber>Part VI, Line 1c</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Applicable percentage for the domestic content bonus credit -->
+						<xsd:element name="DomContentBonusCreditPct" type="Decimal2RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable percentage for the domestic content bonus credit</Description>
+									<LineNumber>Part VI, Line 1d</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Calculated domestic content bonus credit -->
+						<xsd:element name="CalcDomContentBonusCreditAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Calculated domestic content bonus credit</Description>
+									<LineNumber>Part VI, Line 1e</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Applicable percentage for the energy community bonus credit -->
+						<xsd:element name="EnergyComBonusCreditPct" type="Decimal2RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable percentage for the energy community bonus credit</Description>
+									<LineNumber>Part VI, Line 1f</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Calculated energy community bonus credit -->
+						<xsd:element name="CalcEnergyComBonusCreditAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Calculated energy community bonus credit</Description>
+									<LineNumber>Part VI, Line 1g</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Total geothermal energy property credit amount -->
+			<xsd:element name="TotalGeothermalEnergyPropCrAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total geothermal energy property credit amount</Description>
+						<LineNumber>Part VI, Line 2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Section B -->
+
+			<xsd:element name="SolarEnergyPropCrGrp" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:annotation>
+							<xsd:documentation>
+								<LineNumber>Part VI, Line 3a-n</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+
+						<!-- Solar Illumination or energy property basis during the tax year -->
+						<xsd:element name="PropSolarIllmntnOrEgyBssAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Solar Illumination or energy property basis during the tax year</Description>
+									<LineNumber>Part VI, Line 3a</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Applicable percentage for the net output and prevailing wage and apprenticeship questions in specified part -->
+						<xsd:element name="NetOutLss1MWACOrStsfdWgReqPct" type="Decimal2RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable percentage for the net output and prevailing wage and apprenticeship questions in specified part</Description>
+									<LineNumber>Part VI, Line 3b</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Calculated Solar Illumination or energy property basis during the tax year -->
+						<xsd:element name="CalcPropSolarIllmntnOrEgyAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Calculated Solar Illumination or energy property basis during the tax year</Description>
+									<LineNumber>Part VI, Line 3c</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Applicable percentage for low income wind or solar facility bonus credit -->
+						<xsd:element name="LowIncmSolarWindBonusCrPct" type="Decimal2RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable percentage for low income wind or solar facility bonus credit</Description>
+									<LineNumber>Part VI, Line 3d</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Limitation capacity allocated in allocation letter -->
+						<xsd:element name="AllocLmtEnergyCapKWQty" type="IntegerNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Limitation capacity allocated in allocation letter</Description>
+									<LineNumber>Part VI, Line 3e</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Low income community full bonus credit -->
+						<xsd:element name="LowIncmComFullBonusCrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Low income community full bonus credit</Description>
+									<LineNumber>Part VI, Line 3f</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Low income community allocation reduction factor -->
+						<xsd:element name="LowIncmComAllocRedFctrRt" type="Decimal4RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Low income community allocation reduction factor</Description>
+									<LineNumber>Part VI, Line 3g</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Low income community percent reduction factor -->
+						<xsd:element name="LowIncmComPctRedFctrRt" type="Decimal4RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Low income community percent reduction factor</Description>
+									<LineNumber>Part VI, Line 3h</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Low income community reduction factor credit -->
+						<xsd:element name="LowIncmComRedFctrCrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Low income community reduction factor credit</Description>
+									<LineNumber>Part VI, Line 3i</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Calculated low income wind or solar facility bonus credit -->
+						<xsd:element name="CalcLowIncmSolarWindBonusCrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Calculated low income wind or solar facility bonus credit</Description>
+									<LineNumber>Part VI, Line 3j</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Applicable percentage for the domestic content bonus credit -->
+						<xsd:element name="DomContentBonusCreditPct" type="Decimal2RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable percentage for the domestic content bonus credit</Description>
+									<LineNumber>Part VI, Line 3k</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Calculated domestic content bonus credit -->
+						<xsd:element name="CalcDomContentBonusCreditAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Calculated domestic content bonus credit</Description>
+									<LineNumber>Part VI, Line 3l</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Applicable percentage for the energy community bonus credit -->
+						<xsd:element name="EnergyComBonusCreditPct" type="Decimal2RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable percentage for the energy community bonus credit</Description>
+									<LineNumber>Part VI, Line 3m</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Calculated energy community bonus credit -->
+						<xsd:element name="CalcEnergyComBonusCreditAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Calculated energy community bonus credit</Description>
+									<LineNumber>Part VI, Line 3n</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Total solar energy credit -->
+						<xsd:element name="TotalSolarEnergyPropCrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total solar energy credit</Description>
+									<LineNumber>Part VI, Line 4</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Section C -->
+
+			<xsd:element name="QualifiedFuelCellPropCrGrp" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:annotation>
+							<xsd:documentation>
+								<LineNumber>Part VI, Line 5a-5o, 6</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+
+						<!-- Qualified fuel cell property basis -->
+						<xsd:element name="QualifiedFuelCellPropBssAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Qualified fuel cell property basis</Description>
+									<LineNumber>Part VI, Line 5a</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Calculated qualified fuel cell property basis -->
+						<xsd:element name="CalcQlfyFuelCellPropBssAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Calculated qualified fuel cell property basis</Description>
+									<LineNumber>Part VI, Line 5b</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Applicable kW capacity for qualified fuel cell property -->
+						<xsd:element name="ApplicableFuelCellPropKWCapQty" type="IntegerNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable kW capacity for qualified fuel cell property</Description>
+									<LineNumber>Part VI, Line 5c</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Calculated qualified fuel cell property kilowatt capacity amount -->
+						<xsd:element name="CalcQlfyFuelCellPropBssKWAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Calculated qualified fuel cell property kilowatt capacity amount</Description>
+									<LineNumber>Part VI, Line 5d</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Smaller qualified fuel cell property credit -->
+						<xsd:element name="SmallerQlfyFuelCellPropCrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Smaller qualified fuel cell property credit</Description>
+									<LineNumber>Part VI, Line 5e</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Basis qualified fuel cell property acquired -->
+						<xsd:element name="BasisQlfyFuelCellPropAcqAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Basis qualified fuel cell property acquired</Description>
+									<LineNumber>Part VI, Line 5f</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Applicable percentage for the net output and prevailing wage and apprenticeship questions in specified part -->
+						<xsd:element name="NetOutLss1MWACOrStsfdWgReqPct" type="Decimal2RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable percentage for the net output and prevailing wage and apprenticeship questions in specified part</Description>
+									<LineNumber>Part VI, Line 5g</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Calculated basis qualified fuel cell property acquired -->
+						<xsd:element name="CalcBssQlfyFuelCellPropAcqAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Calculated basis qualified fuel cell property acquired</Description>
+									<LineNumber>Part VI, Line 5h</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Applicable percentage for the domestic content bonus credit -->
+						<xsd:element name="DomContentBonusCreditPct" type="Decimal2RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable percentage for the domestic content bonus credit</Description>
+									<LineNumber>Part VI, Line 5i</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Calculated domestic content bonus credit -->
+						<xsd:element name="CalcDomContentBonusCreditAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Calculated domestic content bonus credit</Description>
+									<LineNumber>Part VI, Line 5j</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Reserved - Part VI, Line 5k -->
+
+						<!-- Applicable percentage for the energy community bonus credit -->
+						<xsd:element name="EnergyComBonusCreditPct" type="Decimal2RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable percentage for the energy community bonus credit</Description>
+									<LineNumber>Part VI, Line 5l</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Calculated energy community bonus credit -->
+						<xsd:element name="CalcEnergyComBonusCreditAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Calculated energy community bonus credit</Description>
+									<LineNumber>Part VI, Line 5m</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Total fuel cell energy bonus credit -->
+						<xsd:element name="TotalFuelCellBonusCreditAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total fuel cell energy bonus credit</Description>
+									<LineNumber>Part VI, Line 5n</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Applicable kW capacity for acquired qualified fuel cell property -->
+						<xsd:element name="ApplicablePropKWCapAfterQty" type="IntegerNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable kW capacity for acquired qualified fuel cell property</Description>
+									<LineNumber>Part VI, Line 5o</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Calculated applicable fuel cell property kilowatt capacity amount -->
+						<xsd:element name="AfterLmtFuelCellPropKwCapAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Calculated applicable fuel cell property kilowatt capacity amount</Description>
+									<LineNumber>Part VI, Line 5p</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Adjusted basis qualified fuel cell credit amount -->
+						<xsd:element name="SmllrQlfyApplcblFuelCellCrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Adjusted basis qualified fuel cell credit amount</Description>
+									<LineNumber>Part VI, Line 5q</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Total qualified fuel cell property amount -->
+						<xsd:element name="TotalQlfyFuelCellPropCrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total qualified fuel cell property amount</Description>
+									<LineNumber>Part VI, Line 6</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Section D -->
+
+			<xsd:element name="QualifiedMicroturbinePropCrGrp" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:annotation>
+							<xsd:documentation>
+								<LineNumber>Part VI, Line 7a-7j, 8</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+
+						<!-- Qualified microturbine property basis -->
+						<xsd:element name="QlfyMicroturbinePropBssAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Qualified microturbine property basis</Description>
+									<LineNumber>Part VI, Line 7a</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Applicable percentage for the net output and prevailing wage and apprenticeship questions in specified part -->
+						<xsd:element name="NetOutLss1MWACOrStsfdWgReqPct" type="Decimal2RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable percentage for the net output and prevailing wage and apprenticeship questions in specified part</Description>
+									<LineNumber>Part VI, Line 7b</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Calculated qualified microturbine property basis -->
+						<xsd:element name="CalcQlfyMicroturbinePropBssAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Calculated qualified microturbine property basis</Description>
+									<LineNumber>Part VI, Line 7c</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Applicable percentage for the domestic content bonus credit -->
+						<xsd:element name="DomContentBonusCreditPct" type="Decimal2RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable percentage for the domestic content bonus credit</Description>
+									<LineNumber>Part VI, Line 7d</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Calculated qualified microturbine property kilowatt capacity -->
+						<xsd:element name="CalcQlfyMcrtrbnPropKwCapAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Calculated qualified microturbine property kilowatt capacity</Description>
+									<LineNumber>Part VI, Line 7e</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Reserved - Part VI, Line 7f -->
+
+						<!-- Applicable percentage for the energy community bonus credit -->
+						<xsd:element name="EnergyComBonusCreditPct" type="Decimal2RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable percentage for the energy community bonus credit</Description>
+									<LineNumber>Part VI, Line 7g</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Calculated energy community bonus credit -->
+						<xsd:element name="CalcEnergyComBonusCreditAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Calculated energy community bonus credit</Description>
+									<LineNumber>Part VI, Line 7h</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Total energy community bonus credit -->
+						<xsd:element name="TotalEnergyComBonusCrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total energy community bonus credit</Description>
+									<LineNumber>Part VI, Line 7i</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Applicable kW for qualified microturbine property -->
+						<xsd:element name="ApplicableMcrtrbnPropKWCapQty" type="IntegerNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable kW for qualified microturbine property</Description>
+									<LineNumber>Part VI, Line 7j</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Reserved - Part VI, Line 7k -->
+
+						<!-- Calculated energy community bonus other credit -->
+						<xsd:element name="CalcEnergyComBonusCrOtherAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Calculated energy community bonus other credit</Description>
+									<LineNumber>Part VI, Line 7l</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Adjusted basis qualified microturbine property amount -->
+						<xsd:element name="SmllrQlfyMicroturbinePropCrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Adjusted basis qualified microturbine property amount</Description>
+									<LineNumber>Part VI, Line 8</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Section E -->
+
+			<xsd:element name="HeatAndPowerSystemPropCrGrp" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:annotation>
+							<xsd:documentation>
+								<LineNumber>Part VI, Line 9a-9i, 10</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+
+						<!-- Basis of heat and power property amount -->
+						<xsd:element name="BasisOfHeatAndPowerPropAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Basis of heat and power property amount</Description>
+									<LineNumber>Part VI, Line 9a</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Mega horsepower percent -->
+						<xsd:element name="MegaHorsepowerPct" type="LargeRatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Mega horsepower percent</Description>
+									<LineNumber>Part VI, Line 9b</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Calculated heat and power system property capacity amount -->
+						<xsd:element name="CalcHeatAndPowerPropCapAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Calculated heat and power system property capacity amount</Description>
+									<LineNumber>Part VI, Line 9c</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Applicable percentage for the net output and prevailing wage and apprenticeship questions in specified part -->
+						<xsd:element name="NetOutLss1MWACOrStsfdWgReqPct" type="Decimal2RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable percentage for the net output and prevailing wage and apprenticeship questions in specified part</Description>
+									<LineNumber>Part VI, Line 9d</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Calculated basis of heat and power property amount -->
+						<xsd:element name="CalcBasisOfHeatAndPowerPropAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Calculated basis of heat and power property amount</Description>
+									<LineNumber>Part VI, Line 9e</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Applicable percentage for the domestic content bonus credit -->
+						<xsd:element name="DomContentBonusCreditPct" type="Decimal2RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable percentage for the domestic content bonus credit</Description>
+									<LineNumber>Part VI, Line 9f</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Calculated domestic content bonus credit -->
+						<xsd:element name="CalcDomContentBonusCreditAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Calculated domestic content bonus credit</Description>
+									<LineNumber>Part VI, Line 9g</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Applicable percentage for the energy community bonus credit -->
+						<xsd:element name="EnergyComBonusCreditPct" type="Decimal2RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable percentage for the energy community bonus credit</Description>
+									<LineNumber>Part VI, Line 9h</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Calculated energy community bonus credit -->
+						<xsd:element name="CalcEnergyComBonusCreditAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Calculated energy community bonus credit</Description>
+									<LineNumber>Part VI, Line 9i</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Total combined heat and power system amount -->
+						<xsd:element name="TotalHeatAndPowerSysPropCrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total combined heat and power system amount</Description>
+									<LineNumber>Part VI, Line 10</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Section F -->
+
+			<xsd:element name="QlfySmallWindEnergyPropCrGrp" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:annotation>
+							<xsd:documentation>
+								<LineNumber>Part VI, Line 11a-11l, 12</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+
+						<!-- Reserved - Part VI, Line 11a -->
+
+						<!-- Reserved - Part VI, Line 11b -->
+
+						<!-- Reserved - Part VI, Line 11c -->
+
+						<!-- Basis of wind energy after 2008 amount -->
+						<xsd:element name="WindEgyBssAfterSpcfdPrdAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Basis of wind energy after 2008 amount</Description>
+									<LineNumber>Part VI, Line 11d</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Applicable percentage for the net output and prevailing wage and apprenticeship questions in Part I -->
+						<xsd:element name="NetOutLss1MWACOrStsfdWgReqPct" type="Decimal2RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable percentage for the net output and prevailing wage and apprenticeship questions in Part I</Description>
+									<LineNumber>Part VI, Line 11e</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Calculated basis of wind energy after 2008 amount -->
+						<xsd:element name="CalcWindEgyBssAfterSpcfdPrdAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Calculated basis of wind energy after 2008 amount</Description>
+									<LineNumber>Part VI, Line 11f</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Applicable percentage for low income wind or solar facility bonus credit -->
+						<xsd:element name="LowIncmSolarWindBonusCrPct" type="Decimal2RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable percentage for low income wind or solar facility bonus credit</Description>
+									<LineNumber>Part VI, Line 11g</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Limitation capacity allocated in allocation letter -->
+						<xsd:element name="AllocLmtEnergyCapKWQty" type="IntegerNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Limitation capacity allocated in allocation letter</Description>
+									<LineNumber>Part VI, Line 11h</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Low income community full bonus credit -->
+						<xsd:element name="LowIncmComFullBonusCrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Low income community full bonus credit</Description>
+									<LineNumber>Part VI, Line 11i</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Low income community allocation reduction factor -->
+						<xsd:element name="LowIncmComAllocRedFctrRt" type="Decimal4RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Low income community allocation reduction factor</Description>
+									<LineNumber>Part VI, Line 11j</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Low income community percent reduction factor -->
+						<xsd:element name="LowIncmComPctRedFctrRt" type="Decimal4RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Low income community percent reduction factor</Description>
+									<LineNumber>Part VI, Line 11k</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Low income community reduction factor credit -->
+						<xsd:element name="LowIncmComRedFctrCrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Low income community reduction factor credit</Description>
+									<LineNumber>Part VI, Line 11l</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Calculated low income wind or solar facility bonus credit -->
+						<xsd:element name="CalcLowIncmSolarWindBonusCrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Calculated low income wind or solar facility bonus credit</Description>
+									<LineNumber>Part VI, Line 11m</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Applicable percentage for the domestic content bonus credit -->
+						<xsd:element name="DomContentBonusCreditPct" type="Decimal2RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable percentage for the domestic content bonus credit</Description>
+									<LineNumber>Part VI, Line 11n</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Calculated domestic content bonus credit -->
+						<xsd:element name="CalcDomContentBonusCreditAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Calculated domestic content bonus credit</Description>
+									<LineNumber>Part VI, Line 11o</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Applicable percentage for the energy community bonus credit -->
+						<xsd:element name="EnergyComBonusCreditPct" type="Decimal2RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable percentage for the energy community bonus credit</Description>
+									<LineNumber>Part VI, Line 11p</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Calculated energy community bonus credit -->
+						<xsd:element name="CalcEnergyComBonusCreditAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Calculated energy community bonus credit</Description>
+									<LineNumber>Part VI, Line 11q</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Total qualified small wind energy amount -->
+						<xsd:element name="TotalSmallWindEnergyPropCrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total qualified small wind energy amount</Description>
+									<LineNumber>Part VI, Line 12</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Section G -->
+
+			<xsd:element name="WasteEnergyRecoveryPropCrGrp" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:annotation>
+							<xsd:documentation>
+								<LineNumber>Part VI, Line 13a-13g, 14</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+
+						<!-- Basis of waste energy recovery property placed in service during the tax year -->
+						<xsd:element name="BssWasteEgyRcvryPropAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Basis of waste energy recovery property placed in service during the tax year</Description>
+									<LineNumber>Part VI, Line 13a</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Applicable percentage for the net output and prevailing wage and apprenticeship questions in specified part -->
+						<xsd:element name="NetOutLss1MWACOrStsfdWgReqPct" type="Decimal2RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable percentage for the net output and prevailing wage and apprenticeship questions in specified part</Description>
+									<LineNumber>Part VI, Line 13b</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Calculated waste energy recovery property placed in service during the tax year -->
+						<xsd:element name="CalcBssWasteEgyRcvryPropAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Calculated waste energy recovery property placed in service during the tax year</Description>
+									<LineNumber>Part VI, Line 13c</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Applicable percentage for the domestic content bonus credit -->
+						<xsd:element name="DomContentBonusCreditPct" type="Decimal2RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable percentage for the domestic content bonus credit</Description>
+									<LineNumber>Part VI, Line 13d</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Calculated domestic content bonus credit -->
+						<xsd:element name="CalcDomContentBonusCreditAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Calculated domestic content bonus credit</Description>
+									<LineNumber>Part VI, Line 13e</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Applicable percentage for the energy community bonus credit -->
+						<xsd:element name="EnergyComBonusCreditPct" type="Decimal2RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable percentage for the energy community bonus credit</Description>
+									<LineNumber>Part VI, Line 13f</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Calculated energy community bonus credit -->
+						<xsd:element name="CalcEnergyComBonusCreditAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Calculated energy community bonus credit</Description>
+									<LineNumber>Part VI, Line 13g</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Total waste energy recovery property amount -->
+						<xsd:element name="TotalWasteEnergyRecoveryCrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total waste energy recovery property amount</Description>
+									<LineNumber>Part VI, Line 14</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Section H -->
+
+			<xsd:element name="GeothermalHeatPumpSystemCrGrp" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:annotation>
+							<xsd:documentation>
+								<LineNumber>Part VI, Line 15a-15g, 16</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+
+						<!-- Basis of geothermal property heat pump system amount -->
+						<xsd:element name="BssGthrmlPropHtPumpSysAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Basis of geothermal property heat pump system amount</Description>
+									<LineNumber>Part VI, Line 15a</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Applicable percentage for the net output and prevailing wage and apprenticeship questions in specified part -->
+						<xsd:element name="NetOutLss1MWACOrStsfdWgReqPct" type="Decimal2RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable percentage for the net output and prevailing wage and apprenticeship questions in specified part</Description>
+									<LineNumber>Part VI, Line 15b</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Calculated basis of geothermal property heat pump system amount -->
+						<xsd:element name="CalcBssGthrmlPropHtPumpSysAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Calculated basis of geothermal property heat pump system amount</Description>
+									<LineNumber>Part VI, Line 15c</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Applicable percentage for the domestic content bonus credit -->
+						<xsd:element name="DomContentBonusCreditPct" type="Decimal2RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable percentage for the domestic content bonus credit</Description>
+									<LineNumber>Part VI, Line 15d</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Calculated domestic content bonus credit -->
+						<xsd:element name="CalcDomContentBonusCreditAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Calculated domestic content bonus credit</Description>
+									<LineNumber>Part VI, Line 15e</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Applicable percentage for the energy community bonus credit -->
+						<xsd:element name="EnergyComBonusCreditPct" type="Decimal2RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable percentage for the energy community bonus credit</Description>
+									<LineNumber>Part VI, Line 15f</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Calculated energy community bonus credit -->
+						<xsd:element name="CalcEnergyComBonusCreditAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Calculated energy community bonus credit</Description>
+									<LineNumber>Part VI, Line 15g</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Total geothermal heat pump amount -->
+						<xsd:element name="TotalGthrmlHeatPumpSysCrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total geothermal heat pump amount</Description>
+									<LineNumber>Part VI, Line 16</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Section I -->
+
+			<xsd:element name="EnergyStorageTechPropCrGrp" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:annotation>
+							<xsd:documentation>
+								<LineNumber>Part VI, Line 17a, 17b, 17c, 17d, 17e, 17f, 17g, 18</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+
+						<!-- Basis of energy storage technology amount -->
+						<xsd:element name="EnergyStorageTechPropBasisAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Basis of energy storage technology amount</Description>
+									<LineNumber>Part VI, Line 17a</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Applicable percentage for the net output and prevailing wage and apprenticeship questions in specified part -->
+						<xsd:element name="NetOutLss1MWACOrStsfdWgReqPct" type="Decimal2RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable percentage for the net output and prevailing wage and apprenticeship questions in specified part</Description>
+									<LineNumber>Part VI, Line 17b</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Calculated basis of energy storage techology  amount -->
+						<xsd:element name="CalcEgyStorageTechPropBasisAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Calculated basis of energy storage techology  amount</Description>
+									<LineNumber>Part VI, Line 17c</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Applicable percentage for low income wind or solar facility bonus credit -->
+						<xsd:element name="LowIncmSolarWindBonusCrPct" type="Decimal2RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable percentage for low income wind or solar facility bonus credit</Description>
+									<LineNumber>Part VI, Line 17d</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Limitation capacity allocated in allocation letter -->
+						<xsd:element name="AllocLmtEnergyCapKWQty" type="IntegerNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Limitation capacity allocated in allocation letter</Description>
+									<LineNumber>Part VI, Line 17e</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Low income community full bonus credit -->
+						<xsd:element name="LowIncmComFullBonusCrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Low income community full bonus credit</Description>
+									<LineNumber>Part VI, Line 17f</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Low income community allocation reduction factor -->
+						<xsd:element name="LowIncmComAllocRedFctrRt" type="Decimal4RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Low income community allocation reduction factor</Description>
+									<LineNumber>Part VI, Line 17g</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Low income community percent reduction factor -->
+						<xsd:element name="LowIncmComPctRedFctrRt" type="Decimal4RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Low income community percent reduction factor</Description>
+									<LineNumber>Part VI, Line 17h</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Low income community reduction factor credit -->
+						<xsd:element name="LowIncmComRedFctrCrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Low income community reduction factor credit</Description>
+									<LineNumber>Part VI, Line 17i</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Calculated low income wind or solar facility bonus credit -->
+						<xsd:element name="CalcLowIncmSolarWindBonusCrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Calculated low income wind or solar facility bonus credit</Description>
+									<LineNumber>Part VI, Line 17j</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Applicable percentage for the domestic content bonus credit -->
+						<xsd:element name="DomContentBonusCreditPct" type="Decimal2RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable percentage for the domestic content bonus credit</Description>
+									<LineNumber>Part VI, Line 17k</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Calculated domestic content bonus credit -->
+						<xsd:element name="CalcDomContentBonusCreditAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Calculated domestic content bonus credit</Description>
+									<LineNumber>Part VI, Line 17l</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Applicable percentage for the energy community bonus credit -->
+						<xsd:element name="EnergyComBonusCreditPct" type="Decimal2RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable percentage for the energy community bonus credit</Description>
+									<LineNumber>Part VI, Line 17m</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Calculated energy community bonus credit -->
+						<xsd:element name="CalcEnergyComBonusCreditAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Calculated energy community bonus credit</Description>
+									<LineNumber>Part VI, Line 17n</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Total energy storage technology credit amount -->
+						<xsd:element name="TotalEnergyStorTechPropCrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total energy storage technology credit amount</Description>
+									<LineNumber>Part VI, Line 18</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Section J -->
+
+			<xsd:element name="QualifiedBiogasPropertyCrGrp" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:annotation>
+							<xsd:documentation>
+								<LineNumber>Part VI, Line 19a, 19b, 19c, 19d, 19e, 19f, 19g, 20</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+
+						<!-- Basis of qualified biogas property amount -->
+						<xsd:element name="QualifiedBiogasPropBasisAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Basis of qualified biogas property amount</Description>
+									<LineNumber>Part VI, Line 19a</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Applicable percentage for the net output and prevailing wage and apprenticeship questions in specified part -->
+						<xsd:element name="NetOutLss1MWACOrStsfdWgReqPct" type="Decimal2RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable percentage for the net output and prevailing wage and apprenticeship questions in specified part</Description>
+									<LineNumber>Part VI, Line 19b</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Calculated qualified biogas property amount -->
+						<xsd:element name="CalcQlfyBiogasPropBasisAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Calculated qualified biogas property amount</Description>
+									<LineNumber>Part VI, Line 19c</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Applicable percentage for the domestic content bonus credit -->
+						<xsd:element name="DomContentBonusCreditPct" type="Decimal2RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable percentage for the domestic content bonus credit</Description>
+									<LineNumber>Part VI, Line 19d</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Calculated domestic content bonus credit -->
+						<xsd:element name="CalcDomContentBonusCreditAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Calculated domestic content bonus credit</Description>
+									<LineNumber>Part VI, Line 19e</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Applicable percentage for the energy community bonus credit -->
+						<xsd:element name="EnergyComBonusCreditPct" type="Decimal2RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable percentage for the energy community bonus credit</Description>
+									<LineNumber>Part VI, Line 19f</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Calculated energy community bonus credit -->
+						<xsd:element name="CalcEnergyComBonusCreditAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Calculated energy community bonus credit</Description>
+									<LineNumber>Part VI, Line 19g</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Total qualified biogas property amount -->
+						<xsd:element name="TotalQualifiedBiogasPropCrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total qualified biogas property amount</Description>
+									<LineNumber>Part VI, Line 20</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Section K -->
+
+			<xsd:element name="MicrogridControllersPropCrGrp" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:annotation>
+							<xsd:documentation>
+								<LineNumber>Part VI, Line 21a, 21b, 21c, 21d, 21e, 21f, 21g, 22</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+
+						<!-- Basis of microgrid controllers property amount -->
+						<xsd:element name="MicrogridControllersPropBssAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Basis of microgrid controllers property amount</Description>
+									<LineNumber>Part VI, Line 21a</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Applicable percentage for the net output and prevailing wage and apprenticeship questions in specified part -->
+						<xsd:element name="NetOutLss1MWACOrStsfdWgReqPct" type="Decimal2RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable percentage for the net output and prevailing wage and apprenticeship questions in specified part</Description>
+									<LineNumber>Part VI, Line 21b</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Calculated microgrid controllers property amount -->
+						<xsd:element name="CalcMicrogridControllersBssAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Calculated microgrid controllers property amount</Description>
+									<LineNumber>Part VI, Line 21c</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Applicable percentage for the domestic content bonus credit -->
+						<xsd:element name="DomContentBonusCreditPct" type="Decimal2RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable percentage for the domestic content bonus credit</Description>
+									<LineNumber>Part VI, Line 21d</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Calculated domestic content bonus credit -->
+						<xsd:element name="CalcDomContentBonusCreditAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Calculated domestic content bonus credit</Description>
+									<LineNumber>Part VI, Line 21e</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Applicable percentage for the energy community bonus credit -->
+						<xsd:element name="EnergyComBonusCreditPct" type="Decimal2RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable percentage for the energy community bonus credit</Description>
+									<LineNumber>Part VI, Line 21f</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Calculated energy community bonus credit -->
+						<xsd:element name="CalcEnergyComBonusCreditAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Calculated energy community bonus credit</Description>
+									<LineNumber>Part VI, Line 21g</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Total basis of microgrid controllers property amount -->
+						<xsd:element name="TotMicrogridControllersPropAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total basis of microgrid controllers property amount</Description>
+									<LineNumber>Part VI, Line 22</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Section L -->
+
+			<xsd:element name="QlfyInvstCreditFacilityPropGrp" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:annotation>
+							<xsd:documentation>
+								<LineNumber>Part VI, Line 23a, 23b, 23c, 23d, 23e, 23f, 23g, 24 </LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+
+						<!-- Qualified investment facility basis of property placed in service during the tax year amount -->
+						<xsd:element name="QlfyInvstFcltyPropBasisAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Qualified investment facility basis of property placed in service during the tax year amount</Description>
+									<LineNumber>Part VI, Line 23a</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Applicable percentage for the net output and prevailing wage and apprenticeship questions in specified part -->
+						<xsd:element name="NetOutLss1MWACOrStsfdWgReqPct" type="Decimal2RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable percentage for the net output and prevailing wage and apprenticeship questions in specified part</Description>
+									<LineNumber>Part VI, Line 23b</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Calculated qualified investment facility basis of property placed in service during the tax year amount -->
+						<xsd:element name="CalcQlfyInvstFcltyPropBasisAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Calculated qualified investment facility basis of property placed in service during the tax year amount</Description>
+									<LineNumber>Part VI, Line 23c</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Applicable percentage for low income wind or solar facility bonus credit -->
+						<xsd:element name="LowIncmSolarWindBonusCrPct" type="Decimal2RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable percentage for low income wind or solar facility bonus credit</Description>
+									<LineNumber>Part VI, Line 23d</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Limitation capacity allocated in allocation letter -->
+						<xsd:element name="AllocLmtEnergyCapKWQty" type="IntegerNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Limitation capacity allocated in allocation letter</Description>
+									<LineNumber>Part VI, Line 23e</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Low income community full bonus credit -->
+						<xsd:element name="LowIncmComFullBonusCrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Low income community full bonus credit</Description>
+									<LineNumber>Part VI, Line 23f</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Low income community allocation reduction factor -->
+						<xsd:element name="LowIncmComAllocRedFctrRt" type="Decimal4RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Low income community allocation reduction factor</Description>
+									<LineNumber>Part VI, Line 23g</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Low income community percent reduction factor -->
+						<xsd:element name="LowIncmComPctRedFctrRt" type="Decimal4RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Low income community percent reduction factor</Description>
+									<LineNumber>Part VI, Line 23h</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Low income community reduction factor credit -->
+						<xsd:element name="LowIncmComRedFctrCrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Low income community reduction factor credit</Description>
+									<LineNumber>Part VI, Line 23i</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Calculated low income wind or solar facility bonus credit -->
+						<xsd:element name="CalcLowIncmSolarWindBonusCrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Calculated low income wind or solar facility bonus credit</Description>
+									<LineNumber>Part VI, Line 23j</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Applicable percentage for the domestic content bonus credit -->
+						<xsd:element name="DomContentBonusCreditPct" type="Decimal2RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable percentage for the domestic content bonus credit</Description>
+									<LineNumber>Part VI, Line 23k</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Calculated domestic content bonus credit -->
+						<xsd:element name="CalcDomContentBonusCreditAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Calculated domestic content bonus credit</Description>
+									<LineNumber>Part VI, Line 23l</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Applicable percentage for the energy community bonus credit -->
+						<xsd:element name="EnergyComBonusCreditPct" type="Decimal2RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable percentage for the energy community bonus credit</Description>
+									<LineNumber>Part VI, Line 23m</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Calculated energy community bonus credit -->
+						<xsd:element name="CalcEnergyComBonusCreditAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Calculated energy community bonus credit</Description>
+									<LineNumber>Part VI, Line 23n</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Total qualified investment facility basis of property amount -->
+						<xsd:element name="TotQlfyInvstFacilityPropCrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total qualified investment facility basis of property amount</Description>
+									<LineNumber>Part VI, Line 24</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Section M -->
+
+			<xsd:element name="ClnHydrgnProdFcltsEgyPropCrGrp" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:annotation>
+							<xsd:documentation>
+								<LineNumber>Part VI, Line 25a - 25q, 26</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+
+						<!-- Basis of clean hydrogen production facilities as energy section 45V(b)(2)(A) amount -->
+						<xsd:element name="CleanHydrgn45Vb2APropBasisAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Basis of clean hydrogen production facilities as energy section 45V(b)(2)(A) amount</Description>
+									<LineNumber>Part VI, Line 25a</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Applicable percentage for the net output and prevailing wage and apprenticeship questions in specified part -->
+						<xsd:element name="NetOutLss1MWStsfdWgReqSectAPct" type="Decimal3RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable percentage for the net output and prevailing wage and apprenticeship questions in specified part</Description>
+									<LineNumber>Part VI, Line 25b</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Calculated clean hydrogen production facilities as energy section 45V(b)(2)(A)  amount -->
+						<xsd:element name="CalcClnHydrgn45Vb2APropBssAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Calculated clean hydrogen production facilities as energy section 45V(b)(2)(A)  amount</Description>
+									<LineNumber>Part VI, Line 25c</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Basis of clean hydrogen production facilities as energy section 45V(b)(2)(B) amount -->
+						<xsd:element name="CleanHydrgn45Vb2BPropBasisAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Basis of clean hydrogen production facilities as energy section 45V(b)(2)(B) amount</Description>
+									<LineNumber>Part VI, Line 25d</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Applicable percentage for the net output and prevailing wage and apprenticeship questions in specified part -->
+						<xsd:element name="NetOutLss1MWStsfdWgReqSectBPct" type="Decimal3RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable percentage for the net output and prevailing wage and apprenticeship questions in specified part</Description>
+									<LineNumber>Part VI, Line 25e</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Calculated clean hydrogen production facilities as energy section 45V(b)(2)(B)  amount -->
+						<xsd:element name="CalcClnHydrgn45Vb2BPropBssAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Calculated clean hydrogen production facilities as energy section 45V(b)(2)(B)  amount</Description>
+									<LineNumber>Part VI, Line 25f</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Basis of clean hydrogen production facilities as energy section 45V(b)(2)(C) amount -->
+						<xsd:element name="CleanHydrgn45Vb2CPropBasisAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Basis of clean hydrogen production facilities as energy section 45V(b)(2)(C) amount</Description>
+									<LineNumber>Part VI, Line 25g</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Applicable percentage for the net output and prevailing wage and apprenticeship questions in specified part -->
+						<xsd:element name="NetOutLss1MWStsfdWgReqSectCPct" type="Decimal2RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable percentage for the net output and prevailing wage and apprenticeship questions in specified part</Description>
+									<LineNumber>Part VI, Line 25h</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Calculated clean hydrogen production facilities as energy section 45V(b)(2)(C)  amount -->
+						<xsd:element name="CalcClnHydrgn45Vb2CPropBssAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Calculated clean hydrogen production facilities as energy section 45V(b)(2)(C)  amount</Description>
+									<LineNumber>Part VI, Line 25i</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Basis of clean hydrogen production facilities as energy section 45V(b)(2)(D) amount -->
+						<xsd:element name="CleanHydrgn45Vb2DPropBasisAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Basis of clean hydrogen production facilities as energy section 45V(b)(2)(D) amount</Description>
+									<LineNumber>Part VI, Line 25j</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Applicable percentage for the net output and prevailing wage and apprenticeship questions in specified part -->
+						<xsd:element name="NetOutLss1MWACOrStsfdWgReqPct" type="Decimal2RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable percentage for the net output and prevailing wage and apprenticeship questions in specified part</Description>
+									<LineNumber>Part VI, Line 25k</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Calculated clean hydrogen production facilities as energy section 45V(b)(2)(D)  amount -->
+						<xsd:element name="CalcClnHydrgn45Vb2DPropBssAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Calculated clean hydrogen production facilities as energy section 45V(b)(2)(D)  amount</Description>
+									<LineNumber>Part VI, Line 25l</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Total clean hydrogen production facilities as energy with addition applicable credits amount -->
+						<xsd:element name="TotClnHydrgnFcltsEgyPropCrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total clean hydrogen production facilities as energy with addition applicable credits amount</Description>
+									<LineNumber>Part VI, Line 26</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Section N -->
+
+			<!-- Sum of energy credits amount -->
+			<xsd:element name="TotalEnergyCreditsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Sum of energy credits amount</Description>
+						<LineNumber>Part VI, Line 27</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Divide sum all bond proceeds for the tax year and all prior tax years, per section 103, as of the close of the tax year, by the aggregate amount of additions to the capital account for the qualified facility -->
+			<xsd:element name="CalcTaxExemptBondsPct" type="Decimal4RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Divide sum all bond proceeds for the tax year and all prior tax years, per section 103, as of the close of the tax year, by the aggregate amount of additions to the capital account for the qualified facility</Description>
+						<LineNumber>Part VI, Line 28a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Multiply the total energy credits by any calculated tax exempt bond amount -->
+			<xsd:element name="CalcTotEgyCrAndTxExmptBondAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Multiply the total energy credits by any calculated tax exempt bond amount</Description>
+						<LineNumber>Part VI, Line 28b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Multiply the total energy credits by the indicated amount -->
+			<xsd:element name="CalcTotalEnergyCreditAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Multiply the total energy credits by the indicated amount</Description>
+						<LineNumber>Part VI, Line 28c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Enter the smaller amount as indicated -->
+			<xsd:element name="SmllrTotEgyCrOrTxExmptBondAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter the smaller amount as indicated</Description>
+						<LineNumber>Part VI, Line 28d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Subtract the indicated amounts -->
+			<xsd:element name="TotEgyCrLssSmllrTxExmptBondAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Subtract the indicated amounts</Description>
+						<LineNumber>Part VI, Line 28e</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- If tax-exempt bonds were used to finance your facility enter the amount indicated. Otherwise, enter the amount indicated.  -->
+			<xsd:element name="FacilityTaxExemptBondFncAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>If tax-exempt bonds were used to finance your facility enter the amount indicated. Otherwise, enter the amount indicated.</Description>
+						<LineNumber>Part VI, Line 29</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Multiply Facility Tax Exempt Bond amount by 0.90 (90%) or if Elective payment election for facility whose construction began in calendar year 2024, and the facility doesn't meet the rules of section 48(a)(12)(B), doesn't have a maximum net output of less than 1 MW (as measured in ac), or meet an exception under section 45(b)(10)(D). -->
+			<xsd:element name="CYACLess1MWEPEAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Multiply Facility Tax Exempt Bond amount by 0.90 (90%) or if Elective payment election for facility whose construction began in calendar year 2024, and the facility doesn't meet the rules of section 48(a)(12)(B), doesn't have a maximum net output of less than 1 MW (as measured in ac), or meet an exception under section 45(b)(10)(D).</Description>
+						<LineNumber>Part VI, Line 30</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Unused credit from cooperatives amount -->
+			<xsd:element name="UnusedCreditFromCoopAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Unused credit from cooperatives amount</Description>
+						<LineNumber>Part VI, Line 31</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Add indicated amounts -->
+			<xsd:element name="ReportableEnergyCreditAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add indicated amounts</Description>
+						<LineNumber>Part VI, Line 32</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Part VII -->
+
+			<!-- Indicator for a prior 170(h) deduction -->
+			<xsd:element name="Prior170hDeductionInd" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Indicator for a prior 170(h) deduction</Description>
+						<LineNumber>Part VII, Line 1a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- If there was a prior 170(h) deduction, then input the NPS number -->
+			<xsd:element name="Prior170hDeductionNPSProjNum" type="NPSProjectNumType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>If there was a prior 170(h) deduction, then input the NPS number</Description>
+						<LineNumber>Part VII, Line 1b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Check This Box if You are Electing Under Section 47(d)(5) to Take Your Qualified Rehabilitation Expenditures Into Account for the Tax Year in Which Paid -->
+			<xsd:element name="RehabilitationExpendElectInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Check This Box if You are Electing Under Section 47(d)(5) to Take Your Qualified Rehabilitation Expenditures Into Account for the Tax Year in Which Paid</Description>
+						<LineNumber>Part VII, Line 1c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Rehabilitation period beginning date -->
+			<xsd:element name="RehabilitationPeriodBeginDt" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Rehabilitation period beginning date</Description>
+						<LineNumber>Part VII, Line 1d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Rehabilitation period end date -->
+			<xsd:element name="RehabilitationPeriodEndDt" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Rehabilitation period end date</Description>
+						<LineNumber>Part VII, Line 1d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Adjusted basis of building as of the beginning date amount -->
+			<xsd:element name="AdjustedBasisOfBuildingAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Adjusted basis of building as of the beginning date amount</Description>
+						<LineNumber>Part VII, Line 1e</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Qualified rehabilitation expenditures incurred during the period listed above amount -->
+			<xsd:element name="QlfyRehbltExpendIncurredAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified rehabilitation expenditures incurred during the period listed above amount</Description>
+						<LineNumber>Part VII, Line 1f</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Qualified rehabilitation expenditures amount -->
+			<xsd:element name="QlfyRehabilitationExpendAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified rehabilitation expenditures amount</Description>
+						<LineNumber>Part VII, Line 1g</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Reserved for future use - Part VII, Line 1h -->
+			
+			<!-- Reserved for future use - Part VII, Line 1i -->
+
+			<!-- Calculation certified historic structure with expenditures paid not under the transition rule amount -->
+			<xsd:element name="OtherCertifiedHistStrctrCrAmt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Calculation certified historic structure with expenditures paid not under the transition rule amount</Description>
+						<LineNumber>Part VII, Line 1j</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountNNType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="OtherCertifiedHistoricStructuresSchedule"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- NPS project number -->
+			<xsd:element name="NPSProjectNum" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>NPS project number</Description>
+						<LineNumber>Part VII, Line 1k(i)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="NPSProjectNumType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="BinaryAttachment"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Originating pass-through entity's EIN -->
+			<xsd:element name="PassThroughEntityEIN" type="EINType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Originating pass-through entity's EIN</Description>
+						<LineNumber>Part VII, Line 1k(ii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Date of NPS Approval -->
+			<xsd:element name="NPSApprovalDt" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date of NPS Approval</Description>
+						<LineNumber>Part VII, Line 1k(iii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Reserved - Part VII, Line 1l -->
+
+			<!-- Date of approved certification of completed work from the NPS Form 10-168 -->
+			<xsd:element name="SpcfdDtAftrOrigRehbltCrClaimDt" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date of approved certification of completed work from the NPS Form 10-168</Description>
+						<LineNumber>Part VII, Line 1m</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Unused credit from cooperatives -->
+			<xsd:element name="UnusedCrRehbltEgyCrFromCoopAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Unused credit from cooperatives</Description>
+						<LineNumber>Part VII, Line 2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Add indicated amounts -->
+			<xsd:element name="TotQlfyRehabilitationExpendAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add indicated amounts</Description>
+						<LineNumber>Part VII, Line 3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>
+
+

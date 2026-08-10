@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+    <xsd:annotation>
+        <xsd:documentation>
+            <Description>IRS e-file Schema - Form 8332 - Release/Revocation of Release of Claim to Exemption for Child by Custodial Parent</Description>
+            <TaxYear>2025</TaxYear>
+            <MaturityLevel>Final Release</MaturityLevel>
+            <ReleaseDate>February 19 2026</ReleaseDate>
+        </xsd:documentation>
+    </xsd:annotation>
+    
+    <xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+    
+    <!-- ============================================= -->
+    <!-- =============== IRS Form 8332 =============== -->
+    <!-- ============================================= -->
+    
+    <xsd:element name="IRS8332">
+        <xsd:annotation>
+            <xsd:documentation>IRS Form 8332 - Release/Revocation of Release of Claim to Exemption for Child by Custodial Parent</xsd:documentation>
+        </xsd:annotation>
+        
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="IRS8332Type">
+                    <xsd:attributeGroup ref="DocumentAttributes">
+                        <xsd:annotation>
+                            <xsd:documentation>Common return document attributes</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:attributeGroup>
+                    
+                    <xsd:attribute name="documentName" type="TextType" fixed="IRS8332">
+                        <xsd:annotation>
+                            <xsd:documentation>IRS internal use only. To avoid errors within the return, do not include the attribute name or value.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:attribute>
+                    
+                    <xsd:attribute name="referenceDocumentId" type="IdListType">
+                        <xsd:annotation>
+                            <xsd:documentation>List of document IDs of forms, schedules, supporting info. etc. attached to this form.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:attribute>
+                    
+                    <xsd:attribute name="referenceDocumentName" type="TextType" fixed="BinaryAttachment GeneralDependencySmall"/>
+                </xsd:extension>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+    
+    <xsd:complexType name="IRS8332Type">
+        <xsd:sequence>
+            <!-- Name of noncustodial parent -->
+            <xsd:element name="NoncustodialParentNm" type="PersonNameType">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Name of noncustodial parent</Description>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Noncustodial parent's SSN -->
+            <xsd:element name="NoncustodialParentSSN" type="SSNType">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Noncustodial parent's SSN</Description>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Name of person not being claimed -->
+            <xsd:element name="ChildFirstAndLastName" type="PersonFullNameType">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Name of person not being claimed</Description>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Signature of custodial parent revoking the release of claim to exemption - Not used -->
+            
+            <!-- Custodial parent's SSN -->
+            <xsd:element name="CustodialParentSSN" type="SSNType">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Custodial parent's SSN</Description>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Signature date -->
+            <xsd:element name="SignatureDt" type="DateType">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Signature date</Description>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- =============== Part I and Part II Release of Claim to Exemption for Current Year And Future Years =============== -->
+            
+            <xsd:choice>
+                <!-- Release of claim of exemption for the current year and future year(s) group -->
+                <xsd:element name="RelClmExemptionCYAndFutYrsGrp">
+                    <xsd:annotation>
+                        <xsd:documentation>
+                            <Description>Release of claim of exemption for the current year and future year(s) group</Description>
+                        </xsd:documentation>
+                    </xsd:annotation>
+                    
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <!-- Release in current tax year of person not claimed -->
+                            <xsd:element name="CurrentTaxYr" type="YearType" minOccurs="0">
+                                <xsd:annotation>
+                                    <xsd:documentation>
+                                        <Description>Release in current tax year of person not claimed</Description>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                            
+                            <xsd:choice minOccurs="0">
+                                <!-- Release of future years of person not claimed -->
+                                <xsd:element name="FutureTaxYr" type="YearType" maxOccurs="50">
+                                    <xsd:annotation>
+                                        <xsd:documentation>
+                                            <Description>Release of future years of person not claimed</Description>
+                                        </xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:element>
+                                
+                                <!-- Code to release claim for all future tax years -->
+                                <xsd:element name="AllFutureTaxYrLiteralCd">
+                                    <xsd:annotation>
+                                        <xsd:documentation>
+                                            <Description>Code to release claim for all future tax years</Description>
+                                        </xsd:documentation>
+                                    </xsd:annotation>
+                                    
+                                    <xsd:simpleType>
+                                        <xsd:restriction base="TextType">
+                                            <xsd:enumeration value="ALL FUTURE YEARS"/>
+                                        </xsd:restriction>
+                                    </xsd:simpleType>
+                                </xsd:element>
+                            </xsd:choice>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+                
+                <!-- =============== Part III Revocation of Release of Claim to Exemption for Future Year(s) =============== -->
+                
+                <!-- Revocation of release of exemption for future year(s) group -->
+                <xsd:element name="RvkRelClmExemptionFutYrsGrp">
+                    <xsd:annotation>
+                        <xsd:documentation>
+                            <Description>Revocation of release of exemption for future year(s) group</Description>
+                        </xsd:documentation>
+                    </xsd:annotation>
+                    
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:choice>
+                                <!-- Release of future years of person not claimed -->
+                                <xsd:element name="FutureTaxYr" type="YearType" maxOccurs="50">
+                                    <xsd:annotation>
+                                        <xsd:documentation>
+                                            <Description>Release of future years of person not claimed</Description>
+                                        </xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:element>
+                                
+                                <!-- Code to release claim for all future tax years -->
+                                <xsd:element name="AllFutureTaxYrLiteralCd">
+                                    <xsd:annotation>
+                                        <xsd:documentation>
+                                            <Description>Code to release claim for all future tax years</Description>
+                                        </xsd:documentation>
+                                    </xsd:annotation>
+                                    
+                                    <xsd:simpleType>
+                                        <xsd:restriction base="TextType">
+                                            <xsd:enumeration value="ALL FUTURE YEARS"/>
+                                        </xsd:restriction>
+                                    </xsd:simpleType>
+                                </xsd:element>
+                            </xsd:choice>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </xsd:choice>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>

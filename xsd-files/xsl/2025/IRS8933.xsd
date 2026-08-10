@@ -1,0 +1,1012 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Corporate Income Tax Schema - IRS Form 8933</Description>
+			<TaxYear>2025</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>February 19 2026</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+	<!-- ================================================================== -->
+	<!-- ======================  IRS Form 8933 =============================== -->
+	<!-- ================================================================== -->
+	<xsd:element name="IRS8933">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 8933</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS8933Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS8933">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="referenceDocumentId" type="IdListType">
+						<xsd:annotation>
+							<xsd:documentation>List of document ID's of forms, schedules, supporting info. etc. attached to this form</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="BinaryAttachment GeneralDependencySmall IRS8933ScheduleA IRS8933ScheduleB IRS8933ScheduleC IRS8933ScheduleD IRS8933ScheduleE IRS8933ScheduleF"/>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="IRS8933Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 8933</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<!-- Part I -->
+			<!-- Section 1 -->		
+			<!-- IRS-issued registration number for the facility -->			
+			<xsd:element name="FacilityIRSIssdRegistrationNum" type="FacilityIRSIssdRegistrationNumType" minOccurs="0" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>IRS-issued registration number for the facility</Description>
+						<LineNumber>Part I, Line 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+				<!-- Facility EPA e-GGRT ID -->
+			<xsd:element name="FacilityEPAeGGRTIdNum" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Facility EPA e-GGRT ID</Description>
+						<LineNumber>Part I, Line 2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="TextType">
+						<xsd:maxLength value="40"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<!-- Type of facility -->
+			<xsd:element name="FacilityTypeCd" minOccurs="1" maxOccurs="3">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Type of facility</Description>
+						<LineNumber>Part I, Line 3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="TextType">
+						<xsd:enumeration value="GEO"/>
+						<xsd:enumeration value="EOR"/>
+						<xsd:enumeration value="UTZ"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:choice minOccurs="0">
+				<xsd:sequence>
+					<!-- If different than filer, enter owner's person name -->
+					<xsd:element name="FacilityOwnerPersonNm" type="PersonNameType">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>If different than filer, enter owner's person name</Description>
+								<LineNumber>Part I, Line 4a</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<!-- If different than filer, enter owner's SSN -->
+					<xsd:element name="FacilityOwnerSSN" type="SSNType">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>If different than filer, enter owner's SSN</Description>
+								<LineNumber>Part I, Line 4a</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+				<!-- If different than filer, enter owner's business name -->
+				<xsd:sequence>
+					<xsd:element name="FacilityOwnerBusinessName" type="BusinessNameType">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>If different than filer, enter owner's business name</Description>
+								<LineNumber>Part I, Line 4a</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<!-- If different than filer, enter owner's EIN -->
+					<xsd:element name="FacilityOwnerEIN" type="EINType">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>If different than filer, enter owner's EIN</Description>
+								<LineNumber>Part I, Line 4a</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:choice>
+			<!-- Address of facility -->
+			<xsd:element name="FacilityUSAddress" type="USAddressType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Address of facility</Description>
+						<LineNumber>Part I, Line 4b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Location coordinates (Latitude) -->
+			<xsd:element name="FacilityLatitudeNum" type="LatitudeCoordinateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Location coordinates (Latitude)</Description>
+						<LineNumber>Part I, Line 4c(i)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>			
+			<!-- Location coordinates (Longitude) -->
+			<xsd:element name="FacilityLongitudeNum" type="LongitudeCoordinateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Location coordinates (Longitude)</Description>
+						<LineNumber>Part I, Line 4c(ii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>			
+			<!-- Facility construction start date -->
+			<xsd:element name="FacilityConstructionStartDt" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Facility construction start date</Description>
+						<LineNumber>Part I, Line 5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>			
+			<!-- Date the facility was placed in service -->
+			<xsd:element name="FacilityPlacedInServiceDt" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date the facility was placed in service</Description>
+						<LineNumber>Part I, Line 6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Total metric tons of carbon oxide captured -->
+			<xsd:element name="TotalMetricTonsCrbnOxdCptrQty" type="LargeRatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total metric tons of carbon oxide captured</Description>
+						<LineNumber>Part I, Line 7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Section 2 -->
+			<!-- Reserved Part I, Section 2, Line 8 -->
+			<!-- Electricity generating indicator -->
+			<xsd:element name="ElectricityGeneratingInd" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Electricity generating indicator</Description>
+						<LineNumber>Part I, Section 2, Line 9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Direct air capture indicator -->
+			<xsd:element name="DirectAirCaptureInd" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Direct air capture indicator</Description>
+						<LineNumber>Part I, Section 2, Line 10</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Facility description -->
+			<xsd:element name="FacilityDesc" type="ShortExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Facility description</Description>
+						<LineNumber>Part I, Section 2, Line 11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Process carbon dioxide or other gas indicator -->
+			<xsd:element name="ProcCrbnDxdOrOthGasInd" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Process carbon dioxide or other gas indicator</Description>
+						<LineNumber>Part I, Section 2, Line 12</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Gas obtained carbon dioxide well or spring indicator -->
+			<xsd:element name="GasObtndCrbnDxdWellOrSprngInd" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gas obtained carbon dioxide well or spring indicator</Description>
+						<LineNumber>Part I, Section 2, Line 12a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Attest exception met indicator -->
+			<xsd:element name="AttestExceptionMetInd" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Attest exception met indicator</Description>
+						<LineNumber>Part I, Section 2, Line 12c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Attestment letter attached indicator -->
+			<xsd:element name="AttestmentLetterAttachedInd" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Attestment letter attached indicator</Description>
+						<LineNumber>Part I, Section 2, Line 12d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:extension base="BooleanType">
+								<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+								<xsd:attribute name="referenceDocumentName" type="StringType" fixed="BinaryAttachment"/>
+							</xsd:extension>
+						</xsd:simpleContent>
+					</xsd:complexType>
+			</xsd:element>
+			<!-- Carbon oxide emissions quantity -->
+			<xsd:element name="CarbonOxideEmissionsQty" type="LargeRatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Carbon oxide emissions quantity</Description>
+						<LineNumber>Part I, Section 2, Line 13</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Carbon dioxide emissions quantity -->
+			<xsd:element name="CarbonDioxideQty" type="LargeRatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Carbon dioxide emissions quantity</Description>
+						<LineNumber>Part I, Section 2, Line 13a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Carbon monoxide emissions quantity -->
+			<xsd:element name="CarbonMonoxideQty" type="LargeRatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Carbon monoxide emissions quantity</Description>
+						<LineNumber>Part I, Section 2, Line 13b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Annualized carbon oxide first year emissions required indicator -->
+			<xsd:element name="AnnlzdCrbnOxdFrstYrEmsnRqrInd" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Annualized carbon oxide first year emissions required indicator</Description>
+						<LineNumber>Part I, Section 2, Line 14</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Annualized carbon oxide emissions quantity -->
+			<xsd:element name="AnnlzdCarbonOxdEmissionsQty" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Annualized carbon oxide emissions quantity</Description>
+						<LineNumber>Part I, Section 2, Line 14a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:extension base="LargeRatioType">
+								<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+								<xsd:attribute name="referenceDocumentName" type="StringType" fixed="BinaryAttachment"/>
+							</xsd:extension>
+						</xsd:simpleContent>
+					</xsd:complexType>
+			</xsd:element>
+			<!-- Aggregation required carbon capture indicator -->
+			<xsd:element name="AggregationRqrCrbnCptrInd" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Aggregation required carbon capture indicator</Description>
+						<LineNumber>Part I, Section 2, Line 15</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:extension base="BooleanType">
+								<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+								<xsd:attribute name="referenceDocumentName" type="StringType" fixed="BinaryAttachment"/>
+							</xsd:extension>
+						</xsd:simpleContent>
+					</xsd:complexType>
+			</xsd:element>
+			<!-- Section 3 -->
+			<!-- Carbon captured direct air capture facility indicator -->
+			<xsd:element name="CarbonCapturedDACFacilityInd" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Carbon captured direct air capture facility indicator</Description>
+						<LineNumber>Part I, Section 3, Line 16</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Reserved Part I, Section 3, Line 17 -->
+			<!-- Carbon captured equipment placed in service date indicator -->
+			<xsd:element name="CarbonCptrEquipPlcdSrvcDtInd" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Carbon captured equipment placed in service date indicator</Description>
+						<LineNumber>Part I, Section 3, Line 18</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Reserved Part I, Section 3, Line 19 -->
+			<!-- Carbon capture equipment owner indicator -->
+			<xsd:element name="CarbonCaptureEquipOwnerInd" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Carbon capture equipment owner indicator</Description>
+						<LineNumber>Part I, Section 3, Line 20</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Claiming credit authority text -->
+			<xsd:element name="ClaimingCreditAuthorityTxt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Claiming credit authority text</Description>
+						<LineNumber>Part I, Section 3, Line 20a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="TextType">
+						<xsd:maxLength value="150"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<!-- Reserved Part I, Section 3, Line 21 -->
+			<!-- Carbon capture capacity quantity -->
+			<xsd:element name="CarbonCaptureCapacityQty" type="LargeRatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Carbon capture capacity quantity</Description>
+						<LineNumber>Part I, Section 3, Line 22</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Additional equipment installed indicator -->
+			<xsd:element name="AddnlEquipInstalledInd" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Additional equipment installed indicator</Description>
+						<LineNumber>Part I, Section 3, Line 23</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Reserved Part I, Section 3, Line 23a -->
+			<!-- Reserved Part I, Section 3, Line 23b -->
+			<!-- Placed in service date carbon captured equipment rule indicator -->
+			<xsd:element name="PlcdSrvcDtCrbnCptrEquipRuleInd" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Placed in service date carbon captured equipment rule indicator</Description>
+						<LineNumber>Part I, Section 3, Line 23c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- New carbon capture equipment investment amount -->
+			<xsd:element name="NewCarbonCptrEquipInvstAmt" type="USDecimalAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>New carbon capture equipment investment amount</Description>
+						<LineNumber>Part I, Section 3, Line 23d(i)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Fair market value pre-existing carbon capture equipment amount -->
+			<xsd:element name="FMVPreExistCarbonCptrEquipAmt" type="USDecimalAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Fair market value pre-existing carbon capture equipment amount</Description>
+						<LineNumber>Part I, Section 3, Line 23d(ii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Investment pipeline new carbon capture equipment indicator -->
+			<xsd:element name="InvstPplnNewCrbnCptrEquipInd" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Investment pipeline new carbon capture equipment indicator</Description>
+						<LineNumber>Part I, Section 3, Line 23e</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Investment transpotation pipeline amount -->
+			<xsd:element name="InvstTransPipelineAmt" type="USDecimalAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Investment transpotation pipeline amount</Description>
+						<LineNumber>Part I, Section 3, Line 23f</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Total metric tons carbon oxide captured by carbon capture equipment quantitiy -->
+			<xsd:element name="TotMtrcTonsCrbnOxdCptrEquipQty" type="LargeRatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total metric tons carbon oxide captured by carbon capture equipment quantitiy</Description>
+						<LineNumber>Part I, Section 3, Line 24</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Carbon dioxide captured by carbon capture equipment quantity -->
+			<xsd:element name="CarbonDioxideCptrEquipQty" type="LargeRatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Carbon dioxide captured by carbon capture equipment quantity</Description>
+						<LineNumber>Part I, Section 3, Line 24a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Carbon monoxide captured by carbon capture equipment quantity -->
+			<xsd:element name="CarbonMonoxideCptrEquipQty" type="LargeRatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Carbon monoxide captured by carbon capture equipment quantity</Description>
+						<LineNumber>Part I, Section 3, Line 24b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Annualized first year carbon oxide captured required indicator -->
+			<xsd:element name="AnnlzdFrstYrCrbnOxdCptrRqrInd" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Annualized first year carbon oxide captured required indicator</Description>
+						<LineNumber>Part I, Section 3, Line 25</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Annualized carbon oxide emissions captured quantity -->
+			<xsd:element name="AnnlzdCarbonOxdEmsnCptrQty" type="LargeRatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Annualized carbon oxide emissions captured quantity</Description>
+						<LineNumber>Part I, Section 3, Line 25a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Section 4 -->
+			<!-- Disposal injection utilization qualified carbon oxide indicator -->
+			<xsd:element name="DispInjctUtlzQlfyCrbnOxdInd" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Disposal injection utilization qualified carbon oxide indicator</Description>
+						<LineNumber>Part I, Section 4, Line 26</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Allow parties claim some or all credit indicator -->
+			<xsd:element name="AllowPartiesClmSomeOrAllCrInd" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Allow parties claim some or all credit indicator</Description>
+						<LineNumber>Part I, Section 4, Line 27</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Section 45Q(b)(3) rates applicable dollar amount indicator -->
+			<xsd:element name="Sect45Qb3RtsApplcblDolAmtInd" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Section 45Q(b)(3) rates applicable dollar amount indicator</Description>
+						<LineNumber>Part I, Section 4, Line 28</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- If you answered “Yes” to line 28, determine the credit, Part I, Section 4, Line 28a -->
+			<!-- If you answered “No” to line 28 and your carbon capture facility and equipment, Part I, Section 4, Line 28b -->
+			<!-- If you answered “No” to line 28 and your carbon capture equipment was placed in service, Part I, Section 4, Line 28c -->
+			<!-- Applicable facility election section 45Q(f)(6) indicator -->
+			<xsd:element name="ApplcblFcltyElectSect45Qf6Ind" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Applicable facility election section 45Q(f)(6) indicator</Description>
+						<LineNumber>Part I, Section 4, Line 29</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- If you answered “Yes” to  line 29, determine the credit, Part I, Section 4, Line 29a -->
+			<!-- Capture qualified carbon oxide disposal storage indicator -->
+			<xsd:element name="CptrQlfyCrbnOxdDisposStorInd" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Capture qualified carbon oxide disposal storage indicator</Description>
+						<LineNumber>Part I, Section 4, Line 30</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Qualified carbon oxide tertiary injectant storage indicator -->
+			<xsd:element name="QlfyCrbnOxdTrtryInjctStorInd" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified carbon oxide tertiary injectant storage indicator</Description>
+						<LineNumber>Part I, Section 4, Line 31</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Qualified carbon oxide utilized section 45Q(f)(5) indicator -->
+			<xsd:element name="QlfyCrbnOxdUtlzSect45Qf5Ind" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified carbon oxide utilized section 45Q(f)(5) indicator</Description>
+						<LineNumber>Part I, Section 4, Line 32</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Prevailing wage and apprenticeship requirement met indicator -->
+			<xsd:element name="PWARequirementMetInd" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Prevailing wage and apprenticeship requirement met indicator</Description>
+						<LineNumber>Part I, Section 4, Line 33</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Part II -->
+			<!-- Lifecycle greenhouse gas emissions (LCA) indicator -->			
+			<xsd:element name="LCAInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Lifecycle greenhouse gas emissions (LCA) approved by the IRS</Description>
+						<LineNumber>Part II, Line 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Captured qualified carbon oxide indicator -->			
+			<xsd:element name="CaptureQualifiedCarbonOxideInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Captured qualified carbon oxide during the tax year</Description>
+						<LineNumber>Part II, Line 2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>			
+			<!-- Physically disposed, used, or utilized captured qualified carbon oxide indicator -->			
+			<xsd:element name="PhysclDisposCptrQlfyCrbnOxdInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Physically disposed, used, or utilized captured qualified carbon oxide during the tax year</Description>
+						<LineNumber>Part II, Line 3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Elected to allow another taxpayer to claim the carbon oxide sequestration credit indicator -->			
+			<xsd:element name="ElectTPClmCrbnOxdSqstrtnCrInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Elected to allow another taxpayer to claim the carbon oxide sequestration credit that would've otherwise been entitled to</Description>
+						<LineNumber>Part II, Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Another taxpayer elected to allow you to claim the carbon oxie sequestration indicator -->			
+			<xsd:element name="TPElectClmCrbnOxdSqstrtnCrInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Another taxpayer elected to allow you to claim the carbon oxie sequestration that would've otherwise been entitled to</Description>
+						<LineNumber>Part II, Line 5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- You're making the election under Section 45Q(b)(3) -->
+			<xsd:element name="Section45Qb3ElectionInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>You're making the election under Section 45Q(b)(3)</Description>
+						<LineNumber>Part II, Line 6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- You're making the election under Section 45Q(f)(6) -->
+			<xsd:element name="Section45Qb6ElectionInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>You're making the election under Section 45Q(f)(6)</Description>
+						<LineNumber>Part II, Line 7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- You're making the election under Section 45Q(f)(9) -->
+			<xsd:element name="Section45Qf9ElectionInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>You're making the election under Section 45Q(f)(9)</Description>
+						<LineNumber>Part II, Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+			<!-- Part III -->
+			<!-- Qualified carbon oxide captured using carbon capture equipement or DAC facility, disposed of in secure geological storage, and not used as a tertiary injectant in a qualified enhanced oil or natural gas recovery project, nor utilized as described in Section 45Q(f)(5) -->		
+			<xsd:element name="QlfyCrbnOxdDACNotUsedDispGrp" type="QlfyCrbnOxdDACCalculationGrpType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified carbon oxide captured using carbon capture equipement or DAC facility, disposed of in secure geological storage, and not used as a tertiary injectant in a qualified enhanced oil or natural gas recovery project, nor utilized as described in Section 45Q(f)(5)</Description>
+						<LineNumber>Part III, Line 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Qualified carbon oxide captured using carbon capture equipment or DAC facility, disposed of in a secure geological storage, and used as a tertiary injectant in a qualified enhanced oil or natural gas recovery project.  -->		
+			<xsd:element name="QlfyCrbnOxdDACUsedInjectantGrp" type="QlfyCrbnOxdDACCalculationGrpType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified carbon oxide captured using carbon capture equipment or DAC facility, disposed of in a secure geological storage, and used as a tertiary injectant in a qualified enhanced oil or natural gas recovery project.</Description>
+						<LineNumber>Part III, Line 2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>			
+			<!-- Qualified carbon oxide captured using carbon capture equipment or DAC facility, and utilized as described in Section 45Q(f)(5).  -->		
+			<xsd:element name="QlfyCrbnOxdDACPhysclUtlzGrp" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified carbon oxide captured using carbon capture equipment or DAC facility, and utilized as described in Section 45Q(f)(5).</Description>
+						<LineNumber>Part III, Line 3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<!-- Metric tons captured -->
+						<xsd:element name="MetricTonsCapturedQty" type="LargeRatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Metric tons captured</Description>
+										<LineNumber>Part III, Line 3a</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- Metric tons captured by taxpayer -->
+						<xsd:element name="MetricTonsCptrTaxpayerQty" type="LargeRatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Metric tons captured by taxpayer</Description>
+									<LineNumber>Part III, Line 3b</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- Metric tons captured by another person -->
+						<xsd:element name="MetricTonsCptrAnotherPersonQty" type="LargeRatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Metric tons captured by another person</Description>
+									<LineNumber>Part III, Line 3c</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- Metric tons captured total -->
+						<xsd:element name="MetricTonsCptrTotQty" type="LargeRatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Metric tons captured total</Description>
+									<LineNumber>Part III, Line 3d</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- Metric tons captured another claim credit -->
+						<xsd:element name="MetricTonsCptrAnotherClmCrQty" type="LargeRatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Metric tons captured another claim credit</Description>
+									<LineNumber>Part III, Line 3e</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- Metric tons captured total claim credit -->
+						<xsd:element name="MetricTonsCptrTotMnsClmCrQty" type="LargeRatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Metric tons captured total claim credit</Description>
+									<LineNumber>Part III, Line 3f</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- Displacement factor rate -->
+						<xsd:element name="DisplacementFctrRt" type="Decimal2RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Displacement factor approved by the Department of the Energy</Description>
+									<LineNumber>Part III, Line 3g</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- Metric tons displacement factor quantity -->
+						<xsd:element name="MetricTonsDisplacementFctrQty" type="LargeRatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Metric tons captured incorporating the displacement factor</Description>
+									<LineNumber>Part III, Line 3h</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- Credit rate or applicable dollar amount -->
+						<xsd:element name="CreditRateOrApplicableDolAmt" type="USDecimalAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Credit rate or applicable dollar amount</Description>
+									<LineNumber>Part III, Line 3i</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- Total metric ton captured credit amount -->
+						<xsd:element name="MetricTonsCapturedCreditAmt" type="USDecimalAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total metric ton captured credit amount</Description>
+									<LineNumber>Part III, Line 3j</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- Increased credit amount -->
+						<xsd:element name="IncreasedCreditAmt" type="USDecimalAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Increased credit amount</Description>
+									<LineNumber>Part III, Line 3k</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<!-- Credit before reduction amount -->		
+			<xsd:element name="CreditBeforeReductionAmt" type="USDecimalAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Credit before reduction.  Enter the amount from specified lines.  See instructions</Description>
+						<LineNumber>Part III, Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Calculate tax-exempt bonds percentage -->		
+			<xsd:element name="CalcTaxExemptBondsPct" type="Decimal2RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Divide. Sum, for the tax year and all prior tax years, of all proceeds of tax-exempt bonds( within the meaning of section 103), used to finance the qualified facility</Description>
+						<LineNumber>Part III, Line 5a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Credit before reduction finance amount -->		
+			<xsd:element name="CreditBeforeReductionFncAmt" type="USDecimalAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Multiply specified lines.</Description>
+						<LineNumber>Part III, Line 5b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Credit before reduction percentage amount -->		
+			<xsd:element name="CreditBeforeReductionPctAmt" type="USDecimalAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Multiply specified line by specified percent.</Description>
+						<LineNumber>Part III, Line 5c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Smaller credit before reduction finance percentage amount -->		
+			<xsd:element name="SmllrCrBfrReductionFncPctAmt" type="USDecimalAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter the smaller of specified lines.</Description>
+						<LineNumber>Part III, Line 5d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Tax-exempt bonds credit reduction amount -->		
+			<xsd:element name="TaxExemptBondsCrReductionAmt" type="USDecimalAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Tax-exempt bonds credit reduction amount</Description>
+						<LineNumber>Part III, Line 6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Carbon Oxide Sequestration Credit Group -->
+			<xsd:element name="LargestCOSCElectClmGrp" minOccurs="0" maxOccurs="3">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Carbon oxide sequestration credit that another taxpayer elected under section 45Q(f)(3)(B) to allow you to claim.
+							See instructions for attaching Schedule A (Form 8933), Schedule E (Form 8933) and Schedule F (Form 8933).
+							Provide basic information for the three largest elections (in dollars) on lines 4a,4b and 4c; report all others on line 4e</Description>
+						<LineNumber>Part III, Line 7a-c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<!-- EIN -->
+						<xsd:element name="EIN" type="EINType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>EIN of electing taxpayer</Description>
+									<LineNumber>Part III, Line 7a-c(i)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- Metric Tons Captured -->
+						<xsd:element name="MetricTonsCapturedQty" type="LargeRatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Metric tons elected</Description>
+									<LineNumber>Part III, Line 7a-c(ii)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- Credit Rate -->
+						<xsd:element name="CreditRateAmt" type="USDecimalAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Credit rate</Description>
+									<LineNumber>Part III, Line 7a-c(iii)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- Credit Elected -->
+						<xsd:element name="CreditElectedAmt" type="USDecimalAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Credit elected</Description>
+									<LineNumber>Part III, Line 7a-c(iv)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<!-- Total largest carbon oxide sequestration credit -->
+			<xsd:element name="TotLargestCOSCElectClaimAmt" type="USDecimalAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total largest carbon oxide for col(iv). add credit elected for all taxpayers</Description>
+						<LineNumber>Part III, Line 7d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>			
+			<!-- All other carbon oxide sequestration credit -->
+			<xsd:element name="AllOtherCOSCElectClmAmt" type="USDecimalAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Report all other carbon oxide sequestration credit (COSC) which another taxpayer elected under section 45Q(f)(3)(B)
+								 to allow you to claim.</Description>
+						<LineNumber>Part III, Line 7e</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Total carbon oxide sequestration credit -->
+			<xsd:element name="TotalCOSCElectClmAmt" type="USDecimalAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total largest carbon oxide credit. add credit elected for all taxpayers and other carbon oxide sequestration credit</Description>
+						<LineNumber>Part III, Line 7f</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Credit from Partnerships & S Corporations -->
+			<xsd:element name="CreditAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Credit from Partnerships and S Corporations</Description>
+						<LineNumber>Part III, Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Total Amount -->
+			<xsd:element name="TotalAmt" type="USAmountPosType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total of lines</Description>
+						<LineNumber>Part III, Line 9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Carbon Oxide Sequestration Credit Recaptured Amount -->
+			<xsd:element name="CrbnOxdSqstrtnCrRcptrAmt" type="USDecimalAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Carbon Oxide Sequestration Credit Recaptured Amount</Description>
+						<LineNumber>Part III, Line 10</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>			
+		</xsd:sequence>
+	</xsd:complexType>
+			<!-- Qualified Carbon Oxide DAC Calculation Gourp Type -->
+			<xsd:complexType name="QlfyCrbnOxdDACCalculationGrpType">
+				<xsd:sequence>			
+					<!-- Metric tons captured -->
+					<xsd:element name="MetricTonsCapturedQty" type="LargeRatioType" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>Metric tons captured</Description>
+									<LineNumber>Part III, Line 1a - 2a</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<!-- Metric tons captured by taxpayer -->
+					<xsd:element name="MetricTonsCptrTaxpayerQty" type="LargeRatioType" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>Metric tons captured by taxpayer</Description>
+								<LineNumber>Part III, Line 1b - 2b</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<!-- Metric tons captured by another person -->
+					<xsd:element name="MetricTonsCptrAnotherPersonQty" type="LargeRatioType" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>Metric tons captured by another person</Description>
+								<LineNumber>Part III, Line 1c - 2c</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<!-- Metric tons captured total -->
+					<xsd:element name="MetricTonsCptrTotQty" type="LargeRatioType" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>Metric tons captured total</Description>
+								<LineNumber>Part III, Line 1d - 2d</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<!-- Metric tons captured another claim credit -->
+					<xsd:element name="MetricTonsCptrAnotherClmCrQty" type="LargeRatioType" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>Metric tons captured another claim credit</Description>
+								<LineNumber>Part III, Line 1e - 2e</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<!-- Metric tons captured total claim credit -->
+					<xsd:element name="MetricTonsCptrTotMnsClmCrQty" type="LargeRatioType" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>Metric tons captured total claim credit</Description>
+								<LineNumber>Part III, Line 1f - 2f</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<!-- Credit rate or applicable dollar amount -->
+					<xsd:element name="CreditRateOrApplicableDolAmt" type="USDecimalAmountNNType" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>Credit rate or applicable dollar amount</Description>
+								<LineNumber>Part III, Line 1g - 2g</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<!-- Total metric ton captured credit amount -->
+					<xsd:element name="MetricTonsCapturedCreditAmt" type="USDecimalAmountNNType" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>Total metric ton captured credit amount</Description>
+								<LineNumber>Part III, Line 1h - 2h</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<!-- Increased credit amount -->
+					<xsd:element name="IncreasedCreditAmt" type="USDecimalAmountNNType" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>Increased credit amount</Description>
+								<LineNumber>Part III, Line 1i - 2i</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>	
+</xsd:schema>

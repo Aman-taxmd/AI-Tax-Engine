@@ -1,0 +1,1400 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form 7207 - Advanced Manufacturing Production Credit</Description>
+			<TaxYear>2025</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>February 19 2026</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../Common/efileTypes.xsd"/>
+
+	<!-- =========================================================== -->
+	<!-- =====================  IRS Form 7207  ===================== -->
+	<!-- =========================================================== -->
+
+	<xsd:element name="IRS7207">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 7207 - Advanced Manufacturing Production Credit</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS7207Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="TextType" fixed="IRS7207">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="referenceDocumentId" type="IdListType">
+						<xsd:annotation>
+							<xsd:documentation>List of document ID's of forms, schedules, supporting info. etc. attached to this form</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="referenceDocumentName" type="TextType" fixed="BinaryAttachment GeneralDependencySmall"/>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS7207Type">
+		<xsd:sequence>
+
+			<!-- =============== Part I Facility Information =============== -->
+
+			<!-- IRS-issued registration number for the facility -->
+			<xsd:element name="FacilityIRSIssdRegistrationNum" type="FacilityIRSIssdRegistrationNumType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>IRS-issued registration number for the facility</Description>
+						<LineNumber>Part I Line 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Date the facility was placed in service -->
+			<xsd:element name="FacilityPlacedInServiceDt" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date the facility was placed in service</Description>
+						<LineNumber>Part I Line 2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Address of facility -->
+			<xsd:element name="FacilityUSAddress" type="USAddressType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Address of facility</Description>
+						<LineNumber>Part I Line 3a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Facility Description -->
+			<xsd:element name="FacilityDesc" type="ShortExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Facility Description</Description>
+						<LineNumber>Part I Line 3a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<xsd:choice minOccurs="0">
+				<xsd:sequence>
+					<!-- If different than filer, enter owner's person name -->
+					<xsd:element name="FacilityOwnerPersonNm" type="PersonNameType">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>If different than filer, enter owner's person name</Description>
+								<LineNumber>Part I Line 3b (i)</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<!-- If different than filer, enter owner's SSN -->
+					<xsd:element name="FacilityOwnerSSN" type="SSNType">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>If different than filer, enter owner's SSN</Description>
+								<LineNumber>Part I Line 3b (ii)</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+				
+				<xsd:sequence>
+					<!-- If different than filer, enter owner's business name -->
+					<xsd:element name="FacilityOwnerBusinessName" type="BusinessNameType">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>If different than filer, enter owner's business name</Description>
+								<LineNumber>Part I Line 3b (i)</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<!-- If different than filer, enter owner's EIN -->
+					<xsd:element name="FacilityOwnerEIN" type="EINType">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>If different than filer, enter owner's EIN</Description>
+								<LineNumber>Part I Line 3b (ii)</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:choice>
+
+			<!-- Location coordinates (Latitude) -->
+			<xsd:element name="FacilityLatitudeNum" type="LatitudeCoordinateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Location coordinates (Latitude)</Description>
+						<LineNumber>Part I Line 4 (i)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Location coordinates (Longitude) -->
+			<xsd:element name="FacilityLongitudeNum" type="LongitudeCoordinateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Location coordinates (Longitude)</Description>
+						<LineNumber>Part I Line 4 (ii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Election under section 45X(a)(3)(B) -->
+			<xsd:element name="Section45Xa3BElectionInd" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Election under section 45X(a)(3)(B)</Description>
+						<LineNumber>Part I, Line 5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Eligible components include property produced at a facility taken into account for which a credit under section 48C is being claimed -->
+			<xsd:element name="Section48CEligiblePropertyInd" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Eligible components include property produced at a facility taken into account for which a credit under section 48C is being claimed</Description>
+						<LineNumber>Part I, Line 6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- =============== Part II Eligible Components =============== -->
+
+			<!-- Solar Energy Components - Part II, Line 1 -->
+
+			<!-- Thin film photovoltaic cell or crystalline photovoltaic cell -->
+			<xsd:element name="PhotovoltaicCellGrp" type="NumberUnitsCreditAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Thin film photovoltaic cell or crystalline photovoltaic cell</Description>
+						<LineNumber>Part II, Line 1a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Photovoltaic wafer -->
+			<xsd:element name="PhotovoltaicWaferGrp" type="NumberUnitsCreditAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Photovoltaic wafer</Description>
+						<LineNumber>Part II, Line 1b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Solar grade polysilicon -->
+			<xsd:element name="SolarGradePolysiliconGrp" type="NumberUnitsCreditAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Solar grade polysilicon</Description>
+						<LineNumber>Part II, Line 1c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Polymeric backsheet -->
+			<xsd:element name="PolymericBacksheetGrp" type="NumberUnitsCreditAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Polymeric backsheet</Description>
+						<LineNumber>Part II, Line 1d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Solar module -->
+			<xsd:element name="SolarModuleGrp" type="NumberUnitsCreditAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Solar module</Description>
+						<LineNumber>Part II, Line 1e</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Torque tube -->
+			<xsd:element name="TorqueTubeGrp" type="NumberUnitsCreditAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Torque tube</Description>
+						<LineNumber>Part II, Line 1f</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Structural fastener -->
+			<xsd:element name="StructuralFastenerGrp" type="NumberUnitsCreditAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Structural fastener</Description>
+						<LineNumber>Part II, Line 1g</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Wind Energy Components - Part II, Line 2 -->
+
+			<!-- Part II, Line 2a column (d) - Not in XML. Use value from Part III TotalSalesPriceAmt; Comment in schema. -->
+
+			<!-- Amount of Credit related to offshore wind vessel(s) -->
+			<xsd:element name="RelatedOffshoreWindVesselCrAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount of Credit related to offshore wind vessel(s)</Description>
+						<LineNumber>Part II, Line 2a column (e)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Blade -->
+			<xsd:element name="BladeGrp" type="NumberUnitsCreditAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Blade</Description>
+						<LineNumber>Part II, Line 2b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Nacelle -->
+			<xsd:element name="NacelleGrp" type="NumberUnitsCreditAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Nacelle</Description>
+						<LineNumber>Part II, Line 2c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Tower -->
+			<xsd:element name="TowerGrp" type="NumberUnitsCreditAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Tower</Description>
+						<LineNumber>Part II, Line 2d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Offshore wind foundation which uses a fixed platform -->
+			<xsd:element name="OffshoreWindFndtnFxdPltfGrp" type="NumberUnitsCreditAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Offshore wind foundation which uses a fixed platform</Description>
+						<LineNumber>Part II, Line 2e</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Offshore wind foundation which uses a floating platform -->
+			<xsd:element name="OffshoreWindFndtnFloatPltfGrp" type="NumberUnitsCreditAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Offshore wind foundation which uses a floating platform</Description>
+						<LineNumber>Part II, Line 2f</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Inverter Components - Part II, Line 3 -->
+
+			<!-- Central inverter -->
+			<xsd:element name="CentralInverterGrp" type="NumberUnitsCreditAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Central inverter</Description>
+						<LineNumber>Part II, Line 3a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Utility inverter -->
+			<xsd:element name="UtilityInverterGrp" type="NumberUnitsCreditAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Utility inverter</Description>
+						<LineNumber>Part II, Line 3b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Commercial inverter -->
+			<xsd:element name="CommercialInverterGrp" type="NumberUnitsCreditAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Commercial inverter</Description>
+						<LineNumber>Part II, Line 3c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Residential inverter -->
+			<xsd:element name="ResidentialInverterGrp" type="NumberUnitsCreditAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Residential inverter</Description>
+						<LineNumber>Part II, Line 3d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Microinverter -->
+			<xsd:element name="MicroinverterGrp" type="NumberUnitsCreditAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Microinverter</Description>
+						<LineNumber>Part II, Line 3e</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Distributed wind inverter -->
+			<xsd:element name="DistributedWindInverterGrp" type="NumberUnitsCreditAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Distributed wind inverter</Description>
+						<LineNumber>Part II, Line 3f</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Electrode Active Materials - Part II, Line 4 -->
+
+			<!-- Electrode active materials -->
+			<xsd:element name="ElectrodeActiveMaterialsGrp" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Electrode active materials</Description>
+						<LineNumber>Part II, Line 4a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Costs Incurred Amount -->
+						<xsd:element name="CostsIncurredAmt" type="USAmountNNType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Costs Incurred Amount</Description>
+									<LineNumber>Part II, Line 4a column (d)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Amount of Credit -->
+						<xsd:element name="CreditAmt" type="USAmountNNType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Amount of Credit</Description>
+									<LineNumber>Part II, Line 4a column (e)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Battery Components - Part II, Line 5 -->
+
+			<!-- Battery Cell -->
+			<xsd:element name="BatteryCellGrp" type="NumberUnitsCreditAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Battery Cell</Description>
+						<LineNumber>Part II, Line 5a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Battery module which uses battery cells -->
+			<xsd:element name="BatteryModUseBatteryCellGrp" type="NumberUnitsCreditAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Battery module which uses battery cells</Description>
+						<LineNumber>Part II, Line 5b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Battery module which does not use battery cells -->
+			<xsd:element name="BatteryModNotUseBatteryCellGrp" type="NumberUnitsCreditAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Battery module which does not use battery cells</Description>
+						<LineNumber>Part II, Line 5c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Critical Minerals - Part II, Line 6 -->
+
+			<!-- Part II, Line 6a column (d) - Not in XML.  Use value from Part IV Line 74; Comment in schema. -->
+  
+			<!-- Amount of Credit for applicable critical minerals -->
+			<xsd:element name="ApplcblCriticalMineralsCrAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount of Credit for applicable critical minerals</Description>
+						<LineNumber>Part II, Line 6a column (e)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Metallurgical Coal Group -->
+			<xsd:element name="MetallurgicalCoalGrp" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Metallurgical Coal Group</Description>
+						<LineNumber>Part II, Line 6b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Total Costs -->
+						<xsd:element name="TotalCostsAmt" type="USAmountNNType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total Costs</Description>
+									<LineNumber>Part II, Line 6b column (d)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Amount of Credit -->
+						<xsd:element name="CreditAmt" type="USAmountNNType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Amount of Credit</Description>
+									<LineNumber>Part II, Line 6b column (e)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Advanced Manufacturing Production Credit From Other Entities - Part II, Line 7 -->
+
+			<!-- Advanced manufacturing production credit from partnerships, S corporations, estates, and trusts -->
+			<xsd:element name="AdvncMfrPrdCrOthEntitiesAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Advanced manufacturing production credit from partnerships, S corporations, estates, and trusts</Description>
+						<LineNumber>Part II Line 7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Advanced Manufacturing Production Credit - Part II, Line 8 -->
+
+			<!-- Add amounts in column (e), of lines specified.  Estates and trusts go to specified line.  Partnerships and S corporations, stop here and report this amount on Schedule K.  All others, stop here and report this amount on Form 3800, on specified line -->
+			<xsd:element name="AdvncManufacturingProdCrAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add amounts in column (e), of lines specified.  Estates and trusts go to specified line.  Partnerships and S corporations, stop here and report this amount on Schedule K.  All others, stop here and report this amount on Form 3800, on specified line</Description>
+						<LineNumber>Part II Line 8a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Amount allocated to beneficiaries of the estate or trust -->
+			<xsd:element name="EstateOrTrustAllocatedBenefAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount allocated to beneficiaries of the estate or trust</Description>
+						<LineNumber>Part II Line 8b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Estates and trusts, subtract specified lines.  Report this amount on specified line of the Form 3800. -->
+			<xsd:element name="EstateTrustAdvncMfrProdCrAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Estates and trusts, subtract specified lines.  Report this amount on specified line of the Form 3800.</Description>
+						<LineNumber>Part II Line 8c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- =============== Part III Related Offshore Wind Vessels =============== -->
+
+			<!-- Offshore wind vessels group -->
+			<xsd:element name="OffshoreWindVesselsGrp" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Offshore wind vessels group</Description>
+						<LineNumber>Part III</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Name of Vessel -->
+						<xsd:element name="VesselNm" type="LineExplanationType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Name of Vessel</Description>
+									<LineNumber>Part III, column 1</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Purpose of vessel -->
+						<xsd:element name="VesselPurposeDesc" type="ShortExplanationType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Purpose of vessel</Description>
+									<LineNumber>Part III, column 2</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Official number of vessel -->
+						<xsd:element name="VesselNum" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Official number of vessel</Description>
+									<LineNumber>Part III, column 3</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="TextType">
+									<xsd:maxLength value="50"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+
+						<xsd:choice minOccurs="0">
+							<!-- New -->
+							<xsd:element name="NewInd" type="CheckboxType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>New</Description>
+										<LineNumber>Part III, column 4</LineNumber>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<!-- Retrofitted -->
+							<xsd:element name="RetrofittedInd" type="CheckboxType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Retrofitted</Description>
+										<LineNumber>Part III, column 4</LineNumber>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+						</xsd:choice>
+
+						<!-- Sales Price -->
+						<xsd:element name="SalesPriceAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Sales Price</Description>
+									<LineNumber>Part III, column 5</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Total of All Parts III -->
+			<xsd:element name="TotalSalesPriceAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total of All Parts III</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- =============== Part IV Costs of Producing Applicable Critical Minerals in Current Tax Year =============== -->
+
+			<!-- Aluminum converted from bauxite to a minimum purity of 99% alumina by mass -->
+			<xsd:element name="AluminumConvertedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Aluminum converted from bauxite to a minimum purity of 99% alumina by mass</Description>
+						<LineNumber>Part IV, Line 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Aluminum purified to a minimum purity of 99.9% aluminum by mass -->
+			<xsd:element name="AluminumPurifiedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Aluminum purified to a minimum purity of 99.9% aluminum by mass</Description>
+						<LineNumber>Part IV, Line 2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Antimony converted to antimony trisulfide concentrate with a minimum purity of 90% antimony trisulfide by mass -->
+			<xsd:element name="AntimonyConvertedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Antimony converted to antimony trisulfide concentrate with a minimum purity of 90% antimony trisulfide by mass</Description>
+						<LineNumber>Part IV, Line 3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Antimony purified to a minimum purity of 99.65% antimony by mass -->
+			<xsd:element name="AntimonyPurifiedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Antimony purified to a minimum purity of 99.65% antimony by mass</Description>
+						<LineNumber>Part IV, Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Arsenic purified to a minimum purity of 99% by mass -->
+			<xsd:element name="ArsenicPurifiedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Arsenic purified to a minimum purity of 99% by mass</Description>
+						<LineNumber>Part IV, Line 5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Barite purified to a minimum purity of 80% barite by mass -->
+			<xsd:element name="BaritePurifiedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Barite purified to a minimum purity of 80% barite by mass</Description>
+						<LineNumber>Part IV, Line 6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Beryllium converted to copper-beryllium master alloy -->
+			<xsd:element name="BerylliumConvertedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Beryllium converted to copper-beryllium master alloy</Description>
+						<LineNumber>Part IV, Line 7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Beryllium purified to a minimum purity of 99% beryllium by mass -->
+			<xsd:element name="BerylliumPurifiedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Beryllium purified to a minimum purity of 99% beryllium by mass</Description>
+						<LineNumber>Part IV, Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Bismuth purified to a minimum purity of 99% by mass -->
+			<xsd:element name="BismuthPurifiedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Bismuth purified to a minimum purity of 99% by mass</Description>
+						<LineNumber>Part IV, Line 9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Cerium converted to cerium oxide which is purified to a minimum purity of 99.9% cerium oxide by mass -->
+			<xsd:element name="CeriumConvertedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Cerium converted to cerium oxide which is purified to a minimum purity of 99.9% cerium oxide by mass</Description>
+						<LineNumber>Part IV, Line 10</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Cerium purified to a minimum purity of 99.9% cerium by mass -->
+			<xsd:element name="CeriumPurifiedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Cerium purified to a minimum purity of 99.9% cerium by mass</Description>
+						<LineNumber>Part IV, Line 11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Cesium converted to cesium formate or cesium carbonate -->
+			<xsd:element name="CesiumConvertedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Cesium converted to cesium formate or cesium carbonate</Description>
+						<LineNumber>Part IV, Line 12</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Cesium purified to a minimum purity of 99% cesium by mass -->
+			<xsd:element name="CesiumPurifiedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Cesium purified to a minimum purity of 99% cesium by mass</Description>
+						<LineNumber>Part IV, Line 13</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Chromium converted to ferrochromium consisting of not less than 60% chromium by mass -->
+			<xsd:element name="ChromiumConvertedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Chromium converted to ferrochromium consisting of not less than 60% chromium by mass</Description>
+						<LineNumber>Part IV, Line 14</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Chromium purified to a minimum purity of 99% chromium by mass -->
+			<xsd:element name="ChromiumPurifiedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Chromium purified to a minimum purity of 99% chromium by mass</Description>
+						<LineNumber>Part IV, Line 15</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Cobalt converted to cobalt sulfate -->
+			<xsd:element name="CobaltConvertedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Cobalt converted to cobalt sulfate</Description>
+						<LineNumber>Part IV, Line 16</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Cobalt purified to a minimum purity of 99.6% cobalt by mass -->
+			<xsd:element name="CobaltPurifiedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Cobalt purified to a minimum purity of 99.6% cobalt by mass</Description>
+						<LineNumber>Part IV, Line 17</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Dysprosium converted to not less than 99% pure dysprosium iron alloy by mass -->
+			<xsd:element name="DysprosiumConvertedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Dysprosium converted to not less than 99% pure dysprosium iron alloy by mass</Description>
+						<LineNumber>Part IV, Line 18</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Dysprosium purified to a minimum purity of 99% dysprosium by mass -->
+			<xsd:element name="DysprosiumPurifiedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Dysprosium purified to a minimum purity of 99% dysprosium by mass</Description>
+						<LineNumber>Part IV, Line 19</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Erbium purified to a minimum purity of 99% by mass -->
+			<xsd:element name="ErbiumPurifiedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Erbium purified to a minimum purity of 99% by mass</Description>
+						<LineNumber>Part IV, Line 20</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Europium converted to europium oxide which is purified to a minimum purity of 99.9% europium oxide by mass -->
+			<xsd:element name="EuropiumConvertedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Europium converted to europium oxide which is purified to a minimum purity of 99.9% europium oxide by mass</Description>
+						<LineNumber>Part IV, Line 21</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Europium purified to a minimum purity of 99% by mass -->
+			<xsd:element name="EuropiumPurifiedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Europium purified to a minimum purity of 99% by mass</Description>
+						<LineNumber>Part IV, Line 22</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Fluorspar converted to fluorspar which is purified to a minimum purity of 97% calcium flouride by mass -->
+			<xsd:element name="FluorsparConvertedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Fluorspar converted to fluorspar which is purified to a minimum purity of 97% calcium flouride by mass</Description>
+						<LineNumber>Part IV, Line 23</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Fluorspar purified to a minimum purity of 99% fluorspar by mass -->
+			<xsd:element name="FluorsparPurifiedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Fluorspar purified to a minimum purity of 99% fluorspar by mass</Description>
+						<LineNumber>Part IV, Line 24</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Gadolinium converted to gadolinium oxide which is purified to a minimum purity of 99.9% gadolinium oxide by mass -->
+			<xsd:element name="GadoliniumConvertedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gadolinium converted to gadolinium oxide which is purified to a minimum purity of 99.9% gadolinium oxide by mass</Description>
+						<LineNumber>Part IV, Line 25</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Gadolinium purified to a minimum purity of 99.9% gadolinium by mass -->
+			<xsd:element name="GadoliniumPurifiedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gadolinium purified to a minimum purity of 99.9% gadolinium by mass</Description>
+						<LineNumber>Part IV, Line 26</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Gallium purified to a minimum purity of 99% by mass -->
+			<xsd:element name="GalliumPurifiedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gallium purified to a minimum purity of 99% by mass</Description>
+						<LineNumber>Part IV, Line 27</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Germanium converted to germanium tetrachloride -->
+			<xsd:element name="GermaniumConvertedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Germanium converted to germanium tetrachloride</Description>
+						<LineNumber>Part IV, Line 28</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Germanium purified to a minimum purity of 99.99% germanium by mass -->
+			<xsd:element name="GermaniumPurifiedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Germanium purified to a minimum purity of 99.99% germanium by mass</Description>
+						<LineNumber>Part IV, Line 29</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Graphite purified to a minimum purity of 99.9% graphitic carbon by mass -->
+			<xsd:element name="GraphitePurifiedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Graphite purified to a minimum purity of 99.9% graphitic carbon by mass</Description>
+						<LineNumber>Part IV, Line 30</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Hafnium purified to a minimum purity of 99% by mass -->
+			<xsd:element name="HafniumPurifiedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Hafnium purified to a minimum purity of 99% by mass</Description>
+						<LineNumber>Part IV, Line 31</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Holmium purified to a minimum purity of 99% by mass -->
+			<xsd:element name="HolmiumPurifiedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Holmium purified to a minimum purity of 99% by mass</Description>
+						<LineNumber>Part IV, Line 32</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Indium converted to indium tin oxide -->
+			<xsd:element name="IndiumConvertedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Indium converted to indium tin oxide</Description>
+						<LineNumber>Part IV, Line 33</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Indium converted to indium oxide which is purified to a minimum purity of 99.9% indium oxide by mass -->
+			<xsd:element name="IndiumCnvrtIndiumOxideCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Indium converted to indium oxide which is purified to a minimum purity of 99.9% indium oxide by mass</Description>
+						<LineNumber>Part IV, Line 34</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Indium purified to a minimum purity of 99% indium by mass -->
+			<xsd:element name="IndiumPurifiedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Indium purified to a minimum purity of 99% indium by mass</Description>
+						<LineNumber>Part IV, Line 35</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Iridium purified to a minimum purity of 99% by mass -->
+			<xsd:element name="IridiumPurifiedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Iridium purified to a minimum purity of 99% by mass</Description>
+						<LineNumber>Part IV, Line 36</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Lanthanum purified to a minimum purity of 99% by mass -->
+			<xsd:element name="LanthanumPurifiedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Lanthanum purified to a minimum purity of 99% by mass</Description>
+						<LineNumber>Part IV, Line 37</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Lithium converted to lithium carbonate or lithium hydroxide -->
+			<xsd:element name="LithiumConvertedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Lithium converted to lithium carbonate or lithium hydroxide</Description>
+						<LineNumber>Part IV, Line 38</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Lithium purified to a minimum purity of 99.9% lithium by mass -->
+			<xsd:element name="LithiumPurifiedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Lithium purified to a minimum purity of 99.9% lithium by mass</Description>
+						<LineNumber>Part IV, Line 39</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Lutetium purified to a minimum purity of 99% by mass -->
+			<xsd:element name="LutetiumPurifiedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Lutetium purified to a minimum purity of 99% by mass</Description>
+						<LineNumber>Part IV, Line 40</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Magnesium purified to a minimum purity of 99% by mass -->
+			<xsd:element name="MagnesiumPurifiedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Magnesium purified to a minimum purity of 99% by mass</Description>
+						<LineNumber>Part IV, Line 41</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Manganese converted to manganese sulphate -->
+			<xsd:element name="ManganeseConvertedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Manganese converted to manganese sulphate</Description>
+						<LineNumber>Part IV, Line 42</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Manganese purified to a minimum purity of 99.7% manganese by mass -->
+			<xsd:element name="ManganesePurifiedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Manganese purified to a minimum purity of 99.7% manganese by mass</Description>
+						<LineNumber>Part IV, Line 43</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Neodymium converted to neodymium-praseodymium oxide which is purified to a minimum purity of 99% neodymium-praseodymium oxide by mass -->
+			<xsd:element name="NeodymiumConvertedCostAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Neodymium converted to neodymium-praseodymium oxide which is purified to a minimum purity of 99% neodymium-praseodymium oxide by mass</Description>
+						<LineNumber>Part IV, Line 44</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Neodymium converted to neodymium oxide which is purified to a minimum purity of 99.5% neodymium oxide by mass -->
+			<xsd:element name="NeodymiumCnvrtNeodymiumOxdAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Neodymium converted to neodymium oxide which is purified to a minimum purity of 99.5% neodymium oxide by mass</Description>
+						<LineNumber>Part IV, Line 45</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Neodymiun purified to a minimum purity of 99.9% neodymium by mass -->
+			<xsd:element name="NeodymiumPurifiedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Neodymiun purified to a minimum purity of 99.9% neodymium by mass</Description>
+						<LineNumber>Part IV, Line 46</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Nickel converted to nickel sulphate -->
+			<xsd:element name="NickelConvertedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Nickel converted to nickel sulphate</Description>
+						<LineNumber>Part IV, Line 47</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Nickel purified to a minimum purity of 99% nickel by mass -->
+			<xsd:element name="NickelPurifiedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Nickel purified to a minimum purity of 99% nickel by mass</Description>
+						<LineNumber>Part IV, Line 48</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Niobium converted to ferronibium -->
+			<xsd:element name="NiobiumConvertedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Niobium converted to ferronibium</Description>
+						<LineNumber>Part IV, Line 49</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Niobium purified to a minimum purity of 99% niobium by mass -->
+			<xsd:element name="NiobiumPurifiedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Niobium purified to a minimum purity of 99% niobium by mass</Description>
+						<LineNumber>Part IV, Line 50</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Palladium purified to a minimum purity of 99% by mass -->
+			<xsd:element name="PalladiumPurifiedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Palladium purified to a minimum purity of 99% by mass</Description>
+						<LineNumber>Part IV, Line 51</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Platinum purified to a minimum purity of 99% by mass -->
+			<xsd:element name="PlatinumPurifiedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Platinum purified to a minimum purity of 99% by mass</Description>
+						<LineNumber>Part IV, Line 52</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Praseodymium purified to a minimum purity of 99% by mass -->
+			<xsd:element name="PraseodymiumPurifiedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Praseodymium purified to a minimum purity of 99% by mass</Description>
+						<LineNumber>Part IV, Line 53</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Rhodium purified to a minimum purity of 99% by mass -->
+			<xsd:element name="RhodiumPurifiedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Rhodium purified to a minimum purity of 99% by mass</Description>
+						<LineNumber>Part IV, Line 54</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Rubidium purified to a minimum purity of 99% by mass -->
+			<xsd:element name="RubidiumPurifiedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Rubidium purified to a minimum purity of 99% by mass</Description>
+						<LineNumber>Part IV, Line 55</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Ruthenium purified to a minimum purity of 99% by mass -->
+			<xsd:element name="RutheniumPurifiedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Ruthenium purified to a minimum purity of 99% by mass</Description>
+						<LineNumber>Part IV, Line 56</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Samarium purified to a minimum purity of 99% by mass -->
+			<xsd:element name="SamariumPurifiedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Samarium purified to a minimum purity of 99% by mass</Description>
+						<LineNumber>Part IV, Line 57</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Scandium purified to a minimum purity of 99% by mass -->
+			<xsd:element name="ScandiumPurifiedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Scandium purified to a minimum purity of 99% by mass</Description>
+						<LineNumber>Part IV, Line 58</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Tantalum purified to a minimum purity of 99% by mass -->
+			<xsd:element name="TantalumPurifiedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Tantalum purified to a minimum purity of 99% by mass</Description>
+						<LineNumber>Part IV, Line 59</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Tellurium converted to cadmium telluride -->
+			<xsd:element name="TelluriumConvertedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Tellurium converted to cadmium telluride</Description>
+						<LineNumber>Part IV, Line 60</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Tellurium purified to a minimum purity of 99% tellurium by mass -->
+			<xsd:element name="TelluriumPurifiedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Tellurium purified to a minimum purity of 99% tellurium by mass</Description>
+						<LineNumber>Part IV, Line 61</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Terbium purified to a minimum purity of 99% by mass -->
+			<xsd:element name="TerbiumPurifiedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Terbium purified to a minimum purity of 99% by mass</Description>
+						<LineNumber>Part IV, Line 62</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Thulium purified to a minimum purity of 99% by mass -->
+			<xsd:element name="ThuliumPurifiedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Thulium purified to a minimum purity of 99% by mass</Description>
+						<LineNumber>Part IV, Line 63</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Tin purified to a low alpha emitting tin which has a purity of greater than 99.99% by mass -->
+			<xsd:element name="TinPurifiedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Tin purified to a low alpha emitting tin which has a purity of greater than 99.99% by mass</Description>
+						<LineNumber>Part IV, Line 64</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Tin purified to a low alpha emitting tin which possesses an alpha emission rate of not greater than 0.01 counts per hour per centimeter square -->
+			<xsd:element name="TinPurifiedAlphaEmsnRtCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Tin purified to a low alpha emitting tin which possesses an alpha emission rate of not greater than 0.01 counts per hour per centimeter square</Description>
+						<LineNumber>Part IV, Line 65</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Titanium purified to a minimum purity of 99% by mass -->
+			<xsd:element name="TitaniumPurifiedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Titanium purified to a minimum purity of 99% by mass</Description>
+						<LineNumber>Part IV, Line 66</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Tungsten converted to ammonium paratungstate or ferrotungsten -->
+			<xsd:element name="TungstenConvertedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Tungsten converted to ammonium paratungstate or ferrotungsten</Description>
+						<LineNumber>Part IV, Line 67</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Vanadium converted to ferrovanadium or vanadium pentoxide -->
+			<xsd:element name="VanadiumConvertedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Vanadium converted to ferrovanadium or vanadium pentoxide</Description>
+						<LineNumber>Part IV, Line 68</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Ytterbium purified to a minimum purity of 99% by mass -->
+			<xsd:element name="YtterbiumPurifiedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Ytterbium purified to a minimum purity of 99% by mass</Description>
+						<LineNumber>Part IV, Line 69</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Yttrium converted to yttrium oxide which is purified to a minimum purity of 99.999% yttrium oxide by mass -->
+			<xsd:element name="YttriumConvertedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Yttrium converted to yttrium oxide which is purified to a minimum purity of 99.999% yttrium oxide by mass</Description>
+						<LineNumber>Part IV, Line 70</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Yttrium purified to a minimum purity of 99.9% yttrium by mass -->
+			<xsd:element name="YttriumPurifiedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Yttrium purified to a minimum purity of 99.9% yttrium by mass</Description>
+						<LineNumber>Part IV, Line 71</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Zinc purified to a minimum purity of 99% by mass -->
+			<xsd:element name="ZincPurifiedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Zinc purified to a minimum purity of 99% by mass</Description>
+						<LineNumber>Part IV, Line 72</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Zirconium purified to a minimum purity of 99% by mass -->
+			<xsd:element name="ZirconiumPurifiedCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Zirconium purified to a minimum purity of 99% by mass</Description>
+						<LineNumber>Part IV, Line 73</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total costs. Enter here and on Part II, line 6 column (d) -->
+			<xsd:element name="TotalCostsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total costs. Enter here and on Part II, line 6 column (d)</Description>
+						<LineNumber>Part IV, Line 74</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Type used for Part II, columns (d) and (e) of Lines 1a - 1g, 2b - 2f, 3a - 3f and 5a - 5c -->
+	<xsd:complexType name="NumberUnitsCreditAmountType">
+		<xsd:sequence>
+
+			<!-- Number of Units Produced -->
+			<xsd:element name="UnitsProducedQty" type="IntegerNNType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Number of Units Produced</Description>
+						<LineNumber>Part II, column (d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Amount of Credit -->
+			<xsd:element name="CreditAmt" type="USAmountNNType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount of Credit</Description>
+						<LineNumber>Part II, column (e)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,527 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form 8993</Description>
+			<TaxYear>2025</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>February 19 2026</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../Common/efileTypes.xsd"/>
+
+	<!-- =================================================================== -->
+	<!-- ========================== IRS Form 8993 ========================== -->
+	<!-- =================================================================== -->
+
+	<xsd:element name="IRS8993">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 8993</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS8993Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="StringType" fixed="IRS8993">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="referenceDocumentId" type="IdListType">
+						<xsd:annotation>
+							<xsd:documentation>List of document ID's of forms, schedules, supporting info. etc. attached to this form</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="BinaryAttachment"/>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS8993Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 8993</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Part I Determining Deduction Eligible Income (DEI) and Deemed Intangible Income (DII) -->
+
+			<!-- Gross Income Amount -->
+			<xsd:element name="GrossIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gross Income Amount</Description>
+						<LineNumber>Part I Line 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Section 951(a)(1) Income Amount -->
+			<xsd:element name="Section951a1IncomeAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Section 951(a)(1) Income Amount</Description>
+						<LineNumber>Part I Line 2a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Global Intangible Low-Taxed Income (GILTI) Received Amount -->
+			<xsd:element name="GILTIReceivedAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Global Intangible Low-Taxed Income (GILTI) Received Amount</Description>
+						<LineNumber>Part I Line 2b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Financial Services Income Amount -->
+			<xsd:element name="FinancialServicesIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Financial Services Income Amount</Description>
+						<LineNumber>Part I Line 2c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- CFC Dividends Received Amount -->
+			<xsd:element name="CFCDividendsReceivedAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>CFC Dividends Received Amount</Description>
+						<LineNumber>Part I Line 2d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Domestic Oil and Gas Extraction Income Amount -->
+			<xsd:element name="DomOilGasExtractionIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Domestic Oil and Gas Extraction Income Amount</Description>
+						<LineNumber>Part I Line 2e</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Foreign Branch Income Amount -->
+			<xsd:element name="ForeignBranchIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Foreign Branch Income Amount</Description>
+						<LineNumber>Part I Line 2f</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Income and gain from the sale or other disposition of section 367(d)(4) intangible property -->
+			<xsd:element name="GainSaleDisposSect367d4PropAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Income and gain from the sale or other disposition of section 367(d)(4) intangible property</Description>
+						<LineNumber>Part I Line 2g</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+			
+			<!-- Income and gain from the sale or other disposition of certain other property -->
+			<xsd:element name="GainSaleDisposOtherPropAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Income and gain from the sale or other disposition of certain other property</Description>
+						<LineNumber>Part I Line 2h</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>			
+
+			<!-- Total Income Exclusion Amount -->
+			<xsd:element name="TotalIncomeExclusionAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Income Exclusion Amount</Description>
+						<LineNumber>Part I Line 3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Gross DEI Amount -->
+			<xsd:element name="GrossDEIAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gross DEI Amount</Description>
+						<LineNumber>Part I Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Properly Allocable Deduction Amount -->
+			<xsd:element name="ProperlyAllocableDeductionAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Properly Allocable Deduction Amount</Description>
+						<LineNumber>Part I Line 5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Deduction Eligible Income Amount -->
+			<xsd:element name="DeductionEligibleIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Deduction Eligible Income Amount</Description>
+						<LineNumber>Part I Line 6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Deemed Tangible Income Return Amount -->
+			<xsd:element name="DeemedTangibleIncomeReturnAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Deemed Tangible Income Return Amount</Description>
+						<LineNumber>Part I line 7a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<xsd:element name="PartnershipDTIRAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>DTIR (10%QBAI) from Partnerships</Description>
+						<LineNumber>Part I line 7b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<xsd:element name="TotalDTIRAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total DTIR</Description>
+						<LineNumber>Part I line 7c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Deemed Intangible Income Amount -->
+			<xsd:element name="DeemedIntangibleIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Deemed Intangible Income Amount</Description>
+						<LineNumber>Part I Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Part II Determining Foreign Derived Deduction Eligible Income (FDDEI) -->
+			<!-- Foreign Derived Income Gen Prop Group -->
+			<xsd:element name="FrgnDerivedIncmGenPropGrp" type="ForeignDerivedIncomeGrpType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Foreign Derived Income Gen Prop Group</Description>
+						<LineNumber>Part II (A)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Foreign Derived Income Intngbl Prop Group -->
+			<xsd:element name="FrgnDerivedIncmIntngblPropGrp" type="ForeignDerivedIncomeGrpType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Foreign Derived Income Intngbl Prop Group</Description>
+						<LineNumber>Part II (B)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Foreign Derived Income Srvc Group -->			
+			<xsd:element name="FrgnDerivedIncmSrvcGrp" type="ForeignDerivedIncomeGrpType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Foreign Derived Income Srvc Group</Description>
+						<LineNumber>Part II (C)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Foreign Derived Income Prop Srvc Group -->
+			<xsd:element name="TotFrgnDerivedIncmPropSrvcGrp" type="ForeignDerivedIncomeGrpType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Foreign Derived Income Prop Srvc Group</Description>
+						<LineNumber>Part II (D)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Interest Deduction Amount -->
+			<xsd:element name="InterestDeductionAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Interest Deduction Amount</Description>
+						<LineNumber>Part II Line 14</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Research Experimental Ded Amount -->
+			<xsd:element name="ResearchExperimentalDedAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Research Experimental Ded Amount</Description>
+						<LineNumber>Part II Line 15</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Apportioned Share Deduction Amount -->
+			<xsd:element name="ApportionedShareDeductionAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Apportioned Share Deduction Amount</Description>
+						<LineNumber>Part II Line 16</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Partnership Apprtn Share Deduction Amount -->
+			<xsd:element name="PrtshpApprtnShareDeductionAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Partnership Apprtn Share Deduction Amount</Description>
+						<LineNumber>Part II Line 17</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Deductions Amount -->
+			<xsd:element name="TotalDeductionsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Deductions Amount</Description>
+						<LineNumber>Part II Line 18</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Foreign Derived Deduction Eligible Income (FDDEI) Amount -->
+			<xsd:element name="FDDEIAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Foreign Derived Deduction Eligible Income (FDDEI) Amount</Description>
+						<LineNumber>Part II Line 19</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Part III Determining FDII and/or GILTI Deduction -->
+
+			<!-- Part III Line 20: Use value from Part II line 19 (FDDEI) / Part I line 6 (DEI) -->
+			<!-- Foreign Derived Ratio -->
+			<xsd:element name="ForeignDerivedRt" type="Decimal4RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Foreign Derived Ratio</Description>
+						<LineNumber>Part III Line 20</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Part III Line 21: Use value from Part 1 line 8 (DII) x Part III line 20 (ForeignDerivedRt) -->
+
+			<!-- Foreign Derived Intangible Income (FDII) Amount -->
+			<xsd:element name="FDIIAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Foreign Derived Intangible Income (FDII) Amount</Description>
+						<LineNumber>Part III Line 21</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- GILTI Inclusion Amount -->
+			<xsd:element name="GILTIInclusionAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>GILTI Inclusion Amount</Description>
+						<LineNumber>Part III Line 22</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total FDII And GILTI Amount -->
+			<xsd:element name="TotalFDIIAndGILTIAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total FDII And GILTI Amount</Description>
+						<LineNumber>Part III Line 23</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxable Income Amount -->
+			<xsd:element name="TaxableIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Taxable Income Amount</Description>
+						<LineNumber>Part III Line 24</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Excess FDII And GILTI Over Taxable Income Amount -->
+			<xsd:element name="ExFDIIAndGILTIOverTxblIncmAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Excess FDII And GILTI Over Taxable Income Amount</Description>
+						<LineNumber>Part III Line 25</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- FDII Reduction Amount -->
+			<xsd:element name="FDIIReductionAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>FDII Reduction Amount</Description>
+						<LineNumber>Part III Line 26</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- GILTI Reduction Amount -->
+			<xsd:element name="GILTIReductionAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>GILTI Reduction Amount</Description>
+						<LineNumber>Part III Line 27</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- FDII Deduction Amount -->
+			<xsd:element name="FDIIDeductionAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>FDII Deduction Amount</Description>
+						<LineNumber>Part III Line 28</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- GILTI Deduction Amount -->
+			<xsd:element name="GILTIDeductionAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>GILTI Deduction Amount</Description>
+						<LineNumber>Part III Line 29</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<!-- Type used for Part II(A-D) Lines 9a, 9b, 9c, 10a, 10b,10c, 11, 12, 13 -->
+	<xsd:complexType name="ForeignDerivedIncomeGrpType">
+		<xsd:sequence>
+
+			<!-- Gross Receipts Amount -->
+			<xsd:element name="GrossReceiptsAmt" type="USAmountNNType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gross Receipts Amount</Description>
+						<LineNumber>Part II Line 9a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Partnership Gross Receipts Amount -->
+			<xsd:element name="PartnershipGrossReceiptsAmt" type="USAmountNNType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Partnership Gross Receipts Amount</Description>
+						<LineNumber>Part II LIne 9b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Gross Receipts Amount -->
+			<xsd:element name="TotalGrossReceiptsAmt" type="USAmountNNType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Gross Receipts Amount</Description>
+						<LineNumber>Part II Line 9c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Cost Of Goods Sold Amount -->
+			<xsd:element name="CostOfGoodsSoldAmt" type="USAmountNNType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Cost Of Goods Sold Amount</Description>
+						<LineNumber>Part II LIne 10a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Partnership Cost Of Goods Sold Amount -->
+			<xsd:element name="PartnershipCostOfGoodsSoldAmt" type="USAmountNNType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Partnership Cost Of Goods Sold Amount</Description>
+						<LineNumber>Part II Line 10b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Cost Goods Sold Amount -->
+			<xsd:element name="TotalCostGoodsSoldAmt" type="USAmountNNType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Cost Goods Sold Amount</Description>
+						<LineNumber>Part II LIne 10c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Gross FD DEI Amount -->
+			<xsd:element name="GrossFDDEIAmt" type="USAmountNNType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gross FD DEI Amount</Description>
+						<LineNumber>Part II Line 11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Allocable Deduction Amount -->
+			<xsd:element name="AllocableDeductionAmt" type="USAmountNNType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Allocable Deduction Amount</Description>
+						<LineNumber>Part II LIne 12</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Partnership Allocable Deduction Amount -->
+			<xsd:element name="PrtshpAllocableDeductionAmt" type="USAmountNNType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Partnership Allocable Deduction Amount</Description>
+						<LineNumber>Part II LIne 13</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

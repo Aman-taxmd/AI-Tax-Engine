@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form 8936</Description>
+			<TaxYear>2025</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>February 19 2026</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+	<!-- =================================================================== -->
+	<!-- =======================  IRS Form 8936 =================================  -->
+	<!-- =================================================================== -->
+	<xsd:element name="IRS8936">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 8936</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS8936Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS8936">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="referenceDocumentId" type="IdListType">
+						<xsd:annotation>
+							<xsd:documentation>List of document ID's of forms, schedules, supporting info. etc. attached to this form</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="IRS8936ScheduleA BinaryAttachment GeneralDependencySmall"/>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="IRS8936Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for IRS Form 8936</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+		<!-- Part I  Modified Adjusted Gross Income Amount -->
+		<!-- Current Year Modified Adjusted Gross Income Amount Group -->
+			<xsd:element name="CurrentYrMAGIAmountGrp" type="CurrentAndPriorMAGIAmtGrpType" minOccurs="0" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Current Year Modified Adjusted Gross Income Amount Group</Description>
+						<LineNumber>Part I</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		<!-- Prior Year Modified Adjusted Gross Income Amount Group -->
+			<xsd:element name="PriorYrMAGIAmountGrp" type="CurrentAndPriorMAGIAmtGrpType" minOccurs="0" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>
+				        <Description>Prior Year Modified Adjusted Gross Income Amount Group</Description>
+						<LineNumber>Part I</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+					 <!-- Prior Year individual return filing status code -->
+		    <xsd:element name="PYIndivReturnFilingStatusCd" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Prior Year individual return filing status code</Description>
+						<LineNumber>Line 5</LineNumber>
+				</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="TextType">
+					    <!-- Single (S) -->
+						<xsd:enumeration value="1"/>
+				        <!-- Married filing jointly (MFJ) -->
+						<xsd:enumeration value="2"/>
+					    <!-- Married filing separately (MFS) -->
+						<xsd:enumeration value="3"/>
+						<!-- Head of household (HOH) -->
+						<xsd:enumeration value="4"/>
+	                    <!-- Qualifying surviving spouse (QSS) -->
+						<xsd:enumeration value="5"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+		    </xsd:element>
+			
+			<!-- Part II Credit for Business/Investment Use Part of New Clean Vehicles -->			
+			<!-- Business Investment Use Part Of New Clean Vehicle Credit Amount -->
+			<xsd:element name="BusinessInvestmentUseAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Business Investment Use Part Of New Clean Vehicle Credit Amount</Description>
+						<LineNumber>Line 6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- New Clean Vehicle Credit From Partnerships And S Corporations Amount -->
+			<xsd:element name="NewCleanVehCrPrtshpSCorpAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>New Clean Vehicle Credit From Partnerships And S Corporations Amount</Description>
+						<LineNumber>Line 7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Business Investment Use Part Of Credit -->
+			<xsd:element name="BusinessInvstUsePartOfCrAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Business Investment Use Part Of Credit</Description>
+						<LineNumber>Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Part III Credit For Personal Use Part Of Clean New Vehicles -->
+			<!-- Credit For Personal Use Part New Clean Vehicles Group -->
+			<xsd:element name="CrPrsnlUsePartNewCleanVehGrp" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Credit For Personal Use Part New Clean Vehicles Group</Description>
+						<LineNumber>Part III</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>							
+						<!-- Personal Use New Clean Vehicle Credit Amount -->
+						<xsd:element name="PrsnlUseNewCleanVehicleCrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Personal Use New Clean Vehicle Credit Amount</Description>
+									<LineNumber>Line 9</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>	
+						<!-- Total Tax Before Credit And Other Taxes Amount -->
+						<xsd:element name="TotalTaxBeforeCrAndOthTaxesAmt" type="USAmountType" minOccurs="1" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total Tax Before Credit And Other Taxes Amount</Description>
+									<LineNumber>Line 10</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- Personal Tax Credits Amount -->
+						<xsd:element name="PersonalTaxCreditsAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Personal Tax Credits Amount</Description>
+									<LineNumber>Line 11</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>									
+						<!-- Adjusted Personal Tax Credits Amount -->
+						<xsd:element name="AdjustedPersonalTaxCreditsAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Adjusted Personal Tax Credits Amount</Description>
+									<LineNumber>Line 12</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- Clean Vehicle Personal Use Credit Amount -->
+						<xsd:element name="CleanVehPrsnlUsePartCrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Clean Vehicle Personal Use Credit Amount</Description>
+									<LineNumber>Line 13</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>									
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<!-- Part IV Credit for Previously Owned Clean Vehicles -->
+			<!-- Credit For Previously Owned Clean Vehicles Group -->	
+			<xsd:element name="CrPreviouslyOwnedCleanVehGrp" minOccurs="0">					
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Credit For Previously Owned Clean Vehicles Group</Description>
+						<LineNumber>Part IV</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType >
+					<xsd:sequence>	
+						<!-- Previously Owned Clean Vehicle Credit Amount -->
+						<xsd:element name="PrevOwnedCleanVehCreditAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Previously Owned Clean Vehicle Credit Amount</Description>
+									<LineNumber>Line 14</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>								
+						<!-- Total Tax Before Credit And Other Taxes Amount -->
+						<xsd:element name="TotalTaxBeforeCrAndOthTaxesAmt" type="USAmountType" minOccurs="1" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total Tax Before Credit And Other Taxes Amount</Description>
+									<LineNumber>Line 15</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- Personal Tax Credits Amount -->
+						<xsd:element name="PersonalTaxCreditsAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Personal Tax Credits Amount</Description>
+									<LineNumber>Line 16</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- Adjusted Personal Tax Credits Amount -->
+						<xsd:element name="AdjustedPersonalTaxCreditsAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Adjusted Personal Tax Credits Amount</Description>
+									<LineNumber>Line 17</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>								
+						<!-- Maximum Previously Owned Clean Vehicle Credit Amount -->
+						<xsd:element name="MaxPrevOwnedCleanVehCrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Maximum Previously Owned Clean Vehicle Credit Amount</Description>
+									<LineNumber>Line 18</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>	
+			<!-- Part V Credit for Qualified Commercial Clean Vehicles -->
+			<!-- Qualified Commercial Clean Vehicle Credit Amount -->
+			<xsd:element name="QlfyCmrclCleanVehicleCrAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified Commercial Clean Vehicle Credit Amount</Description>
+						<LineNumber>Line 19</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Qualified Commercial Clean Vehicle Credit From Partrnerships And S Corporations Amount -->
+			<xsd:element name="CmrclCleanVehCrPrtshpSCorpAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified Commercial Clean Vehicle Credit From Partrnerships And S Corporations Amount</Description>
+						<LineNumber>Line 20</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>			
+			<!-- Total Qualified Commercial Clean Vehicle Credit Amount -->
+			<xsd:element name="TotalQlfyCmrclCleanVehCrAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Qualified Commercial Clean Vehicle Credit Amount</Description>
+						<LineNumber>Line 21</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- Current And Prior Modified Adjusted Gross Income Amount Group Type -->
+	<xsd:complexType name="CurrentAndPriorMAGIAmtGrpType">
+		<xsd:sequence>
+			<!-- Adjusted Gross Income Amount -->
+			<xsd:element name="AdjustedGrossIncomeAmt" type="USAmountType" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Adjusted Gross Income Amount</Description>
+						<LineNumber>Lines 1a and 3a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Excluded Section 933 Puerto Rico Income Amount  -->
+			<xsd:element name="ExcldSect933PuertoRicoIncmAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Excluded Section 933 Puerto Rico Income Amount</Description>
+						<LineNumber>Lines 1b and 3b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>			
+			<!-- Total Income Exclusion Amount -->
+			<xsd:element name="TotalIncomeExclusionAmt" type="USAmountPosType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Income Exclusion Amount</Description>
+						<LineNumber>Lines 1c and 3c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Housing Deduction Amount -->
+			<xsd:element name="HousingDeductionAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Housing Deduction Amount</Description>
+						<LineNumber>Lines 1d and 3d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Gross Income Exclusion Amount -->
+			<xsd:element name="GrossIncomeExclusionAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gross Income Exclusion Amount</Description>
+						<LineNumber>Lines 1e and 3e</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Net Income Amount -->
+			<xsd:element name="NetIncomeAmt" type="USAmountType" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Net Income Amount </Description>
+						<LineNumber>Lines 2 and 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

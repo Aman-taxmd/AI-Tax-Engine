@@ -1,0 +1,650 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - IRS Form 1040 Schedule 3</Description>
+			<TaxYear>2025</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>February 19 2026</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+	
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- ================================================================== -->
+	<!-- ==================== IRS Form 1040 Schedule 3 ==================== -->
+	<!-- ================================================================== -->
+
+	<xsd:element name="IRS1040Schedule3">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 1040 Schedule 3</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+		<xsd:complexContent>
+			<xsd:extension base="IRS1040Schedule3Type">
+				<xsd:attributeGroup ref="DocumentAttributes">
+					<xsd:annotation>
+						<xsd:documentation>Common return document attributes</xsd:documentation>
+					</xsd:annotation>
+				</xsd:attributeGroup>
+				<xsd:attribute name="documentName" type="xsd:string" fixed="IRS1040Schedule3">
+					<xsd:annotation>
+						<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:attribute>
+				<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+				<xsd:attribute name="referenceDocumentName" type="StringType" fixed="BinaryAttachment GeneralDependencyMedium GeneralDependencySmall"/>
+			</xsd:extension>
+		</xsd:complexContent>
+		</xsd:complexType>
+	 </xsd:element>
+
+	 <xsd:complexType name="IRS1040Schedule3Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 1040 Schedule 3</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Part I  Nonrefundable Credits -->			
+
+			<!-- Foreign Tax Credit Amount -->
+			<xsd:element name="ForeignTaxCreditAmt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Foreign Tax Credit Amount</Description>
+						<LineNumber>1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="IRS1116"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+						
+			<!-- Credit For Child And Dependent Care Amount -->
+			<xsd:element name="CreditForChildAndDepdCareAmt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Credit For Child And Dependent Care Amount</Description>
+						<LineNumber>2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="IRS2441"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Education Credit Amount -->
+			<xsd:element name="EducationCreditAmt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Education Credit Amount</Description>
+						<LineNumber>3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountNNType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="IRS8863"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Retirement Savings Contributions Credit Amount -->
+			<xsd:element name="RtrSavingsContributionsCrAmt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Retirement Savings Contributions Credit Amount</Description>
+						<LineNumber>4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="IRS8880"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Residential Clean Energy Credit Amount -->
+			<xsd:element name="ResidentialCleanEnergyCrAmt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Residential Clean Energy Credit Amount</Description>
+						<LineNumber>5a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="IRS5695"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+			
+			<xsd:element name="EgyEffcntHmImprvCrAmt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Energy efficient home improvement credit</Description>
+						<LineNumber>5b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountNNType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="IRS5695"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>	
+			
+			<!-- Current Year Credit Allowed Amount -->
+			<xsd:element name="CurrentYearCreditAllowedAmt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Current Year Credit Allowed Amount</Description>
+						<LineNumber>6a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="IRS3800"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+			
+			<!-- Minimum AMT Credit Amount -->
+			<xsd:element name="MinAMTCrAmt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Minimum AMT Credit Amount</Description>
+						<LineNumber>6b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="IRS8801"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>			
+				
+			<!-- Nonrefundable Adoption Credit Amount -->
+			<xsd:element name="NonrefundableAdoptionCreditAmt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Nonrefundable Adoption Credit Amount</Description>
+						<LineNumber>6c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="IRS8839"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Credit For Elderly or Disabled Amount -->
+			<xsd:element name="CreditForElderlyOrDisabledAmt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Credit For Elderly or Disabled Amount</Description>
+						<LineNumber>6d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="IRS1040ScheduleR"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Alternative Vehicle Personal Use Credit Amount -->
+			<xsd:element name="PersonalUsePartOfCreditAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Alternative Vehicle Personal Use Credit Amount</Description>
+						<LineNumber>6e</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Clean Vehicle Personal Use Credit Amount -->
+			<xsd:element name="CleanVehPrsnlUsePartCrAmt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Clean Vehicle Personal Use Credit Amount</Description>
+						<LineNumber>6f</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="IRS8936"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Mortgage Interest Credit Amount -->
+			<xsd:element name="MortgageInterestCreditAmt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Mortgage Interest Credit Amount</Description>
+						<LineNumber>6g</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="IRS8396"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- District of Columbia Home Buyer Current Year Credit Amount -->
+			<xsd:element name="DCHmByrCurrentYearCreditAmt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>District of Columbia Home Buyer Current Year Credit Amount</Description>
+						<LineNumber>6h</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="IRS8859"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+			
+			<!-- Qualified Electric Motor Vehicle Credit Amount -->
+			<xsd:element name="QlfyElecMotorVehCrAmt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified Electric Motor Vehicle Credit Amount</Description>
+						<LineNumber>6i</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="IRS8834"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>			
+
+			<!-- Alternative Fuel Personal Use Credit Amount -->
+			<xsd:element name="TotalPersonalUsePartOfCrAmt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Alternative Fuel Personal Use Credit Amount</Description>
+						<LineNumber>6j</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="IRS8911"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Current Year Allowable Credit Amount -->
+			<xsd:element name="CurrentYearAllowableCreditAmt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Current Year Allowable Credit Amount</Description>
+						<LineNumber>6k</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="IRS8912"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Total Reporting Year Tax Increase Or Decrease Amount -->
+			<xsd:element name="TotRptgYrTxIncreaseDecreaseAmt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Reporting Year Tax Increase Or Decrease Amount</Description>
+						<LineNumber>6l</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="IRS8978"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+			
+			<xsd:element name="MaxPrevOwnedCleanVehCrAmt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Credit for previously owned clean vehicles</Description>
+						<LineNumber>6m</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountNNType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="IRS8936"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>	
+
+			<!-- Other Nonrefundable Credits Group -->
+			<xsd:element name="OtherNonrefundableCreditsGrp" minOccurs="0" maxOccurs="50">
+				<xsd:complexType>
+					<xsd:sequence>
+						<!-- Other Nonrefundable Credits Text -->
+						<xsd:element name="OtherNonrefundableCreditsTxt">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Other Nonrefundable Credits Text</Description>
+									<LineNumber>6z</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="TextType">
+									<xsd:maxLength value="50"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>		
+						<!-- Other Nonrefundable Credits Amount -->
+						<xsd:element name="OtherNonrefundableCreditsAmt" type="USAmountNNType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Other Nonrefundable Credits Amount</Description>
+									<LineNumber>6z</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Total Other Nonrefundable Credits Amount -->
+			<xsd:element name="TotOthNonrefundableCreditsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Other Nonrefundable Credits Amount</Description>
+						<LineNumber>6z</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other Credits Amount -->
+			<xsd:element name="OtherCreditsAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other Credits Amount</Description>
+						<LineNumber>7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Nonrefundable Credits Amount -->
+			<xsd:element name="TotalNonrefundableCreditsAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Nonrefundable Credits Amount</Description>
+						<LineNumber>8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		
+			<!-- Part II  Other Payments and Refundable Credits -->			
+
+			<!-- Reconciled Premium Tax Credit Amount -->
+			<xsd:element name="ReconciledPremiumTaxCreditAmt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Reconciled Premium Tax Credit Amount</Description>
+						<LineNumber>9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountNNType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="IRS8962"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Request For Extension Amount -->
+			<xsd:element name="RequestForExtensionAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Request For Extension Amount</Description>
+						<LineNumber>10</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Excess Social Security And Tier 1 RRTA Tax Amount -->
+			<xsd:element name="ExcessSocSecAndTier1RRTATaxAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Excess Social Security And Tier 1 RRTA Tax Amount</Description>
+						<LineNumber>11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Fuel Tax Credit Amount -->
+			<xsd:element name="TotalFuelTaxCreditAmt" minOccurs="0">
+          			<xsd:annotation>
+            				<xsd:documentation>
+               					<Description>Credit Fuel Tax Credit Amount</Description>
+               					<LineNumber>12</LineNumber>
+             				</xsd:documentation>
+          			</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="IRS4136"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Tax Paid By RIC Or REIT Amount -->
+			<xsd:element name="TaxPaidByRICOrREITAmt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Tax Paid By RIC Or REIT Amount</Description>
+						<LineNumber>13a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountNNType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="IRS2439"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+			
+			<!-- Credit For Repayment Amount -->
+			<xsd:element name="CreditForRepaymentAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Section 1341 Credit For Repayment Amount</Description>
+						<LineNumber>13b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>			
+
+			<!-- Net Elective Payment Election Amount -->
+			<xsd:element name="NetElectivePymtElectionAmt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Net Elective Payment Election Amount</Description>
+						<LineNumber>13c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountNNType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="IRS3800"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Net Section 965 Tax Liability Amount -->
+			<xsd:element name="NetSection965TaxLiabilityAmt" minOccurs="0" type="USAmountType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Net Section 965 Tax Liability Amount</Description>
+						<LineNumber>13d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other Payments Or Refundable Credit Group -->
+			<xsd:element name="OtherRefundableCreditsGrp" minOccurs="0" maxOccurs="50">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other Refundable Credits Group</Description>
+						<LineNumber>13z</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:choice>
+							<!-- Other Refundable Credit Code -->
+							<xsd:element name="OtherRefundableCrCd">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Other Refundable Credits Code</Description>
+										<LineNumber>13z</LineNumber>
+									</xsd:documentation>
+								</xsd:annotation>
+								<xsd:simpleType>
+									<xsd:restriction base="TextType">
+										<xsd:enumeration value="960(c)"/>
+										<xsd:enumeration value="FORM 8689"/>
+										<xsd:enumeration value="1062NL"/>
+									</xsd:restriction>
+								</xsd:simpleType>
+							</xsd:element>
+						
+						
+							<!-- Other Refundable Credit Txt -->
+							<xsd:element name="OtherRefundableCrTxt">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Other Refundable Credits Text</Description>
+										<LineNumber>13z</LineNumber>
+									</xsd:documentation>
+								</xsd:annotation>
+								<xsd:simpleType>
+									<xsd:restriction base="TextType">
+										<xsd:maxLength value="50"/>
+									</xsd:restriction>
+								</xsd:simpleType>
+							</xsd:element>
+						</xsd:choice>
+						
+						<!-- Other Refundable Credits Amount -->
+						<xsd:element name="OtherRefundableCreditsAmt" type="USAmountNNType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Other Refundable Credits Amount</Description>
+									<LineNumber>13z</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+
+			<!-- Total Other Refundable Credits Amount -->
+			<xsd:element name="TotalOtherRefundableCreditsAmt" minOccurs="0" type="USAmountNNType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Other Refundable Credits Amount</Description>
+						<LineNumber>13z</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other Payments Amount -->
+			<xsd:element name="OtherPaymentsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other Payments Amount</Description>
+						<LineNumber>14</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Other Payments And Refundable Credit Amount -->
+			<xsd:element name="TotalOtherPaymentsRfdblCrAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Other Payments And Refundable Credit Amount</Description>
+						<LineNumber>15</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

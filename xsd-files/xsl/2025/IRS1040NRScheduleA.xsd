@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2020 rel. 2 (x64) (http://www.altova.com) by Internal Revenue Service (IRS Software Management) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file U.S. Nonresident Alien Income Tax Schema - IRS Form 1040NR Schedule A Itemized Deductions</Description>
+			<TaxYear>2025</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>February 19 2026</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+	<!-- ====================================================================== -->
+	<!-- ============================ IRS Form 1040NR Schedule A =========================== -->
+	<!-- ====================================================================== -->
+	<xsd:element name="IRS1040NRScheduleA">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 1040NR Schedule A</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS1040NRScheduleAType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS1040NRScheduleA">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="referenceDocumentId" type="IdListType">
+						<xsd:annotation>
+							<xsd:documentation>List of document ID's of forms, schedules, supporting info. etc. attached to this form</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+				<!-- <xsd:attribute name="referenceDocumentName" type="TextType" fixed="GeneralDependencySmall"/> -->
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="IRS1040NRScheduleAType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form IRS 1040NR Schedule A</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<!-- Taxes You Paid -->
+			<xsd:element name="StateAndLocalTaxAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>State and local taxes amount</Description>
+						<LineNumber>1a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="StateAndLocalTaxLimitationAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>State and local taxes limitation amount</Description>
+						<LineNumber>1b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Gifts to U.S. Charities -->
+			<xsd:element name="GiftsByCashOrCheckAmt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gifts by cash or check amount</Description>
+						<LineNumber>2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountNNType">
+							<xsd:attribute name="qualifiedContributionsAmt" type="USAmountNNType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<LineNumber>2</LineNumber>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:attribute>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+			
+			<xsd:element name="OtherThanByCashOrCheckAmt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other than by cash or check amount</Description>
+						<LineNumber>3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountNNType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="IRS8283"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="CarryoverFromPriorYearAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Carryover from prior year amount</Description>
+						<LineNumber>4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalCharitableContriAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total charitable contribution amount</Description>
+						<LineNumber>5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Casualty and Theft Losses-->
+			<xsd:element name="CasualtyOrTheftLossesAmt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Casualty or theft losses amount</Description>
+						<LineNumber>6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountNNType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="IRS4684"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+			<!-- Other Itemized Deductions-->
+			<xsd:element name="OtherMiscellaneousDedAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Carryover from prior year amount</Description>
+						<LineNumber>7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OtherMiscDedTypeAndAmt" minOccurs="0" maxOccurs="10">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>List type and amount of each expense. The total amount of expenses is reported on OtherMiscellaneousDedAmt</Description>
+						<LineNumber>7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:extension base="USItemizedEntryType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="IRS4684"/>
+						</xsd:extension>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<!-- Total Itemized Deductions-->
+			<xsd:element name="TotalItemizedDeductionsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total itemized deductions amount</Description>
+						<LineNumber>8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

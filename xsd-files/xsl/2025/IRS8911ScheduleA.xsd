@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+    <xsd:annotation>
+        <xsd:documentation>
+            <Description>IRS e-file Schema - Form 8911 Schedule A</Description>
+            <TaxYear>2025</TaxYear>
+            <MaturityLevel>Final Release</MaturityLevel>
+            <ReleaseDate>February 19 2026</ReleaseDate>
+        </xsd:documentation>
+    </xsd:annotation>
+    
+    <xsd:include schemaLocation="../../Common/efileTypes.xsd"/>
+    
+    <!-- ======================================================== -->
+    <!-- =============== IRS Form 8911 Schedule A =============== -->
+    <!-- ======================================================== -->
+    
+    <xsd:element name="IRS8911ScheduleA">
+        <xsd:annotation>
+            <xsd:documentation>IRS Form 8911 Schedule A - Alternative Fuel Vehicle Refueling Property</xsd:documentation>
+        </xsd:annotation>
+        
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="IRS8911ScheduleAType">
+                    <xsd:attributeGroup ref="DocumentAttributes">
+                        <xsd:annotation>
+                            <xsd:documentation>Common return document attributes</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:attributeGroup>
+                    
+                    <xsd:attribute name="documentName" type="TextType" fixed="IRS8911ScheduleA">
+                        <xsd:annotation>
+                            <xsd:documentation>IRS internal use only. To avoid errors within the return, do not include the attribute name or value.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:attribute>
+                    
+                    <xsd:attribute name="referenceDocumentId" type="IdListType">
+                        <xsd:annotation>
+                            <xsd:documentation>List of document IDs of forms, schedules, supporting info. etc. attached to this form.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:attribute>
+                    
+                    <xsd:attribute name="referenceDocumentName" type="TextType" fixed="GeneralDependencySmall"/>
+                </xsd:extension>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+    
+    <xsd:complexType name="IRS8911ScheduleAType">
+        <xsd:sequence>
+            <!-- =============== Part I =============== -->
+            
+            <!-- IRS-issued registration number for the refueling property -->
+            <xsd:element name="FacilityIRSIssdRegistrationNum" type="FacilityIRSIssdRegistrationNumType" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>IRS-issued registration number for the refueling property</Description>
+                        <LineNumber>1</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Description of refueling property -->
+            <xsd:element name="FacilityDesc" type="ShortExplanationType">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Description of refueling property</Description>
+                        <LineNumber>2a</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+			<xsd:choice minOccurs="0">
+				<xsd:sequence>
+					<!-- If different than filer, enter owner's person name -->
+					<xsd:element name="FacilityOwnerPersonNm" type="PersonNameType">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>If different than filer, enter owner's person name</Description>
+								<LineNumber>2b (i)</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+            
+					<!-- If different than filer, enter owner's SSN -->
+					<xsd:element name="FacilityOwnerSSN" type="SSNType">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>If different than filer, enter owner's SSN</Description>
+								<LineNumber>2b (ii)</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+				<xsd:sequence>
+					<!-- If different than filer, enter owner's business name -->
+					<xsd:element name="FacilityOwnerBusinessName" type="BusinessNameType">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>If different than filer, enter owner's business name</Description>
+								<LineNumber>2b (i)</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+            
+					<!-- If different than filer, enter owner's EIN -->
+					<xsd:element name="FacilityOwnerEIN" type="EINType">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>If different than filer, enter owner's EIN</Description>
+								<LineNumber>2b (ii)</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:choice>
+			
+            <!-- Location of refueling property -->
+            <xsd:element name="FacilityUSAddress" type="USAddressType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Location of refueling property</Description>
+                        <LineNumber>3a</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Location coordinates (Latitude) -->
+            <xsd:element name="FacilityLatitudeNum" type="LatitudeCoordinateType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Location coordinates (Latitude)</Description>
+                        <LineNumber>3b</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Location coordinates (Longitude) -->
+            <xsd:element name="FacilityLongitudeNum" type="LongitudeCoordinateType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Location coordinates (Longitude)</Description>
+                        <LineNumber>3b</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Date construction began -->
+            <xsd:element name="FacilityConstructionStartDt" type="DateType">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Date construction began</Description>
+                        <LineNumber>4</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Date placed in service -->
+            <xsd:element name="FacilityPlacedInServiceDt" type="DateType">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Date placed in service</Description>
+                        <LineNumber>5</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Eligible census tract determination. Was the refueling property placed in service before the specified year? -->
+            <xsd:element name="PlacedInSrvcEligCensusTractInd" type="BooleanType">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Eligible census tract determination. Was the refueling property placed in service before the specified year?</Description>
+                        <LineNumber>6a</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Census tract GEOID obtained by using the relevant location with the Census Bureau's 2015 Census Tract Identifier -->
+            <xsd:element name="CensusTractId2015GEOIDNum" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Census tract GEOID obtained by using the relevant location with the Census Bureau's 2015 Census Tract Identifier</Description>
+                        <LineNumber>6b</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+				<xsd:simpleType>
+                    <xsd:restriction base="NumericType">
+                        <xsd:length value="11"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            
+            <!-- Certification/permit number issued by government with jurisdiction over operation of refueling property -->
+            <xsd:element name="CertificationOrPermitNum" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Certification/permit number issued by government with jurisdiction over operation of refueling property</Description>
+                        <LineNumber>7</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+                
+                <xsd:simpleType>
+                    <xsd:restriction base="TextType">
+                        <xsd:maxLength value="25"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            
+            <!-- =============== Part II =============== -->
+            
+            <!-- Cost of the qualified alternative fuel vehicle refueling property -->
+            <xsd:element name="TotQlfyPropertyCostCreditAmt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Cost of the qualified alternative fuel vehicle refueling property</Description>
+                        <LineNumber>8</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Business/investment use percentage -->
+            <xsd:element name="BusinessInvestmentUsePct" type="RatioType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Business/investment use percentage</Description>
+                        <LineNumber>9</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Multiply TotQlfyPropertyCostCreditAmt by BusinessInvestmentUsePct -->
+            <xsd:element name="BusinessInvestmentUseAmt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Multiply TotQlfyPropertyCostCreditAmt by BusinessInvestmentUsePct</Description>
+                        <LineNumber>10</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Section 179 expense deduction -->
+            <xsd:element name="Section179ExpenseDeductionAmt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Section 179 expense deduction</Description>
+                        <LineNumber>11</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Subtract Section179ExpenseDeductionAmt from BusinessInvestmentUseAmt -->
+            <xsd:element name="NetBusinessUsePartAmt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Subtract Section179ExpenseDeductionAmt from BusinessInvestmentUseAmt</Description>
+                        <LineNumber>12</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Is the refueling property part of a qualified alternative fuel vehicle refuleing project that meets the prevailing wage and apprenticeship requirements? -->
+            <xsd:element name="PWARequirementMetInd" type="BooleanType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Is the refueling property part of a qualified alternative fuel vehicle refuleing project that meets the prevailing wage and apprenticeship requirements?</Description>
+                        <LineNumber>13</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Multiply NetBusinessUsePartAmt by specified percentage -->
+            <xsd:element name="TotBusinessUsePartAmt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Multiply NetBusinessUsePartAmt by specified percentage</Description>
+                        <LineNumber>14</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Reserve - Display value pre-printed on the Form. - -->
+            
+            <!-- Smaller total or maximum business use part amount -->
+            <xsd:element name="SmallerTotOrMaxBusUsePartAmt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Smaller total or maximum business use part amount</Description>
+                        <LineNumber>16</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- =============== Part III =============== -->
+            
+            <!-- Was the refueling property installed on the property used as main home? -->
+            <xsd:element name="PropertyUsedMainHomeInd" type="BooleanType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Was the refueling property installed on the property used as main home?</Description>
+                        <LineNumber>17</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Subtract BusinessInvestmentUseAmt from TotQlfyPropertyCostCreditAmt -->
+            <xsd:element name="TotQlfyPropLessBusInvstUseAmt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Subtract BusinessInvestmentUseAmt from TotQlfyPropertyCostCreditAmt</Description>
+                        <LineNumber>18</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Multiply TotQlfyPropLessBusInvstUseAmt by specified percentage -->
+            <xsd:element name="AdjustedPersonalUsePartAmt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Multiply TotQlfyPropLessBusInvstUseAmt by specified percentage</Description>
+                        <LineNumber>19</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Display value pre-printed on the Form. -->
+            
+            <!-- Personal use part of credit -->
+            <xsd:element name="TotalPersonalUsePartOfCrAmt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Personal use part of credit</Description>
+                        <LineNumber>21</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>

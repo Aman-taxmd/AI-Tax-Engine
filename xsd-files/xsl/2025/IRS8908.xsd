@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Partnership Income Tax Schema - IRS Form 8908</Description>
+			<TaxYear>2025</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>February 19 2026</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- =================================================================== -->
+	<!-- =======================  IRS Form 8908 ============================ -->
+	<!-- =================================================================== -->
+
+	<xsd:element name="IRS8908">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 8908</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS8908Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS8908">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="referenceDocumentId" type="IdListType">
+						<xsd:annotation>
+							<xsd:documentation>List of document ID's of forms, schedules, supporting info. etc. attached to this form</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="GeneralDependencySmall"/>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS8908Type">
+		<xsd:annotation>
+			<xsd:documentation>
+				<Description>Content model for IRS Form 8908</Description>
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+		
+		<!-- Are you an Eligible contractor that participated in the Energy Star programs and built or produced a qualified new energy efficient home? -->
+<xsd:element name="EligibleContractorInd" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Are you an Eligible contractor that participated in the Energy Star programs and built or produced a qualified new energy efficient home?</Description>
+						<LineNumber>A</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Did you have a Basis in a qualified new energy efficient home during its construction and before it was acquired for use as a residence during the tax year? -->
+<xsd:element name="BssQlfyNewEgyEfficientHmInd" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Did you have a Basis in a qualified new energy efficient home during its construction and before it was acquired for use as a residence during the tax year?</Description>
+						<LineNumber>B</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Did a certifier issue a certification of energy efficiency savings before the home was acquired for use as a residence during the tax year. -->
+<xsd:element name="IssdEgyEfficiencySavCertInd" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Did a certifier issue a certification of energy efficiency savings before the home was acquired for use as a residence during the tax year.</Description>
+						<LineNumber>C</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		
+			<!-- Enter the number of certifiers listed in specified part -->
+			<xsd:element name="TotCertifierCnt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter the number of certifiers listed in specified part</Description>
+						<LineNumber>Line D</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="IntegerPosType">
+						<xsd:totalDigits value="10"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!-- Enter the total number of home certifications reported -->
+			<xsd:element name="TotHomesCertifiedCnt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter the total number of home certifications reported</Description>
+						<LineNumber>Line E</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="IntegerPosType">
+						<xsd:totalDigits value="10"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+		<!--Part I -->
+
+			<!-- Total New Contruction or Manufactured Single Family Homes Meeting Single Home Requirements But Not Certified as Zero Energy Ready -->
+			<xsd:element name="TotalHomesMeetingStandardQty" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total New Contruction or Manufactured Single Family Homes Meeting Single Home Requirements But Not Certified as Zero Energy Ready</Description>
+						<LineNumber>Line 1a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+						<xsd:restriction base="IntegerNNType">
+							<xsd:totalDigits value="10"/>
+						</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!-- Multiply line 1a by $2,500. -->
+			<xsd:element name="TotalHomesStandardAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Multiply line 1a by $2,500.</Description>
+						<LineNumber>Line 1b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>		
+			</xsd:element>
+
+			<!-- Total New Contruction or Manufactured Single Family Homes And Certified as Zero Energy Ready -->
+			<xsd:element name="TotalMfrHmMeetingStdQty" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total New Contruction or Manufactured Single Family Homes And Certified as Zero Energy Ready</Description>
+						<LineNumber>Line 2a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+						<xsd:restriction base="IntegerNNType">
+							<xsd:totalDigits value="10"/>
+						</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!-- Multiply line 2a by $5,000. -->
+			<xsd:element name="TotalManufactureHomesAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Multiply line 2a by $5,000.</Description>
+						<LineNumber>Line 2b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Multifamily New Construction Homes Meeting Multifamily Home & Wage Requirements But Not Certified as Zero Energy Ready  -->
+			<xsd:element name="TotQlfyEgyStarProgNotCertQty" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Multifamily New Construction Homes Meeting Multifamily Home &#38; Wage Requirements But Not Certified as Zero Energy Ready</Description>
+						<LineNumber>Line 3a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+						<xsd:restriction base="IntegerNNType">
+							<xsd:totalDigits value="10"/>
+						</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!--  Multiply line 3a by $2,500  -->
+			<xsd:element name="TotQlfyEgyStarProgNotCertAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Multiply line 3a by $2,500</Description>
+						<LineNumber>Line 3b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Multifamily New Construction Homes Meeting Multifamily Home & Wage Requirements And Certified as Zero Energy Ready  -->
+			<xsd:element name="TotQlfyEgyStarProgCertQty" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Multifamily New Construction Homes Meeting Multifamily Home &#38; Wage Requirements And Certified as Zero Energy Ready</Description>
+						<LineNumber>Line 4a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+						<xsd:restriction base="IntegerNNType">
+							<xsd:totalDigits value="10"/>
+						</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!--  Multiply line 4a by $5,000   -->
+			<xsd:element name="TotQlfyEgyStarProgCertAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Multiply line 4a by $5,000</Description>
+						<LineNumber>Line 4b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Homes Energy Star Wage Not Met Not Certified Zero Energy Quantity  -->
+			<xsd:element name="TotQlfyEgyStarNotMetNotCertQty" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Homes Energy Star Wage Not Met Not Certified Zero Energy Quantity</Description>
+						<LineNumber>Line 5a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+						<xsd:restriction base="IntegerNNType">
+							<xsd:totalDigits value="10"/>
+						</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!--  Multiply line 5a by $500  -->
+			<xsd:element name="TotQlfyEgyStarNotMetNotCertAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Multiply line 5a by $500</Description>
+						<LineNumber>Line 5b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Homes Energy Star Wage Not Met Certified Zero Energy Quantity  -->
+			<xsd:element name="TotQlfyEgyStarNotMetCertQty" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Homes Energy Star Wage Not Met Certified Zero Energy Quantity</Description>
+						<LineNumber>Line 6a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+						<xsd:restriction base="IntegerNNType">
+							<xsd:totalDigits value="10"/>
+						</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!--  Multiply line 6a by $1,000  -->
+			<xsd:element name="TotQlfyEgyStarNotMetCertAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Multiply line 6a by $1,000</Description>
+						<LineNumber>Line 6b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Energy Efficient Home Credit -->
+			<xsd:element name="EnergyEfficientHomeCreditAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Energy Efficient Home Credit</Description>
+						<LineNumber>Line 7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Add lines 1b, 2b, 3b, 4b, 5b, 6b, and 7 -->
+			<xsd:element name="TotalCreditAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add lines 1b, 2b, 3b, 4b, 5b, 6b, and 7</Description>
+						<LineNumber>Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		<!--Part II -->
+			<!-- Certifier Information Group -->
+			<xsd:element name="CertifierInformationGrp"  minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Certifier Information Group</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:choice>
+							<!-- Person name of issuing certifier -->
+							<xsd:element name="PersonNm" type="PersonNameType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Person name of issuing certifier</Description>
+										<LineNumber>Part II Column (a)</LineNumber>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>					
+							<!-- Business name of issuing certifier -->
+							<xsd:element name="BusinessName" type="BusinessNameType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Business name of issuing certifier</Description>
+										<LineNumber>Part II Column (a)</LineNumber>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>								
+						</xsd:choice>
+						<!-- State where certifier is located -->
+						<xsd:element name="StateAbbreviationCd" type="StateType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>State where certifier is located</Description>
+									<LineNumber>Part II Column (b)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- Number of your homes certified by this certifier -->
+						<xsd:element name="HomesCertifiedCnt">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Number of your homes certified by this certifier</Description>
+									<LineNumber>Part II Column (c)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="IntegerPosType">
+									<xsd:totalDigits value="10"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<!-- Number of certifications that were modified from the original certification -->
+						<xsd:element name="OriginalModifiedCertCnt">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Number of certifications that were modified from the original certification</Description>
+									<LineNumber>Part II Column (d)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="IntegerNNType">
+									<xsd:totalDigits value="10"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<!-- Part II Column (e) Reserved for future use-->
+					</xsd:sequence>	
+				</xsd:complexType>	
+			</xsd:element>
+					<!-- Part III -->
+			<!-- Qualified Homes' Addresses -->
+			<xsd:element name="QualifiedHomesAddresses" type="USAddressType"  minOccurs="0" maxOccurs="20">
+			<xsd:annotation>
+				<xsd:documentation>
+					<Description>Qualified Homes' Addresses</Description>
+					<LineNumber>Part III, Columns (a) - (d)</LineNumber>
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

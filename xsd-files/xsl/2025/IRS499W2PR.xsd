@@ -1,0 +1,571 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - IRS Form 499R-2/W-2PR</Description>
+			<TaxYear>2025</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>February 19 2026</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+	
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+	
+	<!--========================================================================-->
+	<!--======================== IRS Form 499R-2/W-2PR =========================-->
+	<!--========================================================================-->
+	
+	<xsd:element name="IRS499W2PR">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 499R-2/W-2PR</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS499W2PRType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS499W2PR"/>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:complexType name="IRS499W2PRType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 499R-2/W-2PR</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+		
+			<!--Employee Name -->
+			<xsd:element name="EmployeeNameControlTxt" type="PersonNameControlType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Employee Name Control</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!--Employee Name -->
+			<xsd:element name="EmployeeNm" type="PersonNameType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Employee Name</Description>
+						<LineNumber>1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+	
+			<!--Employee United States Address -->
+			<xsd:element name="EmployeeUSAddress" type="USAddressType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Employee United States Address</Description>
+						<LineNumber>1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Employee Birth Date -->
+			<xsd:element name="BirthDt" type="DateType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Employee Birth Date</Description>
+						<LineNumber>1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!--Employer Name -->
+			<xsd:element name="EmployerName" type="BusinessNameType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Employer Name</Description>
+						<LineNumber>2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:choice>
+				<!--Employer United States Address -->
+				<xsd:element name="EmployerUSAddress" type="USAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Employer United States Address</Description>
+							<LineNumber>2</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>				
+				<!--Employer Foreign Address -->
+				<xsd:element name="EmployerForeignAddress" type="OtherForeignAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Employer Foreign Address</Description>
+							<LineNumber>2</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+			
+			<!--Employer Telephone Number -->
+			<xsd:element name="EmployerTelephoneNum" type="PhoneNumberType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Employer Telephone Number</Description>
+						<LineNumber>2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Employer's E-mail -->
+			<xsd:element name="EmployerEmailAddressTxt" type="EmailAddressType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Employer's E-mail</Description>
+						<LineNumber>2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!--Cease Operations Date -->
+			<xsd:element name="CeaseOperationsDt" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Cease Operations Date</Description>
+						<LineNumber>2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Electronic Filing Confirmation Number -->
+			<xsd:element name="ElectronicFilingCnfrmNum">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Electronic Filing Confirmation Number</Description>
+						<LineNumber>2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="AlphaNumericType">
+						<xsd:maxLength value="14"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			
+			<!--Control Number -->
+			<xsd:element name="ControlNum" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Control Number</Description>
+						<LineNumber>2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="AlphaNumericType">
+						<xsd:maxLength value="14"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			
+			<!--Social Security Number -->
+			<xsd:element name="SSN" type="SSNType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Social Security Number</Description>
+						<LineNumber>3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!--Employer Identification Number-->
+			<xsd:element name="EIN" type="EINType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Employer Identification Number</Description>
+						<LineNumber>4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!--Employer Name Control -->
+			<xsd:element name="EmployerNameControlTxt" type="BusinessNameControlType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Employer Name Control</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!--Employer Sponsored Health Coverage Cost Amount -->
+			<xsd:element name="EmplrSponsoredHealthCvrCostAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Employer Sponsored Health Coverage Cost Amount</Description>
+						<LineNumber>5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!--Total Charitable Contributions Amount -->
+			<xsd:element name="TotalCharitableContriAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Charitable Contributions Amount</Description>
+						<LineNumber>6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Qualify Physician Services Payment Indicator -->
+			<xsd:element name="QlfyPhysicianServicesPymtInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualify Physician Services Payment Indicator</Description>
+						<LineNumber>A</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Domestic Services Payment Indicator -->
+			<xsd:element name="DomesticServicesPaymentInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Domestic Services Payment Indicator</Description>
+						<LineNumber>B</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>		
+			
+			<!-- Agricultural Labor Service Payment Indicator -->
+			<xsd:element name="AgriculturalLaborSrvcPymtInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Agricultural Labor Service Payment Indicator</Description>
+						<LineNumber>C</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			
+			<!-- Church Religious Order Service Payment Indicator -->
+			<xsd:element name="ChurchReligiousOrdSrvcPymtInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Church Religious Order Service Payment Indicator</Description>
+						<LineNumber>D</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Health Professionals Payment Indicator -->
+			<xsd:element name="HealthProfessionalsPymtInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Health Professionals Payment Indicator</Description>
+						<LineNumber>E</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			
+			<!-- Direct Employment Payment Group -->
+			<xsd:element name="DirectEmploymentPaymentGrp" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<!-- Direct Employment Payment Indicator -->
+						<xsd:element name="DirectEmploymentPaymentInd" type="CheckboxType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Direct Employment Payment Indicator</Description>
+									<LineNumber>F</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Hours Worked Quantity -->
+						<xsd:element name="HoursWorkedQty">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Hours Worked Quantity</Description>
+									<LineNumber>F(i)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:decimal">
+									<xsd:totalDigits value="6"/>
+									<xsd:fractionDigits value="2"/>
+									<xsd:minInclusive value="0000.00"/>
+									<xsd:maxInclusive value="8784.00"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<!-- Employer Identification Number -->
+						<xsd:element name="EIN" type="EINType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Employer Identification Number</Description>
+									<LineNumber>F(ii)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Other Payments Indicator -->
+			<xsd:element name="OtherPaymentsInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other Payments Indicator</Description>
+						<LineNumber>G</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Other Service Salary Payment Concept Text -->
+			<xsd:element name="OthSrvcSalaryPaymentConceptTxt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other Service Salary Payment Concept Text</Description>
+						<LineNumber>G</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="TextType">
+						<xsd:maxLength value="35"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			
+			<!--Wages Amount -->
+			<xsd:element name="WagesAmt" type="USAmountNNType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Wages Amount</Description>
+						<LineNumber>7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!--Commissions Amount -->
+			<xsd:element name="CommissionsAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Commissions Amount</Description>
+						<LineNumber>8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!--Expense Allowances Amount -->
+			<xsd:element name="ExpenseAllowancesAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Expense Allowances Amount</Description>
+						<LineNumber>9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!--Employee Tips Amount -->
+			<xsd:element name="EmployeeTipsAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Employee Tips Amount</Description>
+						<LineNumber>10</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!--Total Income Amount -->
+			<xsd:element name="TotalIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Income Amount</Description>
+						<LineNumber>11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!--Employee Reimbursed Expense Amount -->
+			<xsd:element name="EmployeeReimbursedExpenseAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Employee Reimbursed Expense Amount</Description>
+						<LineNumber>12</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!--Withholding Amount -->
+			<xsd:element name="WithholdingAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Withholding Amount</Description>
+						<LineNumber>13</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!--Retirement Fund Amount -->
+			<xsd:element name="RetirementFundAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Retirement Fund Amount</Description>
+						<LineNumber>14</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!--Contributions To CODA Plans Amount -->
+			<xsd:element name="ContributionsToCODAPlansAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Contributions To CODA Plans Amount</Description>
+						<LineNumber>15</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Exempt Salaries Paid Group -->
+			<xsd:element name="ExemptSalariesPaidGrp" type="ExemptSalariesPaidGrpType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Exempt Salaries Paid Group</Description>
+						<LineNumber>16,17,18</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!--Contributions to the Save and Double your Money Program Amount -->
+			<xsd:element name="SaveAndDoubleMonyProgContriAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Contributions to the Save and Double your Money Program</Description>
+						<LineNumber>19</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!--Social Security Wages Amount -->
+			<xsd:element name="SocialSecurityWagesAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Social Security Wages Amount</Description>
+						<LineNumber>20</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!--Social Security Tax Amount -->
+			<xsd:element name="SocialSecurityTaxAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Social Security Tax Amount</Description>
+						<LineNumber>21</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!--Medicare Wages And Tips Amount -->
+			<xsd:element name="MedicareWagesAndTipsAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Medicare Wages And Tips Amount</Description>
+						<LineNumber>22</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!--Medicare Tax Withheld Amount -->
+			<xsd:element name="MedicareTaxWithheldAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Medicare Tax Withheld Amount</Description>
+						<LineNumber>23</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!--Social Security Tips Amount -->
+			<xsd:element name="SocialSecurityTipsAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Social Security Tips Amount</Description>
+						<LineNumber>24</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!--Uncollected Social Security Tax On Tips Amount -->
+			<xsd:element name="UncollectedSocSecTaxOnTipsAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Uncollected Social Security Tax On Tips Amount</Description>
+						<LineNumber>25</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!--Uncollected Medicare Tax On Tips Amount -->
+			<xsd:element name="UncollectedMedcrTaxOnTipsAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Uncollected Medicare Tax On Tips Amount</Description>
+						<LineNumber>26</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!--Standard Or Non Standard Code -->
+			<xsd:element name="StandardOrNonStandardCd" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Standard Or Non Standard Code</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="TextType">
+						<xsd:enumeration value="N"/>
+						<xsd:enumeration value="S"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="ExemptSalariesPaidGrpType">
+		<xsd:annotation>
+			<xsd:documentation>Exempt Salaries Paid Group Type</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<!-- Exempt Salary Paid Code -->
+			<xsd:element name="ExemptSalaryPaidCd">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Exempt Salary Paid Code</Description>
+						<LineNumber>16,17,18</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="TextType">
+						<xsd:pattern value="[A-J]{1}"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<!-- Exempt Salary Paid Amount -->
+			<xsd:element name="ExemptSalaryPaidAmt" type="USAmountNNType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Exempt Salary Paid Amount</Description>
+						<LineNumber>16,17,18</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

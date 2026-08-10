@@ -1,0 +1,532 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2025 rel. 2 (x64) (https://www.altova.com) by Internal Revenue Service (Internal Revenue Service) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form 4547 - Trump Account Election(s)</Description>
+			<TaxYear>2025</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>February 19 2026</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+	
+	<!-- ============================================= -->
+	<!-- =============== IRS Form 4547 =============== -->
+	<!-- ============================================= -->
+	
+	<xsd:element name="IRS4547">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 4547 - Trump Account Election(s)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS4547Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="TextType" fixed="IRS4547">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid errors within the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="referenceDocumentId" type="IdListType">
+						<xsd:annotation>
+							<xsd:documentation>List of document IDs of forms, schedules, supporting info. etc. attached to this form.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="referenceDocumentName" type="TextType" fixed="GeneralDependencySmall"/>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="IRS4547Type">
+		<xsd:sequence>
+		
+			<!-- =============== Part I =============== -->
+			
+			<!-- Responsible party person first name -->
+			<xsd:element name="ResponsiblePrtyPersonFirstNm" type="PersonFirstNameType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Responsible party person first name</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Responsible party person middle name -->
+			<xsd:element name="ResponsiblePrtyPersonMiddleNm" type="PersonFirstNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Responsible party person middle name</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Responsible party person last name -->
+			<xsd:element name="ResponsiblePrtyPersonLastNm" type="PersonLastNameType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Responsible party person last name</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Responsible party date of birth -->
+			<xsd:element name="ResponsiblePrtyBirthDt" type="DateType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Responsible party date of birth</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Responsible party social security number -->
+			<xsd:element name="ResponsiblePrtySSN" type="SSNType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Responsible party social security number</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:choice>
+				<!-- Responsible party telephone number -->
+				<xsd:element name="ResponsiblePrtyPhoneNum" type="PhoneNumberType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Responsible party telephone number</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<!-- Responsible party foreign telephone number -->
+				<xsd:element name="ResponsiblePrtyForeignPhoneNum" type="ForeignPhoneNumberType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Responsible party foreign telephone number</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+			<!-- Responsible party email address -->
+			<xsd:element name="ResponsiblePrtyEmailAddressTxt" type="EmailAddressType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Responsible party email address</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:choice>
+				<xsd:sequence>
+					<!-- Responsible party US address -->
+					<xsd:element name="ResponsiblePrtyUSAddress" type="USAddressType">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>Responsible party US address</Description>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<!-- Responsible party county -->
+					<xsd:element name="ResponsiblePrtyCountyNm" type="ShortDescriptionType">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>Responsible party county</Description>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+				<!-- Responsible party foreign address -->
+				<xsd:element name="ResponsiblePrtyForeignAddress" type="ForeignAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Responsible party foreign address</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+			
+			<!-- =============== Part II =============== -->
+			
+			<!-- Trump account child information group -->
+			<xsd:element name="TrumpAccountChildInfoGrp" maxOccurs="100">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Trump account child information group</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<!-- First name -->
+						<xsd:element name="PersonFirstNm" type="PersonFirstNameType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>First name</Description>
+									<LineNumber>1a</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- Middle name -->
+						<xsd:element name="PersonMiddleNm" type="PersonFirstNameType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Middle name</Description>
+									<LineNumber>1b</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- Last name -->
+						<xsd:element name="PersonLastNm" type="PersonLastNameType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Last name</Description>
+									<LineNumber>1c</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- Social security number -->
+						<xsd:element name="SSN" type="SSNType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Social security number</Description>
+									<LineNumber>2</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- Date of birth -->
+						<xsd:element name="BirthDt" type="DateType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Date of birth</Description>
+									<LineNumber>3</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- Relationship -->
+						<xsd:element name="ChildRelationshipCd">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Relationship</Description>
+									<LineNumber>4</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="TextType">
+									<xsd:enumeration value="SON"/>
+									<xsd:enumeration value="DAUGHTER"/>
+									<xsd:enumeration value="STEPCHILD"/>
+									<xsd:enumeration value="FOSTER CHILD"/>
+									<xsd:enumeration value="BROTHER"/>
+									<xsd:enumeration value="SISTER"/>
+									<xsd:enumeration value="STEPBROTHER"/>
+									<xsd:enumeration value="STEPSISTER"/>
+									<xsd:enumeration value="HALF BROTHER"/>
+									<xsd:enumeration value="HALF SISTER"/>
+									<xsd:enumeration value="GRANDCHILD"/>
+									<xsd:enumeration value="NIECE"/>
+									<xsd:enumeration value="NEPHEW"/>
+									<xsd:enumeration value="OTHER"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<xsd:choice>
+							<!-- Home Address the same as Parent/Guardian -->
+							<xsd:element name="HomeAddressSameInd" type="CheckboxType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Home Address the same as Parent/Guardian</Description>
+										<LineNumber>5</LineNumber>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:sequence>
+								<!-- US Address -->
+								<xsd:element name="USAddress" type="USAddressType">
+									<xsd:annotation>
+										<xsd:documentation>
+											<Description>US Address</Description>
+											<LineNumber>5a-c, e-f</LineNumber>
+										</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<!-- County -->
+								<xsd:element name="CountyNm" type="ShortDescriptionType">
+									<xsd:annotation>
+										<xsd:documentation>
+											<Description>County</Description>
+											<LineNumber>5d</LineNumber>
+										</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+							<!-- Foreign address -->
+							<xsd:element name="ForeignAddress" type="ForeignAddressType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Foreign address</Description>
+										<LineNumber>5a-c, g-i</LineNumber>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+						</xsd:choice>
+						<!-- Check box if you are authorized to open the Trump account for the child -->
+						<xsd:element name="AuthorizedOpenAccountInd" type="CheckboxType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Check box if you are authorized to open the Trump account for the child</Description>
+									<LineNumber>6</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						
+						<!-- =============== Part III =============== -->
+						
+						<!-- Check box if child qualifies for, and you want the child to receive, a Pilot Program Contribution -->
+						<xsd:element name="PilotProgramContributionInd" type="CheckboxType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Check box if child qualifies for, and you want the child to receive, a Pilot Program Contribution</Description>
+									<LineNumber>7</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			
+			<!-- =============== Part IV =============== -->
+			
+			<!-- =============== Sign Here =============== -->
+			
+			<!-- Originator Group -->
+			<xsd:element name="OriginatorGrp">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Originator Group</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="EFIN" type="EFINType"/>
+						<xsd:element name="OriginatorTypeCd" type="OriginatorType"/>
+						<!-- Practitioner PIN -->
+						<xsd:element name="PractitionerPINGrp" minOccurs="0">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="EFIN" type="EFINType"/>
+									<xsd:element name="PIN" type="PINType"/>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			
+			<!-- Self-select PIN -->
+			<xsd:element name="SelfSelectPINGrp" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Self-select PIN</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<!-- Date Of Birth -->
+						<xsd:element name="BirthDt" type="DateType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Date Of Birth</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- Prior Year AGI -->
+						<xsd:element name="PriorYearAGIAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Prior Year AGI</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- Prior Year PIN -->
+						<xsd:element name="PriorYearPIN" type="PINType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Prior Year PIN</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<!-- PIN Type Code -->
+			<xsd:element name="PINTypeCd" type="PINCodeType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>PIN Type Code</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Jurat Disclosure Code -->
+			<xsd:element name="JuratDisclosureCd">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Jurat Disclosure Code</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="TextType">
+						<xsd:enumeration value="Online Self Select PIN"/>
+						<xsd:enumeration value="Self Select PIN By ERO"/>
+						<xsd:enumeration value="Practitioner PIN"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<!-- PIN entered by -->
+			<xsd:element name="PINEnteredByCd" type="PINEnteredByType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>PIN entered by</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Signature -->
+			<xsd:element name="SignaturePIN" type="PINType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Signature</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Signature Date -->
+			<xsd:element name="SignatureDt" type="DateType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Signature Date</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- =============== Paid Preparer Use Only =============== -->
+			
+			<!-- Paid Preparer Information -->
+			<xsd:element name="PaidPreparerInformationGrp" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Paid Preparer Information</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<!-- Date Signed -->
+						<xsd:element name="SignatureDt" type="DateType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Date Signed</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- Self Employed -->
+						<xsd:element name="SelfEmployedInd" type="CheckboxType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Self Employed</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:choice minOccurs="0">
+							<!-- Preparer PTIN -->
+							<xsd:element name="PTIN" type="PTINType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Preparer PTIN</Description>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<!-- Preparer STIN -->
+							<xsd:element name="STIN" type="STINType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Preparer STIN</Description>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<!-- Preparer SSN -->
+							<xsd:element name="PreparerSSN" type="SSNType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Preparer SSN</Description>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+						</xsd:choice>
+						<!-- Preparer Firm ID Number -->
+						<xsd:element name="PreparerFirmEIN" type="EINType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Preparer Firm ID Number</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- Preparer Person Name -->
+						<xsd:element name="PreparerPersonNm" type="PersonNameType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Preparer Person Name</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- Preparer Firm Name -->
+						<xsd:element name="PreparerFirmName" type="BusinessNameType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Preparer Firm Name</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:choice minOccurs="0">
+							<!-- US Address -->
+							<xsd:element name="PreparerUSAddress" type="USAddressType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>US Address</Description>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<!-- Preparer Foreign Address -->
+							<xsd:element name="PreparerForeignAddress" type="ForeignAddressType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Preparer Foreign Address</Description>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+						</xsd:choice>
+						<xsd:choice minOccurs="0">
+							<!-- Phone -->
+							<xsd:element name="PhoneNum" type="PhoneNumberType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Phone</Description>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<!-- Foreign Phone -->
+							<xsd:element name="ForeignPhoneNum" type="ForeignPhoneNumberType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Foreign Phone</Description>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+						</xsd:choice>
+						<!-- Email Address -->
+						<xsd:element name="EmailAddressTxt" type="EmailAddressType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Email Address</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

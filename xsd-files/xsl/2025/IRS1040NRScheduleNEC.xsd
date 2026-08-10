@@ -1,0 +1,1157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file U.S. Nonresident Alien Income Tax Schema - IRS Form 1040NR Schedule NEC Tax on Income Not Effectively Connected With a U.S. Trade or Business</Description>
+			<TaxYear>2025</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>February 19 2026</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+	
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+	
+	<!-- ====================================================================== -->
+	<!-- ============================ IRS Form 1040NR Schedule NEC =========================== -->
+	<!-- ====================================================================== -->
+	
+	<xsd:element name="IRS1040NRScheduleNEC">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 1040NR Schedule NEC</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS1040NRScheduleNECType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS1040NRScheduleNEC">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:complexType name="IRS1040NRScheduleNECType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form IRS 1040NR Schedule NEC</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<!-- Nature of income -->
+			<xsd:element name="GmblWinCanadaResidentsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gambling winnings residents of Canada amount</Description>
+						<LineNumber>10(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		
+			<xsd:element name="GmblLossCanadaResidentsAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gambling losses residents of Canada amount</Description>
+						<LineNumber>10(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		
+			<xsd:element name="IncomeTaxRt10UndTrtyRuleGrp" type="IncomeTaxRt10UndTrtyRuleGrpType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Income Subject To The 10 Percent Tax Rate Under A Tax Treaty Or U.S. Tax Rule</Description>
+						<LineNumber>(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:element name="IncomeTaxRt15UndTrtyRuleGrp" type="IncomeTaxRt15UndTrtyRuleGrpType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Income Subject To The 15 Percent Tax Rate Under A Tax Treaty Or U.S. Tax Rule</Description>
+						<LineNumber>(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:element name="IncomeTaxRt30UndTrtyRuleGrp" type="IncomeTaxRt30UndTrtyRuleGrpType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Income Subject To The 30 Percent Tax Rate Under A Tax Treaty Or U.S. Tax Rule</Description>
+						<LineNumber>(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:element name="IncomeTaxRtOthUndTrtyRuleGrp" type="IncomeTaxRtOthUndTrtyRuleGrpType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Income Subject To The 15 Percent Tax Rate Under A Tax Treaty Or U.S. Tax Rule</Description>
+						<LineNumber>(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<xsd:element name="IncomeTaxRtOth2UndTrtyRuleGrp" type="IncomeTaxRtOth2UndTrtyRuleGrpType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Income Subject To An Other Percent Tax Rate Under A Tax Treaty Or U.S. Tax Rule</Description>
+						<LineNumber>(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<xsd:element name="IncomeNotUSBusinessTaxAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Tax on income not effectively connected with a U.S. trade or business amount</Description>
+						<LineNumber>15</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>			
+			
+			<!-- Capital Gains and Losses From Sales Or Exchanges of Property -->
+			
+			<xsd:element name="CapGainLossSlsOrExchPropGrp" type="CapGainLossSlsOrExchPropGrpType" minOccurs="0"  maxOccurs="25">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Income Subject To An Other Percent Tax Rate Under A Tax Treaty Or U.S. Tax Rule</Description>
+						<LineNumber>(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<xsd:element name="TotalCapitalLossAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total capital loss amount</Description>
+						<LineNumber>17(f)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:element name="TotalCapitalGainAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total capital gain amount</Description>
+						<LineNumber>17(g)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<xsd:element name="NetCapitalGainOrLossAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Net capital gain or loss amount</Description>
+						<LineNumber>18(g)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="IncomeTaxRt10UndTrtyRuleGrpType">
+		<xsd:sequence>
+			<xsd:element name="DividendsPaidDomCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Dividends paid by U.S. corporations amount</Description>
+						<LineNumber>(a) 1a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<xsd:element name="DividendsPaidFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Dividends paid by foreign corporations amount</Description>
+						<LineNumber>(a) 1b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			                   
+			<xsd:element name="DividendEquivalentPaymentAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Dividend payments with section 871(m) transactions</Description>
+						<LineNumber>(a) 1c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<xsd:element name="MortgageInterestAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Mortgage interest amount</Description>
+						<LineNumber>(a) 2a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:element name="InterestPaidFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Interest paid by foreign corporations amount</Description>
+						<LineNumber>(a) 2b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:element name="OtherInterestAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other interest amount</Description>
+						<LineNumber>(a) 2c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<xsd:element name="IndustrialRoyaltiesAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Industrial royalties amount</Description>
+						<LineNumber>(a) 3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<xsd:element name="CopyrightRoyaltiesAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Copyright royalties amount</Description>
+						<LineNumber>(a) 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:element name="OtherRoyaltiesAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other royalties amount</Description>
+						<LineNumber>(a) 5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:element name="RealPropNatRscRoyaltiesAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Real property income and natural resources royalties amount</Description>
+						<LineNumber>(a) 6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:element name="PensionsAnnuitiesAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Pensions and annuities amount</Description>
+						<LineNumber>(a) 7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:element name="SocSecBnftAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Social security benefits amount</Description>
+						<LineNumber>(a) 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:element name="NetCapitalGainOrLossAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Capital gain or loss amount</Description>
+						<LineNumber>(a) 9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:element name="GmblWinNotCanadaResidentsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gambling winnings non-residents of Canada amount</Description>
+						<LineNumber>(a) 11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+	
+			<xsd:element name="OtherIncomeTyp" type="ShortDescriptionType" minOccurs="0" maxOccurs="10">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other income</Description>
+						<LineNumber>12</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<xsd:element name="OtherIncomeLitCd" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other income literal code</Description>
+						<LineNumber>12</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="TextType">
+ 						<xsd:enumeration value="LTC"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="OtherIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other income amount</Description>
+						<LineNumber>(a) 12</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:element name="TotalIncomeAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total income amount</Description>
+						<LineNumber>(a) 13</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:element name="TotalIncomeTimesTaxRtAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total income times tax rate amount</Description>
+						<LineNumber>(a) 14</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="IncomeTaxRt15UndTrtyRuleGrpType">
+		<xsd:sequence>
+			<xsd:element name="DividendsPaidDomCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Dividends paid by U.S. corporations amount</Description>
+						<LineNumber>(b) 1a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<xsd:element name="DividendsPaidFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Dividends paid by foreign corporations amount</Description>
+						<LineNumber>(b) 1b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<xsd:element name="DividendEquivalentPaymentAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Dividend payments with section 871(m) transactions</Description>
+						<LineNumber>(b) 1c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<xsd:element name="MortgageInterestAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Mortgage interest amount</Description>
+						<LineNumber>(b) 2a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:element name="InterestPaidFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Interest paid by foreign corporations amount</Description>
+						<LineNumber>(b) 2b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:element name="OtherInterestAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other interest amount</Description>
+						<LineNumber>(b) 2c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<xsd:element name="IndustrialRoyaltiesAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Industrial royalties amount</Description>
+						<LineNumber>(b) 3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<xsd:element name="CopyrightRoyaltiesAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Copyright royalties amount</Description>
+						<LineNumber>(b) 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:element name="OtherRoyaltiesAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other royalties amount</Description>
+						<LineNumber>(b) 5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:element name="RealPropNatRscRoyaltiesAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Real property income and natural resources royalties amount</Description>
+						<LineNumber>(b) 6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:element name="PensionsAnnuitiesAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Pensions and annuities amount</Description>
+						<LineNumber>(b) 7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:element name="SocSecBnftAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Social security benefits amount</Description>
+						<LineNumber>(b) 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:element name="NetCapitalGainOrLossAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Capital gain or loss amount</Description>
+						<LineNumber>(b) 9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:element name="OtherIncomeTyp" type="ShortDescriptionType" minOccurs="0" maxOccurs="10">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other income</Description>
+						<LineNumber>12</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<xsd:element name="OtherIncomeLitCd" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other income literal code</Description>
+						<LineNumber>12</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="TextType">
+ 						<xsd:enumeration value="LTC"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="OtherIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other income amount</Description>
+						<LineNumber>(b) 12</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:element name="TotalIncomeAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total income amount</Description>
+						<LineNumber>(b) 13</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:element name="TotalIncomeTimesTaxRtAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total income times tax rate amount</Description>
+						<LineNumber>(b) 14</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>				
+			
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="IncomeTaxRt30UndTrtyRuleGrpType">
+		<xsd:sequence>
+			<xsd:element name="DividendsPaidDomCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Dividends paid by U.S. corporations amount</Description>
+						<LineNumber>(c) 1a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<xsd:element name="DividendsPaidFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Dividends paid by foreign corporations amount</Description>
+						<LineNumber>(c) 1b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			                   
+			<xsd:element name="DividendEquivalentPaymentAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Dividend payments with section 871(m) transactions</Description>
+						<LineNumber>(c) 1c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<xsd:element name="MortgageInterestAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Mortgage interest amount</Description>
+						<LineNumber>(c) 2a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:element name="InterestPaidFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Interest paid by foreign corporations amount</Description>
+						<LineNumber>(c) 2b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:element name="OtherInterestAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other interest amount</Description>
+						<LineNumber>(c) 2c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<xsd:element name="IndustrialRoyaltiesAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Industrial royalties amount</Description>
+						<LineNumber>(c) 3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<xsd:element name="CopyrightRoyaltiesAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Copyright royalties amount</Description>
+						<LineNumber>(c) 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:element name="OtherRoyaltiesAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other royalties amount</Description>
+						<LineNumber>(c) 5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:element name="RealPropNatRscRoyaltiesAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Real property income and natural resources royalties amount</Description>
+						<LineNumber>(c) 6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:element name="PensionsAnnuitiesAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Pensions and annuities amount</Description>
+						<LineNumber>(c) 7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:element name="SocSecBnftAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Social security benefits amount</Description>
+						<LineNumber>(c) 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:element name="NetCapitalGainOrLossAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Capital gain or loss amount</Description>
+						<LineNumber>(c) 9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+	
+			<xsd:element name="NetGmblCanadaResidentsAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Net gambling winnings residents of Canada amount</Description>
+						<LineNumber>(c) 10c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<xsd:element name="GmblWinNotCanadaResidentsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gambling winnings non-residents of Canada amount</Description>
+						<LineNumber>(c) 11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+	
+			<xsd:element name="OtherIncomeTyp" type="ShortDescriptionType" minOccurs="0" maxOccurs="10">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other income</Description>
+						<LineNumber>12</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<xsd:element name="OtherIncomeLitCd" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other income literal code</Description>
+						<LineNumber>12</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="TextType">
+ 						<xsd:enumeration value="LTC"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="OtherIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other income amount</Description>
+						<LineNumber>(c) 12</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:element name="TotalIncomeAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total income amount</Description>
+						<LineNumber>(c) 13</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:element name="TotalIncomeTimesTaxRtAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total income times tax rate amount</Description>
+						<LineNumber>(c) 14</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>			
+			
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="IncomeTaxRtOthUndTrtyRuleGrpType">
+		<xsd:sequence>
+
+			<xsd:element name="TaxRt" type="SmallRatioType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Tax rate</Description>
+						<LineNumber>(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<xsd:element name="DividendsPaidDomCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Dividends paid by U.S. corporations amount</Description>
+						<LineNumber>(d) 1a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<xsd:element name="DividendsPaidFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Dividends paid by foreign corporations amount</Description>
+						<LineNumber>(d) 1b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			                   
+			<xsd:element name="DividendEquivalentPaymentAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Dividend payments with section 871(m) transactions</Description>
+						<LineNumber>(d) 1c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<xsd:element name="MortgageInterestAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Mortgage interest amount</Description>
+						<LineNumber>(d) 2a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:element name="InterestPaidFrgnCorpAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Interest paid by foreign corporations amount</Description>
+						<LineNumber>(d) 2b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:element name="OtherInterestAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other interest amount</Description>
+						<LineNumber>(d) 2c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<xsd:element name="IndustrialRoyaltiesAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Industrial royalties amount</Description>
+						<LineNumber>(d) 3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<xsd:element name="CopyrightRoyaltiesAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Copyright royalties amount</Description>
+						<LineNumber>(d) 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:element name="OtherRoyaltiesAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other royalties amount</Description>
+						<LineNumber>(d) 5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:element name="RealPropNatRscRoyaltiesAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Real property income and natural resources royalties amount</Description>
+						<LineNumber>(d) 6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:element name="PensionsAnnuitiesAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Pensions and annuities amount</Description>
+						<LineNumber>(d) 7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:element name="SocSecBnftAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Social security benefits amount</Description>
+						<LineNumber>(d) 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:element name="NetCapitalGainOrLossAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Capital gain or loss amount</Description>
+						<LineNumber>(d) 9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<xsd:element name="NetGmblCanadaResidentsAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Net gambling winnings residents of Canada amount</Description>
+						<LineNumber>(d) 10c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<xsd:element name="GmblWinNotCanadaResidentsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gambling winnings non-residents of Canada amount</Description>
+						<LineNumber>(d) 11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+	
+			<xsd:element name="OtherIncomeTyp" type="ShortDescriptionType" minOccurs="0" maxOccurs="10">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other income</Description>
+						<LineNumber>12</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<xsd:element name="OtherIncomeLitCd" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other income literal code</Description>
+						<LineNumber>12</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="TextType">
+ 						<xsd:enumeration value="LTC"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="OtherIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other income amount</Description>
+						<LineNumber>(d) 12</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:element name="TotalIncomeAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total income amount</Description>
+						<LineNumber>(d) 13</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:element name="TotalIncomeTimesTaxRtAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total income times tax rate amount</Description>
+						<LineNumber>(d) 14</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="IncomeTaxRtOth2UndTrtyRuleGrpType">
+			<xsd:sequence>
+	
+				<xsd:element name="TaxRt" type="SmallRatioType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Tax rate</Description>
+							<LineNumber>(d)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+				<xsd:element name="DividendsPaidDomCorpAmt" type="USAmountType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Dividends paid by U.S. corporations amount</Description>
+							<LineNumber>(d) 1a</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+				<xsd:element name="DividendsPaidFrgnCorpAmt" type="USAmountType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Dividends paid by foreign corporations amount</Description>
+							<LineNumber>(d) 1b</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				                   
+				<xsd:element name="DividendEquivalentPaymentAmt" type="USAmountType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Dividend payments with section 871(m) transactions</Description>
+							<LineNumber>(d) 1c</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+				<xsd:element name="MortgageInterestAmt" type="USAmountType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Mortgage interest amount</Description>
+							<LineNumber>(d) 2a</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+	
+				<xsd:element name="InterestPaidFrgnCorpAmt" type="USAmountType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Interest paid by foreign corporations amount</Description>
+							<LineNumber>(d) 2b</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+	
+				<xsd:element name="OtherInterestAmt" type="USAmountType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Other interest amount</Description>
+							<LineNumber>(d) 2c</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+				<xsd:element name="IndustrialRoyaltiesAmt" type="USAmountType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Industrial royalties amount</Description>
+							<LineNumber>(d) 3</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+				<xsd:element name="CopyrightRoyaltiesAmt" type="USAmountType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Copyright royalties amount</Description>
+							<LineNumber>(d) 4</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+	
+				<xsd:element name="OtherRoyaltiesAmt" type="USAmountType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Other royalties amount</Description>
+							<LineNumber>(d) 5</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+	
+				<xsd:element name="RealPropNatRscRoyaltiesAmt" type="USAmountType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Real property income and natural resources royalties amount</Description>
+							<LineNumber>(d) 6</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+	
+				<xsd:element name="PensionsAnnuitiesAmt" type="USAmountType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Pensions and annuities amount</Description>
+							<LineNumber>(d) 7</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+	
+				<xsd:element name="SocSecBnftAmt" type="USAmountType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Social security benefits amount</Description>
+							<LineNumber>(d) 8</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+	
+				<xsd:element name="NetCapitalGainOrLossAmt" type="USAmountNNType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Capital gain or loss amount</Description>
+							<LineNumber>(d) 9</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+				<xsd:element name="OtherIncomeTyp" type="ShortDescriptionType" minOccurs="0" maxOccurs="10">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Other income</Description>
+							<LineNumber>12</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+			<xsd:element name="OtherIncomeLitCd" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other income literal code</Description>
+						<LineNumber>12</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="TextType">
+ 						<xsd:enumeration value="LTC"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+	
+				<xsd:element name="OtherIncomeAmt" type="USAmountType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Other income amount</Description>
+							<LineNumber>(d) 12</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+	
+				<xsd:element name="TotalIncomeAmt" type="USAmountNNType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Total income amount</Description>
+							<LineNumber>(d) 13</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+	
+				<xsd:element name="TotalIncomeTimesTaxRtAmt" type="USAmountType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Total income times tax rate amount</Description>
+							<LineNumber>(d) 14</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+			</xsd:sequence>
+	</xsd:complexType>
+	
+	
+	
+	<xsd:complexType name="CapGainLossSlsOrExchPropGrpType">
+		<xsd:sequence>
+
+			<xsd:element name="PropertyDesc" type="TextType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Property description</Description>
+						<LineNumber>16(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<xsd:element name="AcquiredDt" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Acquired date</Description>
+						<LineNumber>16(b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<xsd:element name="SoldDt" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Sold date</Description>
+						<LineNumber>16(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:element name="SalesPriceAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Sales price amount</Description>
+						<LineNumber>16(d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		
+			<xsd:element name="CostOrOtherBasisAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Cost or other basis amount</Description>
+						<LineNumber>16(e)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<xsd:element name="LossAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Loss amount</Description>
+						<LineNumber>16(f)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<xsd:element name="GainAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gain amount</Description>
+						<LineNumber>16(g)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+		</xsd:sequence>
+	</xsd:complexType>	
+	
+
+</xsd:schema>

@@ -1,0 +1,28 @@
+# Seed catalog for Form W-2 (Wage and Tax Statement).
+#
+# W-2 is a special case among this project's forms: it is not filed BY the
+# taxpayer, it is issued TO the taxpayer by an employer, and it has no e-file
+# XSD of its own that this pilot walks the way it does for 8889/1040/
+# Schedule 1/Schedule 1-A (build/consolidation/w2_bridge.py hand-authors the
+# canonical fields instead -- see that module's docstring for why: there is
+# no single IRS *line* for "the taxpayer's list of W-2s", only Form 1040's
+# own already-summed destination lines). This catalog exists purely so the
+# real fw2.pdf (Copy B, the fillable AcroForm) can be discovered/catalogued
+# for the "realistic form view" (ui/pages/2_Answer_Questions.py), and so the
+# 2025 Instructions for Forms W-2 and W-3 (iw2w3) are catalogued for source
+# citations on the hand-authored Box 1/2/3/5/12-W canonical fields.
+form_number: "w2"
+tax_year: 2025
+
+entry_points:
+  - url: https://www.irs.gov/forms-pubs/about-form-w-2
+    role: primary_form
+
+include_doc_types:
+  - instructions
+  - form
+
+# W-3 (transmittal, employer-filed, not taxpayer-relevant) is discovered from
+# the same About page but explicitly out of scope for this pilot.
+excluded_doc_ids:
+  - w3

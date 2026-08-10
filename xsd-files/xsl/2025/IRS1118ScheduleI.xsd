@@ -1,0 +1,552 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form 1118 Schedule I</Description>
+			<TaxYear>2025</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>February 19 2026</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+
+	<!-- =============================================================== -->
+	<!-- ======================  IRS Form 1118 Schedule I ============== -->
+	<!-- =============================================================== -->
+
+
+	<xsd:element name="IRS1118ScheduleI">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 1118 Schedule I</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS1118ScheduleIType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS1118ScheduleI">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="BinaryAttachment CurrencyConversionStatement"/>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS1118ScheduleIType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 1118 Schedule I</xsd:documentation>
+		</xsd:annotation>
+
+		<xsd:sequence>
+	
+			<!-- Separate Category Code -->
+			<xsd:element name="SeparateCategoryCd">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Separate category code</Description>
+						<LineNumber>Line a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="TextType">
+						<xsd:enumeration value="PAS"/>
+						<xsd:enumeration value="GEN"/>
+						<xsd:enumeration value="901j"/>
+						<xsd:enumeration value="951A"/>
+						<xsd:enumeration value="FB"/>
+						<xsd:enumeration value="RBT PAS"/>
+						<xsd:enumeration value="RBT GEN"/>
+						<xsd:enumeration value="RBT FB"/>
+						<xsd:enumeration value="RBT 951A"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!-- Sanctioned Country Code -->
+			<xsd:element name="SanctionedCountryCd" type="CountryType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Sanctioned country code</Description>
+						<LineNumber>Line b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Treaty Country Code -->
+			<xsd:element name="TreatyCountryCd" type="CountryType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Sanctioned country code</Description>
+						<LineNumber>Line c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Part I - Combined Foreign Oil and Gas Income and Taxes -->
+
+			<!-- Repeating rows - Columns 1 through 14 -->
+			<xsd:element name="ForeignOilAndGasIncomeTaxes" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Row ID -->
+						<xsd:element name="RowId" minOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Row identifier letter(s)</Description>
+									<LineNumber>Schedule I Part I identifier column</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="TextType">
+									<xsd:maxLength value="3"/>
+									<xsd:pattern value="[A-Z]+"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+
+						<!-- Foreign Corporation EIN -->
+						<xsd:element name="ForeignCorporationEIN" type="EINType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Foreign corporation EIN</Description>
+									<LineNumber>Schedule I Part I Column 1a (A-F)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						
+						<!-- Foreign Entity Identification Group -->
+						<xsd:element name="ForeignEntityIdentificationGrp" type="ForeignEntityIdentificationGrpType" minOccurs="0" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Foreign entity identification Group</Description>
+									<LineNumber>Schedule I Part I Column 1a (A-F)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Choice between Foreign Country or U.S. Possession Code or Foreign Country or U.S. Possession Code "863 (b)" -->
+						<xsd:choice minOccurs="0">
+
+							<!-- Foreign Country or U.S. Possession Code -->
+							<xsd:element name="ForeignCountryOrUSPossessionCd" type="CountryType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Foreign country or U.S. possession code</Description>
+										<LineNumber>Schedule I Part I Column 1b (A-F)</LineNumber>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+
+							<!-- Foreign Country or U.S. Possession Code "863 (b)" -->
+							<xsd:element name="Section863bIncomeCd">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Foreign country or U.S. possession code "863 (b)"</Description>
+										<LineNumber>Schedule I Part I Column 1b (A-F)</LineNumber>
+									</xsd:documentation>
+								</xsd:annotation>
+								<xsd:simpleType>
+									<xsd:restriction base="TextType">
+										<xsd:enumeration value="863(B)"/>
+									</xsd:restriction>
+								</xsd:simpleType>
+							</xsd:element>
+
+						</xsd:choice>						
+
+						<!-- Gross Foreign Oil and Gas Income From Sources Outside The United States and Its Possessions -->
+
+						<!-- Gross Foreign Oil and Gas Extraction Income -->
+						<xsd:element name="GroFrgnOilGasExtractionIncmAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Gross foreign oil and gas extraction income</Description>
+									<LineNumber>Schedule I Part I Column 2 (A-F)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Gross Foreign Oil Related Income -->
+						<xsd:element name="GroForeignOilRelatedIncomeAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Gross foreign oil related income</Description>
+									<LineNumber>Schedule I Part I Column 3 (A-F)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Dividends from Foreign Corporations -->
+			
+						<!-- Inclusions under Section 951(a)(1) and Section 951A -->
+						<xsd:element name="InclusionsSect951a1Or951AAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Inclusions under section 951(a)(1) and section 951A</Description>
+									<LineNumber>Schedule I Part I Column 4 (A-F)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Other gross oil and gas extraction income -->
+						<xsd:element name="OtherGrossIncomeAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Other gross oil and gas extraction income</Description>
+									<LineNumber>Schedule I Part I Column 5 (A-F)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Gross Oil and Gas Extraction Income Total - Sum of Columns 2 through 6 -->
+						<xsd:element name="TotalGrossIncomeAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Gross oil and gas extraction income total - Sum of columns 2 through 6</Description>
+									<LineNumber>Schedule I Part I Column 6 (A-F)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Deductions -->
+
+						<!-- Allocable Deductions -->
+						<xsd:element name="DefinitelyAllocableDedAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Allocable deductions</Description>
+									<LineNumber>Schedule I Part I Column 7 (A-F)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Apportioned Deductions -->
+						<xsd:element name="ApportionedShareDeductionAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Apportioned deductions</Description>
+									<LineNumber>Schedule I Part I Column 8 (A-F)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Total of Columns 8 and 9 -->
+						<xsd:element name="TotalAllocableDeductionsAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total deductions - sum of columns 8 and 9</Description>
+									<LineNumber>Schedule I Part I Column 9 (A-F)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- End - Deductions -->
+
+						<!-- Taxable Income - Column 7 minus 10-->
+						<xsd:element name="TaxableIncomeAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Taxable income - column 7 minus 10</Description>
+									<LineNumber>Schedule I Part I Column 10 (A-F)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Foreign Oil and Gas Taxes (attach schedule) -->
+
+						<!-- Paid or Accrued -->
+						<xsd:element name="OilGasExtractionTxsPaidAccrAmt" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Oil and gas extraction taxes - Paid or accrued</Description>
+									<LineNumber>Schedule I Part I Column 11 (A-F)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:simpleContent>
+									<xsd:extension base="USAmountType">
+										<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+										<xsd:attribute name="referenceDocumentName" type="StringType" fixed="ForeignOilGasExtractionTaxesPaidOrAccruedSchedule"/>
+									</xsd:extension>
+								</xsd:simpleContent>
+							</xsd:complexType>
+						</xsd:element>
+
+						<!-- Deemed Paid -->
+						<xsd:element name="OilGasExtractionTxsDeemedPdAmt" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Oil and gas extraction taxes - Deemed Paid</Description>
+									<LineNumber>Schedule I Part I Column 12 (A-F)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:simpleContent>
+									<xsd:extension base="USAmountType">
+										<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+										<xsd:attribute name="referenceDocumentName" type="StringType" fixed="ForeignOilGasExtractionTaxesDeemedPaidSchedule"/>
+									</xsd:extension>
+								</xsd:simpleContent>
+							</xsd:complexType>
+						</xsd:element>
+
+						<!-- Total - Sum of Columns 12 and 13 -->
+						<xsd:element name="TotalOilGasExtractionTaxesAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total oil and gas extraction taxes - Sum of columns 12 and 13</Description>
+									<LineNumber>Schedule I Part I Column 13 (A-F)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Totals (Sum of Lines A through G) of Columns 2-7 -->
+			<xsd:element name="TotForeignOilAndGasIncomeTaxes" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Totals. Schedule I Part I Columns 2-7</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Gross Foreign Oil and Gas Income From Sources Outside The United States and Its Possessions -->
+
+						<!-- Gross Foreign Oil and Gas Extraction Income -->
+						<xsd:element name="GroFrgnOilGasExtractionIncmAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Gross foreign oil and gas extraction income</Description>
+									<LineNumber>Schedule I Part I Column 2 (Total)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Gross Foreign Oil Related Income -->
+						<xsd:element name="GroForeignOilRelatedIncomeAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Gross foreign oil related income</Description>
+									<LineNumber>Schedule I Part I Column 3 (Total)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Dividends from Foreign Corporations -->
+	
+						<!-- Inclusions under Section 951(a)(1) and Section 951A -->
+						<xsd:element name="InclusionsSect951a1Or951AAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Inclusions under section 951(a)(1) and section 951A</Description>
+									<LineNumber>Schedule I Part I Column 4 (Total)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Other gross oil and gas extraction income -->
+						<xsd:element name="OtherGrossIncomeAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Other gross oil and gas extraction income</Description>
+									<LineNumber>Schedule I Part I Column 5 (Total)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Gross Oil and Gas Extraction Income Total - Sum of Columns 2 through 6 -->
+						<xsd:element name="TotalGrossIncomeAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Gross oil and gas extraction income total - Sum of columns 2 through 6</Description>
+									<LineNumber>Schedule I Part I Column 6 (Total)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Totals (Sum of Lines A through G) of Columns 8-14 -->
+			<xsd:element name="TotalsFrgnOilGasExtAndDedTaxes" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Totals. Schedule I Part I Columns 8-14</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Deductions -->
+
+						<!-- Allocable Deductions -->
+						<xsd:element name="DefinitelyAllocableDedAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Allocable deductions</Description>
+									<LineNumber>Schedule I Part I Column 7 (Total)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Apportioned Deductions -->
+						<xsd:element name="ApportionedShareDeductionAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Apportioned deductions</Description>
+									<LineNumber>Schedule I Part I Column 8 (Total)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Total of Columns 8 and 9 -->
+						<xsd:element name="TotalAllocableDeductionsAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total deductions - sum of columns 8 and 9</Description>
+									<LineNumber>Schedule I Part I Column 9 (Total)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- End - Deductions -->
+
+						<!-- Taxable Income - Column 7 minus 10-->
+						<xsd:element name="TaxableIncomeAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Taxable income - column 7 minus 10</Description>
+									<LineNumber>Schedule I Part I Column 10 (Total)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Foreign Oil and Gas Taxes (attach schedule) -->
+
+						<!-- Paid or Accrued -->
+						<xsd:element name="OilGasExtractionTxsPaidAccrAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Oil and gas extraction taxes - Paid or accrued</Description>
+									<LineNumber>Schedule I Part I Column 11 (Total)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Deemed Paid -->
+						<xsd:element name="OilGasExtractionTxsDeemedPdAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Oil and gas extraction taxes - Deemed Paid</Description>
+									<LineNumber>Schedule I Part I Column 12 (Total)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Total - Sum of Columns 12 and 13 -->
+						<xsd:element name="TotalOilGasExtractionTaxesAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total oil and gas extraction taxes - Sum of columns 12 and 13</Description>
+									<LineNumber>Schedule I Part I Column 13 (Total)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Part II - Reduction Under Section 907(a) -->
+
+			<!-- Combined Foreign Oil and Gas Income -->
+			<xsd:element name="CombForeignOilAndGasIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Combined foreign oil and gas income</Description>
+						<LineNumber>Schedule I Part II Line 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Highest Rate Tax on Foreign Oil and Gas Extraction Income -->
+			<xsd:element name="HighestRateTaxCalcSect11bAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Highest rate tax on foreign oil and gas extraction income</Description>
+						<LineNumber>Schedule I Part II Line 2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Schedule I Part II Line 3 - TotalOilGasExtractionTaxesAmt - Total oil and gas extraction taxes -->
+
+			<!-- Reduction -->
+			<xsd:element name="ReductionForeignOilGasTaxesAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Reduction- Line 5 minus line 2</Description>
+						<LineNumber>Schedule I Part II Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Part III - Foreign Oil and Gas Taxes Available For Use in the Current Tax Year -->
+			
+			<!-- Section 907(a) Excess Limitation -->
+			<xsd:element name="ExcessSection907aLimitationAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Subtract Schedule I, Part II, line 3 from line 2.  If zero or less, enter 0.</Description>
+						<LineNumber>Schedule I Part III Line 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Enter The Sum of Any Carryover -->
+			<xsd:element name="TotCYCarryoverFrgnOilAndTxAmt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter the sum of any carryover</Description>
+						<LineNumber>Schedule I Part III Line 2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="GeneralDependencyMedium"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Enter the smaller of lines l and 2 -->
+			<xsd:element name="SmllrCYForeignOilandGasTxsAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter smaller of lines 1 and 2</Description>
+						<LineNumber>Schedule I Part III Line 3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

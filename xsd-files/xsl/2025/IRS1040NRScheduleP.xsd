@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+    <xsd:annotation>
+        <xsd:documentation>
+            <Description>IRS e-file Schema - Form 1040-NR Schedule P - Foreign Partner's Interests in Certain Partnerships Transferred During Tax Year</Description>
+            <TaxYear>2025</TaxYear>
+            <MaturityLevel>Final Release</MaturityLevel>
+            <ReleaseDate>February 19 2026</ReleaseDate>
+        </xsd:documentation>
+    </xsd:annotation>
+    
+    <xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+    
+    <!-- =========================================================== -->
+    <!-- =============== IRS Form 1040-NR Schedule P =============== -->
+    <!-- =========================================================== -->
+    
+    <xsd:element name="IRS1040NRScheduleP">
+        <xsd:annotation>
+            <xsd:documentation>IRS Form 1040-NR Schedule P - Foreign Partner's Interests in Certain Partnerships Transferred During Tax Year</xsd:documentation>
+        </xsd:annotation>
+        
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="IRS1040NRSchedulePType">
+                    <xsd:attributeGroup ref="DocumentAttributes">
+                        <xsd:annotation>
+                            <xsd:documentation>Common return document attributes</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:attributeGroup>
+                    
+                    <xsd:attribute name="documentName" type="TextType" fixed="IRS1040NRScheduleP">
+                        <xsd:annotation>
+                            <xsd:documentation>IRS internal use only. To avoid errors within the return, do not include the attribute name or value.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:attribute>
+                    
+                    <xsd:attribute name="referenceDocumentId" type="IdListType">
+                        <xsd:annotation>
+                            <xsd:documentation>List of document IDs of forms, schedules, supporting info. etc. attached to this form.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:attribute>
+                    
+                    <xsd:attribute name="referenceDocumentName" type="TextType" fixed="GeneralDependencySmall"/>
+                </xsd:extension>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+    
+    <xsd:complexType name="IRS1040NRSchedulePType">
+        <xsd:sequence>
+            <!-- =============== Part I =============== -->
+            
+            <!-- Foreign partner's interest in partnerships transferred during tax year group -->
+            <xsd:element name="FrgnPrtnrIntPrtshpDuringTYGrp" maxOccurs="unbounded">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Foreign partner's interest in partnerships transferred during tax year group</Description>
+                    </xsd:documentation>
+                </xsd:annotation>
+                
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <!-- Partnership name -->
+                        <xsd:element name="PartnershipName" type="BusinessNameType">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Partnership name</Description>
+                                    <LineNumber>Schedule P Part I (a)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <xsd:choice>
+                            <!-- Partnership's US address -->
+                            <xsd:element name="PartnershipUSAddress" type="USAddressType">
+                                <xsd:annotation>
+                                    <xsd:documentation>
+                                        <Description>Partnership's US address</Description>
+                                        <LineNumber>Schedule P Part I (b)</LineNumber>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                            
+                            <!-- Partnership's foreign address -->
+                            <xsd:element name="PartnershipForeignAddress" type="ForeignAddressType">
+                                <xsd:annotation>
+                                    <xsd:documentation>
+                                        <Description>Partnership's foreign address</Description>
+                                        <LineNumber>Schedule P Part I (b)</LineNumber>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                        </xsd:choice>
+                        
+                        <!-- Partnership's EIN -->
+                        <xsd:element name="PartnershipEIN" type="EINType">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Partnership's EIN</Description>
+                                    <LineNumber>Schedule P Part I (c)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <xsd:choice>
+                            <!-- Percentage interest in the partnership transferred -->
+                            <xsd:element name="PartnershipIntTransferredPct" type="RatioType">
+                                <xsd:annotation>
+                                    <xsd:documentation>
+                                        <Description>Percentage interest in the partnership transferred</Description>
+                                        <LineNumber>Schedule P Part 1 (d)(1)</LineNumber>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                            
+                            <!-- Number of units in the partnership transferred -->
+                            <xsd:element name="PartnershipUnitsTransferredNum" type="DecimalType">
+                                <xsd:annotation>
+                                    <xsd:documentation>
+                                        <Description>Number of units in the partnership transferred</Description>
+                                        <LineNumber>Schedule P Part 1 (d)(2)</LineNumber>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                        </xsd:choice>
+                        
+                        <!-- Date partnership interest acquired -->
+                        <xsd:element name="AcquiredDt" type="DateType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Date partnership interest acquired</Description>
+                                    <LineNumber>Schedule P Part 1 (e)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Date of transfer of the partnership interest -->
+                        <xsd:element name="PartnershipIntTransferredDt" type="DateType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Date of transfer of the partnership interest</Description>
+                                    <LineNumber>Schedule P Part 1 (f)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- =============== Part II =============== -->
+                        
+                        <!-- Proceeds/amount realized from the transfer of partnership interest -->
+                        <xsd:element name="RealizedAmt" type="USAmountNNType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Proceeds/amount realized from the transfer of partnership interest</Description>
+                                    <LineNumber>Schedule P Part II Line 1</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Section 705 outside basis -->
+                        <xsd:element name="Section705OutsideBasisAmt" type="USAmountNNType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Section 705 outside basis</Description>
+                                    <LineNumber>Schedule P Part II Line 2</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Total gain (loss) on transfer of partnership interest -->
+                        <xsd:element name="TotalOutsideGainLossAmt" type="USAmountType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Total gain (loss) on transfer of partnership interest</Description>
+                                    <LineNumber>Schedule P Part II Line 3</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Total ordinary gain (loss) that would be recognized on the deemed sale of section 751 property -->
+                        <xsd:element name="TotOrdinaryGainLossSect751Amt" type="USAmountType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Total ordinary gain (loss) that would be recognized on the deemed sale of section 751 property</Description>
+                                    <LineNumber>Schedule P Part II Line 4</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Total capital gain (loss) that would be recognized on the transfer of the partnership interest -->
+                        <xsd:element name="TotOutsideCapitalGainLossAmt" type="USAmountType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Total capital gain (loss) that would be recognized on the transfer of the partnership interest</Description>
+                                    <LineNumber>Schedule P Part II Line 5</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Aggregate connected ordinary gain (loss) recognized on the deemed sale of section 751 -->
+                        <xsd:element name="TotEffCnnctOrdnryGain751Amt" type="USAmountType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Aggregate connected ordinary gain (loss) recognized on the deemed sale of section 751</Description>
+                                    <LineNumber>Schedule P Part II Line 6</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Aggregate connected capital gain (loss)recognized on the deemed sale of non-section 751 -->
+                        <xsd:element name="TotalEffCnnctCapGainNon751Amt" type="USAmountType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Aggregate connected capital gain (loss)recognized on the deemed sale of non-section 751</Description>
+                                    <LineNumber>Schedule P Part II Line 7</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Recognized effectively connected ordinary gain (loss) -->
+                        <xsd:element name="RcgnzEffCnnctOrdnryGainLossAmt" type="USAmountType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Recognized effectively connected ordinary gain (loss)</Description>
+                                    <LineNumber>Schedule P Part II Line 8</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Recognized effectively connected capital gain (loss) -->
+                        <xsd:element name="RcgnzEffCnnctCapGainLossAmt" type="USAmountType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Recognized effectively connected capital gain (loss)</Description>
+                                    <LineNumber>Schedule P Part II Line 9</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Deemed outside collectibles gain 1(h)(5) -->
+                        <xsd:element name="TotOutsideCollectiblesGainAmt" type="USAmountNNType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Deemed outside collectibles gain 1(h)(5)</Description>
+                                    <LineNumber>Schedule P Part II Line 10</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Deemed outside unrecaptured section 1250 gain under section 1(h)(6) -->
+                        <xsd:element name="TotOutsideUnrcptr1250GainAmt" type="USAmountNNType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Deemed outside unrecaptured section 1250 gain under section 1(h)(6)</Description>
+                                    <LineNumber>Schedule P Part II Line 11</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Total outside look-through capital gains -->
+                        <xsd:element name="TotalOutsideCapitalGainsAmt" type="USAmountNNType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Total outside look-through capital gains</Description>
+                                    <LineNumber>Schedule P Part II Line 12</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Aggregate connected collectibles gain recognized on deemed sale of section 1(h)(5) assets -->
+                        <xsd:element name="TotalEffCnnctSect1h5AssetsAmt" type="USAmountNNType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Aggregate connected collectibles gain recognized on deemed sale of section 1(h)(5) assets</Description>
+                                    <LineNumber>Schedule P Part II Line 13</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Aggregate connected unrecaptured section 1250 gain recognized deemed sale of section 1(h)(6) assets -->
+                        <xsd:element name="TotEffCnnctSect1h6Sect1250Amt" type="USAmountNNType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Aggregate connected unrecaptured section 1250 gain recognized deemed sale of section 1(h)(6) assets</Description>
+                                    <LineNumber>Schedule P Part II Line 14</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Total aggregate effectively connected look-through capital gains -->
+                        <xsd:element name="TotalEffCnnctCapitalGainsAmt" type="USAmountNNType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Total aggregate effectively connected look-through capital gains</Description>
+                                    <LineNumber>Schedule P Part II Line 15</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Specified amount -->
+                        <xsd:element name="SpecifiedAmt" type="USAmountNNType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Specified amount</Description>
+                                    <LineNumber>Schedule P Part II Line 16</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Recognized effectively connected residual long-term capital gain (loss) -->
+                        <xsd:element name="RcgnzEffCnnctLTCapGainLossAmt" type="USAmountType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Recognized effectively connected residual long-term capital gain (loss)</Description>
+                                    <LineNumber>Schedule P Part II Line 17</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Capital gain (loss) recognized under section 897(g) on the deemed sale of U.S. real property interests -->
+                        <xsd:element name="GainLossSect897gAmt" type="USAmountType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Capital gain (loss) recognized under section 897(g) on the deemed sale of U.S. real property interests</Description>
+                                    <LineNumber>Schedule P Part II Line 18</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            
+            <!-- Total number of transfers of partnership interests reported -->
+            <xsd:element name="PartnershipIntTrnsfrTotCnt" type="IntegerPosType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Total number of transfers of partnership interests reported</Description>
+                        <LineNumber>Schedule P Part 1</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Total proceeds/amount realized from transfers of partnership interests reported -->
+            <xsd:element name="PartnershipIntTrnsfrTotRlzdAmt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Total proceeds/amount realized from transfers of partnership interests reported</Description>
+                        <LineNumber>Schedule P Part 1</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>

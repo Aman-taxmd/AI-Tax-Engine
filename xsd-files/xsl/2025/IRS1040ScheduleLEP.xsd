@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form 1040 Schedule LEP</Description>
+			<TaxYear>2025</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>February 19 2026</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- ================================================================= -->
+	<!-- ================== IRS Form 1040 Schedule LEP =================== -->
+	<!-- ================================================================= -->
+
+	<xsd:element name="IRS1040ScheduleLEP">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 1040 Schedule LEP</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS1040ScheduleLEPType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="StringType" fixed="IRS1040ScheduleLEP">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS1040ScheduleLEPType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 1040 Schedule LEP</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Person Name -->
+			<xsd:element name="PersonNm" type="PersonNameType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Person Name</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Social Security Number -->
+			<xsd:element name="SSN" type="SSNType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Social Security Number</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Language Preference Code -->
+			<xsd:element name="LanguagePreferenceCd">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Language Preference Code</Description>
+						<LineNumber>1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="TextType">
+						<xsd:enumeration value="000">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Cancel previous election</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:enumeration>
+						<xsd:enumeration value="001">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Spanish</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:enumeration>
+						<xsd:enumeration value="002">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Korean</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:enumeration>
+						<xsd:enumeration value="003">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Vietnamese</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:enumeration>
+						<xsd:enumeration value="004">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Russian</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:enumeration>
+						<xsd:enumeration value="005">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Arabic</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:enumeration>
+						<xsd:enumeration value="006">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Haitian Creole</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:enumeration>
+						<xsd:enumeration value="007">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Tagalog</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:enumeration>
+						<xsd:enumeration value="008">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Portuguese</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:enumeration>
+						<xsd:enumeration value="009">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Polish</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:enumeration>
+						<xsd:enumeration value="010">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Farsi</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:enumeration>
+						<xsd:enumeration value="011">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>French</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:enumeration>
+						<xsd:enumeration value="012">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Japanese</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:enumeration>
+						<xsd:enumeration value="013">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Gujarati</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:enumeration>
+						<xsd:enumeration value="014">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Punjabi</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:enumeration>
+						<xsd:enumeration value="015">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Khmer</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:enumeration>
+						<xsd:enumeration value="016">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Urdu</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:enumeration>
+						<xsd:enumeration value="017">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Bengali</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:enumeration>
+						<xsd:enumeration value="018">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Italian</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:enumeration>
+						<xsd:enumeration value="019">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Chinese (Traditional)</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:enumeration>
+						<xsd:enumeration value="020">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Chinese (Simplified)</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:enumeration>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

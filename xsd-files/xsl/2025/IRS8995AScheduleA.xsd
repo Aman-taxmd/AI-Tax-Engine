@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form 8995-A Schedule A</Description>
+			<TaxYear>2025</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>February 19 2026</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../Common/efileTypes.xsd"/>
+
+	<!-- =================================================================== -->
+	<!-- =================== IRS Form 8995-A Schedule A ==================== -->
+	<!-- =================================================================== -->
+
+	<xsd:element name="IRS8995AScheduleA">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 8995-A Schedule A</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS8995AScheduleAType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="StringType" fixed="IRS8995AScheduleA">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="referenceDocumentId" type="IdListType">
+						<xsd:annotation>
+							<xsd:documentation>List of document ID's of forms, schedules, supporting info. etc. attached to this form</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="BinaryAttachment"/>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS8995AScheduleAType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 8995-A Schedule A</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Part I  Other Than Publicly Traded Partnerships -->
+
+			<xsd:element name="NonPTPSSTBGrp" minOccurs="0">
+				<xsd:complexType>
+					<xsd:annotation>
+						<xsd:documentation>NonPTPSSTBGrpType</xsd:documentation>
+					</xsd:annotation>
+					<xsd:sequence>
+
+						<!-- Taxable Income Before QBI Deduction Amount -->
+						<xsd:element name="TaxableIncomeBeforeQBIDedAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Taxable Income Before QBI Deduction Amount</Description>
+									<LineNumber>5</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Filing Status Threshold Code -->
+						<xsd:element name="FilingStatusThresholdCd" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Filing Status Threshold Code</Description>
+									<LineNumber>6</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="TextType">
+									<xsd:enumeration value="197300"/>
+									<xsd:enumeration value="394600"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+
+						<!-- Taxable Income Before QBI Deduction Less Threshold Amount -->
+						<xsd:element name="TXIBfrQBIDedLessThresholdAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Taxable Income Before QBI Deduction Less Threshold Amount</Description>
+									<LineNumber>7</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Filing Status Phase-In Range Code -->
+						<xsd:element name="FilingStatusPhaseInRangeCd" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Filing Status Phase-In Range Code</Description>
+									<LineNumber>8</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="TextType">
+									<xsd:enumeration value="50000"/>
+									<xsd:enumeration value="100000"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+
+						<!-- Phase In Percentage -->
+						<xsd:element name="PhaseInPct" type="RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Phase In Percentage</Description>
+									<LineNumber>9</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Applicable Percentage -->
+						<xsd:element name="ApplicablePct" type="RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable Percentage</Description>
+									<LineNumber>10</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Group for Lines 1a - 4 and 11 - 13, Columns A, B, C, . . . -->
+						<xsd:element name="NonPTPSSTBDtlGrp" minOccurs="0" maxOccurs="unbounded">
+							<xsd:complexType>
+								<xsd:annotation>
+									<xsd:documentation>NonPTPSSTBDtlGrpType</xsd:documentation>
+								</xsd:annotation>
+								<xsd:sequence>
+
+									<xsd:choice>
+									  <!-- Trade Or Business Name -->
+										<xsd:element name="TradeOrBusinessName" type="BusinessNameType">
+											<xsd:annotation>
+												<xsd:documentation>
+													<Description>Trade Or Business Name</Description>
+													<LineNumber>1a</LineNumber>
+												</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+									  <!-- Person Name -->
+										<xsd:element name="PersonNm" type="PersonNameType">
+											<xsd:annotation>
+												<xsd:documentation>
+													<Description>Person Name</Description>
+													<LineNumber>1a</LineNumber>
+												</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+									</xsd:choice>
+
+									<xsd:choice minOccurs="0">
+										<!-- EIN -->
+										<xsd:element name="EIN" type="EINType">
+											<xsd:annotation>
+												<xsd:documentation>
+													<Description>EIN</Description>
+													<LineNumber>1b</LineNumber>
+												</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<!-- Missing EIN Reason Code -->
+										<xsd:element name="MissingEINReasonCd">
+											<xsd:annotation>
+											  	<xsd:documentation>
+											  		<Description>Missing EIN Reason Code</Description>
+														<LineNumber>1b</LineNumber>
+											  	</xsd:documentation>
+											</xsd:annotation>
+											<xsd:simpleType>
+												<xsd:restriction base="TextType">
+													<xsd:enumeration value="APPLD FOR"/>
+													<xsd:enumeration value="FOREIGNUS"/>
+												</xsd:restriction>
+											</xsd:simpleType>
+										</xsd:element>
+										<!-- SSN -->
+										<xsd:element name="SSN" type="SSNType">
+											<xsd:annotation>
+												<xsd:documentation>
+													<Description>SSN</Description>
+													<LineNumber>1b</LineNumber>
+												</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+									</xsd:choice>
+
+									<!-- Qualified Business Income Amount -->
+									<xsd:element name="QualifedBusinessIncomeAmt" type="USAmountType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Qualified Business Income Amount</Description>
+												<LineNumber>2</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+
+									<!-- Allocable Share Of W-2 Wages Amount -->
+									<xsd:element name="AllocableShareW2WagesAmt" type="USAmountType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Allocable Share Of W-2 Wages Amount</Description>
+												<LineNumber>3</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+
+									<!-- Allocable Share Of UBIA Of Qualified Property Amount -->
+									<xsd:element name="AllocableShareUBIAQlfyPropAmt" type="USAmountType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Allocable Share Of UBIA Of Qualified Property Amount</Description>
+												<LineNumber>4</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+
+									<!-- Applicable Percentage Of QBI Amount -->
+									<xsd:element name="ApplicablePctQBIAmt" type="USAmountType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Applicable Percentage Of QBI Amount</Description>
+												<LineNumber>11</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+
+									<!-- Applicable Percentage Of W-2 Wages Amount -->
+									<xsd:element name="ApplicablePctW2WagesAmt" type="USAmountType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Applicable Percentage Of W-2 Wages Amount</Description>
+												<LineNumber>12</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+
+									<!-- Applicable Percentage Of UBIA Of Qualified Property Amount -->
+									<xsd:element name="ApplicablePctUBIAQlfyPropAmt" type="USAmountType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Applicable Percentage Of UBIA Of Qualified Property Amount</Description>
+												<LineNumber>13</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Part II  Other Than Publicly Traded Partnerships -->
+
+			<xsd:element name="PTPSSTBGrp" minOccurs="0">
+				<xsd:complexType>
+					<xsd:annotation>
+						<xsd:documentation>PTPSSTBGrpType</xsd:documentation>
+					</xsd:annotation>
+					<xsd:sequence>
+
+						<!-- Group for Lines 14 - 16, Columns A, B, C, . . . -->
+						<xsd:element name="PTPSSTBDtlGrp" minOccurs="0" maxOccurs="unbounded">
+							<xsd:complexType>
+								<xsd:annotation>
+									<xsd:documentation>PTPSSTBDtlGrpType</xsd:documentation>
+								</xsd:annotation>
+								<xsd:sequence>
+
+									<xsd:choice>
+									  <!-- Trade Or Business Name -->
+										<xsd:element name="TradeOrBusinessName" type="BusinessNameType">
+											<xsd:annotation>
+												<xsd:documentation>
+													<Description>Trade Or Business Name</Description>
+													<LineNumber>14</LineNumber>
+												</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+									  <!-- Person Name -->
+										<xsd:element name="PersonNm" type="PersonNameType">
+											<xsd:annotation>
+												<xsd:documentation>
+													<Description>Person Name</Description>
+													<LineNumber>14</LineNumber>
+												</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+									</xsd:choice>
+
+									<xsd:choice minOccurs="0">
+										<!-- EIN -->
+										<xsd:element name="EIN" type="EINType">
+											<xsd:annotation>
+												<xsd:documentation>
+													<Description>EIN</Description>
+													<LineNumber>15</LineNumber>
+												</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<!-- Missing EIN Reason Code -->
+										<xsd:element name="MissingEINReasonCd">
+											<xsd:annotation>
+											  	<xsd:documentation>
+											  		<Description>Missing EIN Reason Code</Description>
+														<LineNumber>15</LineNumber>
+											  	</xsd:documentation>
+											</xsd:annotation>
+											<xsd:simpleType>
+												<xsd:restriction base="TextType">
+													<xsd:enumeration value="APPLD FOR"/>
+													<xsd:enumeration value="FOREIGNUS"/>
+												</xsd:restriction>
+											</xsd:simpleType>
+										</xsd:element>
+										<!-- SSN -->
+										<xsd:element name="SSN" type="SSNType">
+											<xsd:annotation>
+												<xsd:documentation>
+													<Description>SSN</Description>
+													<LineNumber>15</LineNumber>
+												</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+									</xsd:choice>
+
+									<!-- Qualified Income Or Loss Amount -->
+									<xsd:element name="QualifiedIncomeOrLossAmt" type="USAmountType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Qualified Income Or Loss Amount</Description>
+												<LineNumber>16</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+
+						<!-- Total Qualified Income Or Loss Amount -->
+						<xsd:element name="TotalQualifiedIncomeOrLossAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total Qualified Income Or Loss Amount</Description>
+									<LineNumber>17</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Taxable Income Before QBI Deduction Amount -->
+						<xsd:element name="TaxableIncomeBeforeQBIDedAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Taxable Income Before QBI Deduction Amount</Description>
+									<LineNumber>18</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Filing Status Threshold Code -->
+						<xsd:element name="FilingStatusThresholdCd" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Filing Status Threshold Code</Description>
+									<LineNumber>19</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="TextType">
+									<xsd:enumeration value="197300"/>
+									<xsd:enumeration value="394600"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+
+						<!-- Taxable Income Before QBI Deduction Less Threshold Amount -->
+						<xsd:element name="TXIBfrQBIDedLessThresholdAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Taxable Income Before QBI Deduction Less Threshold Amount</Description>
+									<LineNumber>20</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Filing Status Phase-In Range Code -->
+						<xsd:element name="FilingStatusPhaseInRangeCd" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Filing Status Phase-In Range Code</Description>
+									<LineNumber>21</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="TextType">
+									<xsd:enumeration value="50000"/>
+									<xsd:enumeration value="100000"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+
+						<!-- Phase In Percentage -->
+						<xsd:element name="PhaseInPct" type="RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Phase In Percent</Description>
+									<LineNumber>22</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Applicable Percentage -->
+						<xsd:element name="ApplicablePct" type="RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable Percentage</Description>
+									<LineNumber>23</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Applicable Percentage Of Qualified Income Or Loss Amount -->
+						<xsd:element name="ApplicablePctQlfyIncomeLossAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable Percentage Of Qualified Income Or Loss Amount</Description>
+									<LineNumber>24</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

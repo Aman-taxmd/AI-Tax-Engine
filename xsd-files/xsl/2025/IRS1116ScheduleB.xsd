@@ -1,0 +1,771 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+    <xsd:annotation>
+        <xsd:documentation>
+            <Description>IRS e-file Schema - Form 1116 Schedule B - Foreign Tax Carryover Reconciliation Schedule</Description>
+            <TaxYear>2025</TaxYear>
+            <MaturityLevel>Final Release</MaturityLevel>
+            <ReleaseDate>February 19 2026</ReleaseDate>
+        </xsd:documentation>
+    </xsd:annotation>
+    <xsd:include schemaLocation="../../Common/efileTypes.xsd"/>
+    <!-- ======================================================== -->
+    <!-- =============== IRS Form 1116 Schedule B =============== -->
+    <!-- ======================================================== -->    
+    <xsd:element name="IRS1116ScheduleB">
+        <xsd:annotation>
+            <xsd:documentation>IRS Form 1116 Schedule B - Foreign Tax Carryover Reconciliation Schedule</xsd:documentation>
+        </xsd:annotation>   
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="IRS1116ScheduleBType">
+                    <xsd:attributeGroup ref="DocumentAttributes">
+                        <xsd:annotation>
+                            <xsd:documentation>Common return document attributes</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:attributeGroup>                  
+                    <xsd:attribute name="documentName" type="TextType" fixed="IRS1116ScheduleB">
+                        <xsd:annotation>
+                            <xsd:documentation>IRS internal use only. To avoid errors within the return, do not include the attribute name or value.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:attribute>                
+                    <xsd:attribute name="referenceDocumentId" type="IdListType">
+                        <xsd:annotation>
+                            <xsd:documentation>List of document IDs of forms, schedules, supporting info. etc. attached to this form.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:attribute>                  
+                    <xsd:attribute name="referenceDocumentName" type="TextType" fixed="GeneralDependencySmall"/>
+                </xsd:extension>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:complexType name="IRS1116ScheduleBType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 1116 Schedule B</xsd:documentation>
+		</xsd:annotation>
+		
+		<!-- Line a - Not in XML. Reserved for future use. -->
+		
+        <xsd:sequence>   
+            <xsd:choice>
+                <!-- Foreign branch category income -->
+                <xsd:element name="ForeignBranchIncomeInd" type="CheckboxType">
+                    <xsd:annotation>
+                        <xsd:documentation>
+                            <Description>Foreign branch category income</Description>
+                            <LineNumber>b</LineNumber>
+                        </xsd:documentation>
+                    </xsd:annotation>                   
+                </xsd:element>
+                
+                <!-- Passive category foreign income -->
+                <xsd:element name="ForeignIncPassiveCategoryInd" type="CheckboxType">
+                    <xsd:annotation>
+                        <xsd:documentation>
+                            <Description>Passive category foreign income</Description>
+                            <LineNumber>c</LineNumber>
+                        </xsd:documentation>
+                    </xsd:annotation>                 
+                </xsd:element>  
+                     
+                <!-- Foreign income general category -->
+                <xsd:element name="ForeignIncGeneralCategoryInd" type="CheckboxType">
+                    <xsd:annotation>
+                        <xsd:documentation>
+                            <Description>Foreign income general category</Description>
+                            <LineNumber>d</LineNumber>
+                        </xsd:documentation>
+                    </xsd:annotation> 
+                </xsd:element>
+                
+                <!-- Foreign income section 901j -->
+                <xsd:element name="ForeignIncSection901jInd" type="CheckboxType">
+                    <xsd:annotation>
+                        <xsd:documentation>
+                            <Description>Foreign income section 901j</Description>
+                            <LineNumber>e</LineNumber>
+                        </xsd:documentation>
+                    </xsd:annotation>  
+                </xsd:element>
+                
+                <!-- Foreign income re-sourced by treaty -->
+                <xsd:element name="ForeignIncResourcedTreatyInd" type="CheckboxType">
+                    <xsd:annotation>
+                        <xsd:documentation>
+                            <Description>Foreign income re-sourced by treaty</Description>
+                            <LineNumber>f</LineNumber>
+                        </xsd:documentation>
+                    </xsd:annotation>                
+                </xsd:element>
+                
+                <!-- Foreign income lump-sum distributions -->
+                <xsd:element name="ForeignIncLumpSumDistribInd" type="CheckboxType">
+                    <xsd:annotation>
+                        <xsd:documentation>
+                            <Description>Foreign income lump-sum distributions</Description>
+                            <LineNumber>g</LineNumber>
+                        </xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+            </xsd:choice>
+            
+            <!-- Sanctioned country code -->
+            <xsd:element name="SanctionedCountryCd" type="CountryType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Sanctioned country code</Description>
+                        <LineNumber>h</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Treaty country code -->
+            <xsd:element name="TreatyCountryCd" type="CountryType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Treaty country code</Description>
+                        <LineNumber>i</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- =============== Foreign Tax Carryover Reconciliation =============== -->
+            
+            <!-- Foreign tax carryover from the prior tax year -->
+            <xsd:element name="ForeignTxCyovPrTYGrp" type="ForeignTxCyovReconciliationType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Foreign tax carryover from the prior tax year</Description>
+                        <LineNumber>Line 1</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- =============== Adjustments to line 1 - Line 2 =============== -->
+            
+            <!-- Carryback adjustment -->
+            <xsd:element name="CarrybackAdjustmentGrp" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Carryback adjustment</Description>
+                        <LineNumber>Line 2a</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+                
+                <xsd:complexType>
+                    <xsd:sequence>
+                    
+						<!-- Columns (i) thru (xi) - Not in XML. No Entry. -->
+                        
+                        <!-- First (1st) preceding tax year -->
+                        <xsd:element name="FirstPrecedingTYAmt" type="USAmountType">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>First (1st) preceding tax year</Description>
+                                    <LineNumber>Column (xii)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Column (xiii) - Not in XML. No Entry. -->
+                         
+                        <!-- Total of specified columns -->
+                        <xsd:element name="TotalAmt" type="USAmountType">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Total of specified columns</Description>
+                                    <LineNumber>Column (xiv)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            
+            <!-- Section 905(c) redetermination adjustments -->
+            <xsd:element name="Sect905cRedeterminationsAdjGrp" type="ForeignTxCyovReconciliationType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Section 905(c) redetermination adjustments</Description>
+                        <LineNumber>Line 2b</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Other foreign tax adjustments -->
+            <xsd:element name="OtherFrgnTaxAdjustmentsGrp" minOccurs="0" maxOccurs="unbounded">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Other foreign tax adjustments</Description>
+                        <LineNumber>Line 2c-2g</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+                
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <!-- Other adjustments -->
+                        <xsd:element name="OtherAdjustmentsTxt" type="ShortDescriptionType">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Other adjustments</Description>
+                                    <LineNumber>Line 2c-2g</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Other foreign tax adjustments preceding tax year -->
+                        <xsd:element name="OtherFrgnTaxAdjPrecedingTYGrp" type="ForeignTxCyovReconciliationType">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Other foreign tax adjustments preceding tax year</Description>
+                                    <LineNumber>Line 2c-2g</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            
+            <!-- Adjusted foreign tax carryover prior tax year -->
+            <xsd:element name="AdjForeignTxCyovPrTYGrp" type="ForeignTxCyovReconciliationType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Adjusted foreign tax carryover prior tax year</Description>
+                        <LineNumber>Line 3</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Foreign tax carryover used in current tax year -->
+            <xsd:element name="ForeignTxCyovUsedCurrTYGrp" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Foreign tax carryover used in current tax year</Description>
+                        <LineNumber>Line 4</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+                
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <!-- Tenth (10th) preceding tax year -->
+                        <xsd:element name="TenthPrecedingTYAmt" type="USAmountNegType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Tenth (10th) preceding tax year</Description>
+                                    <LineNumber>Column (i)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Ninth (9th) preceding tax year -->
+                        <xsd:element name="NinthPrecedingTYAmt" type="USAmountNegType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Ninth (9th) preceding tax year</Description>
+                                    <LineNumber>Column (ii)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Eighth (8th) preceding tax year -->
+                        <xsd:element name="EighthPrecedingTYAmt" type="USAmountNegType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Eighth (8th) preceding tax year</Description>
+                                    <LineNumber>Column (iii)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Seventh (7th) preceding tax year -->
+                        <xsd:element name="SeventhPrecedingTYAmt" type="USAmountNegType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Seventh (7th) preceding tax year</Description>
+                                    <LineNumber>Column (iv)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Sixth (6th) preceding tax year -->
+                        <xsd:element name="SixthPrecedingTYAmt" type="USAmountNegType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Sixth (6th) preceding tax year</Description>
+                                    <LineNumber>Column (v)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Fifth (5th) preceding tax year -->
+                        <xsd:element name="FifthPrecedingTYAmt" type="USAmountNegType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Fifth (5th) preceding tax year</Description>
+                                    <LineNumber>Column (vi)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Subtotal -->
+                        <xsd:element name="SubtotalAmt" type="USAmountNegType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Subtotal</Description>
+                                    <LineNumber>Column (vii)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Column (viii) - Not in XML.  Use value from Column (vii). Comment in schema -->
+                        
+                        <!-- Fourth (4th) preceding tax year -->
+                        <xsd:element name="FourthPrecedingTYAmt" type="USAmountNegType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Fourth (4th) preceding tax year</Description>
+                                    <LineNumber>Column (ix)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Third (3rd) preceding tax year -->
+                        <xsd:element name="ThirdPrecedingTYAmt" type="USAmountNegType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Third (3rd) preceding tax year</Description>
+                                    <LineNumber>Column (x)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Second (2nd) preceding tax year -->
+                        <xsd:element name="SecondPrecedingTYAmt" type="USAmountNegType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Second (2nd) preceding tax year</Description>
+                                    <LineNumber>Column (xi)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- First (1st) preceding tax year -->
+                        <xsd:element name="FirstPrecedingTYAmt" type="USAmountNegType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>First (1st) preceding tax year</Description>
+                                    <LineNumber>Column (xii)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Column (xiii) - Not in XML.  No Entry -->
+                        
+                        <!-- Total of specified columns -->
+                        <xsd:element name="TotalAmt" type="USAmountNegType">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Total of specified columns</Description>
+                                    <LineNumber>Column (xiv)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            
+            <!-- Foreign tax carryover expired unused in current tax year -->
+            <xsd:element name="ForeignTxCyovExprUnsdCurrTYGrp" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Foreign tax carryover expired unused in current tax year</Description>
+                        <LineNumber>Line 5</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+                
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <!-- Tenth (10th) preceding tax year -->
+                        <xsd:element name="TenthPrecedingTYAmt" type="USAmountNegType">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Tenth (10th) preceding tax year</Description>
+                                    <LineNumber>Column (i)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Columns (ii) thru (vi) - Not in XML. No Entry. -->
+                        
+                        <!-- Subtotal -->
+                        <xsd:element name="SubtotalAmt" type="USAmountNegType">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Subtotal</Description>
+                                    <LineNumber>Column (vii)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Column (viii) - Not in XML. Use value from column (vii) -->
+                        
+                        <!-- Columns (ix) thru (xiii) - Not in XML. No Entry. -->
+                        
+                        <!-- Total of specified columns -->
+                        <xsd:element name="TotalAmt" type="USAmountNegType">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Total of specified columns</Description>
+                                    <LineNumber>Column (xiv)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            
+            <!-- Foreign tax carryover generated in current tax year -->
+            <xsd:element name="ForeignTxCyovGenCurrTYGrp" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Foreign tax carryover generated in current tax year</Description>
+                        <LineNumber>Line 6</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+                
+                <xsd:complexType>
+                    <xsd:sequence>
+                    
+						<!-- Columns (i) thru (xii) - Not in XML. No Entry. -->
+                        
+                        <!-- Current tax year -->
+                        <xsd:element name="CurrentTaxYearAmt" type="USAmountType">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Current tax year</Description>
+                                    <LineNumber>Column (xiii)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Total of specified columns -->
+                        <xsd:element name="TotalAmt" type="USAmountType">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Total of specified columns</Description>
+                                    <LineNumber>Column (xiv)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            
+            <!-- Actual or tentative (estimated) carried back to prior tax year -->
+            <xsd:element name="ActlTentAmtCarriedBackPrTYGrp" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Actual or tentative (estimated) carried back to prior tax year</Description>
+                        <LineNumber>Line 7</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+                
+                <xsd:complexType>
+                    <xsd:sequence>
+                    
+						<!-- Columns (i) thru (xii) - Not in XML. No Entry. -->
+						
+                        <!-- Current tax year -->
+                        <xsd:element name="CurrentTaxYearAmt" type="USAmountNegType">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Current tax year</Description>
+                                    <LineNumber>Column (xiii)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Total of specified columns -->
+                        <xsd:element name="TotalAmt" type="USAmountNegType">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Total of specified columns</Description>
+                                    <LineNumber>Column (xiv)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            
+            <!-- Foreign tax carryover to the following tax year -->
+            <xsd:element name="ForeignTxCyovFollowingTYGrp" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Foreign tax carryover to the following tax year</Description>
+                        <LineNumber>Line 8</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+                
+                <xsd:complexType>
+                    <xsd:sequence>
+                    
+						<!-- Column (i) - Not in XML. No Entry. -->
+                        
+                        <!-- Ninth (9th) preceding tax year -->
+                        <xsd:element name="NinthPrecedingTYAmt" type="USAmountType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Ninth (9th) preceding tax year</Description>
+                                    <LineNumber>Column (ii)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Eighth (8th) preceding tax year -->
+                        <xsd:element name="EighthPrecedingTYAmt" type="USAmountType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Eighth (8th) preceding tax year</Description>
+                                    <LineNumber>Column (iii)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Seventh (7th) preceding tax year -->
+                        <xsd:element name="SeventhPrecedingTYAmt" type="USAmountType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Seventh (7th) preceding tax year</Description>
+                                    <LineNumber>Column (iv)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Sixth (6th) preceding tax year -->
+                        <xsd:element name="SixthPrecedingTYAmt" type="USAmountType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Sixth (6th) preceding tax year</Description>
+                                    <LineNumber>Column (v)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Fifth (5th) preceding tax year -->
+                        <xsd:element name="FifthPrecedingTYAmt" type="USAmountType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Fifth (5th) preceding tax year</Description>
+                                    <LineNumber>Column (vi)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Subtotal -->
+                        <xsd:element name="SubtotalAmt" type="USAmountType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Subtotal</Description>
+                                    <LineNumber>Column (vii)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Column (viii) - Not in XML.  Use value from Column (vii) -->
+                        
+                        <!-- Fourth (4th) preceding tax year -->
+                        <xsd:element name="FourthPrecedingTYAmt" type="USAmountType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Fourth (4th) preceding tax year</Description>
+                                    <LineNumber>Column (ix)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Third (3rd) preceding tax year -->
+                        <xsd:element name="ThirdPrecedingTYAmt" type="USAmountType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Third (3rd) preceding tax year</Description>
+                                    <LineNumber>Column (x)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Second (2nd) preceding tax year -->
+                        <xsd:element name="SecondPrecedingTYAmt" type="USAmountType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Second (2nd) preceding tax year</Description>
+                                    <LineNumber>Column (xi)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- First (1st) preceding tax year -->
+                        <xsd:element name="FirstPrecedingTYAmt" type="USAmountType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>First (1st) preceding tax year</Description>
+                                    <LineNumber>Column (xii)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Current tax year -->
+                        <xsd:element name="CurrentTaxYearAmt" type="USAmountType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Current tax year</Description>
+                                    <LineNumber>Column (xiii)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Total of specified columns -->
+                        <xsd:element name="TotalAmt" type="USAmountType">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Total of specified columns</Description>
+                                    <LineNumber>Column (xiv)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:complexType name="ForeignTxCyovReconciliationType">
+        <xsd:sequence>
+            <!-- Tenth (10th) preceding tax year -->
+            <xsd:element name="TenthPrecedingTYAmt" type="USAmountType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Tenth (10th) preceding tax year</Description>
+                        <LineNumber>Column (i)</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Ninth (9th) preceding tax year -->
+            <xsd:element name="NinthPrecedingTYAmt" type="USAmountType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Ninth (9th) preceding tax year</Description>
+                        <LineNumber>Column (ii)</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Eighth (8th) preceding tax year -->
+            <xsd:element name="EighthPrecedingTYAmt" type="USAmountType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Eighth (8th) preceding tax year</Description>
+                        <LineNumber>Column (iii)</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Seventh (7th) preceding tax year -->
+            <xsd:element name="SeventhPrecedingTYAmt" type="USAmountType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Seventh (7th) preceding tax year</Description>
+                        <LineNumber>Column (iv)</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Sixth (6th) preceding tax year -->
+            <xsd:element name="SixthPrecedingTYAmt" type="USAmountType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Sixth (6th) preceding tax year</Description>
+                        <LineNumber>Column (v)</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Fifth (5th) preceding tax year -->
+            <xsd:element name="FifthPrecedingTYAmt" type="USAmountType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Fifth (5th) preceding tax year</Description>
+                        <LineNumber>Column (vi)</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Subtotal -->
+            <xsd:element name="SubtotalAmt" type="USAmountType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Subtotal</Description>
+                        <LineNumber>Column (vii)</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Column (viii) - Not in XML.  Use value from Column (vii). Comment in schema -->
+            
+            <!-- Fourth (4th) preceding tax year -->
+            <xsd:element name="FourthPrecedingTYAmt" type="USAmountType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Fourth (4th) preceding tax year</Description>
+                        <LineNumber>Column (ix)</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Third (3rd) preceding tax year -->
+            <xsd:element name="ThirdPrecedingTYAmt" type="USAmountType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Third (3rd) preceding tax year</Description>
+                        <LineNumber>Column (x)</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Second (2nd) preceding tax year -->
+            <xsd:element name="SecondPrecedingTYAmt" type="USAmountType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Second (2nd) preceding tax year</Description>
+                        <LineNumber>Column (xi)</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- First (1st) preceding tax year -->
+            <xsd:element name="FirstPrecedingTYAmt" type="USAmountType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>First (1st) preceding tax year</Description>
+                        <LineNumber>Column (xii)</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Column (xiii) - Not in XML. No Entry -->
+            
+            <!-- Total of specified columns -->
+            <xsd:element name="TotalAmt" type="USAmountType">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Total of specified columns</Description>
+                        <LineNumber>Column (xiv)</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>
+

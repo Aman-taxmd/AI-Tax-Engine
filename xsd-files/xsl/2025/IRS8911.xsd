@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Corporate Income Tax Schema - IRS Form 8911</Description>
+			<TaxYear>2025</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>February 19 2026</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+
+	<!-- ===================================================================== -->
+	<!-- ======================  IRS Form 8911 =============================== -->
+	<!-- ===================================================================== -->
+	<xsd:element name="IRS8911">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 8911</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS8911Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS8911">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="referenceDocumentId" type="IdListType">
+						<xsd:annotation>
+							<xsd:documentation>List of document ID's of forms, schedules, supporting info. etc. attached to this form</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="BinaryAttachment GeneralDependencySmall">
+						<xsd:annotation>
+							<xsd:documentation>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS8911Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 8911</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+            <!-- Total qualified alternative fuel vehicle refueling properties -->
+			<xsd:element name="TotQlfyAltFuelVehRefuelPropCnt" type="IntegerNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total qualified alternative fuel vehicle refueling properties</Description>
+						<LineNumber>Line A</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Credit amount for business/investment use part of refueling property -->
+			<xsd:element name="BusInvstUseRefuelingPropCrAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Credit amount for business/investment use part of refueling property</Description>
+						<LineNumber>Line 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Alternative Fuel Vehicle Refueling Property Credit  -->
+			<xsd:element name="AltFuelVehRefuelPropCreditAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Alternative fuel vehicle refueling property credit</Description>
+						<LineNumber>Line 2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Business/Investment Use Part of Credit -->
+			<xsd:element name="BusinessInvstUsePartOfCrAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Business/investment use part of credit</Description>
+						<LineNumber>Line 3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>			
+
+			<!-- Credit amount for personal use part of refueling property -->
+			<xsd:element name="PrsnlUseRefuelingPropCrAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Credit amount for personal use part of refueling property</Description>
+						<LineNumber>Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+
+			<!--Regular Tax Before Credits -->
+			<xsd:element name="RegularTaxBeforeCreditsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Regular tax before credits</Description>
+						<LineNumber>Line 5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Foreign Tax Credit  -->
+			<xsd:element name="ForeignTaxCreditAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Foreign tax credit</Description>
+						<LineNumber>Line 6a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Certain Allowable Credits -->
+			<xsd:element name="CertainAllowableCreditsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Certain allowable credits</Description>
+						<LineNumber>Line 6b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Add specified lines -->
+			<xsd:element name="TotalTaxCreditsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add specified lines</Description>
+						<LineNumber>Line 6c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Net Regular Tax  -->
+			<xsd:element name="NetRegularTaxAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Net regular tax</Description>
+						<LineNumber>Line 7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Tentative Minimum Tax -->
+			<xsd:element name="TentativeMinimumTaxAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Tentative minimum tax</Description>
+						<LineNumber>Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Subtract specified lines -->
+			<xsd:element name="AdjustedRegularTaxAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Subtract specified lines</Description>
+						<LineNumber>Line 9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Personal Use Part of Credit -->
+			<xsd:element name="TotalPersonalUsePartOfCrAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Personal use part of credit</Description>
+						<LineNumber>Line 10</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

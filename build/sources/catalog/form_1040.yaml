@@ -1,0 +1,40 @@
+# Seed catalog for Form 1040 — needed as the destination of the HSA
+# deduction chain (Form 8889 -> Schedule 1, line 13 -> Form 1040, line 10).
+#
+# Schedule 1 (Form 1040) has no separate "About" page of its own (there is no
+# https://www.irs.gov/forms-pubs/about-schedule-1-form-1040 — confirmed 404),
+# so it's discovered from this same About Form 1040 page as a "form" link,
+# and its own e-file schema is staged separately under the distinct form
+# identity "1040s1" (see build/ingestion/download.py) since it has its own
+# XSD (IRS1040Schedule1.xsd) and its own line numbering — Schedule 1 and
+# Form 1040 both happen to have an unrelated "line 13", for example.
+#
+# Note: Schedule 1's own LINE INSTRUCTIONS aren't a separate document either
+# — they're printed inside the general Form 1040 instructions booklet
+# (i1040gi, "Instructions for Schedule 1" section), which is why this catalog
+# ingests i1040gi and not a standalone Schedule 1 instructions doc.
+form_number: "1040"
+tax_year: 2025
+
+entry_points:
+  - url: https://www.irs.gov/forms-pubs/about-form-1040
+    role: primary_form
+
+# Unlike the 8889 pilot catalog, "form" (PDF) is included here on purpose —
+# Form 1040 and Schedule 1 themselves need to be real, versioned documents in
+# the store (not just referenced), since they're the terminal destination of
+# the calculation chain. They are still not structurally parsed (no PDF
+# parser in this pilot) — only their XSD is used for canonical fields.
+include_doc_types:
+  - instructions
+  - form
+
+# Links discovered from the About Form 1040 page that are genuinely
+# out-of-scope for the HSA pilot chain — everything here still gets logged as
+# "discovered but excluded" (ADR 0002/0003), never silently dropped.
+excluded_doc_ids:
+  - 1040s     # Form 1040-SR (a different, alternate return for seniors — not Schedule 1)
+  - 1040s1a   # Schedule 1-A (2025 tips/overtime/car-loan/senior deduction) — unrelated to HSA
+  - 1040s2    # Schedule 2 (AMT / other taxes) — unrelated to HSA
+  - 1040s3    # Schedule 3 (nonrefundable credits) — unrelated to HSA
+  - 1040tt    # Tax and EIC tables — unrelated to HSA

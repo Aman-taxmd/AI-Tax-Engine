@@ -1,0 +1,88 @@
+# Hand-authored, non-form-line taxpayer questions for the HSA pilot chain
+# (Form 8889 -> Schedule 1 -> Form 1040).
+#
+# Unlike build/synthesis/question_registry.py's auto-derived form-line
+# questions (one per canonical field that has no calc rule), these represent
+# taxpayer facts that are NOT captured as a single Form 8889/1040 XSD line
+# item on their own (e.g. age), or that a form line *does* capture but which
+# also feeds a structured condition this pilot hand-authors rather than
+# leaving to the noisy automatic rule-writer (see runtime/condition_rules.py
+# and the plan's "Structured conditions: hand-authored, not a generic DSL"
+# decision).
+#
+# `feeds_condition`, when set, must match a key in
+# runtime.condition_rules.CONDITION_FIELDS -- that is the actual grounded
+# Python logic; this YAML only carries the taxpayer-facing prompt and the
+# justification/citation shown in the UI.
+#
+# `shadows_canonical_field`, when set, tells question_registry.py to skip
+# auto-generating a separate (duplicate) question for that canonical field,
+# because this profile question already asks for the same real-world fact.
+# runtime.condition_rules.DERIVED_FROM_PROFILE then derives that field's raw
+# value from the profile answer instead of asking twice.
+questions:
+  - question_key: profile_age
+    form_number: "8889"
+    prompt_text: "What is your age as of December 31, 2025?"
+    input_type: integer
+    justification: >-
+      Form 8889's instructions give anyone age 55 or older at the end of the
+      tax year an extra $1,000 HSA contribution limit (the "catch-up"
+      contribution). Your age determines whether that $1,000 is added to
+      your Line 3 contribution limit, which flows to Line 13 (HSA
+      deduction) -> Schedule 1, Line 13 -> Form 1040, Line 10.
+    irs_reference:
+      form: "8889"
+      line: "3"
+      quote: "Note. If you are age 55 or older at the end of your tax year, you can make an additional contribution of $1,000."
+      source: "2025 Instructions for Form 8889, Part I\u2014HSA Contributions and Deductions"
+    feeds_condition: adjustments.hsa_limited_annual_deductible_amount  # Form 8889 line 3
+    shadows_canonical_field: null
+    order_index: 0
+    required: true
+
+  - question_key: profile_hdhp_coverage_type
+    form_number: "8889"
+    prompt_text: "For the full year, did your High Deductible Health Plan (HDHP) cover just you (self-only), or your family?"
+    input_type: choice
+    choices: ["self_only", "family"]
+    justification: >-
+      Form 8889, Line 1 records whether you had self-only or family HDHP
+      coverage. It also determines your Line 3 statutory contribution limit
+      ($4,300 self-only vs. $8,550 family for 2025), which flows to Line 13
+      (HSA deduction) -> Schedule 1, Line 13 -> Form 1040, Line 10.
+    irs_reference:
+      form: "8889"
+      line: "3"
+      quote: "If you have self-only coverage, your maximum contribution is $4,300. If you have family coverage, your maximum contribution is $8,550."
+      source: "2025 Instructions for Form 8889, Figuring Your HSA Deduction"
+    feeds_condition: adjustments.hsa_limited_annual_deductible_amount  # Form 8889 line 3
+    shadows_canonical_field: deductions.hdhp_coverage_type  # Form 8889 line 1
+    order_index: 1
+    required: true
+
+  - question_key: profile_filing_status
+    form_number: "1040"
+    prompt_text: "What is your filing status for 2025?"
+    input_type: choice
+    choices:
+      - "single"
+      - "married_filing_jointly"
+      - "married_filing_separately"
+      - "head_of_household"
+      - "qualifying_surviving_spouse"
+    justification: >-
+      Filing status is recorded on Form 1040 itself and, while it doesn't
+      change any HSA deduction math in this pilot's single-taxpayer scope
+      (no spouse-allocation rules yet), other Form 1040 lines depend on it.
+      Captured now so the taxpayer profile is complete as more Form 1040
+      lines are added.
+    irs_reference:
+      form: "1040"
+      line: null
+      quote: null
+      source: "Form 1040 filing status checkboxes"
+    feeds_condition: null
+    shadows_canonical_field: form_1040_filing_status
+    order_index: 2
+    required: true

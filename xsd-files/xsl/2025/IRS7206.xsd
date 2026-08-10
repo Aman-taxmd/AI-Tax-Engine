@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+    <xsd:annotation>
+        <xsd:documentation>
+            <Description>IRS e-file Schema - Form 7206 - Self-Employed Health Insurance Deduction </Description>
+            <TaxYear>2025</TaxYear>
+            <MaturityLevel>Final Release</MaturityLevel>
+            <ReleaseDate>February 19 2026</ReleaseDate>
+        </xsd:documentation>
+    </xsd:annotation>
+    
+    <xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+    
+    <!-- ============================================= -->
+    <!-- =============== IRS Form 7206 =============== -->
+    <!-- ============================================= -->
+    
+    <xsd:element name="IRS7206">
+        <xsd:annotation>
+            <xsd:documentation>IRS Form 7206 - Self-Employed Health Insurance Deduction </xsd:documentation>
+        </xsd:annotation>
+        
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="IRS7206Type">
+                    <xsd:attributeGroup ref="DocumentAttributes">
+                        <xsd:annotation>
+                            <xsd:documentation>Common return document attributes</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:attributeGroup>
+                    
+                    <xsd:attribute name="documentName" type="TextType" fixed="IRS7206">
+                        <xsd:annotation>
+                            <xsd:documentation>IRS internal use only. To avoid errors within the return, do not include the attribute name or value.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:attribute>
+                    
+                    <xsd:attribute name="referenceDocumentId" type="IdListType">
+                        <xsd:annotation>
+                            <xsd:documentation>List of document IDs of forms, schedules, supporting info. etc. attached to this form.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:attribute>
+                    
+                    <xsd:attribute name="referenceDocumentName" type="TextType" fixed="GeneralDependencySmall"/>
+                </xsd:extension>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+    
+    <xsd:complexType name="IRS7206Type">
+        <xsd:sequence>
+            <xsd:element name="NameLine1Txt" type="NameLine1Type">
+				<xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Name of person or persons with self-employment income</Description>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+			
+            <xsd:element name="SSN" type="SSNType">
+				<xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Social Security Number of person with self-employment income</Description>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Total amount paid for health insurance coverage -->
+            <xsd:element name="TotalHealthInsurancePaidAmt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Total amount paid for health insurance coverage</Description>
+                        <LineNumber>Line 1</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Coverage under a qualified long-term care insurance, enter either total payments made for that person during the year or by using the person's age at the end of the tax year -->
+            <xsd:element name="TotQlfyLTCareInsDedAmt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Coverage under a qualified long-term care insurance, enter either total payments made for that person during the year or by using the person's age at the end of the tax year</Description>
+                        <LineNumber>Line 2</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <xsd:element name="TotHlthInsQlfyLTCareInsDedAmt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <LineNumber>Line 3</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Net profit and other earned income from business which insurance plan is established -->
+            <xsd:element name="NetPrftOthEarnedIncmAmt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Net profit and other earned income from business which insurance plan is established</Description>
+                        <LineNumber>Line 4</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <xsd:element name="TotNetPrftIncmAmt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <LineNumber>Line 5</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <xsd:element name="OthEarnedIncmDivTotNetPrftPct" type="RatioType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <LineNumber>Line 6</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <xsd:element name="DedSETaxMultiplyPctAmt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <LineNumber>Line 7</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <xsd:element name="PctLessNetPrftOthEarnedIncmAmt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <LineNumber>Line 8</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <xsd:element name="SelfEmpldSepSimpleQlfyPlansAmt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <LineNumber>Line 9</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <xsd:element name="PctMinusSEQlfyPlansAmt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <LineNumber>Line 10</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <xsd:element name="MedicareWagesAndTipsAmt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <LineNumber>Line 11</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <xsd:element name="Form2555Amt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <LineNumber>Line 12</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <xsd:element name="SubtractForm2555Amt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <LineNumber>Line 13</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Self employed health insurance deduction -->
+            <xsd:element name="SelfEmpldHealthInsDedAmt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Self employed health insurance deduction</Description>
+                        <LineNumber>Line 14</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>

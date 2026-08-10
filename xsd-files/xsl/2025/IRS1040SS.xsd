@@ -1,0 +1,1091 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - IRS Form 1040-SS U.S. Self-Employment Tax Return (Including the Additional Child Tax Credit for Bona Fide Residents of Puerto Rico)</Description>
+			<TaxYear>2025</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>February 19 2026</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+ <!-- ================================================================== -->
+ <!-- ======================   IRS Form 1040-SS    ===================== -->
+ <!-- ================================================================== -->
+
+	<xsd:element name="IRS1040SS">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 1040-SS</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS1040SSType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS1040SS">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+
+					<xsd:attribute name="referenceDocumentId" type="IdListType">
+						<xsd:annotation>
+							<xsd:documentation>List of document ID's of forms, schedules, supporting info. etc. attached to this form</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="AllowableSEExpenseExplanationStatement BinaryAttachment ExtensionForBonaFideResidentsStatement GeneralDependencyMedium PenaltiesStatement FormOrScheduleChangeExplanationStatement IRS4137 IRS4562 IRS8867 IRS8919 IRS8959 IRS9465"/>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:complexType name="IRS1040SSType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 1040-SS</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			
+			<!-- Spanish Language Indicator -->
+			<xsd:element name="SpanishLanguageInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Spanish Language Indicator</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>			
+			
+			<xsd:choice minOccurs="0">
+				<!-- Corrected Return Indicator -->
+				<xsd:element name="CorrectedReturnInd" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Corrected Return Indicator</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<!-- Superseded Return Indicator -->
+				<xsd:element name="SupersededReturnInd" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Superseded Return Indicator</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+			
+			<!-- Date Of Change -->
+			<xsd:element name="ChangeDt" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date Of Change</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Address Change Indicator -->
+			<xsd:element name="AddressChangeInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Address Change Indicator</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Filed Pursuant To Section 30191002 Code -->
+            <xsd:element name="FiledPursuantToSect30191002Ind" type="CheckboxType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Filed Pursuant To Section 30191002 Code</Description>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Deceased Indicator -->
+            <xsd:element name="DeceasedInd" type="CheckboxType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Deceased Indicator</Description>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+			
+			<!-- Primary Date of Death -->
+			<xsd:element name="PrimaryDeathDt" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Primary date of death</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Spouse Date Of Death -->
+			<xsd:element name="SpouseDeathDt" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Spouse date of death</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Other Indicator -->
+            <xsd:element name="OtherInd" type="CheckboxType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Other Indicator</Description>
+                    </xsd:documentation>
+				</xsd:annotation>	
+            </xsd:element>
+            
+            <!-- Special condition text -->
+            <xsd:element name="SpecialConditionTxt" type="SpecialConditionTextType" minOccurs="0" maxOccurs="3">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Special condition text</Description>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+			
+			<!-- Virtual Currency Acquired During TY Indicator -->
+			<xsd:element name="VirtualCurAcquiredDurTYInd" type="BooleanType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Virtual currency acquired during TY indicator</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Part I Total Tax and Credits -->
+
+			<!-- Individual Return Filing Status Code -->
+			<xsd:element name="IndividualReturnFilingStatusCd">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Individual return filing status cd</Description>
+						<LineNumber>Part I Line 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="TextType">
+						<!-- 1=Single -->
+				     		<xsd:enumeration value="1"/>
+						<!-- 2=Married Filing Jointly -->
+						<xsd:enumeration value="2"/>
+						<!-- 3=Married Filing Separate -->
+				     		<xsd:enumeration value="3"/>
+						<!-- 4=Head of household -->
+						<xsd:enumeration value="4"/>
+						<!-- 5=Qualifying Surviving Spouse -->
+				     		<xsd:enumeration value="5"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			
+			<xsd:choice minOccurs="0">
+				<!-- Spouses Name -->
+				<xsd:element name="SpouseNm" type="PersonNameType">         
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Spouses name</Description>
+							<LineNumber>Part I Line 1</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>          
+				</xsd:element>
+				<!-- Nonresident Alien (NRA) Literal Code -->
+				<xsd:element name="NRALiteralCd">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Nonresident Alien (NRA) Literal Code</Description>
+							<LineNumber>Part I Line 1</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="TextType">
+							<xsd:enumeration value="NRA"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+			</xsd:choice>
+   	        
+			 <!-- Head of Household Qualifying Child Name -->
+            <xsd:element name="QualifyingHOHNm" type="PersonNameType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Head of Household Qualifying Child Name</Description>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Head of Household Qualifying Child SSN -->
+            <xsd:element name="QualifyingHOHSSN" type="SSNType"  minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Head of Household Qualifying Child SSN</Description>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+			
+			<!-- Nonresident Alien Spouse Treated As Resident Group -->
+            <xsd:element name="NRASpouseTreatedAsResidentGrp" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Nonresident Alien Spouse Treated As Resident Group</Description>
+                    </xsd:documentation>
+                </xsd:annotation>
+                
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <!-- Nonresident Alien Spouse Treated As Resident Indicator -->
+                        <xsd:element name="NRASpouseTreatedAsResidentInd" type="CheckboxType">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Nonresident Alien Spouse Treated As Resident Indicator</Description>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Name of Nonresident Alien Spouse -->
+                        <xsd:element name="SpouseNm" type="PersonNameType">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Name of Nonresident Alien Spouse</Description>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+			
+			<!-- More Dependents Indicator-->
+			<xsd:element name="MoreDependentsInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>More dependents indicator</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		
+			<!-- Qualifying Child Information Repeating Group -->
+			<xsd:element name="QualifyingChildInfoGrp" minOccurs="0" maxOccurs="100">
+				<xsd:complexType>
+					<xsd:sequence>
+	
+						<!-- Qualifying Child First Name -->
+						<xsd:element name="QualifyingChildFirstNm" type="PersonFirstNameType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Qualifying child first name</Description>
+									<LineNumber>Part I Line 2(a)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+	
+						<!-- Qualifying Child Last Name -->
+						<xsd:element name="QualifyingChildLastNm" type="PersonLastNameType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Qualifying child last name</Description>
+									<LineNumber>Part I Line 2(b)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Qualifying Child Name Control -->
+						<xsd:element name="QualifyingChildNameControlTxt" type="PersonNameControlType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Qualifying child name control</Description>
+									<LineNumber>Part I Line 2(b)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+	
+						<xsd:choice>
+							<!-- Qualifying Child SSN -->
+							<xsd:element name="QualifyingChildIdentifyingNum" type="SSNType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Qualifying child SSN</Description>
+										<LineNumber>Part I Line 2(c)</LineNumber>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+
+							<!-- Died Literal Code -->
+							<xsd:element name="DiedLiteralCd">
+								<xsd:annotation>
+									<xsd:documentation>
+										<LineNumber>Part I Line 2(c)</LineNumber>
+									</xsd:documentation>
+								</xsd:annotation>
+								<xsd:simpleType>
+									<xsd:restriction base="TextType">
+										<xsd:enumeration value="DIED"/>
+									</xsd:restriction>
+								</xsd:simpleType>
+							</xsd:element>
+						</xsd:choice>	
+						
+						<!-- Qualifying Child Identity Protection PIN -->
+						<xsd:element name="IdentityProtectionPIN" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Qualifying Child Identity Protection PIN</Description>
+									<LineNumber>Part I Line 2(c)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="TextType">
+									<xsd:length value="6"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+
+						<!-- Qualifying Child Relationship -->
+						<xsd:element name="ChildRelationshipCd">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Qualifying child relationship</Description>
+									<LineNumber>Part I Line 2(d)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="TextType">
+									<xsd:enumeration value="SON"/>
+									<xsd:enumeration value="DAUGHTER"/>
+									<xsd:enumeration value="STEPCHILD"/>
+									<xsd:enumeration value="FOSTER CHILD"/>
+									<xsd:enumeration value="BROTHER"/>
+									<xsd:enumeration value="SISTER"/>
+									<xsd:enumeration value="STEPBROTHER"/>
+									<xsd:enumeration value="STEPSISTER"/>
+									<xsd:enumeration value="HALF BROTHER"/>
+									<xsd:enumeration value="HALF SISTER"/>
+									<xsd:enumeration value="GRANDCHILD"/>
+									<xsd:enumeration value="NIECE"/>
+									<xsd:enumeration value="NEPHEW"/>								
+									<xsd:enumeration value="NINO"/>
+									<xsd:enumeration value="NINA"/>
+									<xsd:enumeration value="HIJO DE CRIANZA"/>
+									<xsd:enumeration value="HIJA DE CRIANZA"/>
+									<xsd:enumeration value="NIETO"/>
+									<xsd:enumeration value="NIETA"/>									
+									<xsd:enumeration value="HERMANO"/>
+									<xsd:enumeration value="HERMANA"/>									
+									<xsd:enumeration value="SOBRINO"/>
+									<xsd:enumeration value="SOBRINA"/>									
+									<xsd:enumeration value="HIJO"/>
+									<xsd:enumeration value="HIJA"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			
+			<!-- Self-Employment Tax Amount -->
+			<xsd:element name="SelfEmploymentTaxAmt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Self-employment tax</Description>
+						<LineNumber>Part I Line 3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountNNType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="IRS1040ScheduleSE IRS1040ScheduleC IRS1040ScheduleF"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>				
+			</xsd:element>
+	
+			<!-- Household Employment Tax Amount -->
+			<xsd:element name="HouseholdEmploymentTaxAmt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Household employment taxes</Description>
+						<LineNumber>Part I Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountNNType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="IRS1040ScheduleH"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>	
+
+			<!-- Total Additional Medicare Tax -->
+			<xsd:element name="TotalAMRRTTaxAmt">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Additional Medicare Tax</Description>
+						<LineNumber>Part I Line 5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="IRS8959"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="SocSecMedicareTaxUnrptdTipAmt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<LineNumber>Part I Line 6a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="IRS4137"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+			
+			<xsd:element name="UncollectedSocSecTaxOnTipsAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<LineNumber>Part I Line 6b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<xsd:element name="UncollectedSocSecMedTaxAmt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<LineNumber>Part I Line 6c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="IRS8919"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+			
+			<xsd:element name="UncollectedSocSecMedTaxGTLIAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<LineNumber>Part I Line 6d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+						
+			<!-- Total other taxes amount -->
+			<xsd:element name="TotalOtherTaxesAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total other taxes amount</Description>
+						<LineNumber>Part I Line 6e</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+						
+			<!-- Total Tax Amount -->
+			<xsd:element name="TotalTaxAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total tax</Description>
+						<LineNumber>Part I Line 7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+			
+			<!-- Estimated Tax Payments Amount -->
+			<xsd:element name="EstimatedTaxPaymentsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Estimated tax payments</Description>
+						<LineNumber>Part I Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Estimated tax payments with former spouse SSN -->
+			<xsd:element name="FormerSpouseSSN" type="SSNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Estimated tax payments with former spouse SSN</Description>
+						<LineNumber>Part I Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Amount paid with request for extention of time to file -->
+			<xsd:element name="RequestForExtensionAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount paid with request for extention of time to file</Description>
+						<LineNumber>Part I Line 9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+			
+			<!-- Part I Line 10 Not in XML.  Use value from Part II Line 19; Comment in schema -->
+			
+			<!-- Additional Medicare Tax Withheld -->
+			<xsd:element name="AddlMedcrRRTTaxWithholdingAmt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Additional Medicare Tax Withheld</Description>
+						<LineNumber>Part I Line 11a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountNNType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="IRS8959"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>	
+			
+			<!-- Excess Social Security Tax Withheld Amount -->
+			<xsd:element name="ExSocSecTaxWithheldAmt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Excess social security tax withheld</Description>
+						<LineNumber>Part I Line 11b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountNNType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="IRS499W2PR IRSW2AS IRSW2GU IRSW2VI"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Total Payments Amount -->
+			<xsd:element name="TotalPaymentsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total payments and credits</Description>
+						<LineNumber>Part I Line 12</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Overpaid Amount -->
+			<xsd:element name="OverpaidAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount overpaid</Description>
+						<LineNumber>Part I Line 13</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+	
+			<!-- Refund Amount -->
+			<xsd:element name="RefundAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount to be refunded</Description>
+						<LineNumber>Part I Line 14a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+	
+			<!-- Form 8888 Indicator -->
+			<xsd:element name="Form8888Ind" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Form 8888 indicator</Description>
+						<LineNumber>Part I Line 14a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="CheckboxType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="IRS8888"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+	
+			<!-- Routing Transit Number -->
+			<xsd:element name="RoutingTransitNum" type="RoutingTransitNumberType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Routing transit number</Description>
+						<LineNumber>Part I Line 14b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+	
+			<!-- Bank Account Type -->
+			<xsd:element name="BankAccountTypeCd" type="BankAccountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Bank account type</Description>
+						<LineNumber>Part I Line 14c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+	
+			<!-- Depositor Account Number -->
+			<xsd:element name="DepositorAccountNum" type="BankAccountNumberType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Depositor account number</Description>
+						<LineNumber>Part I Line 14d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+	
+			<!-- Applied to ES Tax -->
+			<xsd:element name="AppliedToEsTaxAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Applied to ES tax</Description>
+						<LineNumber>Part I Line 15</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+	
+			<!-- Amount Owed -->
+			<xsd:element name="OwedAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount owed</Description>
+						<LineNumber>Part I Line 16</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+	
+			<!-- Third Party Designee -->
+			<!-- Third Party Designee Indicator -->
+			<xsd:element name="ThirdPartyDesigneeInd" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Third party designee indicator</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+	
+			<!-- Third Party Designee Name -->
+			<xsd:element name="ThirdPartyDesigneeNm" type="PersonNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Third Party Designee Name</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Third Party Designee Telephone Number -->
+			<xsd:element name="ThirdPartyDesigneePhoneNum" type="PhoneNumberType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Third party designee telephone number</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+	
+			<!-- Third Party Designee PIN -->
+			<xsd:element name="ThirdPartyDesigneePIN" type="PINType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Third Party Designee PIN</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Sign Here -->
+			<!-- Power Of Attorney Signed By -->
+			<xsd:element name="PowerOfAttorneySignedByInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Power Of Attorney Signed By</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Power Of Attorney Name -->
+			<xsd:element name="PowerOfAttorneyNm" type="PersonNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Power Of Attorney Name</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Surviving Spouse Indicator -->
+			<xsd:element name="SurvivingSpouseInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Surviving Spouse Indicator</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Personal Representative Indicator -->
+			<xsd:element name="PersonalRepresentativeInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Personal Representative Indicator</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Paid Preparer's Use Only -->
+			<!-- Non-Paid Preparer -->
+			<xsd:element name="NonPaidPreparerCd" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Non-paid preparer</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="TextType">
+						<xsd:enumeration value="IRS-PREPARED"/>
+						<xsd:enumeration value="IRS-REVIEWED"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+	
+			<!-- Refund Product Code -->
+			<xsd:element name="RefundProductCd" maxOccurs="5">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Refund product code</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="TextType">
+						<xsd:enumeration value="NO FINANCIAL PRODUCT"/>
+						<xsd:enumeration value="PRE-REFUND ADVANCE PRODUCT - TAXPAYER CHARGED AN ADVANCE FEE (RAL)"/>
+						<xsd:enumeration value="POST-REFUND FINANCIAL PRODUCT (REFUND TRANSFER)"/>
+						<xsd:enumeration value="PRE-REFUND ADVANCE PRODUCT - TAXPAYER NOT CHARGED AN ADVANCE FEE"/>
+						<xsd:enumeration value="OTHER/NEW PRODUCT"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			
+			<!-- Refund Product Code Text  -->
+			<xsd:element name="RefundProductCodeTxt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Refund product code text</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="TextType">
+						<xsd:maxLength value="50"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			
+			<!-- Part II Bona Fide Residents of Puerto Rico Claiming Additional Child Tax Credit -->	
+			
+			<xsd:element name="ACTCBonaFideResidentsGrp" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>	
+					
+						<!-- Qulifying Child Indicator -->
+						<xsd:element name="QualifyingChildInd" type="BooleanType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Do you have one or more qualifying children under specified age with required Social Security Number</Description>
+									<LineNumber>Part II Line 1</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>	
+						<!-- Number of qualifying children -->
+						<xsd:element name="QlfyChildUnderAgeSSNCnt" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Number of qualifying children</Description>
+									<LineNumber>Part II Line 2</LineNumber>
+								</xsd:documentation>							
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="IntegerNNType">
+									<xsd:totalDigits value="2"/>
+								</xsd:restriction>
+							</xsd:simpleType>							
+						</xsd:element>	
+						<!-- Number of qualifying children times threshold amount -->
+						<xsd:element name="QlfyChildUnderAgeSSNLimtAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Number of qualifying children times threshold amount</Description>
+									<LineNumber>Part II Line 2</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>							
+						<!-- Income derived from sources within Puerto Rico -->
+						<xsd:element name="ModifiedAGIAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Modified Adjusted Gross Income Amount</Description>
+									<LineNumber>Part II Line 3</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						
+						<!-- Filing status income threshold -->
+						<xsd:element name="FilingStatusThresholdCd" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Filing status income threshold.</Description>
+									<LineNumber>Part II Line 4</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="TextType">
+									<xsd:enumeration value="400000"/>
+									<xsd:enumeration value="200000"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<!-- ModifiedAGI More Than Treshold Indicator -->
+						<xsd:element name="MAGIMoreThanThresholdInd" type="BooleanType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Is amount on ModifiedAGIAmt more than the amount on FilingStatusThresholdCd</Description>
+									<LineNumber>Part II Line 5</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- Modified AGI Less Treshold Amount -->
+						<xsd:element name="MAGILessThresholdAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>If Yes, subtract FilingStatusThresholdCd from ModifiedAGIAmt</Description>
+									<LineNumber>Part II Line 5</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- Modified AGI Phase Out Amount -->
+						<xsd:element name="ModifiedAGIPhaseOutAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Multiply amount on specified line by specified percent</Description>
+									<LineNumber>Part II Line 6</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>						
+						<!-- Number of qualifying children under specified age times threshold amount QlfyChildUnderAgeSSNLimtAmtLN7-->
+						<xsd:element name="QlfyChildUnderAgeSSNLimtAmtLN7" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Number of qualifying children under specified age times threshold amount</Description>
+									<LineNumber>Part II Line 7</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>						
+						<!-- Other dependent count -->
+						<xsd:element name="OtherDependentCnt" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Other dependent count</Description>
+									<LineNumber>Part II Line 8</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="IntegerNNType">
+									<xsd:totalDigits value="2"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<!-- Other dependent credit amount -->
+						<xsd:element name="OtherDependentCreditAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Other dependent credit amount</Description>
+									<LineNumber>Part II Line 8</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>	
+						<!-- Initial other dependent and additional child tax credit amount -->
+						<xsd:element name="InitialACTCAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Initial other dependent and additional child tax credit amount</Description>
+									<LineNumber>Part II Line 9</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- Other dependent credit and additional child tax credit over income limit indicator -->
+						<xsd:element name="ACTCOverPhaseOutLimitInd" type="BooleanType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Other dependent credit and additional child tax credit over income limit indicator</Description>
+									<LineNumber>Part II Line 10</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>						
+						<!-- Other dependent credit and additional child tax credit over income limit amount -->
+						<xsd:element name="ACTCLimitAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Other dependent credit and additional child tax credit over income limit amount</Description>
+									<LineNumber>Part II Line 10</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>	
+						<!-- Other dependent credit and additional child tax credit after income limit amount -->
+						<xsd:element name="ACTCAfterLimitAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Other dependent credit and additional child tax credit after income limit amount</Description>
+									<LineNumber>Part II Line 11</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- One-half self employment tax  -->
+						<xsd:element name="OneHalfSelfEmploymentTaxAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>One-half self employment tax</Description>
+									<LineNumber>Part II Line 12a</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>	
+						<!-- One-half additional medicare tax  -->
+						<xsd:element name="OneHalfAddnlMedicareTaxAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>One-half additional medicare tax</Description>
+									<LineNumber>Part II Line 12b</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>	
+						<!-- Total OneHalfSelfEmploymentTaxAmt and OneHalfAddnlMedicareTaxAmt  -->
+						<xsd:element name="TotalSEAddnlMedicareTaxAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total OneHalfSelfEmploymentTaxAmt and OneHalfAddnlMedicareTaxAmt</Description>
+									<LineNumber>Part II Line 12c</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>							
+			
+						<!-- Withheld Social Security, Medicare, and Additional Medicare Taxed from Puerto Rico Form(s) 499R-2/W-2PR. -->
+						<xsd:element name="TotalSocSecAndMedcrWithheldAmt" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Withheld Social Security, Medicare, and Additional Medicare Taxed from Puerto Rico Form(s) 499R-2/W-2PR.</Description>
+									<LineNumber>Part II Line 13a</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:simpleContent>
+									<xsd:extension base="USAmountNNType">
+										<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+										<xsd:attribute name="referenceDocumentName" type="StringType" fixed="IRS499W2PR"/>
+									</xsd:extension>
+								</xsd:simpleContent>
+							</xsd:complexType>
+						</xsd:element>
+						
+						<!-- For Part II Line 13b, Not in XML. Use value from Part I Line 6a (SocSecMedicareTaxUnrptdTipAmt) -->
+						<!-- For Part II Line 13c, Not in XML. Use value from Part I Line 6c (UncollectedSocSecMedTaxAmt) -->
+						<!-- For Part II Line 13d, Not in XML. Use value from Part I Line 6b and 6d (UncollectedSocSecTaxOnTipsAmt) and (UncollectedSocSecMedTaxGTLIAmt) -->
+						
+						<!-- Additional medicare tax amount  -->
+						<xsd:element name="AdditionalMedicareTaxAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Additional medicare tax amount</Description>
+									<LineNumber>Part II Line 13e</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- Total withheld uncollected and unreported tax  -->
+						<xsd:element name="TotalWthldUncollUnrptdTaxAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total withheld uncollected and unreported tax</Description>
+									<LineNumber>Part II Line 13f</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>	
+						<!-- Add TotalSEAddnlMedicareTaxAmt and TotalWthldUncollUnrptdTaxAmt  -->
+						<xsd:element name="TotalTaxLimitAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Add TotalSEAddnlMedicareTaxAmt and TotalWthldUncollUnrptdTaxAmt</Description>
+									<LineNumber>Part II Line 14</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- Additional medicare Tax withholding amount  -->
+						<xsd:element name="AddnlMedicareTaxWithholdingAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Additional medicare Tax withholding amount</Description>
+									<LineNumber>Part II Line 15</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>						
+						<!-- Subtract line AddnlMedicareTaxWithholdingAmt from TotalTaxLimitAmt  -->
+						<xsd:element name="TotalTaxAfterLimitAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Subtract line AddnlMedicareTaxWithholdingAmt from TotalTaxLimitAmt</Description>
+									<LineNumber>Part II Line 16</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						
+						<!-- Excess Social Security Tax Withheld Amount -->
+						<!-- For Part II Line 17, Use value from Part I Line 11b (ExSocSecTaxWithheldAmt) -->
+
+						<!-- ACTC Tax Claim Indicator -->
+						<xsd:element name="ACTCTaxClaimInd" type="BooleanType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Is the amount on TotalTaxAfterLimitAmt more than the amount ExSocSecTaxWithhldAmt</Description>
+									<LineNumber>Part II Line 18</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>	
+						<!-- ACTC tax limit amount  -->
+						<xsd:element name="ACTCTaxLimitAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>ACTC tax limit amount</Description>
+									<LineNumber>Part II Line 18</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>			
+						<!-- Additional Child Tax Credit Amount -->
+						<xsd:element name="AdditionalChildTaxCreditAmt" type="USAmountNNType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Additional Child Tax Credit Amount</Description>
+									<LineNumber>Part II Line 19</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>						
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>				
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

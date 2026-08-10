@@ -1,0 +1,36 @@
+# Seed catalog for the Form 8889 (HSA) pilot.
+#
+# `entry_points` are the only URLs the Discovery Agent starts from — trusted
+# IRS "About" pages, never a search engine or open crawl. From each entry
+# point, discovery.py follows only same-domain (irs.gov) links found under
+# the "Current revision" and "Other items you may find useful" sections, and
+# only PROMOTES a discovered link into the download set if it matches
+# `include_doc_types` below. Everything else discovered is logged but not
+# downloaded — this keeps the input surface auditable and small.
+form_number: "8889"
+tax_year: 2025
+
+entry_points:
+  - url: https://www.irs.gov/forms-pubs/about-form-8889
+    role: primary_form
+  - url: https://www.irs.gov/forms-pubs/about-publication-969
+    role: related_publication
+
+# Only links whose classified doc_type is in this list are downloaded.
+# `form` (the fillable f8889.pdf) is included so the PDF's real AcroForm
+# field codes can be extracted and mapped for the Streamlit "realistic form
+# view" (build/synthesis/pdf_field_mapper.py) — it is still never parsed for
+# canonical-field/calc-rule purposes, the XSD remains the structured source
+# of truth for those.
+include_doc_types:
+  - instructions
+  - publication
+  - form
+
+# Publications intentionally excluded even though they appear under "Other
+# items you may find useful" on the About Form 8889 page, because they are
+# not authoritative for HSA contribution/deduction rules (out of scope for
+# the 8889 pilot slice).
+excluded_publications:
+  - p502   # Medical and Dental Expenses — referenced only for definitions, not HSA limits
+  - p590-a # Contributions to IRAs — unrelated to HSA mechanics

@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+    <xsd:annotation>
+        <xsd:documentation>
+            <Description>IRS e-file Schema - Form 7217 - Partner’s Report of Property Distributed by a Partnership</Description>
+            <TaxYear>2025</TaxYear>
+            <MaturityLevel>Final Release</MaturityLevel>
+            <ReleaseDate>February 19 2026</ReleaseDate>
+        </xsd:documentation>
+    </xsd:annotation>
+    
+    <xsd:include schemaLocation="../../Common/efileTypes.xsd"/>
+    
+    <!-- ============================================= -->
+    <!-- =============== IRS Form 7217 =============== -->
+    <!-- ============================================= -->
+    
+    <xsd:element name="IRS7217">
+        <xsd:annotation>
+            <xsd:documentation>IRS Form 7217 - Partner’s Report of Property Distributed by a Partnership</xsd:documentation>
+        </xsd:annotation>
+        
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="IRS7217Type">
+                    <xsd:attributeGroup ref="DocumentAttributes">
+                        <xsd:annotation>
+                            <xsd:documentation>Common return document attributes</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:attributeGroup>
+                    
+                    <xsd:attribute name="documentName" type="TextType" fixed="IRS7217">
+                        <xsd:annotation>
+                            <xsd:documentation>IRS internal use only. To avoid errors within the return, do not include the attribute name or value.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:attribute>
+                    
+                    <xsd:attribute name="referenceDocumentId" type="IdListType">
+                        <xsd:annotation>
+                            <xsd:documentation>List of document IDs of forms, schedules, supporting info. etc. attached to this form.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:attribute>
+                    
+                    <xsd:attribute name="referenceDocumentName" type="TextType" fixed="GeneralDependencySmall"/>
+                </xsd:extension>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+    
+    <xsd:complexType name="IRS7217Type">
+        <xsd:sequence>
+			<xsd:choice>
+				<xsd:sequence>
+					<!-- Partner's name -->
+					<xsd:element name="PartnerPersonNm" type="PersonNameType">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>Partner's name</Description>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					
+					<!-- Partner's TIN -->
+					<xsd:element name="PartnerSSN" type="SSNType">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>Partner's TIN</Description>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+					
+				<xsd:sequence>
+					<!-- Partner's name -->
+					<xsd:element name="PartnerBusinessName" type="BusinessNameType">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>Partner's name</Description>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					
+					<!-- Partner's TIN -->
+					<xsd:element name="PartnerEIN" type="EINType">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>Partner's TIN</Description>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:choice>
+            
+            <!-- Distributing partnership's name -->
+            <xsd:element name="DistributingPartnershipName" type="BusinessNameType">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Distributing partnership's name</Description>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Distributing partnership's EIN -->
+            <xsd:element name="DistributingPartnershipEIN" type="EINType">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Distributing partnership's EIN</Description>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Date property was distributed to partner -->
+            <xsd:element name="PropertyDistributedDt" type="DateType">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Date property was distributed to partner</Description>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- =============== Part I =============== -->
+            
+            <!-- Was this distribution in complete liquidation of the partner's interest in the partnership? -->
+            <xsd:element name="DistriLiqdtPrtnrIntPrtshpInd" type="BooleanType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Was this distribution in complete liquidation of the partner's interest in the partnership?</Description>
+                        <LineNumber>Part I, Line 1</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Was any part of the distribution treated as a sale or exchange under section 751(b)? -->
+            <xsd:element name="DistriTrtdSaleExchSect751bInd" type="BooleanType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Was any part of the distribution treated as a sale or exchange under section 751(b)?</Description>
+                        <LineNumber>Part I, Line 2</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Part I, Line 3 TotPrtshpBasisPropBfrDistriAmt - Use value from Part II, Line B, Total column (b) -->
+            
+            <!-- Adjusted basis of the partner's interest in the partnership immediately before the distribution -->
+            <xsd:element name="AdjBssPrtnrIntPrtshpBfrAmt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Adjusted basis of the partner's interest in the partnership immediately before the distribution</Description>
+                        <LineNumber>Part I, Line 4</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Cash received in distribution -->
+            <xsd:element name="CashReceivedAmt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Cash received in distribution</Description>
+                        <LineNumber>Part I, Line 5a</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- FMV of marketable securities received in distribution -->
+            <xsd:element name="FMVMrktblSecRcvdAmt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>FMV of marketable securities received in distribution</Description>
+                        <LineNumber>Part I, Line 5b</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Cash and marketable securities (as defined in Section 731(c)) received in the distribution -->
+            <xsd:element name="CashMrktblSecRcvdAmt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Cash and marketable securities (as defined in Section 731(c)) received in the distribution</Description>
+                        <LineNumber>Part I, Line 5c</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Smaller of specified lines -->
+            <xsd:element name="SmllrPrtnrBssCashMrktblRcvdAmt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Smaller of specified lines</Description>
+                        <LineNumber>Part I, Line 6</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Gain recognized -->
+            <xsd:element name="RecognizedGainAmt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Gain recognized</Description>
+                        <LineNumber>Part I, Line 7</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Is U.S. tax required to be paid on the gain? -->
+            <xsd:element name="USTxRqrPaidRecognizedGainInd" type="BooleanType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Is U.S. tax required to be paid on the gain?</Description>
+                        <LineNumber>Part I, Line 8</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Partner's basis in partnership interest reduced by cash received in the distribution. -->
+            <xsd:element name="PrtnrBssPrtshpIntLessCashAmt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Partner's basis in partnership interest reduced by cash received in the distribution.</Description>
+                        <LineNumber>Part I, Line 9</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Aggregate basis to be allocated to the distributed property -->
+            <xsd:element name="TotPrtnrBssAllocDistriPropAmt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Aggregate basis to be allocated to the distributed property</Description>
+                        <LineNumber>Part I, Line 10</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- =============== Part II =============== -->
+            
+            <!-- Allocation of basis of distributed property -->
+            <xsd:element name="AllocationBssDistriPropGrp" minOccurs="0" maxOccurs="unbounded">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Allocation of basis of distributed property</Description>
+                        <LineNumber>Part II</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+                
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <!-- Description of distributed property -->
+                        <xsd:element name="PropertyDesc" type="LineExplanationType">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Description of distributed property</Description>
+                                    <LineNumber>Part II, column (a)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Partnership's basis in distributed property immediately before the distribution -->
+                        <xsd:element name="PrtshpBasisPropBfrDistriAmt" type="USAmountNNType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Partnership's basis in distributed property immediately before the distribution</Description>
+                                    <LineNumber>Part II, column (b)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- 732(d) basis adjustment -->
+                        <xsd:element name="Sect732dBasisAdjInd" type="CheckboxType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>732(d) basis adjustment</Description>
+                                    <LineNumber>Part II, column (c)(i)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- 732(f) basis adjustment -->
+                        <xsd:element name="Sect732fBasisAdjInd" type="CheckboxType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>732(f) basis adjustment</Description>
+                                    <LineNumber>Part II, column (c)(ii)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- 734(b) basis adjustment -->
+                        <xsd:element name="Sect734bBasisAdjInd" type="CheckboxType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>734(b) basis adjustment</Description>
+                                    <LineNumber>Part II, column (c)(iii)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- 743(b) basis adjustment -->
+                        <xsd:element name="Sect743bBasisAdjInd" type="CheckboxType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>743(b) basis adjustment</Description>
+                                    <LineNumber>Part II, column (c)(iv)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Part II, column (c)(v) Reserved - Not used -->
+                        
+                        <!-- FMV of distributed property -->
+                        <xsd:element name="DistributedPropertyFMVAmt" type="USAmountNNType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>FMV of distributed property</Description>
+                                    <LineNumber>Part II, column (d)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Partner's basis in distributed property after application of section 732 -->
+                        <xsd:element name="PrtnrBssPropAftrSect732Amt" type="USAmountNNType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Partner's basis in distributed property after application of section 732</Description>
+                                    <LineNumber>Part II, column (e)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            
+            <!-- Part II, Line A Totals from additional items from attachments - Not used -->
+            
+            <!-- Partnership's aggregate basis in distributed property (taking into account any basis adjustments under 732(d), 734(b), or 743(b)) immediately before the distribution -->
+            <xsd:element name="TotPrtshpBasisPropBfrDistriAmt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Partnership's aggregate basis in distributed property (taking into account any basis adjustments under 732(d), 734(b), or 743(b)) immediately before the distribution</Description>
+                        <LineNumber>Part II, Line B, Total column (b)</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Total FMV of distributed property -->
+            <xsd:element name="TotDistributedPropertyFMVAmt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Total FMV of distributed property</Description>
+                        <LineNumber>Part II, Line B, Total column (d)</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Partner's total basis in distributed property after application of section 732 -->
+            <xsd:element name="TotPrtnrBssPropAftrSect732Amt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Partner's total basis in distributed property after application of section 732</Description>
+                        <LineNumber>Part II, Line B, Total column (e)</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>

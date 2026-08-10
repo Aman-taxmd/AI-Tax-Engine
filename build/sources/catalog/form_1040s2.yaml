@@ -1,0 +1,33 @@
+# Seed catalog for Schedule 2 (Form 1040) — Additional Taxes.
+#
+# Schedule 2 has no separate "About" page of its own (there is no
+# https://www.irs.gov/forms-pubs/about-schedule-2-form-1040 — confirmed 404),
+# same situation as Schedule 1 (see form_1040s1.yaml) — this catalog also
+# crawls the About Form 1040 page and relies on discovery.py's doc_id
+# override to tag Schedule 2's own PDF (f1040s2.pdf) with the distinct
+# form_number "1040s2". Running `discover --form 1040s2` is idempotent with
+# `discover --form 1040`.
+#
+# Schedule 2's own line instructions aren't a separate document either —
+# they're printed inside the general Form 1040 instructions booklet
+# (i1040gi, "Instructions for Schedule 2" section). Its e-file schema is
+# staged separately under this distinct form identity (see
+# build/ingestion/download.py's STAGED_LOCAL_FILES) since it has its own XSD
+# (IRS1040Schedule2.xsd) and its own line numbering.
+form_number: "1040s2"
+tax_year: 2025
+
+entry_points:
+  - url: https://www.irs.gov/forms-pubs/about-form-1040
+    role: primary_form
+
+include_doc_types:
+  - form
+
+excluded_doc_ids:
+  - "1040"
+  - 1040s     # Form 1040-SR
+  - 1040s1    # Schedule 1 — its own catalog, see form_1040s1.yaml
+  - 1040s1a   # Schedule 1-A — its own catalog, see form_1040s1a.yaml
+  - 1040s3    # Schedule 3 (nonrefundable credits)
+  - 1040tt    # Tax and EIC tables

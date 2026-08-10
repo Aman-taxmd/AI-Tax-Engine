@@ -1,0 +1,864 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form 8933 Schedule D - Recapture Certification</Description>
+			<TaxYear>2025</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>February 19 2026</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:include schemaLocation="../../Common/efileTypes.xsd"/>
+	<!-- ======================================================== -->
+	<!-- =============== IRS Form 8933 Schedule D =============== -->
+	<!-- ======================================================== -->
+	<xsd:element name="IRS8933ScheduleD">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 8933 Schedule D - Recapture Certification</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS8933ScheduleDType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="TextType" fixed="IRS8933ScheduleD">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid errors within the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="referenceDocumentId" type="IdListType">
+						<xsd:annotation>
+							<xsd:documentation>List of document IDs of forms, schedules, supporting info. etc. attached to this form.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="referenceDocumentName" type="TextType" fixed="BinaryAttachment GeneralDependencySmall IRS8933ScheduleB IRS8933ScheduleC"/>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="IRS8933ScheduleDType">
+		<xsd:sequence>
+			<!-- =============== Part I Section 1 =============== -->
+			<!-- Geological disposal site current year group -->
+			<xsd:element name="GeologicalDisposalSiteCYGrp" type="GeologicalDisposalSiteYearGrpType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Geological disposal site current year group</Description>
+						<LineNumber>Part I Section 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Geological disposal site 1st prior year group -->
+			<xsd:element name="GeologicalDisposalSite1stPYGrp" type="GeologicalDisposalSiteYearGrpType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Geological disposal site 1st prior year group</Description>
+						<LineNumber>Part I Section 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Geological disposal site 2nd prior year group -->
+			<xsd:element name="GeologicalDisposalSite2ndPYGrp" type="GeologicalDisposalSiteYearGrpType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Geological disposal site 2nd prior year group</Description>
+						<LineNumber>Part I Section 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Geological disposal site 3rd prior year group -->
+			<xsd:element name="GeologicalDisposalSite3rdPYGrp" type="GeologicalDisposalSiteYearGrpType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Geological disposal site 3rd prior year group</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- =============== Part I Section 2 =============== -->
+			<!-- Project indicator checkbox (Geological Disposal Site) -->
+			<xsd:choice>
+				<xsd:element name="GeologicalDisposalSiteInd" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Project indicator checkbox (Geological Disposal Site)</Description>
+							<LineNumber>Part I Section 2 Line 2(i)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<!-- Project indicator checkbox (EOR) -->
+				<xsd:element name="EORInd" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Project indicator checkbox (EOR)</Description>
+							<LineNumber>Part I Section 2 Line 2(ii)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+			<!-- Name and location (county and state, or offshore tract) -->
+			<xsd:element name="FacilityNameAndLocationTxt">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name and location (county and state, or offshore tract)</Description>
+						<LineNumber>Part I Section 2 Line 3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="TextType">
+						<xsd:maxLength value="100"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<!-- Operator name -->
+			<xsd:element name="OperatorBusinessName" type="BusinessNameType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Operator name</Description>
+						<LineNumber>Part I Section 2 Line 4a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Operator EIN -->
+			<xsd:element name="OperatorEIN" type="EINType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Operator EIN</Description>
+						<LineNumber>Part I Section 2 Line 4b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Other company/companies project operator and purpose group -->
+			<xsd:element name="OthCoProjOperatorPurposeGrp" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other company/companies project operator and purpose group</Description>
+						<LineNumber>Part I Section 2 Line 5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<!-- Other company identified as operator -->
+						<xsd:element name="CompanyName" type="BusinessNameType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Other company identified as operator</Description>
+									<LineNumber>Part I Section 2 Line 5</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- Nature of the purpose of the other company identified as operator -->
+						<xsd:element name="OtherPurposeDesc" type="LineExplanationType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Nature of the purpose of the other company identified as operator</Description>
+									<LineNumber>Part I Section 2 Line 5</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<!-- IRS-issued registration number for the facility -->
+			<xsd:element name="FacilityIRSIssdRegistrationNum" type="FacilityIRSIssdRegistrationNumType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>IRS-issued registration number for the facility</Description>
+						<LineNumber>Part I Section 2 Line 6a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Facility EPA e-GGRT ID -->
+			<xsd:element name="FacilityEPAeGGRTIdNum" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Facility EPA e-GGRT ID</Description>
+						<LineNumber>Part I Section 2 Line 6b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="TextType">
+						<xsd:maxLength value="40"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<!-- Carbon oxide injection begin date -->
+			<xsd:element name="CarbonOxideInjectionBeginDt" type="YearMonthType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Carbon oxide injection begin date</Description>
+						<LineNumber>Part I Section 2 Line 7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Previously certified project name -->
+			<xsd:element name="PrevCertifiedProjectNm" type="BusinessNameLine1Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Previously certified project name</Description>
+						<LineNumber>Part I Section 2 Line 8a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Date of the petroleum engineer's certification -->
+			<xsd:element name="PrevCertifiedProjectCertDt" type="YearMonthType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date of the petroleum engineer's certification</Description>
+						<LineNumber>Part I Section 2 Line 8b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Part I Section 2 Line 9 If the project wasn't previously certified under section 43, attach a copy of the valid petroleum - Not used -->
+			<!-- Natural gas recovery project indicator -->
+			<xsd:element name="EnhancedNaturalGasRcvryProjInd" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Natural gas recovery project indicator</Description>
+						<LineNumber>Part I Section 2 Line 10</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Part I Section 2 Line 11 Approved Monitoring, Reporting, and Verification (MRV) plan or provide the URL of it on the EPA's website - Not used -->
+			<!-- Part I Section 2 Line 12 Copy of the ISO 27916 documentation for the tax year. Also attach a copy of the certification by a qualified independent engineer or geologist - Not used -->
+			<!-- =============== Part II =============== -->
+			<!-- Total metric tons of qualified carbon oxide stored quantity -->
+			<xsd:element name="TotMtrcTonsCrbnOxdStorQty" type="LargeRatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total metric tons of qualified carbon oxide stored quantity</Description>
+						<LineNumber>Part II Line 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Metric tons of qualified carbon oxide leaked quantity -->
+			<xsd:element name="MtrcTonsCrbnOxdLkdQty" type="LargeRatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Metric tons of qualified carbon oxide leaked quantity</Description>
+						<LineNumber>Part II Line 2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Metric tons of qualified carbon oxide leaked migrate quantity -->
+			<xsd:element name="MtrcTonsCrbnOxdLkdMgrtQty" type="LargeRatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Metric tons of qualified carbon oxide leaked migrate quantity</Description>
+						<LineNumber>Part II Line 3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Part II Line 4 Explanation statement how to determine that the qualified carbon oxide won't y migrate to the atmosphere - Not used -->
+			<!-- Subject to recapture quantity -->
+			<xsd:element name="SubjectToRecaptureQty" type="LargeRatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Subject to recapture quantity</Description>
+						<LineNumber>Part II Line 5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Part II Line 6 Statement describing the cause of the leakage of qualified carbon oxide - Not used -->
+			<!-- Explanation of agencies made aware of qualified carbon oxide leakage -->
+			<xsd:element name="RegulatoryAgenciesNameTxt" type="ShortExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Explanation of agencies made aware of qualified carbon oxide leakage</Description>
+						<LineNumber>Part II Line 7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Part II Line 8 Schedule B (Form 8933) or Schedule C (Form 8933) for this disposal site for each of the previous THREE tax years. - Not used -->
+			<!-- Allocation carbon oxide recapture 1st prior year group -->
+			<xsd:element name="AllocnCrbnOxdRcptr1stPYGrp" type="AllocnCrbnOxdRcptrPYGrpType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Allocation carbon oxide recapture 1st prior year group</Description>
+						<LineNumber>Part II Line 9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Allocation carbon oxide recapture 2nd prior year group -->
+			<xsd:element name="AllocnCrbnOxdRcptr2ndPYGrp" type="AllocnCrbnOxdRcptrPYGrpType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Allocation carbon oxide recapture 2nd prior year group</Description>
+						<LineNumber>Part II Line 9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Allocation carbon oxide recapture 3rd prior year group -->
+			<xsd:element name="AllocnCrbnOxdRcptr3rdPYGrp" type="AllocnCrbnOxdRcptrPYGrpType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Allocation carbon oxide recapture 3rd prior year group</Description>
+						<LineNumber>Part II Line 9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Total allocation carbon oxide recapture group -->
+			<xsd:element name="TotAllocnCrbnOxdRcptrGrp" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total allocation carbon oxide recapture group</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<!-- Recapture metric tons -->
+						<xsd:element name="MtrcTonsCrbnOxdRcptrQty" type="LargeRatioType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Recapture metric tons</Description>
+									<LineNumber>Part II Line 9D Column (c)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- Enhanced oil recovery (EOR) project owner group -->
+						<xsd:element name="AllocationCrbnOxdRcptrOwnerGrp" type="AllocationCrbnOxdRcptrOwnerGrpType" maxOccurs="5">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Enhanced oil recovery (EOR) project owner group</Description>
+									<LineNumber>Part II Line 9</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- Total metric tons -->
+						<xsd:element name="TotAllocMtrcTonsRcptrQty" type="LargeRatioType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total metric tons</Description>
+									<LineNumber>Part II Line 9 Column (i)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<!-- Metric tons carbon oxide not recapture quantity -->
+			<xsd:element name="MtrcTonsCrbnOxdNotRcptrQty" type="LargeRatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Metric tons carbon oxide not recapture quantity</Description>
+						<LineNumber>Part II Line 9E</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Part II Line 10 In column (b), list the amount of total carbon oxide stored in each of the THREE tax years prior to the current tax year. - Not used -->
+			<!-- Part II Line 11 In columns (d) through (h), allocate the amount in column (c) to each owner of the geological disposal site or EOR project for each year. Check the box if the carbon oxide was qualified. See instructions - Not used -->
+			<!-- Allocation indicator stored carbon oxide subject to recapture -->
+			<xsd:element name="AllocationInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Allocation indicator stored carbon oxide subject to recapture</Description>
+						<LineNumber>Part II Line 12</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Part II Line 13 Provide a copy of Parts I and II to each owner of the disposal site or EOR project during the current and THREE previous years - Not used -->
+			<!-- =============== Part III Section 1 =============== -->
+			<!-- Determination recapture carbon oxide supplier group -->
+			<xsd:element name="DetermRcptrCrbnOxdSupplierGrp" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Determination recapture carbon oxide supplier group</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:choice minOccurs="0">
+							<xsd:sequence>
+								<!-- Person name -->
+								<xsd:element name="ProjectOwnerPersonNm" type="PersonNameType">
+									<xsd:annotation>
+										<xsd:documentation>
+											<Description>Person name</Description>
+											<LineNumber>Part III Section 1 Line 1</LineNumber>
+										</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<!-- SSN -->
+								<xsd:element name="SSN" type="SSNType">
+									<xsd:annotation>
+										<xsd:documentation>
+											<Description>SSN</Description>
+											<LineNumber>Part III Section 1 Line 2</LineNumber>
+										</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+							<xsd:sequence>
+								<!-- Business name -->
+								<xsd:element name="ProjectOwnerBusinessName" type="BusinessNameType">
+									<xsd:annotation>
+										<xsd:documentation>
+											<Description>Business name</Description>
+											<LineNumber>Part III Section 1 Line 1</LineNumber>
+										</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<!-- EIN -->
+								<xsd:element name="EIN" type="EINType">
+									<xsd:annotation>
+										<xsd:documentation>
+											<Description>EIN</Description>
+											<LineNumber>Part III Section 1 Line 2</LineNumber>
+										</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:choice>
+						<xsd:choice minOccurs="0">
+							<!-- U.S. address -->
+							<xsd:element name="USAddress" type="USAddressType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>U.S. address</Description>
+										<LineNumber>Part III Section 1 Line 3</LineNumber>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<!-- Foreign address -->
+							<xsd:element name="ForeignAddress" type="ForeignAddressType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Foreign address</Description>
+										<LineNumber>Part III Section 1 Line 3</LineNumber>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+						</xsd:choice>
+						<!-- =============== Part III  Section 2 =============== -->
+						<!-- Supplier name who supplied carbon oxide to facility and/or facilities -->
+						<xsd:choice minOccurs="0">
+							<xsd:sequence>
+								<xsd:element name="SupplierPersonNm" type="PersonNameType">
+									<xsd:annotation>
+										<xsd:documentation>
+											<Description>Supplier name who supplied carbon oxide to facility and/or facilities</Description>
+											<LineNumber>Part III Section 2 Line 4</LineNumber>
+										</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<!-- Supplier SSN who supplied carbon oxide to facility and/or facilities -->
+								<xsd:element name="SupplierSSN" type="SSNType">
+									<xsd:annotation>
+										<xsd:documentation>
+											<Description>Supplier SSN who supplied carbon oxide to facility and/or facilities</Description>
+											<LineNumber>Part III Section 2 Line 5</LineNumber>
+										</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+							<xsd:sequence>
+								<!-- Supplier name who supplied carbon oxide to facility and/or facilities -->
+								<xsd:element name="SupplierName" type="BusinessNameType">
+									<xsd:annotation>
+										<xsd:documentation>
+											<Description>Supplier name who supplied carbon oxide to facility and/or facilities</Description>
+											<LineNumber>Part III Section 2 Line 4</LineNumber>
+										</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<!-- Supplier EIN who supplied carbon oxide to facility and/or facilities -->
+								<xsd:element name="SupplierEIN" type="EINType">
+									<xsd:annotation>
+										<xsd:documentation>
+											<Description>Supplier EIN who supplied carbon oxide to facility and/or facilities</Description>
+											<LineNumber>Part III Section 2 Line 5</LineNumber>
+										</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:choice>
+						<!-- Name and location (county and state, or offshore tract) -->
+						<xsd:element name="FacilityNameAndLocationTxt">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Name and location (county and state, or offshore tract)</Description>
+									<LineNumber>Part III Section 2 Line 6</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="TextType">
+									<xsd:maxLength value="100"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<!-- Type of qualified carbon oxide facility -->
+						<xsd:element name="FacilityDesc" type="ShortDescriptionType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Type of qualified carbon oxide facility</Description>
+									<LineNumber>Part III Section 2 Line 7</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- Part III Section 2 Line 8 Supplier Name - Use value from Part III Section 2 Line 4 -->
+						<!-- Supplier carbon oxide recapture 1st prior year group -->
+						<xsd:element name="SupplierCrbnOxdRcptr1stPYGrp" type="SupplierCrbnOxdRcptrPYGrpType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Supplier carbon oxide recapture 1st prior year group</Description>
+									<LineNumber>Part III Section 2 Line 8</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- Supplier carbon oxide recapture 2nd prior year group -->
+						<xsd:element name="SupplierCrbnOxdRcptr2ndPYGrp" type="SupplierCrbnOxdRcptrPYGrpType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Supplier carbon oxide recapture 2nd prior year group</Description>
+									<LineNumber>Part III Section 2 Line 8</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- Supplier carbon oxide recapture 3rd prior year group -->
+						<xsd:element name="SupplierCrbnOxdRcptr3rdPYGrp" type="SupplierCrbnOxdRcptrPYGrpType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Supplier carbon oxide recapture 3rd prior year group</Description>
+									<LineNumber>Part III Section 2 Line 8</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- Total metric tons allowed quantity -->
+						<xsd:element name="TotMtrcTonsAllowedQty" type="LargeRatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total metric tons allowed quantity</Description>
+									<LineNumber>Part III Section 2 Line 8D</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- Amount of carbon oxide sequestration credit you must recapture this year for carbon oxide supplied by this supplier -->
+						<xsd:element name="TotalCOSCElectClmAmt" type="USDecimalAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Amount of carbon oxide sequestration credit you must recapture this year for carbon oxide supplied by this supplier</Description>
+									<LineNumber>Part III Section 2 Line 8E</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- Total metric tons disallowed quantity -->
+						<xsd:element name="TotMtrcTonsDisallowedQty" type="LargeRatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total metric tons disallowed quantity</Description>
+									<LineNumber>Part III Section 2 Line 8F</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- Amount of carbon oxide sequestration credit the supplier of carbon oxide must recapture this year -->
+						<xsd:element name="CrbnOxdSqstrtnCrRcptrAmt" type="USDecimalAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Amount of carbon oxide sequestration credit the supplier of carbon oxide must recapture this year</Description>
+									<LineNumber>Part III Section 2 Line 8G</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="GeologicalDisposalSiteYearGrpType">
+		<xsd:sequence>
+			<!-- Tax year -->
+			<xsd:element name="TaxYr" type="YearType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Tax year</Description>
+						<LineNumber>Part I, Section 1, Line 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Geological disposal site owner information group -->
+			<xsd:element name="GeologicalDisposalSiteOwnerGrp" type="GeologicalDisposalSiteOwnerGrpType" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Geological disposal site owner information group</Description>
+						<LineNumber>Part I, Section 1, Line 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="GeologicalDisposalSiteOwnerGrpType">
+		<xsd:sequence>
+			<xsd:choice>
+				<xsd:sequence>
+					<!-- Facility owner person name -->
+					<xsd:element name="FacilityOwnerPersonNm" type="PersonNameType">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>Facility owner person name</Description>
+								<LineNumber>Part I, Section 1, Line 1</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<!-- Facility owner SSN -->
+					<xsd:element name="FacilityOwnerSSN" type="SSNType">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>Facility owner SSN</Description>
+								<LineNumber>Part I, Section 1, Line 1</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+				<!-- Facility owner business name -->
+				<xsd:sequence>
+					<xsd:element name="FacilityOwnerBusinessName" type="BusinessNameType">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>Facility owner business name</Description>
+								<LineNumber>Part I, Section 1, Line 1</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<!-- Facility owner EIN -->
+					<xsd:element name="FacilityOwnerEIN" type="EINType">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>Facility owner EIN</Description>
+								<LineNumber>Part I, Section 1, Line 1</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:choice>
+			<xsd:choice>
+				<!-- Facility owner US address -->
+				<xsd:element name="FacilityOwnerUSAddress" type="USAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Facility owner US address</Description>
+							<LineNumber>Part I, Section 1, Line 1</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<!-- Facility owner foreign address -->
+				<xsd:element name="FacilityOwnerForeignAddress" type="ForeignAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Facility owner foreign address</Description>
+							<LineNumber>Part I, Section 1, Line 1</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+			<!-- Operating interest percentage -->
+			<xsd:element name="OperatingInterestPct" type="LargeRatioType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Operating interest percentage</Description>
+						<LineNumber>Part I, Section 1, Line 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="AllocnCrbnOxdRcptrPYGrpType">
+		<xsd:sequence>
+			<!-- Prior year -->
+			<xsd:element name="PriorYr" type="YearType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Prior year</Description>
+						<LineNumber>Part II Line 9 Column (a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Metric Tons Stored -->
+			<xsd:element name="MtrcTonsCrbnOxdQty" type="LargeRatioType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Metric Tons Stored</Description>
+						<LineNumber>Part II Line 9 Column (b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Recapture metric tons -->
+			<xsd:element name="MtrcTonsCrbnOxdRcptrQty" type="LargeRatioType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Recapture metric tons</Description>
+						<LineNumber>Part II Line 9 Column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Allocation of carbon oxide recapture by enhanced oil recovery (EOR) project owner group -->
+			<xsd:element name="AllocationCrbnOxdRcptrOwnerGrp" type="AllocationCrbnOxdRcptrOwnerGrpType" maxOccurs="5">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Allocation of carbon oxide recapture by enhanced oil recovery (EOR) project owner group</Description>
+						<LineNumber>Part II Line 9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Total allocation metric tons recapture quantity -->
+			<xsd:element name="TotAllocMtrcTonsRcptrQty" type="LargeRatioType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total allocation metric tons recapture quantity</Description>
+						<LineNumber>Part II Line 9 Column (i)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="AllocationCrbnOxdRcptrOwnerGrpType">
+		<xsd:sequence>
+			<xsd:choice>
+				<xsd:sequence>
+					<!-- Facility owner person name -->
+					<xsd:element name="FacilityOwnerPersonNm" type="PersonNameType">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>Facility owner person name</Description>
+								<LineNumber>Part II Line 9</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<!-- Facility owner SSN -->
+					<xsd:element name="FacilityOwnerSSN" type="SSNType">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>Facility owner SSN</Description>
+								<LineNumber>Part II Line 9</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+				<xsd:sequence>
+					<!-- Facility owner business name -->
+					<xsd:element name="FacilityOwnerBusinessName" type="BusinessNameType">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>Facility owner business name</Description>
+								<LineNumber>Part II Line 9</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<!-- Facility owner EIN -->
+					<xsd:element name="FacilityOwnerEIN" type="EINType">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>Facility owner EIN</Description>
+								<LineNumber>Part II Line 9</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:choice>
+			<!-- Qualified carbon oxide checkbox -->
+			<xsd:element name="QlfyCrbnOxdInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified carbon oxide checkbox</Description>
+						<LineNumber>Part II Line 9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Metric tons carbon oxide recapture quantity -->
+			<xsd:element name="MtrcTonsCrbnOxdRcptrQty" type="LargeRatioType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Metric tons carbon oxide recapture quantity</Description>
+						<LineNumber>Part II Line 9 Column (d-h)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SupplierCrbnOxdRcptrPYGrpType">
+		<xsd:sequence>
+			<!-- Year prior -->
+			<xsd:element name="PriorYr" type="YearType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Year prior</Description>
+						<LineNumber>Part III, Section 2, Line 8 Column a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Metric tons carbon oxide quantity -->
+			<xsd:element name="MtrcTonsCrbnOxdQty" type="LargeRatioType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Metric tons carbon oxide quantity</Description>
+						<LineNumber>Part III, Section 2, Line 8 Column b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Metric tons carbon oxide recapture quantity -->
+			<xsd:element name="MtrcTonsCrbnOxdRcptrQty" type="LargeRatioType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Metric tons carbon oxide recapture quantity</Description>
+						<LineNumber>Part III, Section 2, Line 8 Column c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Amount of qualified carbon oxide subject to recaptured -->
+			<xsd:element name="MtrcTonsCrbnOxdRcptrYourQty" type="LargeRatioType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount of qualified carbon oxide subject to recaptured</Description>
+						<LineNumber>Part III, Section 2, Line 8 Column d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Rate of carbon oxide sequestration credit for the year ($/Mt) -->
+			<xsd:element name="CrbnOxdSeqCreditRateAmt" type="USDecimalAmountNNType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Rate of carbon oxide sequestration credit for the year ($/Mt)</Description>
+						<LineNumber>Part III, Section 2, Line 8 Column e</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Carbon oxide metric tons allowed claimed as sequestration credit -->
+			<xsd:element name="MetricTonsCptrAnotherClmCrQty" type="LargeRatioType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Carbon oxide metric tons allowed claimed as sequestration credit</Description>
+						<LineNumber>Part III, Section 2, Line 8 Column f</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Carbon oxide metric tons allowed claimed as sequestration credit -->
+			<xsd:element name="COSCAllwClmCrClmntAmt" type="USDecimalAmountNNType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Carbon oxide metric tons allowed claimed as sequestration credit</Description>
+						<LineNumber>Part III, Section 2, Line 8 Column g</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Carbon oxide metric tons disallowed not claimed as sequestration credit -->
+			<xsd:element name="MetricTonsCptrDsallwClmCrQty" type="LargeRatioType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Carbon oxide metric tons disallowed not claimed as sequestration credit</Description>
+						<LineNumber>Part III, Section 2, Line 8 Column h</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Carbon oxide metric tons disallowed not claimed as sequestration credit -->
+			<xsd:element name="COSCRetainedAmt" type="USDecimalAmountNNType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Carbon oxide metric tons disallowed not claimed as sequestration credit</Description>
+						<LineNumber>Part III, Section 2, Line 8 Column i</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,676 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+    <xsd:annotation>
+        <xsd:documentation>
+            <Description>IRS e-file Schema - Form 8933 Schedule C - Enhanced Oil Recovery Operator Certification</Description>
+            <TaxYear>2025</TaxYear>
+            <MaturityLevel>Final Release</MaturityLevel>
+            <ReleaseDate>February 19 2026</ReleaseDate>
+        </xsd:documentation>
+    </xsd:annotation>
+    
+    <xsd:include schemaLocation="../../Common/efileTypes.xsd"/>
+    
+    <!-- ======================================================== -->
+    <!-- =============== IRS Form 8933 Schedule C =============== -->
+    <!-- ======================================================== -->
+    
+    <xsd:element name="IRS8933ScheduleC">
+        <xsd:annotation>
+            <xsd:documentation>IRS Form 8933 Schedule C - Enhanced Oil Recovery Operator Certification</xsd:documentation>
+        </xsd:annotation>
+        
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="IRS8933ScheduleCType">
+                    <xsd:attributeGroup ref="DocumentAttributes">
+                        <xsd:annotation>
+                            <xsd:documentation>Common return document attributes</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:attributeGroup>
+                    
+                    <xsd:attribute name="documentName" type="TextType" fixed="IRS8933ScheduleC">
+                        <xsd:annotation>
+                            <xsd:documentation>IRS internal use only. To avoid errors within the return, do not include the attribute name or value.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:attribute>
+                    
+                    <xsd:attribute name="referenceDocumentId" type="IdListType">
+                        <xsd:annotation>
+                            <xsd:documentation>List of document IDs of forms, schedules, supporting info. etc. attached to this form.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:attribute>
+                    
+                    <xsd:attribute name="referenceDocumentName" type="TextType" fixed="BinaryAttachment GeneralDependencySmall"/>
+                </xsd:extension>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+    
+    <xsd:complexType name="IRS8933ScheduleCType">
+        <xsd:sequence>
+            <!-- =============== Part I =============== -->
+            
+            <!-- Enhanced oil recovery project owner information group -->
+            <xsd:element name="EORProjectOwnerInfoGrp" maxOccurs="unbounded">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Enhanced oil recovery project owner information group</Description>
+                        <LineNumber>Part I, Line 1 columns (i)-(iv)</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+                
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <!-- Row identifier -->
+                        <xsd:element name="AlphaRowId" type="AlphaRowIdType">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Row identifier</Description>
+                                    <LineNumber>Part I, Line 1 columns (i)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <xsd:choice>
+                            <xsd:sequence>
+                                <!-- Owner person name -->
+                                <xsd:element name="OwnerNm" type="PersonNameType">
+                                    <xsd:annotation>
+                                        <xsd:documentation>
+                                            <Description>Owner person name</Description>
+                                            <LineNumber>Part I, Line 1, column(i)</LineNumber>
+                                        </xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:element>
+                                
+                                <!-- Owner SSN -->
+                                <xsd:element name="OwnerSSN" type="SSNType">
+                                    <xsd:annotation>
+                                        <xsd:documentation>
+                                            <Description>Owner SSN</Description>
+                                            <LineNumber>Part I, Line 1, column(iii)</LineNumber>
+                                        </xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:element>
+                            </xsd:sequence>
+                            
+                            <xsd:sequence>
+                                <!-- Owner business name -->
+                                <xsd:element name="BusinessOwnerName" type="BusinessNameType">
+                                    <xsd:annotation>
+                                        <xsd:documentation>
+                                            <Description>Owner business name</Description>
+                                            <LineNumber>Part I, Line 1, column(i)</LineNumber>
+                                        </xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:element>
+                                
+                                <!-- Owner EIN -->
+                                <xsd:element name="OwnerEIN" type="EINType">
+                                    <xsd:annotation>
+                                        <xsd:documentation>
+                                            <Description>Owner EIN</Description>
+                                            <LineNumber>Part I, Line 1, column(iii)</LineNumber>
+                                        </xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:element>
+                            </xsd:sequence>
+                        </xsd:choice>
+                        
+                        <xsd:choice>
+                            <!-- Owner US address -->
+                            <xsd:element name="OwnerUSAddress" type="USAddressType">
+                                <xsd:annotation>
+                                    <xsd:documentation>
+                                        <Description>Owner US address</Description>
+                                        <LineNumber>Part I, Line 1, column(ii)</LineNumber>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                            
+                            <!-- Owner foreign address -->
+                            <xsd:element name="OwnerForeignAddress" type="ForeignAddressType">
+                                <xsd:annotation>
+                                    <xsd:documentation>
+                                        <Description>Owner foreign address</Description>
+                                        <LineNumber>Part I, Line 1, column(ii)</LineNumber>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                        </xsd:choice>
+                        
+                        <!-- Operating interest percentage -->
+                        <xsd:element name="OperatingInterestPct" type="LargeRatioType">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Operating interest percentage</Description>
+                                    <LineNumber>Part I, Line 1, column(iv)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            
+            <!-- =============== Part II =============== -->
+            
+            <!-- Project name -->
+            <xsd:element name="ProjectNm" type="BusinessNameLine1Type">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Project name</Description>
+                        <LineNumber>Part II, Line 2</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Project location -->
+            <xsd:element name="ProjectLocationTxt" type="LineExplanationType">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Project location</Description>
+                        <LineNumber>Part II, Line 2</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Operator name -->
+            <xsd:element name="OperatorBusinessName" type="BusinessNameType">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Operator name</Description>
+                        <LineNumber>Part II, Line 3</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Operator EIN -->
+            <xsd:element name="OperatorEIN" type="EINType">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Operator EIN</Description>
+                        <LineNumber>Part II, Line 3</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Other company/companies project operator and purpose group -->
+            <xsd:element name="OthCoProjOperatorPurposeGrp" minOccurs="0" maxOccurs="unbounded">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Other company/companies project operator and purpose group</Description>
+                        <LineNumber>Part II, Line 4</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+                
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <!-- Other company identified as operator -->
+                        <xsd:element name="CompanyName" type="BusinessNameType">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Other company identified as operator</Description>
+                                    <LineNumber>Part II, Line 4</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Nature of the purpose of the other company identified as operator -->
+                        <xsd:element name="OtherPurposeDesc" type="LineExplanationType">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Nature of the purpose of the other company identified as operator</Description>
+                                    <LineNumber>Part II, Line 4</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            
+            <!-- IRS-issued registration number for the facility -->
+            <xsd:element name="FacilityIRSIssdRegistrationNum" type="FacilityIRSIssdRegistrationNumType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>IRS-issued registration number for the facility</Description>
+                        <LineNumber>Part II, Line 5a</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Facility EPA e-GGRT ID -->
+            <xsd:element name="FacilityEPAeGGRTIdNum" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Facility EPA e-GGRT ID</Description>
+                        <LineNumber>Part II, Line 5b</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+                
+                <xsd:simpleType>
+                    <xsd:restriction base="TextType">
+                        <xsd:maxLength value="40"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            
+            <!-- Carbon oxide injection begin date -->
+            <xsd:element name="CarbonOxideInjectionBeginDt" type="DateType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Carbon oxide injection begin date</Description>
+                        <LineNumber>Part II, Line 6</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Previously certified project name -->
+            <xsd:element name="PrevCertifiedProjectNm" type="BusinessNameLine1Type" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Previously certified project name</Description>
+                        <LineNumber>Part II, Line 7</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Previously certified project certification date -->
+            <xsd:element name="PrevCertifiedProjectCertDt" type="DateType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Previously certified project certification date</Description>
+                        <LineNumber>Part II, Line 7</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Part II, Line 8 If the project wasn't previously certified under section 43, attach a copy of the valid petroleum engineer's certification to schedule - Not used -->
+            
+            <!-- Enhanced natural gas recovery indicator -->
+            <xsd:element name="EnhancedNaturalGasRcvryProjInd" type="BooleanType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Enhanced natural gas recovery indicator</Description>
+                        <LineNumber>Part II, Line 9</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Injection wells indicator -->
+            <xsd:element name="InjectionWellsPermittedInd" type="BooleanType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Injection wells indicator</Description>
+                        <LineNumber>Part II, Line 10</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Part II, Line 11 Reserved - Not used -->
+            
+            <!-- Wells EPA class vi indicator -->
+            <xsd:element name="WellsEPAClassVIInd" type="BooleanType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Wells EPA class vi indicator</Description>
+                        <LineNumber>Part II, Line 12</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Filer declaration that all reported stored carbon oxide is consistent with reporting to the EPA -->
+            <xsd:element name="EPAFiguresRptConsistentInd" type="CheckboxType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Filer declaration that all reported stored carbon oxide is consistent with reporting to the EPA</Description>
+                        <LineNumber>Part II, Line 13</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- EPA approval date -->
+            <xsd:element name="EPAApprovalDt" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>EPA approval date</Description>
+                        <LineNumber>Part II, Line 14</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+                
+                <xsd:complexType>
+                    <xsd:simpleContent>
+                        <xsd:extension base="DateType">
+                            <xsd:attribute name="referenceDocumentId" type="IdListType"/>
+                            <xsd:attribute name="referenceDocumentName" type="TextType" fixed="BinaryAttachment"/>
+                        </xsd:extension>
+                    </xsd:simpleContent>
+                </xsd:complexType>
+            </xsd:element>
+            
+            <xsd:choice minOccurs="0">
+                <!-- Subpart RR indicator -->
+                <xsd:element name="SubpartRRInd" type="CheckboxType">
+                    <xsd:annotation>
+                        <xsd:documentation>
+                            <Description>Subpart RR indicator</Description>
+                            <LineNumber>Part II, Line 15</LineNumber>
+                        </xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+                
+                <!-- ISO 27916 indicator -->
+                <xsd:element name="ISO27916Ind">
+                    <xsd:annotation>
+                        <xsd:documentation>
+                            <Description>ISO 27916 indicator</Description>
+                            <LineNumber>Part II, Line 15</LineNumber>
+                        </xsd:documentation>
+                    </xsd:annotation>
+                    
+                    <xsd:complexType>
+                        <xsd:simpleContent>
+                            <xsd:extension base="CheckboxType">
+                                <xsd:attribute name="referenceDocumentId" type="IdListType"/>
+                                <xsd:attribute name="referenceDocumentName" type="TextType" fixed="BinaryAttachment"/>
+                            </xsd:extension>
+                        </xsd:simpleContent>
+                    </xsd:complexType>
+                </xsd:element>
+            </xsd:choice>
+            
+            <!-- Subpart RR approval date -->
+            <xsd:element name="SubpartRREPAApprovalDt" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Subpart RR approval date</Description>
+                        <LineNumber>Part II, Line 16</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+                
+                <xsd:complexType>
+                    <xsd:simpleContent>
+                        <xsd:extension base="DateType">
+                            <xsd:attribute name="referenceDocumentId" type="IdListType"/>
+                            <xsd:attribute name="referenceDocumentName" type="TextType" fixed="BinaryAttachment"/>
+                        </xsd:extension>
+                    </xsd:simpleContent>
+                </xsd:complexType>
+            </xsd:element>
+            
+            <!-- =============== Part III =============== -->
+            
+            <!-- Qualified carbon oxide supplier enhanced oil recovery (EOR) group -->
+            <xsd:element name="QlfyCrbnOxdSupplierEORGrp" maxOccurs="unbounded">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Qualified carbon oxide supplier enhanced oil recovery (EOR) group</Description>
+                        <LineNumber>Part III, Line 19, columns (i)-(vi)</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+                
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <!-- Supplier business name -->
+                        <xsd:element name="SupplierName" type="BusinessNameType">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Supplier business name</Description>
+                                    <LineNumber>Part III, Line 19, column (i)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Supplier EIN -->
+                        <xsd:element name="SupplierEIN" type="EINType">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Supplier EIN</Description>
+                                    <LineNumber>Part III, Line 19, column (ii)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Facility name -->
+                        <xsd:element name="FacilityName" type="BusinessNameType">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Facility name</Description>
+                                    <LineNumber>Part III, Line 19, column (iii)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Location of the capture facility -->
+                        <xsd:element name="LocationTxt" type="LineExplanationType">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Location of the capture facility</Description>
+                                    <LineNumber>Part III, Line 19, column (iv)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Qualified carbon oxide indicator -->
+                        <xsd:element name="QlfyCrbnOxdInd" type="CheckboxType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Qualified carbon oxide indicator</Description>
+                                    <LineNumber>Part III, Line 19, column (v)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Nonqualified carbon oxide indicator -->
+                        <xsd:element name="NonqualifiedCrbnOxdInd" type="CheckboxType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Nonqualified carbon oxide indicator</Description>
+                                    <LineNumber>Part III, Line 19, column (vi)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            
+            <!-- Enhanced oil recovery (EOR) project owner group -->
+            <xsd:element name="EORProjOwnerGrp" maxOccurs="unbounded">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Enhanced oil recovery (EOR) project owner group</Description>
+                        <LineNumber>Part III, Line 20</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+                
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:choice>
+                            <!-- Owner person name -->
+                            <xsd:element name="OwnerNm" type="PersonNameType">
+                                <xsd:annotation>
+                                    <xsd:documentation>
+                                        <Description>Owner person name</Description>
+                                        <LineNumber>Part III, Line 20, column (a)</LineNumber>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                            
+                            <!-- Owner business name -->
+                            <xsd:element name="BusinessOwnerName" type="BusinessNameType">
+                                <xsd:annotation>
+                                    <xsd:documentation>
+                                        <Description>Owner business name</Description>
+                                        <LineNumber>Part III, Line 20, column (a)</LineNumber>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                        </xsd:choice>
+                        
+                        <!-- Supplier section group -->
+                        <xsd:element name="SupplierSectionGrp" maxOccurs="unbounded">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Supplier section group</Description>
+                                    <LineNumber>Part III, Line 20, columns (i)-(iii)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                            
+                            <xsd:complexType>
+                                <xsd:sequence>
+                                    <xsd:choice>
+                                        <!-- Supplier person name -->
+                                        <xsd:element name="SupplierPersonNm" type="PersonNameType">
+                                            <xsd:annotation>
+                                                <xsd:documentation>
+                                                    <Description>Supplier person name</Description>
+                                                    <LineNumber>Part III, Line 20, columns (i)-(iii)</LineNumber>
+                                                </xsd:documentation>
+                                            </xsd:annotation>
+                                        </xsd:element>
+                                        
+                                        <!-- Supplier business name -->
+                                        <xsd:element name="SupplierName" type="BusinessNameType">
+                                            <xsd:annotation>
+                                                <xsd:documentation>
+                                                    <Description>Supplier business name</Description>
+                                                    <LineNumber>Part III, Line 20, columns (i)-(iii)</LineNumber>
+                                                </xsd:documentation>
+                                            </xsd:annotation>
+                                        </xsd:element>
+                                    </xsd:choice>
+                                    
+                                    <!-- Supplier metric tons group -->
+                                    <xsd:element name="SupplierMetricTonsGrp" type="MetricTonsGrpType">
+                                        <xsd:annotation>
+                                            <xsd:documentation>
+                                                <Description>Supplier metric tons group</Description>
+                                                <LineNumber>Part III, Line 20, columns (i)-(iii)</LineNumber>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:element>
+                                </xsd:sequence>
+                            </xsd:complexType>
+                        </xsd:element>
+                        
+                        <!-- Total qualified carbon oxide group -->
+                        <xsd:element name="TotQlfyCrbnOxdGrp" type="MetricTonsGrpType">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Total qualified carbon oxide group</Description>
+                                    <LineNumber>Part III, Line 20, column (iv)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Other nonqualified carbon oxide group -->
+                        <xsd:element name="OthNonQlfyCrbnOxdGrp" type="MetricTonsGrpType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Other nonqualified carbon oxide group</Description>
+                                    <LineNumber>Part III, Line 20, column (v)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Total all carbon oxide suppliers group -->
+                        <xsd:element name="TotAllCrbnOxdSuppliersGrp" type="MetricTonsGrpType">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Total all carbon oxide suppliers group</Description>
+                                    <LineNumber>Part III, Line 20, column (vi)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            
+            <!-- Total supplier section group -->
+            <xsd:element name="TotalSupplierSectionGrp" maxOccurs="unbounded">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Total supplier section group</Description>
+                        <LineNumber>Part III, Line 20, Total row</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+                
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:choice>
+                            <!-- Supplier person name -->
+                            <xsd:element name="SupplierPersonNm" type="PersonNameType">
+                                <xsd:annotation>
+                                    <xsd:documentation>
+                                        <Description>Supplier person name</Description>
+                                        <LineNumber>Part III, Line 20, Total row</LineNumber>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                            
+                            <!-- Supplier business name -->
+                            <xsd:element name="SupplierName" type="BusinessNameType">
+                                <xsd:annotation>
+                                    <xsd:documentation>
+                                        <Description>Supplier business name</Description>
+                                        <LineNumber>Part III, Line 20, Total row</LineNumber>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                        </xsd:choice>
+                        
+                        <!-- Total supplier metric tons group -->
+                        <xsd:element name="TotSupplierMetricTonsGrp" type="MetricTonsGrpType">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Total supplier metric tons group</Description>
+                                    <LineNumber>Part III, Line 20, Total row</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            
+            <!-- All owners total qualified carbon oxide group -->
+            <xsd:element name="AllOwnerTotQlfyCrbnOxdGrp" type="MetricTonsGrpType">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>All owners total qualified carbon oxide group</Description>
+                        <LineNumber>Part III, Line 20, column (iv), Total row</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- All owners other nonqualified carbon oxide group -->
+            <xsd:element name="AllOwnerOthNonQlfyCrbnOxdGrp" type="MetricTonsGrpType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>All owners other nonqualified carbon oxide group</Description>
+                        <LineNumber>Part III, Line 20, column (v), Total row</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- All owners total carbon oxide all suppliers group -->
+            <xsd:element name="AllOwnerTotAllCrbnOxdSuprGrp" type="MetricTonsGrpType">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>All owners total carbon oxide all suppliers group</Description>
+                        <LineNumber>Part III, Line 20, column (vi), Total row</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Attestation indicator -->
+            <xsd:element name="AttestationInd" type="CheckboxType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Attestation indicator</Description>
+                        <LineNumber>Part III, Line 21</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>

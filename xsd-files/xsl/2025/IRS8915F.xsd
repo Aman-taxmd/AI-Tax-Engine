@@ -1,0 +1,875 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form 8915-F</Description>
+			<TaxYear>2025</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>February 19 2026</ReleaseDate>
+			</xsd:documentation>
+	</xsd:annotation>
+	
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- ======================================================================== -->
+	<!-- =========================== IRS Form 8915-F ============================ -->
+	<!-- ======================================================================== -->
+
+	<xsd:element name="IRS8915F">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 8915-F</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS8915FType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS8915F">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="referenceDocumentId" type="IdListType">
+						<xsd:annotation>
+							<xsd:documentation>List of document ID's of forms, schedules, supporting info. etc. attached to this form</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="BinaryAttachment GeneralDependencySmall" />
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+		</xsd:element>
+
+	<xsd:complexType name="IRS8915FType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 8915-F</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Person Name -->
+			<xsd:element name="PersonNm" type="PersonNameType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Taxpayer filing Form 8915F name line</Description>
+						<LineNumber></LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+
+			<!-- Social Security Number of taxpayer filing 8915-F -->
+			<xsd:element name="SSN" type="SSNType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Social Security Number of taxpayer filing 8915-F</Description>
+						<LineNumber></LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:choice>
+				<!-- Filing form for tax year -->
+				<xsd:element name="TaxYearFilingFormCd">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Filing form for tax year</Description>
+							<LineNumber>A</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="TextType">							
+							<xsd:enumeration value="2022"/>
+							<xsd:enumeration value="2023"/>
+							<xsd:enumeration value="2024"/>
+							<xsd:enumeration value="2025"/>
+							<xsd:enumeration value="2026"/>
+							<xsd:enumeration value="2027"/>
+							<xsd:enumeration value="2028"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<!-- Filing form for other tax year -->
+				<xsd:element name="OtherTaxYearFilingFormInd">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Filing form for other tax year</Description>
+							<LineNumber>A</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:extension base="CheckboxType">
+								<xsd:attribute name="otherTaxYrCd" use="required">
+									<xsd:simpleType>
+										<xsd:restriction base="TextType">
+											<xsd:enumeration value="2021"/>
+										</xsd:restriction>
+									</xsd:simpleType>
+								</xsd:attribute>
+							</xsd:extension>
+						</xsd:simpleContent>
+					</xsd:complexType>
+				</xsd:element>					
+			</xsd:choice>
+
+			<xsd:choice>
+			<!-- Calendar year disaster occurred -->
+				<xsd:element name="CalendarYrDisasterCd">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Calendar year disaster occurred</Description>
+							<LineNumber>B</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="TextType">							
+							<xsd:enumeration value="2021"/>
+							<xsd:enumeration value="2022"/>								
+							<xsd:enumeration value="2023"/>
+							<xsd:enumeration value="2024"/>
+							<xsd:enumeration value="2025"/>
+							<xsd:enumeration value="2026"/>
+							<xsd:enumeration value="2027"/>								
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<!-- Other calendar year disaster occurred -->
+				<xsd:element name="OtherCalendarYrDisasterInd">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Other calendar year disaster occurred</Description>
+							<LineNumber>B</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:extension base="CheckboxType">
+								<xsd:attribute name="otherCalendarYrCd" use="required">
+									<xsd:simpleType>
+										<xsd:restriction base="TextType">
+											<xsd:enumeration value="2020"/>
+										</xsd:restriction>
+									</xsd:simpleType>
+								</xsd:attribute>
+							</xsd:extension>
+						</xsd:simpleContent>
+					</xsd:complexType>
+				</xsd:element>		
+			</xsd:choice>
+
+			<!-- FEMA disaster number -->
+			<xsd:element name="FEMADisasterDeclarationNum" minOccurs="0" maxOccurs="20">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>FEMA disaster number</Description>
+						<LineNumber>C</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="TextType">
+						<xsd:pattern value="([0-9]{4}-(([D][R])|([E][M])))-(AA|AE|AL|AK|AP|AR|AS|AZ|CA|CO|CT|DE|DC|FD|FL|FM|GA|GU|HI|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MH|MN|MP|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|PR|PW|RI|SC|SD|TN|TX|UT|VI|VT|VA|WA|WV|WI|WY)|((([D][R])|([E][M]))-[0-9]{4})-(AA|AE|AL|AK|AP|AR|AS|AZ|CA|CO|CT|DE|DC|FD|FL|FM|GA|GU|HI|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MH|MN|MP|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|PR|PW|RI|SC|SD|TN|TX|UT|VI|VT|VA|WA|WV|WI|WY)|((([D][R])|([E][M]))-[0-9]{4})"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!-- Coronavirus indicator -->
+			<xsd:element name="CoronavirusInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Coronavirus indicator</Description>
+						<LineNumber>D</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Part I  Total Distributions from All Retirement Plans (Including IRAs) -->
+
+			<!-- Total distributions from all retirement plans group -->
+			<xsd:element name="TotalDistriAllRetirePlansGrp" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total distributions from all retirement plans group</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- FEMA disaster declaration group -->
+						<xsd:element name="FEMADisasterDeclarationGrp" maxOccurs="20">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>FEMA disaster declaration group</Description>
+								</xsd:documentation>
+							</xsd:annotation>
+								<xsd:complexType>
+								<xsd:sequence>
+
+									<!-- FEMA disaster number -->
+									<xsd:element name="FEMADisasterDeclarationNum">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>FEMA disaster number</Description>
+											</xsd:documentation>
+										</xsd:annotation>
+										<xsd:simpleType>
+											<xsd:restriction base="TextType">
+												<xsd:pattern value="([0-9]{4}-(([D][R])|([E][M])))-(AA|AE|AL|AK|AP|AR|AS|AZ|CA|CO|CT|DE|DC|FD|FL|FM|GA|GU|HI|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MH|MN|MP|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|PR|PW|RI|SC|SD|TN|TX|UT|VI|VT|VA|WA|WV|WI|WY)|((([D][R])|([E][M]))-[0-9]{4})-(AA|AE|AL|AK|AP|AR|AS|AZ|CA|CO|CT|DE|DC|FD|FL|FM|GA|GU|HI|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MH|MN|MP|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|PR|PW|RI|SC|SD|TN|TX|UT|VI|VT|VA|WA|WV|WI|WY)|((([D][R])|([E][M]))-[0-9]{4})"/>
+											</xsd:restriction>
+										</xsd:simpleType>
+									</xsd:element>
+
+									<!-- Disaster declaration date -->
+									<xsd:element name="DisasterDeclarationDt" type="DateType">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Disaster declaration date</Description>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+
+									<!-- Disaster beginning date -->
+									<xsd:element name="DisasterBeginDt" type="DateType">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Disaster beginning date</Description>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+
+						<!-- Multiple FEMA disasters indicator -->
+						<xsd:element name="MultipleFEMADisastersInd" type="CheckboxType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Multiple FEMA disasters indicator</Description>
+									<LineNumber></LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Date(s) of Distribution(s) -->
+						<xsd:element name="DistributionDt" type="DateType" minOccurs="0" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Date(s) of Distribution(s)</Description>
+									<LineNumber></LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Enter the appropiate amount of the qualified disaster distribution limit and multiply by the number of disasters. -->
+						<xsd:element name="QualifiedDisasterLimitAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Enter the appropiate amount of the qualified disaster distribution limit and multiply by the number of disasters.</Description>
+									<LineNumber>1a, column (b)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Enter the total qualified disaster distributions made to you in prior years -->
+						<xsd:element name="PriorYrRptQlfyDistributionsAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Enter the total qualified disaster distributions made to you in prior years</Description>
+									<LineNumber>1b, column (b)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Subtract line 1b from line 1a -->
+						<xsd:element name="PriorYrRptDistriAllocationAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Subtract line 1b from line 1a</Description>
+									<LineNumber>1c, column (b)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Enter appropiate amount times the number of different qualified disasters not reported on a prior year -->
+						<xsd:element name="PriorYrNotRptDistributionAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Enter appropiate amount times the number of different qualified disasters not reported on a prior year</Description>
+									<LineNumber>1d, column (b)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Total available qualified disaster distributon amount for this year -->
+						<xsd:element name="TotalCYAvailDistributionsAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total available qualified disaster distributon amount for this year</Description>
+									<LineNumber>1e, column (b)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Distributions from traditional, traditional SEP and traditional SIMPLE IRA group -->
+						<xsd:element name="DistriFromNotIRARetirePlanGrp" type="QualifiedRetireDistriGrpType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Distributions from not IRA retirement plan group</Description>
+									<LineNumber>2, columns (a) - (b)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Distributions from Traditional, SEP, SIMPLE, IRA group -->
+						<xsd:element name="DistriTrdnSEPAndSIMPLEIRAGrp" type="QualifiedRetireDistriGrpType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Distributions from traditional, traditional SEP and traditional SIMPLE IRA group</Description>
+									<LineNumber>3, columns (a) - (b)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+
+						<!-- Distributions from Roth IRA group -->
+						<xsd:element name="DistriRothSEPAndSIMPLEIRAGrp" type="QualifiedRetireDistriGrpType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Distributions from Roth, Roth SEP and Roth SIMPLE IRA group</Description>
+									<LineNumber>4, columns (a) - (b)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Total distributions amount from all plans group -->
+						<xsd:element name="TotalDistriAmtFromAllPlansGrp" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total distributions amount from all plans group</Description>
+									<LineNumber>5a, 5b columns (a) - (b)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+                                <xsd:sequence>
+                                    <!-- Total nonqualified disaster distributions -->
+                                    <xsd:element name="TotalNonqlfyDisasterDistriAmt" type="USAmountNNType" minOccurs="0">
+                                        <xsd:annotation>
+                                            <xsd:documentation>
+                                                <Description>Total nonqualified disaster distributions</Description>
+                                                <LineNumber>5a column (a)</LineNumber>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:element>
+                                    
+                                    <!-- Available distributions for the year -->
+                                    <xsd:element name="CYTotalDistributionsAmt" type="USAmountNNType" minOccurs="0">
+                                        <xsd:annotation>
+                                            <xsd:documentation>
+                                                <Description>Available distributions for the year</Description>
+                                                <LineNumber>5b column (a)</LineNumber>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:element>
+                                    
+                                    <!-- Qualified disaster distributions for disasters in item C -->
+                                    <xsd:element name="QualifiedDistributionsAmt" type="USAmountNNType" minOccurs="0">
+                                        <xsd:annotation>
+                                            <xsd:documentation>
+                                                <Description>Qualified disaster distributions for disasters in item C</Description>
+                                                <LineNumber>5b column (b)</LineNumber>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:element>
+                                </xsd:sequence>
+                            </xsd:complexType>
+						</xsd:element>
+
+						<!-- Limitation distributions amount -->
+						<xsd:element name="LimitationDistributionsAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Limitation distributions amount</Description>
+									<LineNumber>6, column (b)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Taxable excess allocation amount -->
+						<xsd:element name="TaxableExcessAllocationAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Taxable excess allocation amount</Description>
+									<LineNumber>7, column (b)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Part II  Qualified Disaster Distributions from Retirement Plans (Other than IRAs) for the Coronavirus and Disaster(s) Listed in Item C -->
+
+			<!-- Qualified disaster distributions not IRA plans group -->
+			<xsd:element name="QlfyDsstrDistriNotIRAPlansGrp" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified disaster distributions not IRA plans group</Description>
+						<LineNumber>8 - 15</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Did you enter an amount on Line 2 column (b) -->
+						<xsd:element name="QlfyDsstrDistriNotIRAPlansInd" type="BooleanType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Did you enter an amount on Line 2 column (b)</Description>
+									<LineNumber>8</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Enter amount Line 2 column (b) -->
+						<xsd:element name="QlfyDistriOrAllocationAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Enter amount Line 2 column (b)</Description>
+									<LineNumber>8</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Applicable cost of distributions -->
+						<xsd:element name="DistributionsCostAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable cost of distributions</Description>
+									<LineNumber>9</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Subtract Line 9 from line 8 -->
+						<xsd:element name="QlfyDistriMinusDistriCostAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Subtract Line 9 from line 8</Description>
+									<LineNumber>10</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Indicates taxpayer elects NOT to spread the taxable amount over 3 years -->
+						<xsd:element name="OptOutSpreadThreeYrsInd" type="CheckboxType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Indicates taxpayer elects NOT to spread the taxable amount over 3 years</Description>
+									<LineNumber>11</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Enter amount from line 10 or divide line 10 by 3.0 -->
+						<xsd:element name="CYQlfySelectedDistriAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Enter amount from line 10 or divide line 10 by 3.0</Description>
+									<LineNumber>11</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Enter the amount from worksheet 2 instructions. -->
+						<xsd:element name="PriorYrSelectedDistriAmt" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Enter the amount from worksheet 2 instructions.</Description>
+									<LineNumber>12</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:simpleContent>
+									<xsd:extension base="USAmountNNType">
+										<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+										<xsd:attribute name="referenceDocumentName" type="StringType" fixed="BinaryAttachment"/>
+									</xsd:extension>
+								</xsd:simpleContent>
+							</xsd:complexType>
+						</xsd:element>
+
+						<!-- Add lines 11 and 12 -->
+						<xsd:element name="SumPriorYrAndCYSelDistriAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Add lines 11 and 12</Description>
+									<LineNumber>13</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Enter total amount of repayments made from worksheet 3 -->
+						<xsd:element name="TotalRepymtOtherThanIRAAmt" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Enter total amount of repayments made from worksheet 3</Description>
+									<LineNumber>14</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:simpleContent>
+									<xsd:extension base="USAmountNNType">
+										<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+										<xsd:attribute name="referenceDocumentName" type="StringType" fixed="BinaryAttachment"/>
+									</xsd:extension>
+								</xsd:simpleContent>
+							</xsd:complexType>
+						</xsd:element>
+
+						<!-- Qualified disaster distributions from retirement plans (Other than IRAs) amount subject to tax for the current year -->
+						<xsd:element name="CYTaxableDistributionsAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Qualified disaster distributions from retirement plans (Other than IRAs) amount subject to tax for the current year</Description>
+									<LineNumber>15</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Part III  Qualified Disaster Distributions from IRAs for the Coronavirus and Disaster(s) Listed in Item C -->
+
+			<!-- Qualified distributions from Traditional, SEP, SIMPLE, Roth group -->
+			<xsd:element name="QlfyDistriTrdnSEPSIMPLERothGrp" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified distributions from Traditional, SEP, SIMPLE, Roth group</Description>
+						<LineNumber>16 - 26</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Indicates an amount was entered on Line 3 column (b) or Line 4 column (b) -->
+						<xsd:element name="QlfyDistriTrdnSEPSIMPLERothInd" type="BooleanType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Indicates an amount was entered on Line 3 column (b) or Line 4 column (b)</Description>
+									<LineNumber>16</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Did you receive a qualilfied disaster distribution from a traditional, SEP, SIMPLE, or Roth IRA that is required to be reported this year on Form 8606? -->
+						<xsd:element name="QlfyDistriRequiredRptF8606Ind" type="BooleanType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Did you receive a qualilfied disaster distribution from a traditional, SEP, SIMPLE, or Roth IRA that is required to be reported this year on Form 8606?</Description>
+									<LineNumber>17</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Enter the amount, if any, from Form 8606, line 15b. -->
+						<xsd:element name="NondedIRAQlfyDisasterDistriAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Enter the amount, if any, from Form 8606, line 15b.</Description>
+									<LineNumber>18</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Enter the amount, if any, from Form 8606, line 25b. -->
+						<xsd:element name="RothIRAQlfyDisasterDistriAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Enter the amount, if any, from Form 8606, line 25b.</Description>
+									<LineNumber>19</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Enter amount from line 3, column (b) -->
+						<xsd:element name="QlfyDistriOrAllocationAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Enter amount from line 3, column (b)</Description>
+									<LineNumber>20</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Sum of Form 8606 line 15b, Form 8606 line 25b and Line 3 column (b) -->
+						<xsd:element name="SumForm8606AndDistriAllocnAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Sum of Form 8606 line 15b, Form 8606 line 25b and Line 3 column (b)</Description>
+									<LineNumber>21</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Indicates taxpayer elects NOT to spread the taxable amount over 3 years -->
+						<xsd:element name="OptOutSpreadThreeYrsInd" type="CheckboxType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Indicates taxpayer elects NOT to spread the taxable amount over 3 years</Description>
+									<LineNumber>22</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Enter amount from line 21 or divide line 21 by 3.0 -->
+						<xsd:element name="CYQlfySelectedDistriAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Enter amount from line 21 or divide line 21 by 3.0</Description>
+									<LineNumber>22</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Enter the amount from worksheet 4 -->
+						<xsd:element name="PriorYrSelectedDistriAmt" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Enter the amount from worksheet 4</Description>
+									<LineNumber>23</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:simpleContent>
+									<xsd:extension base="USAmountNNType">
+										<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+										<xsd:attribute name="referenceDocumentName" type="StringType" fixed="BinaryAttachment"/>
+									</xsd:extension>
+								</xsd:simpleContent>
+							</xsd:complexType>
+						</xsd:element>
+
+						<!-- Add lines 22 and 23 -->
+						<xsd:element name="SumPriorYrAndCYSelDistriAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Add lines 22 and 23</Description>
+									<LineNumber>24</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Enter total amount of repayments made before filing current year return -->
+						<xsd:element name="TotalRepymtIRARetirePlanAmt" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Enter total amount of repayments made before filing current year return</Description>
+									<LineNumber>25</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:simpleContent>
+									<xsd:extension base="USAmountType">
+										<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+										<xsd:attribute name="referenceDocumentName" type="StringType" fixed="BinaryAttachment"/>
+									</xsd:extension>
+								</xsd:simpleContent>
+							</xsd:complexType>
+						</xsd:element>
+
+						<!-- Qualified disaster distributions from Traditional, SEP, SIMPLE and Roth IRAs amount subject to tax for the current year -->
+						<xsd:element name="CYTaxableDistributionsAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Qualified disaster distributions from Traditional, SEP, SIMPLE and Roth IRAs amount subject to tax for the current year</Description>
+									<LineNumber>26</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Part IV  Qualified Distributions for the Purchase or Construction of a Main Home in the Area of Disaster(s) Listed in Item C -->
+
+			<!-- Main home qualified distributions group -->
+			<xsd:element name="MainHomeQlfyDistributionsGrp" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Main home qualified distributions group</Description>
+						<LineNumber></LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- FEMA disaster group -->
+						<xsd:element name="FEMADisasterGrp" type="FEMADisasterGrpType" maxOccurs="10">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>FEMA disaster group</Description>
+									<LineNumber></LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Dates(s) of qualified distribution(s) -->
+						<xsd:element name="QualifiedDistributionDt" type="DateType" minOccurs="0" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Dates(s) of qualified distribution(s)</Description>
+									<LineNumber></LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						
+						<!-- Did you receive a qualilfied disaster distribution from a traditional, SEP, SIMPLE, or Roth IRA that is required to be reported this year on Form 8606? -->
+						<xsd:element name="QlfyDistriRequiredRptF8606Ind" type="BooleanType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Did you receive a qualilfied disaster distribution from a traditional, SEP, SIMPLE, or Roth IRA that is required to be reported this year on Form 8606?</Description>
+									<LineNumber>27</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Enter the total amount of qualified distributions you received this year for the purchase or construction of a main home. -->
+						<xsd:element name="QlfyCYDistriRcvdMainHomeAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Enter the total amount of qualified distributions you received this year for the purchase or construction of a main home.</Description>
+									<LineNumber>28</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Applicable cost of distributions -->
+						<xsd:element name="DistributionsCostAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Applicable cost of distributions</Description>
+									<LineNumber>29</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Subtract Line 29 from line 28 -->
+						<xsd:element name="QlfyDistriMinusDistriCostAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Subtract Line 29 from line 28</Description>
+									<LineNumber>30</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Enter the total amount of any repayments you made -->
+						<xsd:element name="TotalRepaymentAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Enter the total amount of any repayments you made</Description>
+									<LineNumber>31</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Qualified disaster distributions for the purchase or construction of a main home subject to tax for the current year -->
+						<xsd:element name="MainHomeQlfyTxblDsstrDistriAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Qualified disaster distributions for the purchase or construction of a main home subject to tax for the current year</Description>
+									<LineNumber>32</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="FEMADisasterGrpType">
+		<xsd:sequence>
+
+			<!-- FEMA disaster number -->
+			<xsd:element name="FEMADisasterDeclarationNum">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>FEMA disaster number</Description>
+						<LineNumber></LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="TextType">
+						<xsd:pattern value="([0-9]{4}-(([D][R])|([E][M])))-(AA|AE|AL|AK|AP|AR|AS|AZ|CA|CO|CT|DE|DC|FD|FL|FM|GA|GU|HI|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MH|MN|MP|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|PR|PW|RI|SC|SD|TN|TX|UT|VI|VT|VA|WA|WV|WI|WY)|((([D][R])|([E][M]))-[0-9]{4})-(AA|AE|AL|AK|AP|AR|AS|AZ|CA|CO|CT|DE|DC|FD|FL|FM|GA|GU|HI|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MH|MN|MP|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|PR|PW|RI|SC|SD|TN|TX|UT|VI|VT|VA|WA|WV|WI|WY)|((([D][R])|([E][M]))-[0-9]{4})"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!-- Disaster decalration date -->
+			<xsd:element name="DisasterDeclarationDt" type="DateType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Disaster declaration date</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Disaster beginning date -->
+			<xsd:element name="DisasterBeginDt" type="DateType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Disaster beginning date</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Disaster ending date -->
+			<xsd:element name="DisasterEndDt" type="DateType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Disaster ending date</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Distributions from not IRA retirement plan group -->
+	<xsd:complexType name="QualifiedRetireDistriGrpType">
+		<xsd:sequence>
+
+			<!-- Available distributions for the year -->
+			<xsd:element name="CYTotalDistributionsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Available distributions for the year</Description>
+						<LineNumber>column (a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Qualified disaster distributions for disasters in item C -->
+			<xsd:element name="QualifiedDistributionsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified disaster distributions for disasters in item C</Description>
+						<LineNumber>column (b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

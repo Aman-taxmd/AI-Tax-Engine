@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+    <xsd:annotation>
+        <xsd:documentation>
+            <Description>IRS e-file Schema - Form 8933 Schedule A - Disposal or Enhanced Oil Recovery Owner Certification</Description>
+            <TaxYear>2025</TaxYear>
+            <MaturityLevel>Final Release</MaturityLevel>
+            <ReleaseDate>February 19 2026</ReleaseDate>
+        </xsd:documentation>
+    </xsd:annotation>
+    
+    <xsd:include schemaLocation="../../Common/efileTypes.xsd"/>
+    
+    <!-- ======================================================== -->
+    <!-- =============== IRS Form 8933 Schedule A =============== -->
+    <!-- ======================================================== -->
+    
+    <xsd:element name="IRS8933ScheduleA">
+        <xsd:annotation>
+            <xsd:documentation>IRS Form 8933 Schedule A - Disposal or Enhanced Oil Recovery Owner Certification</xsd:documentation>
+        </xsd:annotation>
+        
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="IRS8933ScheduleAType">
+                    <xsd:attributeGroup ref="DocumentAttributes">
+                        <xsd:annotation>
+                            <xsd:documentation>Common return document attributes</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:attributeGroup>
+                    
+                    <xsd:attribute name="documentName" type="TextType" fixed="IRS8933ScheduleA">
+                        <xsd:annotation>
+                            <xsd:documentation>IRS internal use only. To avoid errors within the return, do not include the attribute name or value.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:attribute>
+                    
+                    <xsd:attribute name="referenceDocumentId" type="IdListType">
+                        <xsd:annotation>
+                            <xsd:documentation>List of document IDs of forms, schedules, supporting info. etc. attached to this form.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:attribute>
+                    
+                    <xsd:attribute name="referenceDocumentName" type="TextType" fixed="GeneralDependencySmall"/>
+                </xsd:extension>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+    
+    <xsd:complexType name="IRS8933ScheduleAType">
+        <xsd:sequence>
+            <xsd:choice>
+                <!-- Geologic disposal site owner -->
+                <xsd:element name="GeologicDisposalSiteOwnrInd" type="CheckboxType">
+                    <xsd:annotation>
+                        <xsd:documentation>
+                            <Description>Geologic disposal site owner</Description>
+                            <LineNumber>A (i)</LineNumber>
+                        </xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+                
+                <!-- Enhanced oil recovery project owner -->
+                <xsd:element name="EnhancedOilRecoveryProjOwnrInd" type="CheckboxType">
+                    <xsd:annotation>
+                        <xsd:documentation>
+                            <Description>Enhanced oil recovery project owner</Description>
+                            <LineNumber>A (ii)</LineNumber>
+                        </xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+            </xsd:choice>
+            
+            <!-- =============== Part I =============== -->
+            
+			<xsd:choice>
+				<xsd:sequence>
+					<!-- Facility owner person name -->
+					<xsd:element name="FacilityOwnerPersonNm" type="PersonNameType">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>Facility owner person name</Description>
+								<LineNumber>Part I, Line 1</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<!-- Facility owner SSN -->
+					<xsd:element name="FacilityOwnerSSN" type="SSNType">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>Facility owner SSN</Description>
+								<LineNumber>Part I, Line 2</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+				<xsd:sequence>
+					<!-- Facility owner business name -->
+					<xsd:element name="FacilityOwnerBusinessName" type="BusinessNameType">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>Facility owner business name</Description>
+								<LineNumber>Part I, Line 1</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<!-- Facility owner EIN -->
+					<xsd:element name="FacilityOwnerEIN" type="EINType">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>Facility owner EIN</Description>
+								<LineNumber>Part I, Line 2</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:choice>
+			
+			<xsd:choice>
+				<!-- Facility owner U.S. address -->
+				<xsd:element name="FacilityOwnerUSAddress" type="USAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Facility owner U.S. address</Description>
+							<LineNumber>Part I, Line 3</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<!-- Facility owner foreign address -->
+                <xsd:element name="FacilityOwnerForeignAddress" type="ForeignAddressType">
+                    <xsd:annotation>
+                        <xsd:documentation>
+                            <Description>Facility owner foreign address</Description>
+                            <LineNumber>Part I, Line 3</LineNumber>
+                        </xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+            </xsd:choice>
+            <!-- =============== Part II =============== -->
+            
+            <!-- Supplier name -->
+            <xsd:element name="SupplierName" type="BusinessNameType">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Supplier name</Description>
+                        <LineNumber>Part II, Line 4</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Supplier EIN -->
+            <xsd:element name="SupplierEIN" type="EINType">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Supplier EIN</Description>
+                        <LineNumber>Part II, Line 5</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Name and location of facility -->
+            <xsd:element name="FacilityNameAndLocationTxt">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Name and location of facility</Description>
+                        <LineNumber>Part II, Line 6</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+                
+                <xsd:simpleType>
+                    <xsd:restriction base="TextType">
+                        <xsd:maxLength value="100"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            
+            <!-- Type of facility -->
+            <xsd:element name="FacilityTypeDesc" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Type of facility</Description>
+                        <LineNumber>Part II, Line 7</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+                
+                <xsd:simpleType>
+                    <xsd:restriction base="TextType">
+                        <xsd:maxLength value="50"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            
+            <!-- Filer is one of the suppliers -->
+            <xsd:element name="SupplierInd" type="CheckboxType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Filer is one of the suppliers</Description>
+                        <LineNumber>Part II, Line 8</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Binding contract exists -->
+            <xsd:element name="ContractExistsInd" type="BooleanType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Binding contract exists</Description>
+                        <LineNumber>Part II, Line 9</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Date of contract or most recent amendment -->
+            <xsd:element name="ContractOrAmendmentDt" type="DateType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Date of contract or most recent amendment</Description>
+                        <LineNumber>Part II, Line 10</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Metric tons of qualified carbon oxide received from the supplier during the tax year -->
+            <xsd:element name="MtrcTonsQlfyCrbnOxdRcvdQty" type="LargeRatioType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Metric tons of qualified carbon oxide received from the supplier during the tax year</Description>
+                        <LineNumber>Part II, Line 11</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Metric tons of qualified carbon oxide received from the supplier and stored by you during the tax year -->
+            <xsd:element name="MtrcTonsQlfyCrbnOxdRcvdStorQty" type="LargeRatioType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Metric tons of qualified carbon oxide received from the supplier and stored by you during the tax year</Description>
+                        <LineNumber>Part II, Line 12</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Metric tons of nonqualified carbon oxide received by you during the tax year -->
+            <xsd:element name="MtrcTonsNonQlfyCrbnOxdRcvdQty" type="LargeRatioType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Metric tons of nonqualified carbon oxide received by you during the tax year</Description>
+                        <LineNumber>Part II, Line 13</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Metric tons of nonqualified carbon oxide stored or utilized as a tertiary injectant stored by you during the tax year -->
+            <xsd:element name="MtrcTonsNonQlfyCrbnOxdStorQty" type="LargeRatioType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Metric tons of nonqualified carbon oxide stored or utilized as a tertiary injectant stored by you during the tax year</Description>
+                        <LineNumber>Part II, Line 14</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Total amount of qualified carbon oxide injected -->
+            <xsd:element name="TotMtrcTonsQlfyCrbnOxdRcvdQty" type="LargeRatioType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Total amount of qualified carbon oxide injected</Description>
+                        <LineNumber>Part II, Line 15</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Total amount of qualified carbon oxide stored -->
+            <xsd:element name="TotMtrcTonsQlfyCrbnOxdStorQty" type="LargeRatioType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Total amount of qualified carbon oxide stored</Description>
+                        <LineNumber>Part II, Line 16</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Testament that the supplier of qualified carbon oxide elected the filer to claim some or all of the carbon oxide sequestration credit -->
+            <xsd:element name="TPElectClmCrbnOxdSqstrtnCrInd" type="CheckboxType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Testament that the supplier of qualified carbon oxide elected the filer to claim some or all of the carbon oxide sequestration credit</Description>
+                        <LineNumber>Part II, Line 17</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>

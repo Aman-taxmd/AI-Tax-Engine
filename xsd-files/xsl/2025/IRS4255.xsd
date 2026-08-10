@@ -1,0 +1,2625 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form 4255</Description>
+			<TaxYear>2025</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>February 19 2026</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+	<!-- =============================================================== -->
+	<!-- ======================  IRS Form 4255 ============================ -->
+	<!-- =============================================================== -->
+	<xsd:element name="IRS4255">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 4255</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS4255Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS4255">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="GeneralDependencySmall"/>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:complexType name="IRS4255Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 4255</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+		
+			<!-- Part I -->
+			
+			<!-- Form 7207 Prior Year Credits Group -->
+			<xsd:element name="Form7207PYCreditsGrp" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>Form 7207 Prior Year Credits Group</Description>
+								<LineNumber>Part I, Line 1a column a, b, c, d, e, f, m1,m2 n1, n2, n3, q, r, s, t</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+
+						<!-- Credit or deduction claimed in prior year(s) (as adjusted, if applicable) -->
+						<xsd:element name="PYCrClmAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Credit or deduction claimed in prior year(s) (as adjusted, if applicable)</Description>
+									<LineNumber>Part I column (a)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Gross EPE payment amount portion of column (PYCrClmAmt) -->
+						<xsd:element name="PYGroEPEPrtnCrClmAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Gross EPE payment amount portion of column (PYCrClmAmt)</Description>
+									<LineNumber>Part I column (b)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Gross EPE in column (PYGroEPEPrtnCrClmAmt) applied against regular tax -->
+						<xsd:element name="PYGroEPEPrtnAppRegTaxAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Gross EPE in column (PYGroEPEPrtnCrClmAmt) applied against regular tax</Description>
+									<LineNumber>Part I column (c)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Net EPE Subtract column (PYGroEPEPrtnAppRegTaxAmt) from column (PYGroEPEPrtnCrClmAmt) -->
+						<xsd:element name="PYNetEPEAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Net EPE Subtract column (PYGroEPEPrtnAppRegTaxAmt) from column (PYGroEPEPrtnCrClmAmt)</Description>
+									<LineNumber>Part I column (d)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Non-EPE credit (excess of column (PYCrClmAmt) over column (PYGroEPEPrtnCrClmAmt)) that was applied against regular tax -->
+						<xsd:element name="PYNonEPECrExAppRegTaxAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Non-EPE credit (excess of column (PYCrClmAmt) over column (PYGroEPEPrtnCrClmAmt)) that was applied against regular tax</Description>
+									<LineNumber>Part I column (e)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Carryover. Subtract the sum of columns (PYGroEPEPrtnCrClmAmt) and (PYNonEPECrExAppRegTaxAmt) from column (PYCrClmAmt) -->
+						<xsd:element name="PYCarryoverAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Carryover. Subtract the sum of columns (PYGroEPEPrtnCrClmAmt) and (PYNonEPECrExAppRegTaxAmt) from column (PYCrClmAmt)</Description>
+									<LineNumber>Part I column (f)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Section 6418(g)(2)(A)(i) excessive credit transfer -->
+						<xsd:element name="Sect6418g2AiExCrTrnsfrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Section 6418(g)(2)(A)(i) excessive credit transfer</Description>
+									<LineNumber>Part I column (m)(1)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Section 6418(g)(2)(A)(ii) 20% of excessive credit transfer -->
+						<xsd:element name="Sect6418g2Aii20ExCrTrnsfrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Section 6418(g)(2)(A)(ii) 20% of excessive credit transfer</Description>
+									<LineNumber>Part I column (m)(2)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- If you owe an EP related to a gross EPE in column (PYGroEPEPrtnCrClmAmt), enter the net EPE portion from column (PYNetEPEAmt).  -->
+						<xsd:element name="NetEPEPortionAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>If you owe an EP related to a gross EPE in column (PYGroEPEPrtnCrClmAmt), enter the net EPE portion from column (PYNetEPEAmt). </Description>
+									<LineNumber>Part I column (n)(1)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- If you owe an EP, enter the portion of the EP not in column (NetEPEPortionAmt) (excluding any 20% EP)  -->
+						<xsd:element name="PortionEPExcld20pctAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>If you owe an EP, enter the portion of the EP not in column (NetEPEPortionAmt) (excluding any 20% EP) </Description>
+									<LineNumber>Part I column (n)(2)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- If you owe an EP, enter any 20% EP you owe -->
+						<xsd:element name="EP20PctOweAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>If you owe an EP, enter any 20% EP you owe</Description>
+									<LineNumber>Part I column (n)(3)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Amounts that can be reduced by nonrefundable credits -->
+						<xsd:element name="RedByNonRfdblCrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Amounts that can be reduced by nonrefundable credits</Description>
+									<LineNumber>Part I column (q)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Amount that cannot be reduced by nonrefundable credits -->
+						<xsd:element name="NotRedByNonRfdblCrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Amount that cannot be reduced by nonrefundable credits</Description>
+									<LineNumber>Part I column (r)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Add columns (l) and (n)(1) -->
+						<xsd:element name="TotalRcptrNetEPEExPymt100CrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Add columns (l) and (n)(1)</Description>
+									<LineNumber>Part I column (s)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Add columns(n)(3), (o)(1),(o)(2), (p)(1) and (p)(2) -->
+						<xsd:element name="TotEx20PrvlWgAprntcshpPnltyAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Add columns(n)(3), (o)(1),(o)(2), (p)(1) and (p)(2)</Description>
+									<LineNumber>Part I column (t)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+
+				</xsd:sequence>
+			</xsd:complexType>
+			</xsd:element>
+
+			<!-- Form 3468 part III prior year credits group  -->
+			<xsd:element name="Form3468PartIIIPYCreditsGrp" type="Form3468PYCreditsType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Form 3468 part III prior year credits group </Description>
+						<LineNumber>Part I, Line1b column a,b,c,d,e,f,g,h ,i, j, k, l, m1,m2,m3, n1,n2,n3, o1,o2,o3, p1,p2,p3, q,r,s,t</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Form 7210 Prior Year Credits Group -->
+			<xsd:element name="Form7210PYCreditsGrp" type="Form4255PYCredits2Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Form 7210 Prior Year Credits Group</Description>
+						<LineNumber>Part I, Line1c column a, b, c, d, e, f, m1,m2, n1,n2,n3, o1,o2,o3, p1,p2,p3, q, r, s, t</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Form 3468 Part IV Prior Year Credits Group -->
+			<xsd:element name="Form3468PartIVPYCreditsGrp" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>Form 3468 Part IV Prior Year Credits Group</Description>
+								<LineNumber>Part I, Line 1d column a, b, c, d, e, f, g, h, i, j, k, l, n1, n2, n3, q, r, s, t</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+
+						<!-- Credit or deduction claimed in prior year(s) (as adjusted, if applicable) -->
+						<xsd:element name="PYCrClmAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Credit or deduction claimed in prior year(s) (as adjusted, if applicable)</Description>
+									<LineNumber>Part I column (a)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Gross EPE payment amount portion of column (PYCrClmAmt) -->
+						<xsd:element name="PYGroEPEPrtnCrClmAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Gross EPE payment amount portion of column (PYCrClmAmt)</Description>
+									<LineNumber>Part I column (b)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Gross EPE in column (PYGroEPEPrtnCrClmAmt) applied against regular tax -->
+						<xsd:element name="PYGroEPEPrtnAppRegTaxAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Gross EPE in column (PYGroEPEPrtnCrClmAmt) applied against regular tax</Description>
+									<LineNumber>Part I column (c)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Net EPE Subtract column (PYGroEPEPrtnAppRegTaxAmt) from column (PYGroEPEPrtnCrClmAmt) -->
+						<xsd:element name="PYNetEPEAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Net EPE Subtract column (PYGroEPEPrtnAppRegTaxAmt) from column (PYGroEPEPrtnCrClmAmt)</Description>
+									<LineNumber>Part I column (d)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Non-EPE credit (excess of column (PYCrClmAmt) over column (PYGroEPEPrtnCrClmAmt)) that was applied against regular tax -->
+						<xsd:element name="PYNonEPECrExAppRegTaxAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Non-EPE credit (excess of column (PYCrClmAmt) over column (PYGroEPEPrtnCrClmAmt)) that was applied against regular tax</Description>
+									<LineNumber>Part I column (e)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Carryover. Subtract the sum of columns (PYGroEPEPrtnCrClmAmt) and (PYNonEPECrExAppRegTaxAmt) from column (PYCrClmAmt) -->
+						<xsd:element name="PYCarryoverAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Carryover. Subtract the sum of columns (PYGroEPEPrtnCrClmAmt) and (PYNonEPECrExAppRegTaxAmt) from column (PYCrClmAmt)</Description>
+									<LineNumber>Part I column (f)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+			
+						<xsd:choice minOccurs="0">
+			
+							<!-- Recapture percentage. -->
+							<xsd:element name="RecapturePct" type="RatioType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Recapture percentage.</Description>
+										<LineNumber>Part I column (g)</LineNumber>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+			
+							<!-- Recapture percentage. Enter "N/A" if more than one recapture event on one line -->
+							<xsd:element name="RecapturePctNACd">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Recapture percentage. Enter "N/A" if more than one recapture event on one line</Description>
+										<LineNumber>Part I column (g)</LineNumber>
+									</xsd:documentation>
+								</xsd:annotation>
+								<xsd:simpleType>
+									<xsd:restriction base="TextType">
+										<xsd:enumeration value="N/A"/>
+									</xsd:restriction>
+								</xsd:simpleType>
+							</xsd:element>
+			
+						</xsd:choice>
+
+						<!-- Amount of column (PYCrClmAmt) recaptured, including reduction of carryover. See instructions for basis increase -->
+						<xsd:element name="RcptrTotCrRedCyovAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Amount of column (PYCrClmAmt) recaptured, including reduction of carryover. See instructions for basis increase</Description>
+									<LineNumber>Part I column (h)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Portion of column (RcptrTotCrRedCyovAmt) reducing credit carryover in column (PYCarryoverAmt) -->
+						<xsd:element name="RcptrPrtnRdcngCrCyovAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Portion of column (RcptrTotCrRedCyovAmt) reducing credit carryover in column (PYCarryoverAmt)</Description>
+									<LineNumber>Part I column (i)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Portion of column (RcptrTotCrRedCyovAmt) recapturing Non-EPE credit applied against regular tax in column (PYNonEPECrExAppRegTaxAmt) -->
+						<xsd:element name="RcptrPrtnNonEPECrAppRegTaxAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Portion of column (RcptrTotCrRedCyovAmt) recapturing Non-EPE credit applied against regular tax in column (PYNonEPECrExAppRegTaxAmt)</Description>
+									<LineNumber>Part I column (j)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Portion of column (RcptrTotCrRedCyovAmt) recapturing gross EPE amount applied against regular tax from column (PYGroEPEPrtnAppRegTaxAmt) -->
+						<xsd:element name="RcptrPrtnEPEAppRegTaxAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Portion of column (RcptrTotCrRedCyovAmt) recapturing gross EPE amount applied against regular tax from column (PYGroEPEPrtnAppRegTaxAmt)</Description>
+									<LineNumber>Part I column (k)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Portion of column (RcptrTotCrRedCyovAmt) recapturing Net EPE amount from column (PYNetEPEAmt) -->
+						<xsd:element name="RcptrPrtnNetEPECrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Portion of column (RcptrTotCrRedCyovAmt) recapturing Net EPE amount from column (PYNetEPEAmt)</Description>
+									<LineNumber>Part I column (l)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- If you owe an EP related to a gross EPE in column (PYGroEPEPrtnCrClmAmt), enter the net EPE portion from column (PYNetEPEAmt).  -->
+						<xsd:element name="NetEPEPortionAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>If you owe an EP related to a gross EPE in column (PYGroEPEPrtnCrClmAmt), enter the net EPE portion from column (PYNetEPEAmt). </Description>
+									<LineNumber>Part I column (n)(1)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- If you owe an EP, enter the portion of the EP not in column (NetEPEPortionAmt) (excluding any 20% EP)  -->
+						<xsd:element name="PortionEPExcld20pctAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>If you owe an EP, enter the portion of the EP not in column (NetEPEPortionAmt) (excluding any 20% EP) </Description>
+									<LineNumber>Part I column (n)(2)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- If you owe an EP, enter any 20% EP you owe -->
+						<xsd:element name="EP20PctOweAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>If you owe an EP, enter any 20% EP you owe</Description>
+									<LineNumber>Part I column (n)(3)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Amounts that can be reduced by nonrefundable credits -->
+						<xsd:element name="RedByNonRfdblCrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Amounts that can be reduced by nonrefundable credits</Description>
+									<LineNumber>Part I column (q)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Amount that cannot be reduced by nonrefundable credits -->
+						<xsd:element name="NotRedByNonRfdblCrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Amount that cannot be reduced by nonrefundable credits</Description>
+									<LineNumber>Part I column (r)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Add columns (l) and (n)(1) -->
+						<xsd:element name="TotalRcptrNetEPEExPymt100CrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Add columns (l) and (n)(1)</Description>
+									<LineNumber>Part I column (s)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Add columns(n)(3), (o)(1),(o)(2), (p)(1) and (p)(2) -->
+						<xsd:element name="TotEx20PrvlWgAprntcshpPnltyAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Add columns(n)(3), (o)(1),(o)(2), (p)(1) and (p)(2)</Description>
+									<LineNumber>Part I column (t)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+			
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Form 7218 Prior Year Credits Group -->
+			<xsd:element name="Form7218PYCreditsGrp"  type="Form4255PYCredits2Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Form 7218 Prior Year Credits Group</Description>
+						<LineNumber>Part I, Line 1e column a,b,c,d,e,f, m1,m2, n1,n2,n3, o1,o2,o3, p1,p2,p3, q,r,s,t</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Form 7213 Part II Prior Year Credits Group -->
+			<xsd:element name="Form7213PartIIPYCreditsGrp" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>Form 7213 Part II Prior Year Credits Group</Description>
+								<LineNumber>Part I, Line 1f column a, b, c, d, e, f, m1, m2, n1, n2, n3, o1, o2, o3, q, r, s, t</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+
+						<!-- Credit or deduction claimed in prior year(s) (as adjusted, if applicable) -->
+						<xsd:element name="PYCrClmAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Credit or deduction claimed in prior year(s) (as adjusted, if applicable)</Description>
+									<LineNumber>Part I column (a)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Gross EPE payment amount portion of column (PYCrClmAmt) -->
+						<xsd:element name="PYGroEPEPrtnCrClmAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Gross EPE payment amount portion of column (PYCrClmAmt)</Description>
+									<LineNumber>Part I column (b)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Gross EPE in column (PYGroEPEPrtnCrClmAmt) applied against regular tax -->
+						<xsd:element name="PYGroEPEPrtnAppRegTaxAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Gross EPE in column (PYGroEPEPrtnCrClmAmt) applied against regular tax</Description>
+									<LineNumber>Part I column (c)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Net EPE Subtract column (PYGroEPEPrtnAppRegTaxAmt) from column (PYGroEPEPrtnCrClmAmt) -->
+						<xsd:element name="PYNetEPEAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Net EPE Subtract column (PYGroEPEPrtnAppRegTaxAmt) from column (PYGroEPEPrtnCrClmAmt)</Description>
+									<LineNumber>Part I column (d)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Non-EPE credit (excess of column (PYCrClmAmt) over column (PYGroEPEPrtnCrClmAmt)) that was applied against regular tax -->
+						<xsd:element name="PYNonEPECrExAppRegTaxAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Non-EPE credit (excess of column (PYCrClmAmt) over column (PYGroEPEPrtnCrClmAmt)) that was applied against regular tax</Description>
+									<LineNumber>Part I column (e)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Carryover. Subtract the sum of columns (PYGroEPEPrtnCrClmAmt) and (PYNonEPECrExAppRegTaxAmt) from column (PYCrClmAmt) -->
+						<xsd:element name="PYCarryoverAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Carryover. Subtract the sum of columns (PYGroEPEPrtnCrClmAmt) and (PYNonEPECrExAppRegTaxAmt) from column (PYCrClmAmt)</Description>
+									<LineNumber>Part I column (f)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Section 6418(g)(2)(A)(i) excessive credit transfer -->
+						<xsd:element name="Sect6418g2AiExCrTrnsfrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Section 6418(g)(2)(A)(i) excessive credit transfer</Description>
+									<LineNumber>Part I column (m)(1)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Section 6418(g)(2)(A)(ii) 20% of excessive credit transfer -->
+						<xsd:element name="Sect6418g2Aii20ExCrTrnsfrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Section 6418(g)(2)(A)(ii) 20% of excessive credit transfer</Description>
+									<LineNumber>Part I column (m)(2)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- If you owe an EP related to a gross EPE in column (PYGroEPEPrtnCrClmAmt), enter the net EPE portion from column (PYNetEPEAmt).  -->
+						<xsd:element name="NetEPEPortionAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>If you owe an EP related to a gross EPE in column (PYGroEPEPrtnCrClmAmt), enter the net EPE portion from column (PYNetEPEAmt). </Description>
+									<LineNumber>Part I column (n)(1)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- If you owe an EP, enter the portion of the EP not in column (NetEPEPortionAmt) (excluding any 20% EP)  -->
+						<xsd:element name="PortionEPExcld20pctAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>If you owe an EP, enter the portion of the EP not in column (NetEPEPortionAmt) (excluding any 20% EP) </Description>
+									<LineNumber>Part I column (n)(2)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- If you owe an EP, enter any 20% EP you owe -->
+						<xsd:element name="EP20PctOweAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>If you owe an EP, enter any 20% EP you owe</Description>
+									<LineNumber>Part I column (n)(3)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Prevailing wage penalty amounts related to a net EPE amount -->
+						<xsd:element name="PrvlWagePnltyRltdNetEPEAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Prevailing wage penalty amounts related to a net EPE amount</Description>
+									<LineNumber>Part I column (o)(1)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Prevailing wage penalty amounts related to a non-net EPE amount -->
+						<xsd:element name="PrvlWagePnltyRltdNonNetEPEAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Prevailing wage penalty amounts related to a non-net EPE amount</Description>
+									<LineNumber>Part I column (o)(2)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Prevailing wage penalty amounts not related to an EPE amount -->
+						<xsd:element name="PrvlWagePnltyNotRltdEPEAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Prevailing wage penalty amounts not related to an EPE amount</Description>
+									<LineNumber>Part I column (o)(3)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Amounts that can be reduced by nonrefundable credits -->
+						<xsd:element name="RedByNonRfdblCrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Amounts that can be reduced by nonrefundable credits</Description>
+									<LineNumber>Part I column (q)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Amount that cannot be reduced by nonrefundable credits -->
+						<xsd:element name="NotRedByNonRfdblCrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Amount that cannot be reduced by nonrefundable credits</Description>
+									<LineNumber>Part I column (r)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Add columns (l) and (n)(1) -->
+						<xsd:element name="TotalRcptrNetEPEExPymt100CrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Add columns (l) and (n)(1)</Description>
+									<LineNumber>Part I column (s)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Add columns(n)(3), (o)(1),(o)(2), (p)(1) and (p)(2) -->
+						<xsd:element name="TotEx20PrvlWgAprntcshpPnltyAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Add columns(n)(3), (o)(1),(o)(2), (p)(1) and (p)(2)</Description>
+									<LineNumber>Part I column (t)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+			
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			
+			<!-- Form 3468 Part V Prior Year Credits Group  -->
+			<xsd:element name="Form3468PartVPYCreditsGrp" type="Form3468PYCreditsType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Form 3468 Part V Prior Year Credits Group </Description>
+						<LineNumber>Part I, Line1g column a,b,c,d,e,f,g,h ,i, j, k, l, m1,m2,m3, n1,n2,n3, o1,o2,o3, p1,p2,p3, q,r,s,t</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Form 8936 Part V Prior Year Credits Group -->
+			<xsd:element name="Form8936PartVPYCreditsGrp" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>Form 8936 Part V Prior Year Credits Group</Description>
+								<LineNumber>Part I Line 1h column a, b, c, d, e, f, g, h, i, j, k, l, n1, n2, n3, q, r, s, t</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+
+						<!-- Credit or deduction claimed in prior year(s) (as adjusted, if applicable) -->
+						<xsd:element name="PYCrClmAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Credit or deduction claimed in prior year(s) (as adjusted, if applicable)</Description>
+									<LineNumber>Part I column (a)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Gross EPE payment amount portion of column (PYCrClmAmt) -->
+						<xsd:element name="PYGroEPEPrtnCrClmAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Gross EPE payment amount portion of column (PYCrClmAmt)</Description>
+									<LineNumber>Part I column (b)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Gross EPE in column (PYGroEPEPrtnCrClmAmt) applied against regular tax -->
+						<xsd:element name="PYGroEPEPrtnAppRegTaxAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Gross EPE in column (PYGroEPEPrtnCrClmAmt) applied against regular tax</Description>
+									<LineNumber>Part I column (c)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Net EPE Subtract column (PYGroEPEPrtnAppRegTaxAmt) from column (PYGroEPEPrtnCrClmAmt) -->
+						<xsd:element name="PYNetEPEAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Net EPE Subtract column (PYGroEPEPrtnAppRegTaxAmt) from column (PYGroEPEPrtnCrClmAmt)</Description>
+									<LineNumber>Part I column (d)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Non-EPE credit (excess of column (PYCrClmAmt) over column (PYGroEPEPrtnCrClmAmt)) that was applied against regular tax -->
+						<xsd:element name="PYNonEPECrExAppRegTaxAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Non-EPE credit (excess of column (PYCrClmAmt) over column (PYGroEPEPrtnCrClmAmt)) that was applied against regular tax</Description>
+									<LineNumber>Part I column (e)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Carryover. Subtract the sum of columns (PYGroEPEPrtnCrClmAmt) and (PYNonEPECrExAppRegTaxAmt) from column (PYCrClmAmt) -->
+						<xsd:element name="PYCarryoverAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Carryover. Subtract the sum of columns (PYGroEPEPrtnCrClmAmt) and (PYNonEPECrExAppRegTaxAmt) from column (PYCrClmAmt)</Description>
+									<LineNumber>Part I column (f)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<xsd:choice minOccurs="0">
+
+							<!-- Recapture percentage. -->
+							<xsd:element name="RecapturePct" type="RatioType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Recapture percentage.</Description>
+										<LineNumber>Part I column (g)</LineNumber>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+
+							<!-- Recapture percentage. Enter "N/A" if more than one recapture event on one line -->
+							<xsd:element name="RecapturePctNACd">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Recapture percentage. Enter "N/A" if more than one recapture event on one line</Description>
+										<LineNumber>Part I column (g)</LineNumber>
+									</xsd:documentation>
+								</xsd:annotation>
+								<xsd:simpleType>
+									<xsd:restriction base="TextType">
+										<xsd:enumeration value="N/A"/>
+									</xsd:restriction>
+								</xsd:simpleType>
+							</xsd:element>
+
+						</xsd:choice>
+
+						<!-- Amount of column (PYCrClmAmt) recaptured, including reduction of carryover. See instructions for basis increase -->
+						<xsd:element name="RcptrTotCrRedCyovAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Amount of column (PYCrClmAmt) recaptured, including reduction of carryover. See instructions for basis increase</Description>
+									<LineNumber>Part I column (h)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Portion of column (RcptrTotCrRedCyovAmt) reducing credit carryover in column (PYCarryoverAmt) -->
+						<xsd:element name="RcptrPrtnRdcngCrCyovAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Portion of column (RcptrTotCrRedCyovAmt) reducing credit carryover in column (PYCarryoverAmt)</Description>
+									<LineNumber>Part I column (i)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Portion of column (RcptrTotCrRedCyovAmt) recapturing Non-EPE credit applied against regular tax in column (PYNonEPECrExAppRegTaxAmt) -->
+						<xsd:element name="RcptrPrtnNonEPECrAppRegTaxAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Portion of column (RcptrTotCrRedCyovAmt) recapturing Non-EPE credit applied against regular tax in column (PYNonEPECrExAppRegTaxAmt)</Description>
+									<LineNumber>Part I column (j)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Portion of column (RcptrTotCrRedCyovAmt) recapturing gross EPE amount applied against regular tax from column (PYGroEPEPrtnAppRegTaxAmt) -->
+						<xsd:element name="RcptrPrtnEPEAppRegTaxAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Portion of column (RcptrTotCrRedCyovAmt) recapturing gross EPE amount applied against regular tax from column (PYGroEPEPrtnAppRegTaxAmt)</Description>
+									<LineNumber>Part I column (k)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Portion of column (RcptrTotCrRedCyovAmt) recapturing Net EPE amount from column (PYNetEPEAmt) -->
+						<xsd:element name="RcptrPrtnNetEPECrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Portion of column (RcptrTotCrRedCyovAmt) recapturing Net EPE amount from column (PYNetEPEAmt)</Description>
+									<LineNumber>Part I column (l)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- If you owe an EP related to a gross EPE in column (PYGroEPEPrtnCrClmAmt), enter the net EPE portion from column (PYNetEPEAmt).  -->
+						<xsd:element name="NetEPEPortionAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>If you owe an EP related to a gross EPE in column (PYGroEPEPrtnCrClmAmt), enter the net EPE portion from column (PYNetEPEAmt). </Description>
+									<LineNumber>Part I column (n)(1)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- If you owe an EP, enter the portion of the EP not in column (NetEPEPortionAmt) (excluding any 20% EP)  -->
+						<xsd:element name="PortionEPExcld20pctAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>If you owe an EP, enter the portion of the EP not in column (NetEPEPortionAmt) (excluding any 20% EP) </Description>
+									<LineNumber>Part I column (n)(2)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- If you owe an EP, enter any 20% EP you owe -->
+						<xsd:element name="EP20PctOweAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>If you owe an EP, enter any 20% EP you owe</Description>
+									<LineNumber>Part I column (n)(3)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Amounts that can be reduced by nonrefundable credits -->
+						<xsd:element name="RedByNonRfdblCrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Amounts that can be reduced by nonrefundable credits</Description>
+									<LineNumber>Part I column (q)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Amount that cannot be reduced by nonrefundable credits -->
+						<xsd:element name="NotRedByNonRfdblCrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Amount that cannot be reduced by nonrefundable credits</Description>
+									<LineNumber>Part I column (r)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Add columns (l) and (n)(1) -->
+						<xsd:element name="TotalRcptrNetEPEExPymt100CrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Add columns (l) and (n)(1)</Description>
+									<LineNumber>Part I column (s)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Add columns(n)(3), (o)(1),(o)(2), (p)(1) and (p)(2) -->
+						<xsd:element name="TotEx20PrvlWgAprntcshpPnltyAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Add columns(n)(3), (o)(1),(o)(2), (p)(1) and (p)(2)</Description>
+									<LineNumber>Part I column (t)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Form 7211 Prior Year Credits Group -->
+			<xsd:element name="Form7211PYCreditsGrp" type="Form4255PYCredits2Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Form 7211 Prior Year Credits Group</Description>
+						<LineNumber>Part I, Line 1i column a, b, c, d, e, f, m1, m2, n1, n2, n3, o1, o2, o3, p1, p2, p3, q, r, s, t</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Form 3468 Part VI Prior Year Credits Group  -->
+			<xsd:element name="Form3468PartVIPYCreditsGrp" type="Form3468PYCreditsType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Form 3468 Part VI Prior Year Credits Group </Description>
+						<LineNumber>Part I, Line 1j column a,b,c,d,e,f,g,h ,i, j, k, l, m1,m2,m3, n1,n2,n3, o1,o2,o3, p1,p2,p3, q,r,s,t</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Form 8835 Prior Year Credits Group -->
+			<xsd:element name="Form8835PYCreditsGrp" type="Form4255PYCredits2Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Form 8835 Prior Year Credits Group</Description>
+						<LineNumber>Part I, Line 1k column a, b, c, d, e, f, m1, m2, n1, n2, n3, o1, o2, o3, p1, p2, p3, q, r, s, t</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Form 3468 Part II Prior Year Credits Group -->
+			<xsd:element name="Form3468PartIIPYCreditsGrp" type="Form3468PYCredits3Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Form 3468 Part II Prior Year Credits Group</Description>
+						<LineNumber>Part I, Line 1l column a, e, f, g, h, i, j, r</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Form 3468 Part VII Prior Year Credits Group -->
+			<xsd:element name="Form3468PartVIIPYCreditsGrp" type="Form3468PYCredits3Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Form 3468 Part VII Prior Year Credits Group</Description>
+						<LineNumber>Part I, Line 1m column a, e, f, g, h, i, j, r</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+						
+			<!-- Form 8908 Prior Year Credits Group -->
+			<xsd:element name="Form8908PYCreditsGrp" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>Form 8908 Prior Year Credits Group</Description>
+								<LineNumber>Part I, Line 1n column o3, r</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+
+						<!-- Prevailing wage penalty amounts not related to an EPE amount -->
+						<xsd:element name="PrvlWagePnltyNotRltdEPEAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Prevailing wage penalty amounts not related to an EPE amount</Description>
+									<LineNumber>Part I column (o)(3)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Amount that cannot be reduced by nonrefundable credits -->
+						<xsd:element name="NotRedByNonRfdblCrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Amount that cannot be reduced by nonrefundable credits</Description>
+									<LineNumber>Part I column (r)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Form 7205 Prior Year Credits Group -->
+			<xsd:element name="Form7205PYCreditsGrp" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>Form 7205 Prior Year Credits Group</Description>
+								<LineNumber>Part I, Line 1o column o3,  p3, r</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+
+						<!-- Prevailing wage penalty amounts not related to an EPE amount -->
+						<xsd:element name="PrvlWagePnltyNotRltdEPEAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Prevailing wage penalty amounts not related to an EPE amount</Description>
+									<LineNumber>Part I column (o)(3)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Apprenticeship penalty amounts not related to an EPE amount -->
+						<xsd:element name="AprntcshpPnltyNotRltdEPEAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Apprenticeship penalty amounts not related to an EPE amount</Description>
+									<LineNumber>Part I column (p)(3)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Amount that cannot be reduced by nonrefundable credits -->
+						<xsd:element name="NotRedByNonRfdblCrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Amount that cannot be reduced by nonrefundable credits</Description>
+									<LineNumber>Part I column (r)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Other Line 1 Amount Prior Year Credits Group -->
+			<xsd:element name="OtherAmount1Grp" type="Form3468PYCreditsType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other Line 1 Amount Prior Year Credits Group</Description>
+						<LineNumber>Part I, Line 1z column a,b,c,d,e,f,g,h,I,j,k,l, m1,m2,m3, n1,n2,n3, o1,o2,o3, p1,p2,p3, q,r,s,t</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Form 8933 Prior Year Credits Group -->
+			<xsd:element name="Form8933PYCreditsGrp" type="Form4255PYCredits3Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Form 8933 Prior Year Credits Group</Description>
+						<LineNumber>Part I, Line 2a column a,b,c,d,e,f,g, h, i, j, k, l, m1,m2, n1,n2,n3, o1,o2,o3, p1,p2,p3, q,r,s,t </LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Form 8911 Prior Year Credits Group -->
+			<xsd:element name="Form8911PYCreditsGrp" type="Form4255PYCredits3Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Form 8911 Prior Year Credits Group</Description>
+						<LineNumber>Part I, Line 2b column a,b,c,d, e,f,g,h, i, j, k, l, m1,m2, n1,n2,n3, o1,o2,o3, p1,p2,p3, q,r,s,t </LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other Line 2 Amount Prior Year Credits Group -->
+			<xsd:element name="OtherAmount2Grp" type="Form3468PYCreditsType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other Line 2 Amount Prior Year Credits Group</Description>
+						<LineNumber>Part I, Line 2z column a,b,c,d,e,f,g,h,i,j,k,l, m1,m2,m3, n1 n2,n3, o1,o2,o3, p1,p2,p3, q,r,s t</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Amounts Prior Year Credits Group -->
+			<xsd:element name="TotalAmountsPYCreditsGrp" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>Total Amounts Prior Year Credits Group</Description>
+								<LineNumber>Part I, Line 3 column a,b,c,d, e, f, h, i, j, k, l, m1,m2,m3, n1,n2,n3, o1,o2,o3 p1,p2,p3, q,r,s,t</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+
+						<!-- Credit or deduction claimed in prior year(s) (as adjusted, if applicable) -->
+						<xsd:element name="PYCrClmAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Credit or deduction claimed in prior year(s) (as adjusted, if applicable)</Description>
+									<LineNumber>Part I column (a)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Gross EPE payment amount portion of column (PYCrClmAmt) -->
+						<xsd:element name="PYGroEPEPrtnCrClmAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Gross EPE payment amount portion of column (PYCrClmAmt)</Description>
+									<LineNumber>Part I column (b)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Gross EPE in column (PYGroEPEPrtnCrClmAmt) applied against regular tax -->
+						<xsd:element name="PYGroEPEPrtnAppRegTaxAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Gross EPE in column (PYGroEPEPrtnCrClmAmt) applied against regular tax</Description>
+									<LineNumber>Part I column (c)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Net EPE Subtract column (PYGroEPEPrtnAppRegTaxAmt) from column (PYGroEPEPrtnCrClmAmt) -->
+						<xsd:element name="PYNetEPEAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Net EPE Subtract column (PYGroEPEPrtnAppRegTaxAmt) from column (PYGroEPEPrtnCrClmAmt)</Description>
+									<LineNumber>Part I column (d)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Non-EPE credit (excess of column (PYCrClmAmt) over column (PYGroEPEPrtnCrClmAmt)) that was applied against regular tax -->
+						<xsd:element name="PYNonEPECrExAppRegTaxAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Non-EPE credit (excess of column (PYCrClmAmt) over column (PYGroEPEPrtnCrClmAmt)) that was applied against regular tax</Description>
+									<LineNumber>Part I column (e)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Carryover. Subtract the sum of columns (PYGroEPEPrtnCrClmAmt) and (PYNonEPECrExAppRegTaxAmt) from column (PYCrClmAmt) -->
+						<xsd:element name="PYCarryoverAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Carryover. Subtract the sum of columns (PYGroEPEPrtnCrClmAmt) and (PYNonEPECrExAppRegTaxAmt) from column (PYCrClmAmt)</Description>
+									<LineNumber>Part I column (f)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Amount of column (PYCrClmAmt) recaptured, including reduction of carryover. See instructions for basis increase -->
+						<xsd:element name="RcptrTotCrRedCyovAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Amount of column (PYCrClmAmt) recaptured, including reduction of carryover. See instructions for basis increase</Description>
+									<LineNumber>Part I column (h)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Portion of column (RcptrTotCrRedCyovAmt) reducing credit carryover in column (PYCarryoverAmt) -->
+						<xsd:element name="RcptrPrtnRdcngCrCyovAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Portion of column (RcptrTotCrRedCyovAmt) reducing credit carryover in column (PYCarryoverAmt)</Description>
+									<LineNumber>Part I column (i)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Portion of column (RcptrTotCrRedCyovAmt) recapturing Non-EPE credit applied against regular tax in column (PYNonEPECrExAppRegTaxAmt) -->
+						<xsd:element name="RcptrPrtnNonEPECrAppRegTaxAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Portion of column (RcptrTotCrRedCyovAmt) recapturing Non-EPE credit applied against regular tax in column (PYNonEPECrExAppRegTaxAmt)</Description>
+									<LineNumber>Part I column (j)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Portion of column (RcptrTotCrRedCyovAmt) recapturing gross EPE amount applied against regular tax from column (PYGroEPEPrtnAppRegTaxAmt) -->
+						<xsd:element name="RcptrPrtnEPEAppRegTaxAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Portion of column (RcptrTotCrRedCyovAmt) recapturing gross EPE amount applied against regular tax from column (PYGroEPEPrtnAppRegTaxAmt)</Description>
+									<LineNumber>Part I column (k)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Portion of column (RcptrTotCrRedCyovAmt) recapturing Net EPE amount from column (PYNetEPEAmt) -->
+						<xsd:element name="RcptrPrtnNetEPECrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Portion of column (RcptrTotCrRedCyovAmt) recapturing Net EPE amount from column (PYNetEPEAmt)</Description>
+									<LineNumber>Part I column (l)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Section 6418(g)(2)(A)(i) excessive credit transfer -->
+						<xsd:element name="Sect6418g2AiExCrTrnsfrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Section 6418(g)(2)(A)(i) excessive credit transfer</Description>
+									<LineNumber>Part I column (m)(1)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Section 6418(g)(2)(A)(ii) 20% of excessive credit transfer -->
+						<xsd:element name="Sect6418g2Aii20ExCrTrnsfrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Section 6418(g)(2)(A)(ii) 20% of excessive credit transfer</Description>
+									<LineNumber>Part I column (m)(2)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Section 6418(g)(3) credit transfer recapture -->
+						<xsd:element name="Sect6418g3CrTrnsfrRcptrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Section 6418(g)(3) credit transfer recapture</Description>
+									<LineNumber>Part I column (m)(3)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- If you owe an EP related to a gross EPE in column (PYGroEPEPrtnCrClmAmt), enter the net EPE portion from column (PYNetEPEAmt).  -->
+						<xsd:element name="NetEPEPortionAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>If you owe an EP related to a gross EPE in column (PYGroEPEPrtnCrClmAmt), enter the net EPE portion from column (PYNetEPEAmt). </Description>
+									<LineNumber>Part I column (n)(1)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- If you owe an EP, enter the portion of the EP not in column (NetEPEPortionAmt) (excluding any 20% EP)  -->
+						<xsd:element name="PortionEPExcld20pctAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>If you owe an EP, enter the portion of the EP not in column (NetEPEPortionAmt) (excluding any 20% EP) </Description>
+									<LineNumber>Part I column (n)(2)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- If you owe an EP, enter any 20% EP you owe -->
+						<xsd:element name="EP20PctOweAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>If you owe an EP, enter any 20% EP you owe</Description>
+									<LineNumber>Part I column (n)(3)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Prevailing wage penalty amounts related to a net EPE amount -->
+						<xsd:element name="PrvlWagePnltyRltdNetEPEAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Prevailing wage penalty amounts related to a net EPE amount</Description>
+									<LineNumber>Part I column (o)(1)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Prevailing wage penalty amounts related to a non-net EPE amount -->
+						<xsd:element name="PrvlWagePnltyRltdNonNetEPEAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Prevailing wage penalty amounts related to a non-net EPE amount</Description>
+									<LineNumber>Part I column (o)(2)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Prevailing wage penalty amounts not related to an EPE amount -->
+						<xsd:element name="PrvlWagePnltyNotRltdEPEAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Prevailing wage penalty amounts not related to an EPE amount</Description>
+									<LineNumber>Part I column (o)(3)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Apprenticeship penalty amounts related to a net EPE amount -->
+						<xsd:element name="AprnctshpPnltyRltdNetEPEAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Apprenticeship penalty amounts related to a net EPE amount</Description>
+									<LineNumber>Part I column (p)(1)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Apprenticeship penalty amounts related to a non-net EPE amount -->
+						<xsd:element name="AprntcshpPnltyRltdNonNetEPEAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Apprenticeship penalty amounts related to a non-net EPE amount</Description>
+									<LineNumber>Part I column (p)(2)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Apprenticeship penalty amounts not related to an EPE amount -->
+						<xsd:element name="AprntcshpPnltyNotRltdEPEAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Apprenticeship penalty amounts not related to an EPE amount</Description>
+									<LineNumber>Part I column (p)(3)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Amounts that can be reduced by nonrefundable credits -->
+						<xsd:element name="RedByNonRfdblCrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Amounts that can be reduced by nonrefundable credits</Description>
+									<LineNumber>Part I column (q)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Amount that cannot be reduced by nonrefundable credits -->
+						<xsd:element name="NotRedByNonRfdblCrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Amount that cannot be reduced by nonrefundable credits</Description>
+									<LineNumber>Part I column (r)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Add columns (l) and (n)(1) -->
+						<xsd:element name="TotalRcptrNetEPEExPymt100CrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Add columns (l) and (n)(1)</Description>
+									<LineNumber>Part I column (s)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Add columns(n)(3), (o)(1),(o)(2), (p)(1) and (p)(2) -->
+						<xsd:element name="TotEx20PrvlWgAprntcshpPnltyAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Add columns(n)(3), (o)(1),(o)(2), (p)(1) and (p)(2)</Description>
+									<LineNumber>Part I column (t)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			
+			<!-- Part II -->
+
+			<!-- Section A -->
+
+			<!-- Properties -->
+			<xsd:element name="CrtnCrRcptrExPymtPnltyPropGrp" type="CrtnCrRcptrExPymtPnltyPropGrpType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Properties</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Part III -->
+
+			<!-- Property Emissions Tier Recapture Group -->
+			<xsd:element name="PropEmissionsTierRcptrGrp" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>Property Emissions Tier Recapture Group</Description>
+							</xsd:documentation>
+						</xsd:annotation>
+
+						<!-- Enter the emissions rate or value of the hydrogen that the facility was designed and reasonably expected to produce from Form 3468, Part I, line 2a(i). -->
+						<xsd:element name="FacilityEmissionsValueOrRt" type="LargeRatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Enter the emissions rate or value of the hydrogen that the facility was designed and reasonably expected to produce from Form 3468, Part I, line 2a(i).</Description>
+									<LineNumber>1</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Enter the basis of property placed in service during the tax year from Form 3468, Part VI, Section M, line 25a, 25d, 25g, or25j, that corresponds to the emissions rate or value on line 1. -->
+						<xsd:element name="CleanHydrgn45Vb2PropBasisAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Enter the basis of property placed in service during the tax year from Form 3468, Part VI, Section M, line 25a, 25d, 25g, or25j, that corresponds to the emissions rate or value on line 1.</Description>
+									<LineNumber>2</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Enter the energy percentage used to calculate the section 48 credit during the tax year from Form 3468, Part VI, Section M. line 25b, 25e, 25h, or 25k, that corresponds to the emissions rate or value on line 1. -->
+						<xsd:element name="NetOutLss1MWStsfdWgReqSectPct" type="RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Enter the energy percentage used to calculate the section 48 credit during the tax year from Form 3468, Part VI, Section M. line 25b, 25e, 25h, or 25k, that corresponds to the emissions rate or value on line 1.</Description>
+									<LineNumber>3</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Multiply line 2 by line 3 -->
+						<xsd:element name="CalcClnHydrgnByEgyPctAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Multiply line 2 by line 3</Description>
+									<LineNumber>4</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Enter the emissions rate of the hydrogen for the current tax year. If you didn't obtain an annual verification report for the current tax year, enter 0 and go to line 6. -->
+						<xsd:element name="CYHydrogenEmissionsRt" type="RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Enter the emissions rate of the hydrogen for the current tax year. If you didn't obtain an annual verification report for the current tax year, enter 0 and go to line 6.</Description>
+									<LineNumber>5</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Enter the energy percentage that corresponds with the emissions rate on line 5 that would have been used to calculate the section 48 credit. If you didn't obtain an annual verification report for the current tax year, enter 0. -->
+						<xsd:element name="HydrogenEmissionsEnergyPct" type="Decimal2RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Enter the energy percentage that corresponds with the emissions rate on line 5 that would have been used to calculate the section 48 credit. If you didn't obtain an annual verification report for the current tax year, enter 0.</Description>
+									<LineNumber>6</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Multiply line 6 by line 2 -->
+						<xsd:element name="CalcPropBasisEgyPctAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Multiply line 6 by line 2</Description>
+									<LineNumber>7</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Subtract line 7 from line 4 -->
+						<xsd:element name="CalcEmissionsTierRcptrAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Subtract line 7 from line 4</Description>
+									<LineNumber>8</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Multiply line 8 by 20% (0.20). This is the total increase in tax resulting from the emissions tier recapture event in the current tax year. Enter the result in Part I, line 1j, column (h). -->
+						<xsd:element name="TotalIncreaseInTaxAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Multiply line 8 by 20% (0.20). This is the total increase in tax resulting from the emissions tier recapture event in the current tax year. Enter the result in Part I, line 1j, column (h).</Description>
+									<LineNumber>9</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="Form3468PYCreditsType">
+		<xsd:sequence>
+
+			<!-- Credit or deduction claimed in prior year(s) (as adjusted, if applicable) -->
+			<xsd:element name="PYCrClmAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Credit or deduction claimed in prior year(s) (as adjusted, if applicable)</Description>
+						<LineNumber>Part I column (a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Gross EPE payment amount portion of column (PYCrClmAmt) -->
+			<xsd:element name="PYGroEPEPrtnCrClmAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gross EPE payment amount portion of column (PYCrClmAmt)</Description>
+						<LineNumber>Part I column (b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Gross EPE in column (PYGroEPEPrtnCrClmAmt) applied against regular tax -->
+			<xsd:element name="PYGroEPEPrtnAppRegTaxAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gross EPE in column (PYGroEPEPrtnCrClmAmt) applied against regular tax</Description>
+						<LineNumber>Part I column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Net EPE Subtract column (PYGroEPEPrtnAppRegTaxAmt) from column (PYGroEPEPrtnCrClmAmt) -->
+			<xsd:element name="PYNetEPEAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Net EPE Subtract column (PYGroEPEPrtnAppRegTaxAmt) from column (PYGroEPEPrtnCrClmAmt)</Description>
+						<LineNumber>Part I column (d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Non-EPE credit (excess of column (PYCrClmAmt) over column (PYGroEPEPrtnCrClmAmt)) that was applied against regular tax -->
+			<xsd:element name="PYNonEPECrExAppRegTaxAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Non-EPE credit (excess of column (PYCrClmAmt) over column (PYGroEPEPrtnCrClmAmt)) that was applied against regular tax</Description>
+						<LineNumber>Part I column (e)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Carryover. Subtract the sum of columns (PYGroEPEPrtnCrClmAmt) and (PYNonEPECrExAppRegTaxAmt) from column (PYCrClmAmt) -->
+			<xsd:element name="PYCarryoverAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Carryover. Subtract the sum of columns (PYGroEPEPrtnCrClmAmt) and (PYNonEPECrExAppRegTaxAmt) from column (PYCrClmAmt)</Description>
+						<LineNumber>Part I column (f)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:choice minOccurs="0">
+
+				<!-- Recapture percentage. -->
+				<xsd:element name="RecapturePct" type="RatioType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Recapture percentage.</Description>
+							<LineNumber>Part I column (g)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Recapture percentage. Enter "N/A" if more than one recapture event on one line -->
+				<xsd:element name="RecapturePctNACd">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Recapture percentage. Enter "N/A" if more than one recapture event on one line</Description>
+							<LineNumber>Part I column (g)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="TextType">
+							<xsd:enumeration value="N/A"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- Amount of column (PYCrClmAmt) recaptured, including reduction of carryover. See instructions for basis increase -->
+			<xsd:element name="RcptrTotCrRedCyovAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount of column (PYCrClmAmt) recaptured, including reduction of carryover. See instructions for basis increase</Description>
+						<LineNumber>Part I column (h)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Portion of column (RcptrTotCrRedCyovAmt) reducing credit carryover in column (PYCarryoverAmt) -->
+			<xsd:element name="RcptrPrtnRdcngCrCyovAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Portion of column (RcptrTotCrRedCyovAmt) reducing credit carryover in column (PYCarryoverAmt)</Description>
+						<LineNumber>Part I column (i)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Portion of column (RcptrTotCrRedCyovAmt) recapturing Non-EPE credit applied against regular tax in column (PYNonEPECrExAppRegTaxAmt) -->
+			<xsd:element name="RcptrPrtnNonEPECrAppRegTaxAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Portion of column (RcptrTotCrRedCyovAmt) recapturing Non-EPE credit applied against regular tax in column (PYNonEPECrExAppRegTaxAmt)</Description>
+						<LineNumber>Part I column (j)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Portion of column (RcptrTotCrRedCyovAmt) recapturing gross EPE amount applied against regular tax from column (PYGroEPEPrtnAppRegTaxAmt) -->
+			<xsd:element name="RcptrPrtnEPEAppRegTaxAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Portion of column (RcptrTotCrRedCyovAmt) recapturing gross EPE amount applied against regular tax from column (PYGroEPEPrtnAppRegTaxAmt)</Description>
+						<LineNumber>Part I column (k)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Portion of column (RcptrTotCrRedCyovAmt) recapturing Net EPE amount from column (PYNetEPEAmt) -->
+			<xsd:element name="RcptrPrtnNetEPECrAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Portion of column (RcptrTotCrRedCyovAmt) recapturing Net EPE amount from column (PYNetEPEAmt)</Description>
+						<LineNumber>Part I column (l)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Section 6418(g)(2)(A)(i) excessive credit transfer -->
+			<xsd:element name="Sect6418g2AiExCrTrnsfrAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Section 6418(g)(2)(A)(i) excessive credit transfer</Description>
+						<LineNumber>Part I column (m)(1)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Section 6418(g)(2)(A)(ii) 20% of excessive credit transfer -->
+			<xsd:element name="Sect6418g2Aii20ExCrTrnsfrAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Section 6418(g)(2)(A)(ii) 20% of excessive credit transfer</Description>
+						<LineNumber>Part I column (m)(2)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Section 6418(g)(3) credit transfer recapture -->
+			<xsd:element name="Sect6418g3CrTrnsfrRcptrAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Section 6418(g)(3) credit transfer recapture</Description>
+						<LineNumber>Part I column (m)(3)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- If you owe an EP related to a gross EPE in column (PYGroEPEPrtnCrClmAmt), enter the net EPE portion from column (PYNetEPEAmt).  -->
+			<xsd:element name="NetEPEPortionAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>If you owe an EP related to a gross EPE in column (PYGroEPEPrtnCrClmAmt), enter the net EPE portion from column (PYNetEPEAmt). </Description>
+						<LineNumber>Part I column (n)(1)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- If you owe an EP, enter the portion of the EP not in column (NetEPEPortionAmt) (excluding any 20% EP)  -->
+			<xsd:element name="PortionEPExcld20pctAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>If you owe an EP, enter the portion of the EP not in column (NetEPEPortionAmt) (excluding any 20% EP) </Description>
+						<LineNumber>Part I column (n)(2)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- If you owe an EP, enter any 20% EP you owe -->
+			<xsd:element name="EP20PctOweAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>If you owe an EP, enter any 20% EP you owe</Description>
+						<LineNumber>Part I column (n)(3)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Prevailing wage penalty amounts related to a net EPE amount -->
+			<xsd:element name="PrvlWagePnltyRltdNetEPEAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Prevailing wage penalty amounts related to a net EPE amount</Description>
+						<LineNumber>Part I column (o)(1)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Prevailing wage penalty amounts related to a non-net EPE amount -->
+			<xsd:element name="PrvlWagePnltyRltdNonNetEPEAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Prevailing wage penalty amounts related to a non-net EPE amount</Description>
+						<LineNumber>Part I column (o)(2)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Prevailing wage penalty amounts not related to an EPE amount -->
+			<xsd:element name="PrvlWagePnltyNotRltdEPEAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Prevailing wage penalty amounts not related to an EPE amount</Description>
+						<LineNumber>Part I column (o)(3)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Apprenticeship penalty amounts related to a net EPE amount -->
+			<xsd:element name="AprnctshpPnltyRltdNetEPEAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Apprenticeship penalty amounts related to a net EPE amount</Description>
+						<LineNumber>Part I column (p)(1)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Apprenticeship penalty amounts related to a non-net EPE amount -->
+			<xsd:element name="AprntcshpPnltyRltdNonNetEPEAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Apprenticeship penalty amounts related to a non-net EPE amount</Description>
+						<LineNumber>Part I column (p)(2)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Apprenticeship penalty amounts not related to an EPE amount -->
+			<xsd:element name="AprntcshpPnltyNotRltdEPEAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Apprenticeship penalty amounts not related to an EPE amount</Description>
+						<LineNumber>Part I column (p)(3)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Amounts that can be reduced by nonrefundable credits -->
+			<xsd:element name="RedByNonRfdblCrAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amounts that can be reduced by nonrefundable credits</Description>
+						<LineNumber>Part I column (q)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Amount that cannot be reduced by nonrefundable credits -->
+			<xsd:element name="NotRedByNonRfdblCrAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount that cannot be reduced by nonrefundable credits</Description>
+						<LineNumber>Part I column (r)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Add columns (l) and (n)(1) -->
+			<xsd:element name="TotalRcptrNetEPEExPymt100CrAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add columns (l) and (n)(1)</Description>
+						<LineNumber>Part I column (s)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Add columns(n)(3), (o)(1),(o)(2), (p)(1) and (p)(2) -->
+			<xsd:element name="TotEx20PrvlWgAprntcshpPnltyAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add columns(n)(3), (o)(1),(o)(2), (p)(1) and (p)(2)</Description>
+						<LineNumber>Part I column (t)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="Form3468PYCredits3Type">
+		<xsd:sequence>
+
+			<!-- Credit claimed in prior year(s) (as adjusted, if applicable) -->
+			<xsd:element name="PYCrClmAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Credit claimed in prior year(s) (as adjusted, if applicable)</Description>
+						<LineNumber>Part I column (a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Non-EPE credit (excess of column (PYCrClmAmt) over column (PYGroEPEPrtnCrClmAmt)) that was applied against regular tax -->
+			<xsd:element name="PYNonEPECrExAppRegTaxAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Non-EPE credit (excess of column (PYCrClmAmt) over column (PYGroEPEPrtnCrClmAmt)) that was applied against regular tax</Description>
+						<LineNumber>Part I column (e)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Carryover. Subtract the sum of columns (PYGroEPEPrtnCrClmAmt) and (PYNonEPECrExAppRegTaxAmt) from column (PYCrClmAmt) -->
+			<xsd:element name="PYCarryoverAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Carryover. Subtract the sum of columns (PYGroEPEPrtnCrClmAmt) and (PYNonEPECrExAppRegTaxAmt) from column (PYCrClmAmt)</Description>
+						<LineNumber>Part I column (f)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:choice minOccurs="0">
+
+				<!-- Recapture percentage. -->
+				<xsd:element name="RecapturePct" type="RatioType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Recapture percentage.</Description>
+							<LineNumber>Part I column (g)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Recapture percentage. Enter "N/A" if more than one recapture event on one line -->
+				<xsd:element name="RecapturePctNACd">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Recapture percentage. Enter "N/A" if more than one recapture event on one line</Description>
+							<LineNumber>Part I column (g)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="TextType">
+							<xsd:enumeration value="N/A"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- Amount of column (PYCrClmAmt) recaptured, including reduction of carryover. See instructions for basis increase -->
+			<xsd:element name="RcptrTotCrRedCyovAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount of column (PYCrClmAmt) recaptured, including reduction of carryover. See instructions for basis increase</Description>
+						<LineNumber>Part I column (h)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Portion of column (RcptrTotCrRedCyovAmt) reducing credit carryover in column (PYCarryoverAmt) -->
+			<xsd:element name="RcptrPrtnRdcngCrCyovAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Portion of column (RcptrTotCrRedCyovAmt) reducing credit carryover in column (PYCarryoverAmt)</Description>
+						<LineNumber>Part I column (i)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Portion of column (RcptrTotCrRedCyovAmt) recapturing Non-EPE credit applied against regular tax in column (PYNonEPECrExAppRegTaxAmt) -->
+			<xsd:element name="RcptrPrtnNonEPECrAppRegTaxAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Portion of column (RcptrTotCrRedCyovAmt) recapturing Non-EPE credit applied against regular tax in column (PYNonEPECrExAppRegTaxAmt)</Description>
+						<LineNumber>Part I column (j)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Amount that cannot be reduced by nonrefundable credits -->
+			<xsd:element name="NotRedByNonRfdblCrAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount that cannot be reduced by nonrefundable credits</Description>
+						<LineNumber>Part I column (r)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="Form4255PYCredits2Type">
+		<xsd:sequence>
+
+			<!-- Credit or deduction claimed in prior year(s) (as adjusted, if applicable) -->
+			<xsd:element name="PYCrClmAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Credit or deduction claimed in prior year(s) (as adjusted, if applicable)</Description>
+						<LineNumber>Part I column (a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Gross EPE payment amount portion of column (PYCrClmAmt) -->
+			<xsd:element name="PYGroEPEPrtnCrClmAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gross EPE payment amount portion of column (PYCrClmAmt)</Description>
+						<LineNumber>Part I column (b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Gross EPE in column (PYGroEPEPrtnCrClmAmt) applied against regular tax -->
+			<xsd:element name="PYGroEPEPrtnAppRegTaxAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gross EPE in column (PYGroEPEPrtnCrClmAmt) applied against regular tax</Description>
+						<LineNumber>Part I column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Net EPE Subtract column (PYGroEPEPrtnAppRegTaxAmt) from column (PYGroEPEPrtnCrClmAmt) -->
+			<xsd:element name="PYNetEPEAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Net EPE Subtract column (PYGroEPEPrtnAppRegTaxAmt) from column (PYGroEPEPrtnCrClmAmt)</Description>
+						<LineNumber>Part I column (d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Non-EPE credit (excess of column (PYCrClmAmt) over column (PYGroEPEPrtnCrClmAmt)) that was applied against regular tax -->
+			<xsd:element name="PYNonEPECrExAppRegTaxAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Non-EPE credit (excess of column (PYCrClmAmt) over column (PYGroEPEPrtnCrClmAmt)) that was applied against regular tax</Description>
+						<LineNumber>Part I column (e)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Carryover. Subtract the sum of columns (PYGroEPEPrtnCrClmAmt) and (PYNonEPECrExAppRegTaxAmt) from column (PYCrClmAmt) -->
+			<xsd:element name="PYCarryoverAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Carryover. Subtract the sum of columns (PYGroEPEPrtnCrClmAmt) and (PYNonEPECrExAppRegTaxAmt) from column (PYCrClmAmt)</Description>
+						<LineNumber>Part I column (f)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Section 6418(g)(2)(A)(i) excessive credit transfer -->
+			<xsd:element name="Sect6418g2AiExCrTrnsfrAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Section 6418(g)(2)(A)(i) excessive credit transfer</Description>
+						<LineNumber>Part I column (m)(1)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Section 6418(g)(2)(A)(ii) 20% of excessive credit transfer -->
+			<xsd:element name="Sect6418g2Aii20ExCrTrnsfrAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Section 6418(g)(2)(A)(ii) 20% of excessive credit transfer</Description>
+						<LineNumber>Part I column (m)(2)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- If you owe an EP related to a gross EPE in column (PYGroEPEPrtnCrClmAmt), enter the net EPE portion from column (PYNetEPEAmt).  -->
+			<xsd:element name="NetEPEPortionAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>If you owe an EP related to a gross EPE in column (PYGroEPEPrtnCrClmAmt), enter the net EPE portion from column (PYNetEPEAmt). </Description>
+						<LineNumber>Part I column (n)(1)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- If you owe an EP, enter the portion of the EP not in column (NetEPEPortionAmt) (excluding any 20% EP)  -->
+			<xsd:element name="PortionEPExcld20pctAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>If you owe an EP, enter the portion of the EP not in column (NetEPEPortionAmt) (excluding any 20% EP) </Description>
+						<LineNumber>Part I column (n)(2)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- If you owe an EP, enter any 20% EP you owe -->
+			<xsd:element name="EP20PctOweAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>If you owe an EP, enter any 20% EP you owe</Description>
+						<LineNumber>Part I column (n)(3)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Prevailing wage penalty amounts related to a net EPE amount -->
+			<xsd:element name="PrvlWagePnltyRltdNetEPEAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Prevailing wage penalty amounts related to a net EPE amount</Description>
+						<LineNumber>Part I column (o)(1)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Prevailing wage penalty amounts related to a non-net EPE amount -->
+			<xsd:element name="PrvlWagePnltyRltdNonNetEPEAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Prevailing wage penalty amounts related to a non-net EPE amount</Description>
+						<LineNumber>Part I column (o)(2)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Prevailing wage penalty amounts not related to an EPE amount -->
+			<xsd:element name="PrvlWagePnltyNotRltdEPEAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Prevailing wage penalty amounts not related to an EPE amount</Description>
+						<LineNumber>Part I column (o)(3)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Apprenticeship penalty amounts related to a net EPE amount -->
+			<xsd:element name="AprnctshpPnltyRltdNetEPEAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Apprenticeship penalty amounts related to a net EPE amount</Description>
+						<LineNumber>Part I column (p)(1)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Apprenticeship penalty amounts related to a non-net EPE amount -->
+			<xsd:element name="AprntcshpPnltyRltdNonNetEPEAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Apprenticeship penalty amounts related to a non-net EPE amount</Description>
+						<LineNumber>Part I column (p)(2)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Apprenticeship penalty amounts not related to an EPE amount -->
+			<xsd:element name="AprntcshpPnltyNotRltdEPEAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Apprenticeship penalty amounts not related to an EPE amount</Description>
+						<LineNumber>Part I column (p)(3)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Amounts that can be reduced by nonrefundable credits -->
+			<xsd:element name="RedByNonRfdblCrAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amounts that can be reduced by nonrefundable credits</Description>
+						<LineNumber>Part I column (q)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Amount that cannot be reduced by nonrefundable credits -->
+			<xsd:element name="NotRedByNonRfdblCrAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount that cannot be reduced by nonrefundable credits</Description>
+						<LineNumber>Part I column (r)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Add columns (l) and (n)(1) -->
+			<xsd:element name="TotalRcptrNetEPEExPymt100CrAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add columns (l) and (n)(1)</Description>
+						<LineNumber>Part I column (s)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Add columns(n)(3), (o)(1),(o)(2), (p)(1) and (p)(2) -->
+			<xsd:element name="TotEx20PrvlWgAprntcshpPnltyAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add columns(n)(3), (o)(1),(o)(2), (p)(1) and (p)(2)</Description>
+						<LineNumber>Part I column (t)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="Form4255PYCredits3Type">
+		<xsd:sequence>
+
+			<!-- Credit or deduction claimed in prior year(s) (as adjusted, if applicable) -->
+			<xsd:element name="PYCrClmAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Credit or deduction claimed in prior year(s) (as adjusted, if applicable)</Description>
+						<LineNumber>Part I column (a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Gross EPE payment amount portion of column (PYCrClmAmt) -->
+			<xsd:element name="PYGroEPEPrtnCrClmAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gross EPE payment amount portion of column (PYCrClmAmt)</Description>
+						<LineNumber>Part I column (b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Gross EPE in column (PYGroEPEPrtnCrClmAmt) applied against regular tax -->
+			<xsd:element name="PYGroEPEPrtnAppRegTaxAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gross EPE in column (PYGroEPEPrtnCrClmAmt) applied against regular tax</Description>
+						<LineNumber>Part I column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Net EPE Subtract column (PYGroEPEPrtnAppRegTaxAmt) from column (PYGroEPEPrtnCrClmAmt) -->
+			<xsd:element name="PYNetEPEAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Net EPE Subtract column (PYGroEPEPrtnAppRegTaxAmt) from column (PYGroEPEPrtnCrClmAmt)</Description>
+						<LineNumber>Part I column (d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Non-EPE credit (excess of column (PYCrClmAmt) over column (PYGroEPEPrtnCrClmAmt)) that was applied against regular tax -->
+			<xsd:element name="PYNonEPECrExAppRegTaxAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Non-EPE credit (excess of column (PYCrClmAmt) over column (PYGroEPEPrtnCrClmAmt)) that was applied against regular tax</Description>
+						<LineNumber>Part I column (e)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Carryover. Subtract the sum of columns (PYGroEPEPrtnCrClmAmt) and (PYNonEPECrExAppRegTaxAmt) from column (PYCrClmAmt) -->
+			<xsd:element name="PYCarryoverAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Carryover. Subtract the sum of columns (PYGroEPEPrtnCrClmAmt) and (PYNonEPECrExAppRegTaxAmt) from column (PYCrClmAmt)</Description>
+						<LineNumber>Part I column (f)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:choice minOccurs="0">
+
+				<!-- Recapture percentage. -->
+				<xsd:element name="RecapturePct" type="RatioType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Recapture percentage.</Description>
+							<LineNumber>Part I column (g)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Recapture percentage. Enter "N/A" if more than one recapture event on one line -->
+				<xsd:element name="RecapturePctNACd">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Recapture percentage. Enter "N/A" if more than one recapture event on one line</Description>
+							<LineNumber>Part I column (g)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="TextType">
+							<xsd:enumeration value="N/A"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- Amount of column (PYCrClmAmt) recaptured, including reduction of carryover. See instructions for basis increase -->
+			<xsd:element name="RcptrTotCrRedCyovAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount of column (PYCrClmAmt) recaptured, including reduction of carryover. See instructions for basis increase</Description>
+						<LineNumber>Part I column (h)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Portion of column (RcptrTotCrRedCyovAmt) reducing credit carryover in column (PYCarryoverAmt) -->
+			<xsd:element name="RcptrPrtnRdcngCrCyovAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Portion of column (RcptrTotCrRedCyovAmt) reducing credit carryover in column (PYCarryoverAmt)</Description>
+						<LineNumber>Part I column (i)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Portion of column (RcptrTotCrRedCyovAmt) recapturing Non-EPE credit applied against regular tax in column (PYNonEPECrExAppRegTaxAmt) -->
+			<xsd:element name="RcptrPrtnNonEPECrAppRegTaxAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Portion of column (RcptrTotCrRedCyovAmt) recapturing Non-EPE credit applied against regular tax in column (PYNonEPECrExAppRegTaxAmt)</Description>
+						<LineNumber>Part I column (j)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Portion of column (RcptrTotCrRedCyovAmt) recapturing gross EPE amount applied against regular tax from column (PYGroEPEPrtnAppRegTaxAmt) -->
+			<xsd:element name="RcptrPrtnEPEAppRegTaxAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Portion of column (RcptrTotCrRedCyovAmt) recapturing gross EPE amount applied against regular tax from column (PYGroEPEPrtnAppRegTaxAmt)</Description>
+						<LineNumber>Part I column (k)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Portion of column (RcptrTotCrRedCyovAmt) recapturing Net EPE amount from column (PYNetEPEAmt) -->
+			<xsd:element name="RcptrPrtnNetEPECrAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Portion of column (RcptrTotCrRedCyovAmt) recapturing Net EPE amount from column (PYNetEPEAmt)</Description>
+						<LineNumber>Part I column (l)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Section 6418(g)(2)(A)(i) excessive credit transfer -->
+			<xsd:element name="Sect6418g2AiExCrTrnsfrAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Section 6418(g)(2)(A)(i) excessive credit transfer</Description>
+						<LineNumber>Part I column (m)(1)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Section 6418(g)(2)(A)(ii) 20% of excessive credit transfer -->
+			<xsd:element name="Sect6418g2Aii20ExCrTrnsfrAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Section 6418(g)(2)(A)(ii) 20% of excessive credit transfer</Description>
+						<LineNumber>Part I column (m)(2)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- If you owe an EP related to a gross EPE in column (PYGroEPEPrtnCrClmAmt), enter the net EPE portion from column (PYNetEPEAmt).  -->
+			<xsd:element name="NetEPEPortionAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>If you owe an EP related to a gross EPE in column (PYGroEPEPrtnCrClmAmt), enter the net EPE portion from column (PYNetEPEAmt). </Description>
+						<LineNumber>Part I column (n)(1)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- If you owe an EP, enter the portion of the EP not in column (NetEPEPortionAmt) (excluding any 20% EP)  -->
+			<xsd:element name="PortionEPExcld20pctAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>If you owe an EP, enter the portion of the EP not in column (NetEPEPortionAmt) (excluding any 20% EP) </Description>
+						<LineNumber>Part I column (n)(2)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- If you owe an EP, enter any 20% EP you owe -->
+			<xsd:element name="EP20PctOweAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>If you owe an EP, enter any 20% EP you owe</Description>
+						<LineNumber>Part I column (n)(3)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Prevailing wage penalty amounts related to a net EPE amount -->
+			<xsd:element name="PrvlWagePnltyRltdNetEPEAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Prevailing wage penalty amounts related to a net EPE amount</Description>
+						<LineNumber>Part I column (o)(1)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Prevailing wage penalty amounts related to a non-net EPE amount -->
+			<xsd:element name="PrvlWagePnltyRltdNonNetEPEAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Prevailing wage penalty amounts related to a non-net EPE amount</Description>
+						<LineNumber>Part I column (o)(2)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Prevailing wage penalty amounts not related to an EPE amount -->
+			<xsd:element name="PrvlWagePnltyNotRltdEPEAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Prevailing wage penalty amounts not related to an EPE amount</Description>
+						<LineNumber>Part I column (o)(3)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Apprenticeship penalty amounts related to a net EPE amount -->
+			<xsd:element name="AprnctshpPnltyRltdNetEPEAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Apprenticeship penalty amounts related to a net EPE amount</Description>
+						<LineNumber>Part I column (p)(1)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Apprenticeship penalty amounts related to a non-net EPE amount -->
+			<xsd:element name="AprntcshpPnltyRltdNonNetEPEAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Apprenticeship penalty amounts related to a non-net EPE amount</Description>
+						<LineNumber>Part I column (p)(2)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Apprenticeship penalty amounts not related to an EPE amount -->
+			<xsd:element name="AprntcshpPnltyNotRltdEPEAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Apprenticeship penalty amounts not related to an EPE amount</Description>
+						<LineNumber>Part I column (p)(3)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Amounts that can be reduced by nonrefundable credits -->
+			<xsd:element name="RedByNonRfdblCrAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amounts that can be reduced by nonrefundable credits</Description>
+						<LineNumber>Part I column (q)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Amount that cannot be reduced by nonrefundable credits -->
+			<xsd:element name="NotRedByNonRfdblCrAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount that cannot be reduced by nonrefundable credits</Description>
+						<LineNumber>Part I column (r)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Add columns (l) and (n)(1) -->
+			<xsd:element name="TotalRcptrNetEPEExPymt100CrAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add columns (l) and (n)(1)</Description>
+						<LineNumber>Part I column (s)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Add columns(n)(3), (o)(1),(o)(2), (p)(1) and (p)(2) -->
+			<xsd:element name="TotEx20PrvlWgAprntcshpPnltyAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add columns(n)(3), (o)(1),(o)(2), (p)(1) and (p)(2)</Description>
+						<LineNumber>Part I column (t)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="CrtnCrRcptrExPymtPnltyPropGrpType">
+		<xsd:sequence>
+		
+			<!-- Section A -->
+
+			<!-- Type of Property and general business credit for which you are completing in specified sections -->
+			<xsd:element name="PropertyDesc" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Type of Property and general business credit for which you are completing in specified sections</Description>
+						<LineNumber>A, B, C, D</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="TextType">
+						<xsd:maxLength value="100"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!-- Section B -->
+
+			<!-- Enter the Rate You Used to Figure the Original Credit -->
+			<xsd:element name="CreditRt" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter the Rate You Used to Figure the Original Credit</Description>
+						<LineNumber>1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Credit base at the end of the previous tax year -->
+			<xsd:element name="CreditBasePYAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Credit base at the end of the previous tax year</Description>
+						<LineNumber>2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Net change in nonqualified nonrecourse financing -->
+			<xsd:element name="NonqualifiedFinanceNetChgAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Net change in nonqualified nonrecourse financing</Description>
+						<LineNumber>3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Credit base at the end of the current tax year -->
+			<xsd:element name="CreditBaseCYAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Credit base at the end of the current tax year</Description>
+						<LineNumber>4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Credit refigured under IRC section 46 -->
+			<xsd:element name="RefiguredCreditAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Credit refigured under IRC section 46</Description>
+						<LineNumber>5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Credit taken on Form 3800 in prior years -->
+			<xsd:element name="PriorYearsGeneralBusinessCrAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Credit taken on Form 3800 in prior years</Description>
+						<LineNumber>6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Section C -->
+
+			<!-- Credit subject to recapture. Subtract Line 5 from Line 6 -->
+			<xsd:element name="AtRiskCreditRecaptureAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Credit subject to recapture. Subtract Line 5 from Line 6</Description>
+						<LineNumber>7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Original credit figured using current year credit base -->
+			<xsd:element name="UnusedGeneralBusCrOrigCrAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Original credit figured using current year credit base</Description>
+						<LineNumber>8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Recapture tax resulting from a net increase in nonqualified nonrecourse financing. Subtract Line 8 from Line 7 -->
+			<xsd:element name="NonqualifedFinanceRcptrTaxAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Recapture tax resulting from a net increase in nonqualified nonrecourse financing. Subtract Line 8 from Line 7</Description>
+						<LineNumber>9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Section D -->
+
+			<!-- Date Property was Placed in Service -->
+			<xsd:element name="PlacedInServiceDt" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date Property was Placed in Service</Description>
+						<LineNumber>10</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Date Property Ceased to be Qualified Credit Property -->
+			<xsd:element name="PropertyCeasedToQualifyDt" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date Property Ceased to be Qualified Credit Property</Description>
+						<LineNumber>11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Number of Full Years Between the Date on Line 10 and the Date on Line 11 -->
+			<xsd:element name="PropertyQualifiedYearCnt" type="IntegerNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Number of Full Years Between the Date on Line 10 and the Date on Line 11</Description>
+						<LineNumber>12</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Unused general business credits allowed, if no investment credit -->
+			<xsd:element name="UnusedGeneralBusCrNoCrAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Unused general business credits allowed, if no investment credit</Description>
+						<LineNumber>13</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Subtract line 13 from line 6 -->
+			<xsd:element name="AggregateCreditDecreaseAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Subtract line 13 from line 6</Description>
+						<LineNumber>14</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Recapture Percentage -->
+			<xsd:element name="RecapturePct" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Recapture Percentage</Description>
+						<LineNumber>15</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Multiply line 14 by the percentage on line 15 -->
+			<xsd:element name="InvestmentCrRecaptureTaxAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Multiply line 14 by the percentage on line 15</Description>
+						<LineNumber>16</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- IRS-issued registration number, if applicable (see instructions) -->
+			<xsd:element name="IRSIssuedRegistrationNum" type="FacilityIRSIssdRegistrationNumType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>IRS-issued registration number, if applicable (see instructions)</Description>
+						<LineNumber>17</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Add property columns A through D, line 9 -->
+			<xsd:element name="TotNonqualifedFncRcptrTaxAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add property columns A through D, line 9</Description>
+						<LineNumber>18</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Add property columns A through D, line 16 -->
+			<xsd:element name="TotInvestmentCrRecaptureTaxAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add property columns A through D, line 16</Description>
+						<LineNumber>19</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total increase in tax. Add lines 18 and 19. Enter here and on the applicable line(s) in Part I, column (h). See instructions -->
+			<xsd:element name="TotalIncreaseInTaxAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total increase in tax. Add lines 18 and 19. Enter here and on the applicable line(s) in Part I, column (h). See instructions</Description>
+						<LineNumber>20</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+</xsd:schema>

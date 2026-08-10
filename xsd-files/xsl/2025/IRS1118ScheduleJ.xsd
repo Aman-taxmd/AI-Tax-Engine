@@ -1,0 +1,1658 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form 1118 Schedule J</Description>
+			<TaxYear>2025</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>February 19 2026</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+
+	<!-- =============================================================== -->
+	<!-- ======================  IRS Form 1118 Schedule J ============== -->
+	<!-- =============================================================== -->
+
+
+	<xsd:element name="IRS1118ScheduleJ">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 1118 Schedule J</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS1118ScheduleJType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS1118ScheduleJ">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="AnnualRecaptureRevocableElectionStatement BinaryAttachment"/>
+
+					<xsd:attribute name="uSLossAllocUnderNotice89Cd">
+						<xsd:simpleType>
+							<xsd:restriction base="TextType">
+								<xsd:enumeration value="US Loss Allocation Under Notice 89-3"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:attribute>
+
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS1118ScheduleJType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 1118 Schedule J</xsd:documentation>
+		</xsd:annotation>
+
+		<xsd:sequence>
+
+			<!-- The Group Applies to Schedule J Part I Line 2e for Column i, ii, iii, iv, and v  -->
+			<xsd:element name="AllocationSepLmtLossOthIncmGrp" type="AllocationSepLmtLossOthIncmGrpType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>The group applies to Schedule J Part I Line 2e for column i, ii, iii, iv, and v </Description>
+						<LineNumber>Schedule J Part I Line 2e</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- The Group Applies to Schedule J Part I Line 9e for Column i, ii, iii, iv, and v  -->
+			<xsd:element name="RchrctrztnSepLmtOtherIncmGrp" type="SepLmtOtherIncmGrpType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>The group applies to Schedule J Part I Line 9e for column i, ii, iii, iv, and v </Description>
+						<LineNumber>Schedule J Part I Line 9e</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- The Group Applies to Schedule J Part II Line e for Column i, ii, iii, iv, and v  -->
+			<xsd:element name="EOYBalanceSepLmtOtherIncmGrp" type="SepLmtOtherIncmGrpType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>The group applies to Schedule J Part II Line e for column i, ii, iii, iv, and v </Description>
+						<LineNumber>Schedule J Part II Line e</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Part I - Adjustments to Separate Limitation Income or (Losses) in Determining Numerators of Limitation Fractions -->
+			
+			<!-- Column (i) Section 951A income -->
+			<xsd:element name="AdjSepLmtSection951AIncome" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Income or (loss) before Adjustments -->
+						<xsd:element name="TotIncmOrLossBfrAdjustmentsAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Income or (loss) before Adjustments</Description>
+									<LineNumber>Schedule J Part I Line 1(i)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Allocation of Current Year Separate Limitation Losses -->
+						<xsd:element name="AllocationCYSeparateLmtLosses" type="AllocnCYSepLmtLossSect951AIncmType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Allocation of current year separate limitation losses</Description>
+									<LineNumber>Schedule J Part I Line 2(i)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						
+						<!-- Lines 3, 4, 5, 6, 7 and 8 -->
+						<xsd:group ref="IncmLossAllocCYSubtotalsGroup" minOccurs="0"/>
+
+						<!-- Recharacterization of Separate Limitation Income -->
+						<xsd:element name="RecharacterizationSepLmtIncm" type="SepLmtIncmSect951AIncomeType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Recharacterization of separate limitation income</Description>
+									<LineNumber>Schedule J Part I Line 9(i)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Lines 10 and 11 -->
+						<xsd:group ref="LimitationFractionCalcGroup" minOccurs="0"/>
+						
+						<!-- Part II  Year-End Balances Of Future Separate Limitation Income That Must Be Recharacterized (Section 904(f) (5)(C)) -->
+						<xsd:element name="EOYBalancesOfFutureSepLmtIncm" type="EOYLmtIncmSection951AIncomeType" minOccurs="0"/>
+
+						<!-- Part III - Overall Foreign Loss Account Balances (Section 904(f)(1)) -->
+						<xsd:element name="OverallForeignLossAcctBalances" type="ForeignAccountBalanceType" minOccurs="0"/>
+
+						<!-- Part IV - Overall Domestic Loss Account Balances (section 904(g)(1)) -->
+						<xsd:element name="OverallDomLossAcctBalances" type="DomesticAccountBalanceType" minOccurs="0"/>
+						
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Column (ii)  Foreign Branch Income-->
+			<xsd:element name="AdjSepLmtForeignBranchIncome" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Part I - Adjustments to Separate Limitation Income or (Losses) in Determining Numerators of Limitation Fractions -->
+						
+						<!-- Income or (loss) before Adjustments -->
+						<xsd:element name="TotIncmOrLossBfrAdjustmentsAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Income or (loss) before Adjustments</Description>
+									<LineNumber>Schedule J Part I Line 1(ii)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Allocation of Current Year Separate Limitation Losses -->
+						<xsd:element name="AllocationCYSeparateLmtLosses" type="AllocnCYSepLmtLossFrgnBrIncomeType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Allocation of current year separate limitation losses</Description>
+									<LineNumber>Schedule J Part I Line 2(ii)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						
+						<!-- Lines 3, 4, 5, 6, 7 and 8 -->
+						<xsd:group ref="IncmLossAllocCYSubtotalsGroup" minOccurs="0"/>
+
+						<!-- Recharacterization of Separate Limitation Income -->
+						<xsd:element name="RecharacterizationSepLmtIncm" type="SepLmtForeignBrIncomeType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Recharacterization of separate limitation income</Description>
+									<LineNumber>Schedule J Part I Line 9(ii)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Lines 10 and 11 -->
+						<xsd:group ref="LimitationFractionCalcGroup" minOccurs="0"/>
+						
+						<!-- Part II  Year-End Balances Of Future Separate Limitation Income That Must Be Recharacterized (Section 904(f) (5)(C)) -->
+						<xsd:element name="EOYBalancesOfFutureSepLmtIncm" type="EOYLmtIncmFrgnBranchIncomeType" minOccurs="0"/>						
+						
+						<!-- Part III - Overall Foreign Loss Account Balances (Section 904(f)(1)) -->
+						<xsd:element name="OverallForeignLossAcctBalances" type="ForeignAccountBalanceType" minOccurs="0"/>
+						
+						<!-- Part IV - Overall Domestic Loss Account Balances (section 904(g)(1)) -->
+						<xsd:element name="OverallDomLossAcctBalances" type="DomesticAccountBalanceType" minOccurs="0"/>
+						
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			
+			<!-- Column (iii)  Passive Category Income-->
+			<xsd:element name="AdjSepLmtPassiveCategoryIncm" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Part I - Adjustments to Separate Limitation Income or (Losses) in Determining Numerators of Limitation Fractions -->
+						
+						<!-- Income or (loss) before Adjustments -->
+						<xsd:element name="TotIncmOrLossBfrAdjustmentsAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Income or (loss) before Adjustments</Description>
+									<LineNumber>Schedule J Part I Line 1(iii)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Allocation of Current Year Separate Limitation Losses -->
+						<xsd:element name="AllocationCYSeparateLmtLosses" type="AllocnCYLossPassiveIncomeType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Allocation of current year separate limitation losses</Description>
+									<LineNumber>Schedule J Part I Line 2(iii)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						
+						<!-- Lines 3, 4, 5, 6, 7 and 8 -->
+						<xsd:group ref="IncmLossAllocCYSubtotalsGroup" minOccurs="0"/>
+
+						<!-- Recharacterization of Separate Limitation Income -->
+						<xsd:element name="RecharacterizationSepLmtIncm" type="SepLmtIncmPassiveIncomeType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Recharacterization of separate limitation income</Description>
+									<LineNumber>Schedule J Part I Line 9(iii)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Lines 10 and 11 -->
+						<xsd:group ref="LimitationFractionCalcGroup" minOccurs="0"/>
+						
+						<!-- Part II  Year-End Balances Of Future Separate Limitation Income That Must Be Recharacterized (Section 904(f) (5)(C)) -->		
+						<xsd:element name="EOYBalancesOfFutureSepLmtIncm" type="EOYLmtIncmPassiveIncomeType" minOccurs="0"/>
+
+						<!-- Part III - Overall Foreign Loss Account Balances (Section 904(f)(1)) -->
+						<xsd:element name="OverallForeignLossAcctBalances" type="ForeignAccountBalanceType" minOccurs="0"/>
+						
+						<!-- Part IV - Overall Domestic Loss Account Balances (section 904(g)(1)) -->
+						<xsd:element name="OverallDomLossAcctBalances" type="DomesticAccountBalanceType" minOccurs="0"/>
+						
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Column (iv) General Category Income -->
+			<xsd:element name="AdjSepLmtGeneralCategoryIncm" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Part I - Adjustments to Separate Limitation Income or (Losses) in Determining Numerators of Limitation Fractions -->
+						
+						<!-- Income or (loss) before Adjustments -->
+						<xsd:element name="TotIncmOrLossBfrAdjustmentsAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Income or (loss) before Adjustments</Description>
+									<LineNumber>Schedule J Part I Line 1(iv)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Allocation of Current Year Separate Limitation Losses -->
+						<xsd:element name="AllocationCYSeparateLmtLosses" type="AllocnCYLossGenLmtIncomeType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Allocation of current year separate limitation losses</Description>
+									<LineNumber>Schedule J Part I Line 2(iv)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						
+						<!-- Lines 3, 4, 5, 6, 7 and 8 -->
+						<xsd:group ref="IncmLossAllocCYSubtotalsGroup" minOccurs="0"/>
+
+						<!-- Recharacterization of Separate Limitation Income -->
+						<xsd:element name="RecharacterizationSepLmtIncm" type="SepLmtIncmGenLmtIncomeType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Recharacterization of separate limitation income</Description>
+									<LineNumber>Schedule J Part I Line 9(iv)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Lines 10 and 11 -->
+						<xsd:group ref="LimitationFractionCalcGroup" minOccurs="0"/>
+						
+						<!-- Part II  Year-End Balances Of Future Separate Limitation Income That Must Be Recharacterized (Section 904(f) (5)(C)) -->
+						<xsd:element name="EOYBalancesOfFutureSepLmtIncm" type="EOYLmtIncmGenLmtIncomeType" minOccurs="0"/>					
+						
+						<!-- Part III - Overall Foreign Loss Account Balances (Section 904(f)(1)) -->
+						<xsd:element name="OverallForeignLossAcctBalances" type="ForeignAccountBalanceType" minOccurs="0"/>
+						
+						<!-- Part IV - Overall Domestic Loss Account Balances (section 904(g)(1)) -->
+						<xsd:element name="OverallDomLossAcctBalances" type="DomesticAccountBalanceType" minOccurs="0"/>
+				
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Column (v) Other Income -->
+			<xsd:element name="AdjSepLmtOtherIncome" minOccurs="0" maxOccurs="unbounded">	
+				<xsd:complexType>				
+					<xsd:sequence>
+					
+						<!-- Part I - Adjustments to Separate Limitation Income or (Losses) in Determining Numerators of Limitation Fractions -->
+
+						<!-- Select Income from Sanctioned Country to Which Section 901j Applies “901j” or Income Resourced Under a Tax Treaty “RBT” -->
+						<xsd:element name="SeparateCategoryCd" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Select income from sanctioned country to which Section 901j applies “901j” or income resourced under a tax treaty “RBT”</Description>
+									<LineNumber>Schedule J Part I column (v)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="TextType">
+									<xsd:enumeration value="901j"/>
+									<xsd:enumeration value="RBT"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+
+						<!-- Choice between Sanctioned Country Cd or Treaty Country Cd -->
+						<xsd:choice minOccurs="0">
+
+							<!-- If 901j is Selected, Enter the Sanctioned Country Code -->
+							<xsd:element name="SanctionedCountryCd" type="CountryType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>If 901j is selected, enter the sanctioned country code</Description>
+										<LineNumber>Schedule J Part I column (v)</LineNumber>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+
+							<!-- If RBT is Selected, Enter the Country Code for the Treaty Country -->
+							<xsd:element name="TreatyCountryCd" type="CountryType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>If RBT is selected, enter the country code for the treaty country</Description>
+										<LineNumber>Schedule J Part I column (v)</LineNumber>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+
+						</xsd:choice>
+
+						<!-- Enter Description of the Type of Income -->
+						<xsd:element name="OtherIncomeDesc" type="LineExplanationType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Enter description of the type of income</Description>
+									<LineNumber>Schedule J Part I column (v)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						
+						<!-- Income or (loss) before Adjustments -->
+						<xsd:element name="TotIncmOrLossBfrAdjustmentsAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Income or (loss) before Adjustments</Description>
+									<LineNumber>Schedule J Part I Line 1(v)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Allocation of Current Year Separate Limitation Losses -->
+						<xsd:element name="AllocationCYSeparateLmtLosses" type="AllocnCYLossOtherIncomeType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Allocation of current year separate limitation losses</Description>
+									<LineNumber>Schedule J Part I Line 2(v)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Lines 3, 4, 5, 6, 7 and 8 -->
+						<xsd:group ref="IncmLossAllocCYSubtotalsGroup" minOccurs="0"/>
+
+						<!-- Recharacterization of Separate Limitation Income -->
+						<xsd:element name="RecharacterizationSepLmtIncm" type="SepLmtIncmOtherIncomeType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Recharacterization of separate limitation income</Description>
+									<LineNumber>Schedule J Part I Line 9(v)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Lines 10 and 11 -->
+						<xsd:group ref="LimitationFractionCalcGroup" minOccurs="0"/>
+						
+						<!-- Part II  Year-End Balances Of Future Separate Limitation Income That Must Be Recharacterized (Section 904(f) (5)(C)) -->
+						<xsd:element name="EOYBalancesOfFutureSepLmtIncm" type="EOYLmtIncmOtherIncomeType" minOccurs="0"/>
+
+						<!-- Part III - Overall Foreign Loss Account Balances (Section 904(f)(1)) -->
+						<xsd:element name="OverallForeignLossAcctBalances" type="ForeignAccountBalanceType" minOccurs="0"/>
+						
+						<!-- Part IV - Overall Domestic Loss Account Balances (section 904(g)(1)) -->
+						<xsd:element name="OverallDomLossAcctBalances" type="DomesticAccountBalanceType" minOccurs="0"/>
+
+					</xsd:sequence>			
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Column (vi) U.S. Income -->
+			<xsd:element name="AdjSepLmtUSIncome" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Part I - Adjustments to Separate Limitation Income or (Losses) in Determining Numerators of Limitation Fractions -->
+
+						<!-- Income or (loss) before Adjustments -->
+						<xsd:element name="TotIncmOrLossBfrAdjustmentsAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Income or (loss) before Adjustments</Description>
+									<LineNumber>Schedule J Part I Line 1(vi)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Lines 3, 4, 5, 6, 7 and 8 -->
+						<xsd:group ref="IncmLossAllocCYSubtotalsUSGrp" minOccurs="0"/>
+
+						<!-- Recapture of Overall Domestic Losses -->
+						<xsd:element name="RcptrOverallDomesticLossesAmt" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Recapture of Overall Domestic Losses</Description>
+									<LineNumber>Schedule J Part I Line 10 (vi)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:simpleContent>
+									<xsd:extension base="USAmountNNType">
+										<xsd:attribute name="allocationDomesticLossesCd">
+											<xsd:simpleType>
+												<xsd:restriction base="TextType">
+													<xsd:enumeration value="Allocation of domestic losses"/>
+												</xsd:restriction>
+											</xsd:simpleType>
+										</xsd:attribute>
+									</xsd:extension>
+								</xsd:simpleContent>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+	
+							
+
+	<!-- Type Definitions -->
+
+	<!-- Part I, Line 2 e -->
+	<xsd:complexType name="AllocationSepLmtLossOthIncmGrpType">
+		<xsd:sequence>
+
+			<!-- Select Income from Sanctioned Country to Which Section 901j Applies “901j” or Income Resourced Under a Tax Treaty “RBT” -->
+			<xsd:element name="SeparateCategoryCd" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Select income from sanctioned country to which Section 901j applies “901j” or income resourced under a tax treaty “RBT”</Description>
+						<LineNumber>Schedule J Part I Line 2e</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="TextType">
+						<xsd:enumeration value="901j"/>
+						<xsd:enumeration value="RBT"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!-- Choice between Sanctioned Country Cd or Treaty Country Cd -->
+			<xsd:choice minOccurs="0">
+			
+				<!-- If 901j is Selected, Enter the Sanctioned Country Code -->
+				<xsd:element name="SanctionedCountryCd" type="CountryType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>If 901j is selected, enter the sanctioned country code</Description>
+							<LineNumber>Schedule J Part I Line 2e</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			
+				<!-- If RBT is Selected, Enter the Country Code for the Treaty Country -->
+				<xsd:element name="TreatyCountryCd" type="CountryType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>If RBT is selected, enter the country code for the treaty country</Description>
+							<LineNumber>Schedule J Part I Line 2e</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				
+			</xsd:choice>
+			
+			<!-- Enter Description of the Type of Income -->
+			<xsd:element name="OtherIncomeDesc" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter description of the type of income</Description>
+						<LineNumber>Schedule J Part I Line 2e</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other Income Amount for Section 951AIncome Amount Column (i) -->
+			<xsd:element name="Section951AIncomeAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other income amount for Section 951AIncome amount column (i)</Description>
+						<LineNumber>Schedule J Part I Line 2e(i)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other Income Amount for Foreign Branch Income Amount Column (ii) -->
+			<xsd:element name="ForeignBranchIncomeAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other income amount for foreign branch income amount column (ii)</Description>
+						<LineNumber>Schedule J Part I Line 2e(ii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Other Income Amount for Passive Category Income Amount Column (iii) -->
+			<xsd:element name="PassiveCategoryIncomeAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other income amount for passive category income amount column (iii)</Description>
+						<LineNumber>Schedule J Part I Line 2e(iii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>			
+			
+			<!-- Other Income Amount for General Category Income Amount Column (iv) -->
+			<xsd:element name="GeneralCategoryIncomeAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other income amount for general category income amount column (iv)</Description>
+						<LineNumber>Schedule J Part I Line 2e(iv)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other Income Amount for Column (v) -->
+			<xsd:element name="OtherIncomeAmt" type="USAmountType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other income amount for column (v)</Description>
+						<LineNumber>Schedule J Part I Line 2e(v)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	
+	<!--Part I, Line 9e and Part II Line e -->
+	<xsd:complexType name="SepLmtOtherIncmGrpType">
+		<xsd:sequence>
+
+			<!-- Select Income from Sanctioned Country to Which Section 901j Applies “901j” or Income Resourced Under a Tax Treaty “RBT” -->
+			<xsd:element name="SeparateCategoryCd" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Select income from sanctioned country to which Section 901j applies “901j” or income resourced under a tax treaty “RBT”</Description>
+						<LineNumber>Schedule J Part I Line 9e, Part II Line e</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="TextType">
+						<xsd:enumeration value="901j"/>
+						<xsd:enumeration value="RBT"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!-- Choice between Sanctioned Country Cd or Treaty Country Cd -->
+			<xsd:choice minOccurs="0">
+			
+				<!-- If 901j is Selected, Enter the Sanctioned Country Code -->
+				<xsd:element name="SanctionedCountryCd" type="CountryType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>If 901j is selected, enter the sanctioned country code</Description>
+							<LineNumber>Schedule J Part I Line 9e, Part II Line e</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- If RBT is Selected, Enter the Country Code for the Treaty Country -->
+				<xsd:element name="TreatyCountryCd" type="CountryType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>If RBT is selected, enter the country code for the treaty country</Description>
+							<LineNumber>Schedule J Part I Line 9e, Part II Line e</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+			</xsd:element>	
+			
+			</xsd:choice>
+			
+			<!-- Enter Description of the Type of Income -->
+			<xsd:element name="OtherIncomeDesc" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>>Enter description of the type of income</Description>
+						<LineNumber>Schedule J Part I Line 9e, Part II Line e</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other Income Amount for Section 951AIncome Amount Column (i) -->
+			<xsd:element name="Section951AIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other income amount for Section 951AIncome amount column (i)</Description>
+						<LineNumber>Schedule J Part I Line 9e(i), Part II Line e(i)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other Income Amount for Foreign Branch Income Amount Column (ii) -->
+			<xsd:element name="ForeignBranchIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other income amount for foreign branch income amount column (ii)</Description>
+						<LineNumber>Schedule J Part I Line 9e(ii), Part II Line e(ii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Other Income Amount for Passive Category Income Amount Column (iii) -->
+			<xsd:element name="PassiveCategoryIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other income amount for passive category income amount column (iii)</Description>
+						<LineNumber>Schedule J Part I Line 9e(iii), Part II Line e(iii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>			
+			
+			<!-- Other Income Amount for General Category Income Amount Column (iv) -->
+			<xsd:element name="GeneralCategoryIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other income amount for general category income amount column (iv)</Description>
+						<LineNumber>Schedule J Part I Line 9e(iv), Part II Line e(iv)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other Income Amount for Column (v) -->
+			<xsd:element name="OtherIncomeAmt" type="USAmountType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other income amount for column (v)</Description>
+						<LineNumber>Schedule J Part I Line 9e(v), Part II Line e(v)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	
+	<!-- Part I, Lines 2, 4, 5, 6, 7 and 8 Column i -->
+	<xsd:complexType name="AllocnCYSepLmtLossSect951AIncmType">
+		<xsd:sequence>
+
+			<!-- Section 951A Income Amount -->
+			<xsd:element name="Section951AIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Section 951A income amount</Description>
+						<LineNumber>Schedule J Part I Line 2a (i)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Foreign Branch Income Amount -->
+			<xsd:element name="ForeignBranchIncomeAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Foreign branch income amount</Description>
+						<LineNumber>Schedule J Part I Line 2b (i)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Passive Category Income Amount -->
+			<xsd:element name="PassiveCategoryIncomeAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Passive category income amount</Description>
+						<LineNumber>Schedule J Part I Line 2c (i)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- General Category Income Amount -->
+			<xsd:element name="GeneralCategoryIncomeAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>General Category Income Amount</Description>
+						<LineNumber>Schedule J Part I Line 2d (i)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<!-- Part I, Lines 2, 4, 5, 6, 7 and 8 Column ii -->
+	<xsd:complexType name="AllocnCYSepLmtLossFrgnBrIncomeType">
+		<xsd:sequence>
+
+			<!-- Section 951A Income Amount -->
+			<xsd:element name="Section951AIncomeAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Section 951A income amount</Description>
+						<LineNumber>Schedule J Part I Line 2a (ii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Foreign Branch Income Amount -->
+			<xsd:element name="ForeignBranchIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Foreign branch income amount</Description>
+						<LineNumber>Schedule J Part I Line 2b (ii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Passive Category Income Amount -->
+			<xsd:element name="PassiveCategoryIncomeAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Passive category income amount</Description>
+						<LineNumber>Schedule J Part I Line 2c (ii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- General Category Income Amount -->
+			<xsd:element name="GeneralCategoryIncomeAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>General Category Income Amount</Description>
+						<LineNumber>Schedule J Part I Line 2d (ii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<!-- Type definition for Part I, Line 2 Column iii -->
+	<xsd:complexType name="AllocnCYLossPassiveIncomeType">
+		<xsd:sequence>
+
+			<!-- Section 951A Income Amount -->
+			<xsd:element name="Section951AIncomeAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Section 951A income amount</Description>
+						<LineNumber>Schedule J Part I Line 2a(iii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Foreign Branch Income Amount -->
+			<xsd:element name="ForeignBranchIncomeAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Foreign branch income amount</Description>
+						<LineNumber>Schedule J Part I Line 2b(iii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Passive Category Income -->
+			<xsd:element name="PassiveCategoryIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Passive category income</Description>
+						<LineNumber>Schedule J Part I Line 2c(iii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>			
+			
+			<!-- General Category Income -->
+			<xsd:element name="GeneralCategoryIncomeAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>General category income</Description>
+						<LineNumber>Schedule J Part I Line 2d(iii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<!-- Type definition for Part I, Line 2 Column iv -->
+	<xsd:complexType name="AllocnCYLossGenLmtIncomeType">
+		<xsd:sequence>
+
+			<!-- Section 951A Income Amount -->
+			<xsd:element name="Section951AIncomeAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Section 951A income amount</Description>
+						<LineNumber>Schedule J Part I Line 2a (iv)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Foreign Branch Income Amount -->
+			<xsd:element name="ForeignBranchIncomeAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Foreign branch income amount</Description>
+						<LineNumber>Schedule J Part I Line 2b (iv)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Passive Category Income -->
+			<xsd:element name="PassiveCategoryIncomeAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Passive category income</Description>
+						<LineNumber>Schedule J Part I Line 2c (iv)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>			
+			
+			<!-- General Category Income -->
+			<xsd:element name="GeneralCategoryIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>General category income</Description>
+						<LineNumber>Schedule J Part I Line 2d (iv)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<!-- Type definition for Part I, Line 2 Column v -->
+	<xsd:complexType name="AllocnCYLossOtherIncomeType">
+		<xsd:sequence>
+
+			<!-- Section 951A Income Amount -->
+			<xsd:element name="Section951AIncomeAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Section 951A income amount</Description>
+						<LineNumber>Schedule J Part I Line 2a(v)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Foreign Branch Income Amount -->
+			<xsd:element name="ForeignBranchIncomeAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Foreign branch income amount</Description>
+						<LineNumber>Schedule J Part I Line 2b(v)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Passive Category Income -->
+			<xsd:element name="PassiveCategoryIncomeAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Passive category income</Description>
+						<LineNumber>Schedule J Part I Line 2c(v)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>			
+			
+			<!-- General Category Income -->
+			<xsd:element name="GeneralCategoryIncomeAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>General category income</Description>
+						<LineNumber>Schedule J Part I Line 2d(v)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<!-- Part I, Lines 3, 4, 5, 6, 7 and 8 Column  (i) -(v) -->
+	<xsd:group name="IncmLossAllocCYSubtotalsGroup">
+		<xsd:sequence>
+
+			<!-- Subtotal-Sum of Lines 1 through 2e -->
+			<xsd:element name="TotIncomeOrLossCYAllocationAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Subtotal - Sum of lines 1 through 2e</Description>
+						<LineNumber>Schedule J Part I Line 3 (i)-(v)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Allocation of Overall Foreign Losses -->
+			<xsd:element name="OverallForeignLossesAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Allocation of overall foreign losses</Description>
+						<LineNumber>Schedule J Part I Line 4 (i)-(v)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Allocation of Domestic Losses -->
+			<xsd:element name="DomesticLossesAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Allocation of domestic losses</Description>
+						<LineNumber>Schedule J Part I Line 5 (i)-(v)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Subtotal - (Combine lines 3 thru 5) -->
+			<xsd:element name="AdjustedIncmLossAndAllocnCYAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Subtotal - (Combine lines 3 thru 5)</Description>
+						<LineNumber>Schedule J Part I Line 6 (i)-(v)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Recapture of Overall Foreign Losses -->
+			<xsd:element name="RcptrOverallForeignLossesAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Recapture of overall foreign losses</Description>
+						<LineNumber>Schedule J Part I Line 7 (i)-(v)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Subtotal - (Combine lines 6 and 7) -->
+			<xsd:element name="AdjIncmLossAndLmtIncmAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Subtotal - (Combine lines 6 and 7)</Description>
+						<LineNumber>Schedule J Part I Line 8 (i)-(v)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:group>
+
+	<!-- Part I, Lines 3, 4, 5, 6, 7 and 8 Column vi -->
+	<xsd:group name="IncmLossAllocCYSubtotalsUSGrp">
+		<xsd:sequence>
+
+			<!-- Subtotal - Sum of Lines 1 through 2e -->
+			<xsd:element name="TotIncomeOrLossCYAllocationAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Subtotal - Sum of lines 1 through 2e</Description>
+						<LineNumber>Schedule J Part I Line 3 (vi)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Allocation of Overall Foreign Losses -->
+			<xsd:element name="OverallForeignLossesAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Allocation of overall foreign losses</Description>
+						<LineNumber>Schedule J Part I Line 4 (vi)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Allocation of Domestic Losses -->
+			<xsd:element name="DomesticLossesAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Allocation of domestic losses</Description>
+						<LineNumber>Schedule J Part I Line 5 (vi)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Subtotal - (Combine lines 3 thru 5) -->
+			<xsd:element name="AdjustedIncmLossAndAllocnCYAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Subtotal - (Combine lines 3 thru 5)</Description>
+						<LineNumber>Schedule J Part I Line 6 (vi)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Recapture of Overall Foreign Losses -->
+			<xsd:element name="RcptrOverallForeignLossesAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Recapture of overall foreign losses</Description>
+						<LineNumber>Schedule J Part I Line 7 (vi)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Subtotal - (Combine lines 6 and 7) -->
+			<xsd:element name="AdjIncmLossAndLmtIncmAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Subtotal - (Combine lines 6 and 7)</Description>
+						<LineNumber>Schedule J Part I Line 8 (vi)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:group>
+
+	<!-- Part I, Lines 10 and 11 Column i through v -->
+	<xsd:group name="LimitationFractionCalcGroup">
+		<xsd:sequence>
+
+			<!-- Recapture of Overall Domestic Losses -->
+			<xsd:element name="RcptrOverallDomesticLossesAmt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Recapture of Overall Domestic Losses</Description>
+						<LineNumber>Schedule J Part I Line 10 (i)-(v)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="allocationDomesticLossesCd">
+								<xsd:simpleType>
+									<xsd:restriction base="TextType">
+										<xsd:enumeration value="Allocation of domestic losses"/>
+									</xsd:restriction>
+								</xsd:simpleType>
+							</xsd:attribute>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Numerator of Limitation Fraction - Combine lines 8 thru 10  -->
+			<xsd:element name="NumLimitationFractionAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Numerator of Limitation Fraction - Combine lines 8 thru 10</Description>
+						<LineNumber>Schedule J Part I Line 11 (i)-(v)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:group>
+
+	<!-- Type definition for Part I, Line 9 Column i -->
+	<xsd:complexType name="SepLmtIncmSect951AIncomeType">
+		<xsd:sequence>
+			
+			<!-- Section 951A Income Amount -->
+			<xsd:element name="Section951AIncomeAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Section 951A income amount</Description>
+						<LineNumber>Schedule J Part I Line 9a(i)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Foreign Branch Income Amount -->
+			<xsd:element name="ForeignBranchIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Foreign branch income amount</Description>
+						<LineNumber>Schedule J Part I Line 9b(i)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Passive Category Income -->
+			<xsd:element name="PassiveCategoryIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Passive category income</Description>
+						<LineNumber>Schedule J Part I Line 9c(i)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- General Category Income -->
+			<xsd:element name="GeneralCategoryIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>General category income</Description>
+						<LineNumber>Schedule J Part I Line 9d(i)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<!-- Type definition for Part I, Line 9 Column ii -->
+	<xsd:complexType name="SepLmtForeignBrIncomeType">
+		<xsd:sequence>
+			
+			<!-- Section 951A Income Amount -->
+			<xsd:element name="Section951AIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Section 951A income amount</Description>
+						<LineNumber>Schedule J Part I Line 9a(ii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Foreign Branch Income Amount -->
+			<xsd:element name="ForeignBranchIncomeAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Foreign branch income amount</Description>
+						<LineNumber>Schedule J Part I Line 9b(ii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Passive Category Income -->
+			<xsd:element name="PassiveCategoryIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Passive category income</Description>
+						<LineNumber>Schedule J Part I Line 9c(ii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- General Category Income -->
+			<xsd:element name="GeneralCategoryIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>General category income</Description>
+						<LineNumber>Schedule J Part I Line 9d(ii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Type definition for Part I, Line 9 Column iii -->
+	<xsd:complexType name="SepLmtIncmPassiveIncomeType">
+		<xsd:sequence>
+
+			<!-- Section 951A Income Amount -->
+			<xsd:element name="Section951AIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Section 951A income amount</Description>
+						<LineNumber>Schedule J Part I Line 9a(iii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Foreign Branch Income Amount -->
+			<xsd:element name="ForeignBranchIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Foreign branch income amount</Description>
+						<LineNumber>Schedule J Part I Line 9b(iii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Passive Category Income -->
+			<xsd:element name="PassiveCategoryIncomeAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Passive category income</Description>
+						<LineNumber>Schedule J Part I Line 9c(iii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- General Category Income -->
+			<xsd:element name="GeneralCategoryIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>General category income</Description>
+						<LineNumber>Schedule J Part I Line 9d(iii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Type definition for Part I, Line 9 Column iv -->
+	<xsd:complexType name="SepLmtIncmGenLmtIncomeType">
+		<xsd:sequence>
+
+			<!-- Section 951A Income Amount -->
+			<xsd:element name="Section951AIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Section 951A income amount</Description>
+						<LineNumber>Schedule J Part I Line 9a(iv)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Foreign Branch Income Amount -->
+			<xsd:element name="ForeignBranchIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Foreign branch income amount</Description>
+						<LineNumber>Schedule J Part I Line 9b(iv)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Passive Category Income -->
+			<xsd:element name="PassiveCategoryIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Passive category income</Description>
+						<LineNumber>Schedule J Part I Line 9c(iv)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- General Category Income -->
+			<xsd:element name="GeneralCategoryIncomeAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>General category income</Description>
+						<LineNumber>Schedule J Part I Line 9d(iv)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<!-- Type definition for Part I, Line 9 Column v -->
+	<xsd:complexType name="SepLmtIncmOtherIncomeType">
+		<xsd:sequence>
+
+			<!-- Section 951A Income Amount -->
+			<xsd:element name="Section951AIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Section 951A income amount</Description>
+						<LineNumber>Schedule J Part I Line 9a(v)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Foreign Branch Income Amount -->
+			<xsd:element name="ForeignBranchIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Foreign branch income amount</Description>
+						<LineNumber>Schedule J Part I Line 9b(v)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Passive Category Income -->
+			<xsd:element name="PassiveCategoryIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Passive category income</Description>
+						<LineNumber>Schedule J Part I Line 9c(v)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- General Category Income -->
+			<xsd:element name="GeneralCategoryIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>General category income</Description>
+						<LineNumber>Schedule J Part I Line 9d(v)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Type definition for Part II, Column i -->
+	<xsd:complexType name="EOYLmtIncmSection951AIncomeType">
+		<xsd:sequence>
+
+			<!-- Foreign Branch Income Amount -->
+			<xsd:element name="ForeignBranchIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Foreign branch income amount</Description>
+						<LineNumber>Schedule J Part II Line b(i)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Passive Category Income -->
+			<xsd:element name="PassiveCategoryIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Passive category income</Description>
+						<LineNumber>Schedule J Part II Line c(i)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- General Category Income -->
+			<xsd:element name="GeneralCategoryIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>General category income</Description>
+						<LineNumber>Schedule J Part II Line d(i)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+			
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Type definition for Part II, Column ii -->
+	<xsd:complexType name="EOYLmtIncmFrgnBranchIncomeType">
+		<xsd:sequence>
+
+			<!-- Section 951A Income Amount -->
+			<xsd:element name="Section951AIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Section 951A income amount</Description>
+						<LineNumber>Schedule J Part II Line a(ii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Passive Category Income -->
+			<xsd:element name="PassiveCategoryIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Passive category income</Description>
+						<LineNumber>Schedule J Part II Line c(ii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- General Category Income -->
+			<xsd:element name="GeneralCategoryIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>General category income</Description>
+						<LineNumber>Schedule J Part II Line d(ii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<!-- Type definition for Part II, Column iii -->
+	<xsd:complexType name="EOYLmtIncmPassiveIncomeType">
+		<xsd:sequence>
+
+			<!-- Section 951A Income Amount -->
+			<xsd:element name="Section951AIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Section 951A income amount</Description>
+						<LineNumber>Schedule J Part II Line a(iii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Foreign Branch Income Amount -->
+			<xsd:element name="ForeignBranchIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Foreign branch income amount</Description>
+						<LineNumber>Schedule J Part II Line b(iii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- General Category Income -->
+			<xsd:element name="GeneralCategoryIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>General category income</Description>
+						<LineNumber>Schedule J Part II Line d(iii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<!-- Type definition for Part II, Column iv -->
+	<xsd:complexType name="EOYLmtIncmGenLmtIncomeType">
+		<xsd:sequence>
+
+			<!-- Section 951A Income Amount -->
+			<xsd:element name="Section951AIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Section 951A income amount</Description>
+						<LineNumber>Schedule J Part II Line a(iv)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Foreign Branch Income Amount -->
+			<xsd:element name="ForeignBranchIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Foreign branch income amount</Description>
+						<LineNumber>Schedule J Part II Line b(iv)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Passive Category Income -->
+			<xsd:element name="PassiveCategoryIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Passive category income</Description>
+						<LineNumber>Schedule J Part II Line c(iv)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<!-- Type definition for Part II, Column v -->
+	<xsd:complexType name="EOYLmtIncmOtherIncomeType">
+		<xsd:sequence>
+
+			<!-- Section 951A Income Amount -->
+			<xsd:element name="Section951AIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Section 951A income amount</Description>
+						<LineNumber>Schedule J Part II Line a(v)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Foreign Branch Income Amount -->
+			<xsd:element name="ForeignBranchIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Foreign branch income amount</Description>
+						<LineNumber>Schedule J Part II Line b(v)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Passive Category Income -->
+			<xsd:element name="PassiveCategoryIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Passive category income</Description>
+						<LineNumber>Schedule J Part II Line c(v)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- General Category Income -->
+			<xsd:element name="GeneralCategoryIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>General category income</Description>
+						<LineNumber>Schedule J Part II Line d(v)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			
+
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<!-- Part III, Lines 1 through 5 Column i through v -->
+	<xsd:complexType name="ForeignAccountBalanceType">
+		<xsd:sequence>
+
+			<!-- Beginning Balance -->
+			<xsd:element name="BeginningBalanceAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Beginning balance</Description>
+						<LineNumber>Schedule J Part III Line 1 (i)-(v)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Current Year Additions -->
+			<xsd:element name="CurrentYearAdditionsAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Current year additions</Description>
+						<LineNumber>Schedule J Part III Line 2 (i)-(v)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Current Year Reductions (Other Than Recapture) -->
+			<xsd:element name="CurrentYearReductionsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Current year reductions (other than recapture)</Description>
+						<LineNumber>Schedule J Part III Line 3 (i)-(v)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Current Year Recapture (From Part I, Line 7) -->
+			<xsd:element name="CurrentYearRecaptureAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Current year recapture (from part I, line 7)</Description>
+						<LineNumber>Schedule J Part III Line 4 (i)-(v)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Ending Balance (Combine Lines 1 Thru 4) -->
+			<xsd:element name="EndingBalanceAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Ending balance (combine lines 1 thru 4)</Description>
+						<LineNumber>Schedule J Part III Line 5 (i)-(v)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Part IV, Lines 1 through 6 Column i through v -->
+	<xsd:complexType name="DomesticAccountBalanceType">
+		<xsd:sequence>
+
+			<!-- Beginning Balance -->
+			<xsd:element name="BeginningBalanceAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Beginning balance</Description>
+						<LineNumber>Schedule J Part IV Line 1 (i)-(v)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Current Year Additions -->
+			<xsd:element name="CurrentYearAdditionsAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Current year additions</Description>
+						<LineNumber>Schedule J Part IV Line 2 (i)-(v)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Current Year Reductions (Other Than Recapture) -->
+			<xsd:element name="CurrentYearReductionsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Current year reductions (other than recapture)</Description>
+						<LineNumber>Schedule J Part IV Line 3 (i)-(v)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Subtotal (Combines Lines 1 Thru 3) -->
+			<xsd:element name="AdjustmentsSubtotalAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Subtotal (combines lines 1 thru 3)</Description>
+						<LineNumber>Schedule J Part IV Line 4 (i)-(v)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Current Year Recapture (From Part I, Line 10) -->
+			<xsd:element name="CurrentYearRecaptureAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Current year recapture (from part I, line 10)</Description>
+						<LineNumber>Schedule J Part IV Line 5 (i)-(v)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Ending Balance (Line 4 Less Line 5) -->
+			<xsd:element name="EndingBalanceAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Ending balance (line 4 less line 5)</Description>
+						<LineNumber>Schedule J Part IV Line 6 (i)-(v)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

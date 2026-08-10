@@ -1,0 +1,895 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form 8835</Description>
+			<TaxYear>2025</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>February 19 2026</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+
+	<!-- ================================================================== -->
+	<!-- ======================  IRS Form 8835 ============================ -->
+	<!-- ================================================================== -->
+
+
+	<xsd:element name="IRS8835">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 8835</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS8835Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS8835">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="BinaryAttachment GeneralDependencySmall"/>
+					<xsd:attribute name="fiscalYearTaxpayerCd">
+						<xsd:simpleType>
+							<xsd:restriction base="TextType">
+								<xsd:enumeration value="FY"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS8835Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 8835</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+		
+			<!-- Part I -->
+
+			<!-- IRS-issued registration number for the facility -->
+			<xsd:element name="FacilityIRSIssdRegistrationNum" type="FacilityIRSIssdRegistrationNumType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>IRS-issued registration number for the facility</Description>
+						<LineNumber>Part I Line 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Type of facility -->
+			<xsd:element name="FacilityTypeDesc" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Type of facility</Description>
+						<LineNumber>Part I Line 2a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="TextType">
+						<xsd:maxLength value="50"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			
+            <xsd:choice minOccurs="0">
+				<xsd:sequence>
+					<!-- If different than filer, enter owner's person name -->
+					<xsd:element name="FacilityOwnerPersonNm" type="PersonNameType">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>If different than filer, enter owner's person name</Description>
+								<LineNumber>Part I Line 2b (i)</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				
+					<!-- If different than filer, enter owner's SSN -->
+					<xsd:element name="FacilityOwnerSSN" type="SSNType">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>If different than filer, enter owner's SSN</Description>
+								<LineNumber>Part I Line 2b (ii)</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+				<xsd:sequence>
+					<!-- If different than filer, enter owner's business name -->
+					<xsd:element name="FacilityOwnerBusinessName" type="BusinessNameType">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>If different than filer, enter owner's business name</Description>
+								<LineNumber>Part I Line 2b (i)</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+											
+					<!-- If different than filer, enter owner's EIN -->
+					<xsd:element name="FacilityOwnerEIN" type="EINType">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>If different than filer, enter owner's EIN</Description>
+								<LineNumber>Part I Line 2b (ii)</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>	
+			</xsd:choice>			
+
+			<!-- Address of facility -->
+			<xsd:element name="FacilityUSAddress" type="USAddressType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Address of facility</Description>
+						<LineNumber>Part I Line 3a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Location coordinates (Latitude) -->
+			<xsd:element name="FacilityLatitudeNum" type="LatitudeCoordinateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Location coordinates (Latitude)</Description>
+						<LineNumber>Part I Line 3b (i)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Location coordinates (Longitude) -->
+			<xsd:element name="FacilityLongitudeNum" type="LongitudeCoordinateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Location coordinates (Longitude)</Description>
+						<LineNumber>Part I Line 3b (ii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Date the construction began on the facility -->
+			<xsd:element name="FacilityConstructionStartDt" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date the construction began on the facility</Description>
+						<LineNumber>Part I Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Date the facility was placed in service -->
+			<xsd:element name="FacilityPlacedInServiceDt" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Date the facility was placed in service</Description>
+						<LineNumber>Part I Line 5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Is this facility an expansion of an existing facility?  -->
+			<xsd:element name="ExistingFacilityExpansionInd" type="BooleanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Is this facility an expansion of an existing facility? </Description>
+						<LineNumber>Part I Line 6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Reserved - Part I Line 7 -->
+
+			<!-- The facility’s maximum net output is less than 1 megawatt -->
+			<xsd:element name="ProjectNetOutputUnder1MWInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>The facility’s maximum net output is less than 1 megawatt</Description>
+						<LineNumber>Part I Line 8a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- The facility’s construction began before specified date -->
+			<xsd:element name="FcltyConstrBeganBfrSpcfdDtInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>The facility’s construction began before specified date</Description>
+						<LineNumber>Part I Line 8b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- The facility meets the prevailing wage requirements of section 45(b)(7)(A) and the apprenticeship requirements of section 45(b)(8). -->
+			<xsd:element name="FcltyStsfyWgAprntcshpRqrInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>The facility meets the prevailing wage requirements of section 45(b)(7)(A) and the apprenticeship requirements of section 45(b)(8).</Description>
+						<LineNumber>Part I Line 8c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- The facility does not meet the qualified facility requirements. -->
+			<xsd:element name="FacilityRqrNotStsfdInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>The facility does not meet the qualified facility requirements.</Description>
+						<LineNumber>Part I Line 8d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Does the property qualify for the domestic bonus credit? See instructions and attach required information. -->
+			<xsd:element name="PropertyQualifyDomBonusCrInd" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Does the property qualify for the domestic bonus credit? See instructions and attach required information.</Description>
+						<LineNumber>Part I Line 9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="BooleanType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="BinaryAttachment"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+			
+			<xsd:choice>
+				<!-- Does the project qualify for an energy community bonus credit? -->
+				<xsd:element name="QlfyEgyComBonusCrInd" type="BooleanType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Does the project qualify for an energy community bonus credit?</Description>
+							<LineNumber>Part I Line 10a-b</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Does the project qualify for an energy community bonus credit? N/A -->
+				<xsd:element name="NAQlfyEgyComBonusCrInd" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Does the project qualify for an energy community bonus credit? N/A</Description>
+							<LineNumber>Part I Line 10c</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+			
+			<xsd:choice>
+				<!-- Direct current (dc) solar energy property or facility -->
+				<xsd:element name="DCSolarEnergyPropCapacityInd">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Direct current (dc) solar energy property or facility</Description>
+							<LineNumber>Part I Line 11a</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:extension base="CheckboxType">
+								<xsd:attribute name="dCSolarEnergyPropCapKWQty">
+									<xsd:annotation>
+										<xsd:documentation>
+											<Description>Direct current (dc) solar energy kW Hours</Description>
+											<LineNumber>Part I Line 11a</LineNumber>
+										</xsd:documentation>
+									</xsd:annotation>
+									<xsd:simpleType>
+										<xsd:restriction base="IntegerNNType"/>
+									</xsd:simpleType>
+								</xsd:attribute>
+							</xsd:extension>
+						</xsd:simpleContent>
+					</xsd:complexType>
+				</xsd:element>
+
+				<!-- Nameplate capacity direct current (dc) in kW not applicable -->
+				<xsd:element name="NANameplateCapacityDCInd" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Nameplate capacity direct current (dc) in kW not applicable</Description>
+							<LineNumber>Part I Line 11b</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+
+			<!-- Alternating current (ac) Solar energy property or facility -->
+			<xsd:element name="ACNameplateCapSolarEgyPropInd" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Alternating current (ac) Solar energy property or facility</Description>
+						<LineNumber>Part I Line 12a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="CheckboxType">
+							<xsd:attribute name="aCNameplateCapSolarEgyKWQty">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Alternating current (ac) Solar energy kW Hours</Description>
+										<LineNumber>Part I Line 12a</LineNumber>
+									</xsd:documentation>
+								</xsd:annotation>
+								<xsd:simpleType>
+									<xsd:restriction base="IntegerNNType"/>
+								</xsd:simpleType>
+							</xsd:attribute>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Alternating current (ac) Wind energy property or facility -->
+			<xsd:element name="ACNameplateCapWindEgyPropInd" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Alternating current (ac) Wind energy property or facility</Description>
+						<LineNumber>Part I Line 12b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="CheckboxType">
+							<xsd:attribute name="aCNameplateCapWindEgyPropKWQty">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Alternating current (ac) Wind energy kW Hours</Description>
+										<LineNumber>Part I Line 12b</LineNumber>
+									</xsd:documentation>
+								</xsd:annotation>
+								<xsd:simpleType>
+									<xsd:restriction base="IntegerNNType"/>
+								</xsd:simpleType>
+							</xsd:attribute>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Alternating current (ac) Other energy property of facility -->
+			<xsd:element name="ACNameplateCapOthEgyPropInd" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Alternating current (ac) Other energy property of facility</Description>
+						<LineNumber>Part I Line 12c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="CheckboxType">
+							<xsd:attribute name="aCNameplateCapOthEgyPropKWQty">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Alternating current (ac) Other energy kW Hours</Description>
+										<LineNumber>Part I Line 12c</LineNumber>
+									</xsd:documentation>
+								</xsd:annotation>
+								<xsd:simpleType>
+									<xsd:restriction base="IntegerNNType"/>
+								</xsd:simpleType>
+							</xsd:attribute>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Nameplate capacity, alternating current (ac) in kW not applicable -->
+			<xsd:element name="ACNameplateCapNAInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Nameplate capacity, alternating current (ac) in kW not applicable</Description>
+						<LineNumber>Part I Line 12d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Part II Renewable Electricity Production -->
+
+			<!-- Kilowatt-hours produced and sold - Wind number -->
+			<xsd:element name="KwHrsPrdcdAndSoldWindQty" type="IntegerNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Kilowatt-hours produced and sold - Wind number</Description>
+						<LineNumber>Part II Line 1a(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Rate - Part II Line 1a(b) -->
+
+			<!-- Kilowatt-hours produced and sold - Wind credit amount -->
+			<xsd:element name="KwHrsPrdcdAndSoldWindCrAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Kilowatt-hours produced and sold - Wind credit amount</Description>
+						<LineNumber>Part II Line 1a(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Kilowatt-hours produced and sold - Closed loop biomass number -->
+			<xsd:element name="KwHrsPrdcdSoldClsLoopBmssQty" type="IntegerNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Kilowatt-hours produced and sold - Closed loop biomass number</Description>
+						<LineNumber>Part II Line 1b(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Rate - Part II Line 1b(b) -->
+
+			<!-- Kilowatt-hours produced and sold - Closed loop biomass credit amount -->
+			<xsd:element name="KwHrsPrdcdSoldClsLoopBmssCrAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Kilowatt-hours produced and sold - Closed loop biomass credit amount</Description>
+						<LineNumber>Part II Line 1b(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Kilowatt-hours produced and sold - Geothermal number -->
+			<xsd:element name="KwHrsPrdcdAndSoldGthrmlQty" type="IntegerNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Kilowatt-hours produced and sold - Geothermal number</Description>
+						<LineNumber>Part II Line 1c(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Rate - Part II Line 1c(b) -->
+
+			<!-- Kilowatt-hours produced and sold - Geothermal credit amount -->
+			<xsd:element name="KwHrsPrdcdAndSoldGthrmlAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Kilowatt-hours produced and sold - Geothermal credit amount</Description>
+						<LineNumber>Part II Line 1c(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Kilowatt-hours produced and sold - Solar number -->
+			<xsd:element name="KwHrsPrdcdAndSoldSolarQty" type="IntegerNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Kilowatt-hours produced and sold - Solar number</Description>
+						<LineNumber>Part II Line 1d(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Rate - Part II Line 1d(b) -->
+
+			<!-- Kilowatt-hours produced and sold - Solar credit amount -->
+			<xsd:element name="KwHrsPrdcdAndSoldSolarCrAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Kilowatt-hours produced and sold - Solar credit amount</Description>
+						<LineNumber>Part II Line 1d(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Kilowatt-hours produced and sold - Off-Shore Wind Facility number -->
+			<xsd:element name="KwHrsPrdcdSoldOffshrWindQty" type="IntegerNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Kilowatt-hours produced and sold - Off-Shore Wind Facility number</Description>
+						<LineNumber>Part II Line 1e(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Rate - Part II Line 1e(b) -->
+
+			<!-- Kilowatt-hours produced and sold - Off-Shore Wind Facility credit amount -->
+			<xsd:element name="KwHrsPrdcdSoldOffshrWindCrAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Kilowatt-hours produced and sold - Off-Shore Wind Facility credit amount</Description>
+						<LineNumber>Part II Line 1e(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Kilowatt-hours produced and sold - Open loop biomass number -->
+			<xsd:element name="KwHrsPrdcdSoldOpenLoopBmssQty" type="IntegerNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Kilowatt-hours produced and sold - Open loop biomass number</Description>
+						<LineNumber>Part II Line 1f(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Rate - Part II Line 1f(b) -->
+
+			<!-- Kilowatt-hours produced and sold - Open loop biomass credit amount -->
+			<xsd:element name="KwHrsPrdcdSoldOpenLopBmssCrAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Kilowatt-hours produced and sold - Open loop biomass credit amount</Description>
+						<LineNumber>Part II Line 1f(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Kilowatt-hours produced and sold - Landfill gas number -->
+			<xsd:element name="KwHrsPrdcdAndSoldLndfllGasQty" type="IntegerNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Kilowatt-hours produced and sold - Landfill gas number</Description>
+						<LineNumber>Part II Line 1g(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Rate - Part II Line 1g(b) -->
+
+			<!-- Kilowatt-hours produced and sold - Landfill gas credit amount -->
+			<xsd:element name="KwHrsPrdcdAndSoldLndfllGsCrAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Kilowatt-hours produced and sold - Landfill gas credit amount</Description>
+						<LineNumber>Part II Line 1g(c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Kilowatt-hours produced and sold - Trash number -->
+			<xsd:element name="KwHrsPrdcdAndSoldTrashQty" type="IntegerNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Kilowatt-hours produced and sold - Trash number</Description>
+						<LineNumber>Part II Line 1h(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Rate - Part II Line 1h(b) -->
+
+			<!-- Kilowatt-hours produced and sold - Trash credit amount -->
+			<xsd:element name="KwHrsPrdcdAndSoldTrashCrAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Kilowatt-hours produced and sold - Trash credit amount</Description>
+						<LineNumber>Part II Line 1h(c) </LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Kilowatt-hours produced and sold - Hydropower number -->
+			<xsd:element name="KwHrsPrdcdAndSoldHydropowerQty" type="IntegerNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Kilowatt-hours produced and sold - Hydropower number</Description>
+						<LineNumber>Part II Line 1i(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Rate - Part II Line 1i(b) -->
+
+			<!-- Kilowatt-hours produced and sold - Hydropower credit amount -->
+			<xsd:element name="KwHrsPrdcdAndSoldHydropwrCrAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Kilowatt-hours produced and sold - Hydropower credit amount</Description>
+						<LineNumber>Part II Line 1i(c) </LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Kilowatt-hours produced and sold - Marine and hydrokinetic renewables number -->
+			<xsd:element name="KwHrsPrdcdSoldMarineRnwblQty" type="IntegerNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Kilowatt-hours produced and sold - Marine and hydrokinetic renewables number</Description>
+						<LineNumber>Part II Line 1j(a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Rate - Part II Line 1j(b) -->
+
+			<!-- Kilowatt-hours produced and sold - Marine hydrokinetic renewables credit amount -->
+			<xsd:element name="KwHrsPrdcdSoldMarineRnwblCrAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Kilowatt-hours produced and sold - Marine hydrokinetic renewables credit amount</Description>
+						<LineNumber>Part II Line 1j(c) </LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total for credit rate under 45b4a amount -->
+			<xsd:element name="TotalForCreditRtUnder45b4AAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total for credit rate under 45b4a amount</Description>
+						<LineNumber>Part II Line 2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Closed and open-Loop - credit before phaseout adjustment -->
+			<xsd:element name="CreditBfrPhaseoutAdjustmentAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Closed and open-Loop - credit before phaseout adjustment</Description>
+						<LineNumber>Part II Line 3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Closed and open-Loop - phaseout adjustment rate -->
+			<xsd:element name="PhaseoutAdjustmentRt" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Closed and open-Loop - phaseout adjustment rate</Description>
+						<LineNumber>Part II Line 3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Closed and open-Loop - total phaseout adjustment -->
+			<xsd:element name="TotalPhaseoutAdjustmentAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Closed and open-Loop - total phaseout adjustment</Description>
+						<LineNumber>Part II Line 3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Credit before reduction -->
+			<xsd:element name="CreditBeforeReductionAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Credit before reduction</Description>
+						<LineNumber>Part II Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Divide sum all bond proceeds for the tax year and all prior tax years, per section 103 by the aggregate amount of additions to the capital account for the qualified facility -->
+			<xsd:element name="CalcTaxExemptBondsPct" type="Decimal2RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Divide sum all bond proceeds for the tax year and all prior tax years, per section 103 by the aggregate amount of additions to the capital account for the qualified facility</Description>
+						<LineNumber>Part II Line 5a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Multiply specified lines -->
+			<xsd:element name="CreditBeforeReductionFncAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Multiply specified lines</Description>
+						<LineNumber>Part II Line 5b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Multiply specified lines by specified percent -->
+			<xsd:element name="CreditBeforeReductionPctAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Multiply specified lines by specified percent</Description>
+						<LineNumber>Part II Line 5c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Enter the smaller of specified lines -->
+			<xsd:element name="SmllrCrBfrReductionFncPctAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter the smaller of specified lines</Description>
+						<LineNumber>Part II Line 5d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Subtract specified lines -->
+			<xsd:element name="AdjustedCreditReductionAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Subtract specified lines</Description>
+						<LineNumber>Part II Line 6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Wind facility amount -->
+			<xsd:element name="WindFacilityAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Wind facility amount</Description>
+						<LineNumber>Part II Line 7a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Wind facility percentage amount -->
+			<xsd:element name="WindFacilityPercentageAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Wind facility percentage amount</Description>
+						<LineNumber>Part II Line 7b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Wind facility year 2 amount -->
+			<xsd:element name="WindFacilityYr2Amt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Wind facility year 2 amount</Description>
+						<LineNumber>Part II Line 7c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Wind facility percentage year 2 amount -->
+			<xsd:element name="WindFacilityPercentageYr2Amt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Wind facility percentage year 2 amount</Description>
+						<LineNumber>Part II Line 7d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Wind facility year 3 amount -->
+			<xsd:element name="WindFacilityYr3Amt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Wind facility year 3 amount</Description>
+						<LineNumber>Part II Line 7e</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Wind facility construction percent year 3 amount -->
+			<xsd:element name="WindFcltyConstrPctYr3Amt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Wind facility construction percent year 3 amount</Description>
+						<LineNumber>Part II Line 7f</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Wind facility construction phase out credit amount -->
+			<xsd:element name="WindFcltyConstrPhaseOutCrAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Wind facility construction phase out credit amount</Description>
+						<LineNumber>Part II Line 7g</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Net wind facility percentage amount -->
+			<xsd:element name="NetWindFacilityPercentageAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Net wind facility percentage amount</Description>
+						<LineNumber>Part II Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Increased credit amount for qualified facilities -->
+			<xsd:element name="QualifiedFacilitiesIncrCrAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Increased credit amount for qualified facilities</Description>
+						<LineNumber>Part II Line 9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Domestic content bonus credit -->
+			<xsd:element name="DomesticContentBonusCreditAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Domestic content bonus credit</Description>
+						<LineNumber>Part II Line 10</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Energy community bonus credit -->
+			<xsd:element name="EnergyCommunityBonusCreditAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Energy community bonus credit</Description>
+						<LineNumber>Part II Line 11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Add specified lines -->
+			<xsd:element name="QlfyFcltsDomCntntEgyComCrAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Add specified lines</Description>
+						<LineNumber>Part II Line 12</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Elective payment election -->
+			<xsd:element name="ElectivePaymentAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Elective payment election</Description>
+						<LineNumber>Part II Line 13</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Renewable electricity production credit from partnerships, S corporations, cooperatives, estates, and trusts (see instructions) -->
+			<xsd:element name="RenewableElectricityProdCrAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Renewable electricity production credit from partnerships, S corporations, cooperatives, estates, and trusts (see instructions)</Description>
+						<LineNumber>Part II Line 14</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total allowed tax credit.  Add specified lines. -->
+			<xsd:element name="TotalAllowedTaxCreditAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total allowed tax credit.  Add specified lines.</Description>
+						<LineNumber>Part II Line 15</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Amount allocated to patrons of the cooperatives or beneficiaries -->
+			<xsd:element name="AllocatedToBeneficiariesAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount allocated to patrons of the cooperatives or beneficiaries</Description>
+						<LineNumber>Part II Line 16</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Estates, trusts and  cooperatives credit -->
+			<xsd:element name="EstatesTrustsAndCoopsCreditAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Estates, trusts and  cooperatives credit</Description>
+						<LineNumber>Part II Line 17</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

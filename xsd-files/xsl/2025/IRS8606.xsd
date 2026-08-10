@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - IRS Form 8606 Nondeductible IRAs</Description>
+			<TaxYear>2025</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>February 19 2026</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- ================================================================== -->
+	<!-- ========================= IRS Form 8606 ========================== -->
+	<!-- ================================================================== -->
+
+	<xsd:element name="IRS8606">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 8606</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS8606Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS8606"/>
+					<xsd:attribute name="referenceDocumentId" type="IdListType">
+						<xsd:annotation>
+							<xsd:documentation>List of document ID's of forms, schedules, supporting info. etc. attached to this form</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="ReturnOfIRAContributionsStmt IRARecharacterizationStatement ReturnOfExTradIRAContriStmt"/>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:complexType name="IRS8606Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 8606</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Form 8606 IRA Name line -->
+			<xsd:element name="Form8606IRANamelineTxt" type="NameLine1Type">
+			</xsd:element>
+
+			<!-- Nondeductible IRA Taxpayer With IRA SSN -->
+			<xsd:element name="NondedIRATxpyrWithIRASSN" type="SSNType">
+			</xsd:element>
+
+			<!-- Part I - Nondeductible Contributions to Traditional IRAs and Distributions From Traditional, Traditional SEP, and Traditional SIMPLE IRAs -->
+		             
+			<!-- Nondeductible IRA Current Tax Year Nondeductible Contribution Amount -->
+			<xsd:element name="NondedIRACurrTYNondedContriAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Nondeductible IRA Current Tax Year Nondeductible Contribution Amount</Description>
+						<LineNumber>1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Nondeductible IRA Basis For Prior Year Amount -->
+			<xsd:element name="NondedIRABasisForPYAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Nondeductible IRA Basis For Prior Year Amount</Description>
+						<LineNumber>2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Nondeductible IRA Total IRA Value Amount -->
+			<xsd:element name="NondedIRATotalIRAValueAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Nondeductible IRA Total IRA Value Amount</Description>
+						<LineNumber>3</LineNumber>			
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Nondeductible IRA Post Tax Year Contribution Amount -->
+			<xsd:element name="NondedIRAPostTaxYrContriAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Nondeductible IRA Post Tax Year Contribution Amount</Description>
+						<LineNumber>4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Nondeductible IRA Tax Year Net Basis Amount -->
+			<xsd:element name="NondedIRATaxYearNetBasisAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Nondeductible IRA Tax Year Net Basis Amount</Description>
+						<LineNumber>5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Nondeductible IRA Current TY IRA Plus Rollover Amount -->
+			<xsd:element name="NondedIRACurrTYIRAPlusRllvrAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Nondeductible IRA Current TYIRA Plus Rollover Amount</Description>
+						<LineNumber>6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Nondeductible IRA Withdrawn Less Rollover Amount -->
+			<xsd:element name="NondedIRAWthdrwLessRllvrAmt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Nondeductible IRA Withdrawn Lesser Rollover Amount</Description>
+						<LineNumber>7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountNNType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="ChangeByDivorceInIRABasisStatement">
+							</xsd:attribute>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Nondeductible IRA Tax Year Combined IRA Value Amount -->
+			<xsd:element name="NondedIRATYCombinedIRAValueAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Nondeductible IRA Tax Year Combined IRA Value Amount</Description>
+						<LineNumber>8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Nondeductible IRA Total Rollover Withdrawn Value Amount -->
+			<xsd:element name="NondedIRATotRllvrWthdrwVlAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Nondeductible IRA Total Rollover Withdrawn Value Amount</Description>
+						<LineNumber>9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Nondeductible IRA Tax Year Basis Rate -->
+			<xsd:element name="NondedIRATaxYearBasisRt" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Nondeductible IRA Tax Year Basis Rate</Description>
+						<LineNumber>10</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Nondeductible IRA Nontaxable Converted Amount -->
+			<xsd:element name="NondedIRANontxCnvrtAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Nondeductible IRA Nontaxable Converted Amount</Description>
+						<LineNumber>11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Nondeductible IRA Nontaxable Withdrawn Unconverted Amount -->
+			<xsd:element name="NondedIRANontxWthdrwUncnvrtAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Nondeductible IRA Nontaxable Withdrawn Unconverted Amount</Description>
+						<LineNumber>12</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Nondeductible IRA Nontaxable Of Withdrawn Amount -->
+			<xsd:element name="NondedIRANontxOfWthdrwAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Nondeductible IRA Nontaxable Of Withdrawn Amount</Description>
+						<LineNumber>13</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Nondeductible IRA Total IRA Basis Amount -->
+			<xsd:element name="NondedIRATotalIRABasisAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Nondeductible IRA Total IRA Basis Amount</Description>
+						<LineNumber>14</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- NonDeductible IRA Not Converted Less Rollover Amount -->
+			<xsd:element name="NondedIRANotCnvrtLessRllvrAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>NonDeductible IRA Not Converted Less Rollover Amount</Description>
+						<LineNumber>15a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- NonDeductible IRA Qualified Disaster Distribution Amount  -->
+			<xsd:element name="NondedIRAQlfyDisasterDistriAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>NonDeductible IRA Qualified Disaster Distribution Amount</Description>
+						<LineNumber>15b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Nondeductible IRA Taxable Amount -->
+			<xsd:element name="NondedIRATaxableAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Nondeductible IRA Taxable Amount</Description>
+						<LineNumber>15c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Part II - Current Tax Year Conversions From Traditional, Traditional SEP, or Traditional SIMPLE IRAs to Roth, Roth SEP, or Roth SIMPLE IRAs -->
+
+			<!-- Total IRA Converted To Roth Amount -->
+			<xsd:element name="TotalIRAConvertedToRothAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total IRA Converted To Roth Amount</Description>
+						<LineNumber>16</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Traditional IRA Basis Amount -->
+			<xsd:element name="TraditionalIRABasisAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Traditional IRA Basis Amount</Description>
+						<LineNumber>17</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Taxable IRA Conversion Amount -->
+			<xsd:element name="TaxableIRAConversionAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Taxable IRA Conversion Amount</Description>
+						<LineNumber>18</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Part III - Distributions From Roth, Roth SEP, or Roth SIMPLE IRAs -->
+
+			<!-- Total Non-Qualified Distributions From Roth IRA Amount -->
+			<xsd:element name="TotNonQlfyDistriFromRothIRAAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Non-Qualified Distributions From Roth IRA Amount</Description>
+						<LineNumber>19</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Qualified first-time homebuyer expenses Amount -->
+			<xsd:element name="QlfyFirstTimeHmByrExpensesAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified first-time homebuyer expenses Amount</Description>
+						<LineNumber>20</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Net Qualified first-time homebuyer expenses Amount -->
+			<xsd:element name="NetQlfyFirstTimeHmByrExpnssAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Net Qualified first-time homebuyer expenses Amount</Description>
+						<LineNumber>21</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- ROTH IRA Contribution Basis Amount -->
+			<xsd:element name="ROTHIRAContributionBasisAmt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Roth IRA Contribution Basis Amount</Description>
+						<LineNumber>22</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountNNType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="ChangeByDivorceInIRABasisStatement">
+							</xsd:attribute>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+			
+			<!-- Net Basis In Roth IRA Contribution Amount -->
+			<xsd:element name="NetBasisInRothIRAContriAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Net Basis In Roth IRA Contribution Amount</Description>
+						<LineNumber>23</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Basis In Converted Qualified Return Plan Amount -->
+			<xsd:element name="BasisInCnvrtQlfyRtrPlanAmt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Basis In Converted Qualified Return Plan Amount</Description>
+						<LineNumber>24</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountNNType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="ChangeByDivorceInIRABasisStatement">
+							</xsd:attribute>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Distribution Roth IRA Less Basis Converted Amount -->
+			<xsd:element name="DistriRothIRALessBasisCnvrtAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Distribution Roth IRA Less Basis Converted Amount</Description>
+						<LineNumber>25a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Roth IRA Qualified Disaster Distribution Amount -->
+			<xsd:element name="RothIRAQlfyDisasterDistriAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Roth IRA Qualified Disaster Distribution Amount</Description>
+						<LineNumber>25b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Taxable IRA Distribution Amount -->
+			<xsd:element name="TaxableIRADistributionAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Taxable IRA Distribution Amount</Description>
+						<LineNumber>25c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form 8995-A Schedule C</Description>
+			<TaxYear>2025</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>February 19 2026</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../Common/efileTypes.xsd"/>
+
+	<!-- =================================================================== -->
+	<!-- =================== IRS Form 8995-A Schedule C ==================== -->
+	<!-- =================================================================== -->
+
+	<xsd:element name="IRS8995AScheduleC">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 8995-A Schedule C</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS8995AScheduleCType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="StringType" fixed="IRS8995AScheduleC">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="referenceDocumentId" type="IdListType">
+						<xsd:annotation>
+							<xsd:documentation>List of document ID's of forms, schedules, supporting info. etc. attached to this form</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="BinaryAttachment"/>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS8995AScheduleCType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 8995-A Schedule C</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<xsd:element name="LossNettingCarryforwardGrp" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:annotation>
+						<xsd:documentation>LossNettingCarryforwardGrpType</xsd:documentation>
+					</xsd:annotation>
+					<xsd:sequence>
+
+						<xsd:choice>
+						  <!-- Trade Or Business Name -->
+							<xsd:element name="TradeOrBusinessName" type="BusinessNameType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Trade Or Business Name</Description>
+										<LineNumber>1</LineNumber>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+						  <!-- Person Name -->
+							<xsd:element name="PersonNm" type="PersonNameType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Person Name</Description>
+										<LineNumber>1</LineNumber>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+						</xsd:choice>
+
+						<!-- Qualified Business Income Or Loss Amount -->
+						<xsd:element name="QlfyBusinessIncomeOrLossAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Qualified Business Income Or Loss Amount</Description>
+									<LineNumber>1(a)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Loss Netting Reduction Amount -->
+						<xsd:element name="LossNettingReductionAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Loss Netting Reduction Amount</Description>
+									<LineNumber>1(b)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Adjusted Qualified Business Income Amount -->
+						<xsd:element name="AdjQualifiedBusinessIncomeAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Adjusted Qualified Business Income Amount</Description>
+									<LineNumber>1(c)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Prior Year Qualified Business Net Loss Carryforward Amount -->
+			<xsd:element name="PYQlfyBusinessNetLossCfwdAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Prior Year Qualified Business Net Loss Carryforward Amount</Description>
+						<LineNumber>2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Trades Or Businesses Loss Amount -->
+			<xsd:element name="TotalTradeOrBusinessLossAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Trades Or Businesses Loss Amount</Description>
+						<LineNumber>3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Trades Or Businesses Income Amount -->
+			<xsd:element name="TotalTradeOrBusinessIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Trades Or Businesses Income Amount</Description>
+						<LineNumber>4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Losses Netted With Income Of Other Trades Or Businesses Amount -->
+			<xsd:element name="LossNettedIncomeOthTradeBusAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Losses Netted With Income Of Other Trades Or Businesses Amount</Description>
+						<LineNumber>5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Qualified Business Losses Carryforward Amount -->
+			<xsd:element name="QlfyBusLossCarryforwardAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified Business Losses Carryforward Amount</Description>
+						<LineNumber>6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

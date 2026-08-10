@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Individual Income Tax Schema - IRS 8615 Tax for Certain Children Who Have Investment Income of More Than $1900</Description>
+			<TaxYear>2025</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>February 19 2026</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+	
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+	
+	<!-- ======================================================================== -->
+	<!-- ======================  IRS 8615 ============ ============================= -->
+	<!-- ======================================================================== -->
+	
+	<xsd:element name="IRS8615">
+		<xsd:annotation>
+			<xsd:documentation>IRS 8615 Tax for Certain Children Who Have Investment Income of More Than $1,900</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS8615Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS8615">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:complexType name="IRS8615Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for IRS 8615</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			
+			<!-- Parent's Name-->
+			<xsd:element name="ParentNm">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Parent's Name</Description>
+						<LineNumber>A</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="TextType">
+						<xsd:maxLength value="50"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>	
+
+			<!-- Parent's Name-->
+			<xsd:element name="ParentNameControlTxt" type="PersonNameControlType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Parent's Name Control</Description>
+						<LineNumber>A</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+
+			<!-- SSN-->
+			<xsd:element name="SSN" type="SSNType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>SSN</Description>
+						<LineNumber>B</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+
+			<!-- Individual Return Filing Status Code -->
+			<xsd:element name="IndividualReturnFilingStatusCd" type="FilingStatusCdType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Individual Return Filing Status Code</Description>
+						<LineNumber>C</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!--Part I Net Unearned Income -->
+			
+			<xsd:element name="ChildInvestmentIncomeAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Child Investment Income</Description>
+						<LineNumber>1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Kiddie Deduction Amount -->
+			<xsd:element name="KiddieDeductionAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Child Deduction Amount</Description>
+						<LineNumber>2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+						
+			<xsd:element name="ChildUnearnedIncomeAdjustedAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Child Unearned Income Adjusted Amount</Description>
+						<LineNumber>3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<xsd:element name="ChildTaxableIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Child Taxable Income Amount</Description>
+						<LineNumber>4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<xsd:element name="ChildNetInvestmentIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Child Net Investment Income Amount</Description>
+						<LineNumber>5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Part II Tentative Tax Based on the Tax Rate of the Parent -->
+			<!-- Parent Taxable Income Amount -->
+			<xsd:element name="ParentTaxableIncomeAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Parent Taxable Income Amount</Description>
+						<LineNumber>6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other Children Investment Income Amount -->
+			<xsd:element name="OtherChildrenInvestmentIncmAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other Children Investment Income Amount</Description>
+						<LineNumber>7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Family Income Amount -->
+			<xsd:element name="FamilyIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Family Income Amount</Description>
+						<LineNumber>8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Family Capital Gains Tax Indicator -->			
+			<xsd:element name="FamilyCapitalGainsTaxInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Family Capital Gains Tax Indicator</Description>
+						<LineNumber>9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+	
+			<!-- Family Tentative Tax Amount -->
+			<xsd:element name="FamilyTentativeTaxAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Family Tentative Tax Amount</Description>
+						<LineNumber>9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Parent Capital Gains Tax Indicator -->			
+			<xsd:element name="ParentCapitalGainsTaxInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Parent Capital Gains Tax Indicator</Description>
+						<LineNumber>10</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+
+			<!-- Parent Tentative Tax Amount -->
+			<xsd:element name="ParentTentativeTaxAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Parent Tentative Tax Amount</Description>
+						<LineNumber>10</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		
+			<!-- Children Tax Amount -->
+			<xsd:element name="ChildrenTaxAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Children Tax Amount</Description>
+						<LineNumber>11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Net Children Investment Income Amount -->
+			<xsd:element name="NetChildrenInvestmentIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Net Children Investment Income Amount</Description>
+						<LineNumber>12a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Children Investment Percentage -->
+			<xsd:element name="ChildrenInvestmentPct" type="RatioType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Children Investment Percentage</Description>
+						<LineNumber>12b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Children Investment Allocable Tax Amount -->
+			<xsd:element name="ChildrenInvestmentAllcblTaxAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Children Investment Allocable Tax Amount</Description>
+						<LineNumber>13</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Part III Child's Tax -->
+			<xsd:element name="ChildNetIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Child Net Income Amount</Description>
+						<LineNumber>14</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+			
+			<xsd:element name="ChildUnearnedIncomeInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Child Unearned Income</Description>
+						<LineNumber>15</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+			
+			<xsd:element name="ChildNetIncomeTaxAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Child Net Income Tax Amount</Description>
+						<LineNumber>15</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+
+			<!-- Total Allocable And Net Tax Amount -->
+			<xsd:element name="TotalAllocableAndNetTaxAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Allocable And Net Tax Amount</Description>
+						<LineNumber>16</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Child Capital Gain Indicator -->			
+			<xsd:element name="ChildCapitalGainInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Child Capital Gain Indicator</Description>
+						<LineNumber>17</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>	
+
+			<!-- Tax On Child Taxable Income Amount -->
+			<xsd:element name="TaxOnChildTaxableIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Tax On Child Taxable Income Amount</Description>
+						<LineNumber>17</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		
+			<!-- Kiddie Tax Amount -->
+			<xsd:element name="KiddieTaxAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Kiddie Tax Amount</Description>
+						<LineNumber>18</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- =========================================================== -->
+	<!-- ============= Local types, types for repeating groups etc. ============= -->
+	<!-- =========================================================== -->
+	
+	<!-- Individual Return Filing Status Cd -->
+	<xsd:simpleType name="FilingStatusCdType">
+		<xsd:restriction base="TextType">
+			<xsd:enumeration value="1"/>
+			<xsd:enumeration value="2"/>
+			<xsd:enumeration value="3"/>
+			<xsd:enumeration value="4"/>
+			<xsd:enumeration value="5"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+</xsd:schema>

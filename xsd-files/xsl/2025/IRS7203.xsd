@@ -1,0 +1,1031 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form 7203</Description>
+			<TaxYear>2025</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>February 19 2026</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../Common/efileTypes.xsd"/>
+
+	<!-- =========================================================== -->
+	<!-- =====================  IRS Form 7203  ===================== -->
+	<!-- =========================================================== -->
+
+	<xsd:element name="IRS7203">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 7203</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS7203Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="StringType" fixed="IRS7203">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="referenceDocumentId" type="IdListType">
+						<xsd:annotation>
+							<xsd:documentation>List of document ID's of forms, schedules, supporting info. etc. attached to this form</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="BinaryAttachment GeneralDependencySmall"/>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS7203Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 7203</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<xsd:choice>
+				<xsd:sequence>
+					<!-- Shareholder Person Name -->
+					<xsd:element name="ShareholderPersonNm" type="PersonNameType">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>Shareholder Person Name</Description>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<!-- Shareholder SSN -->
+					<xsd:element name="ShareholderSSN" type="SSNType">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>Shareholder SSN</Description>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+				<xsd:sequence>
+					<!-- Shareholder Business Name -->
+					<xsd:element name="ShareholderBusinessName" type="BusinessNameType">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>Shareholder Business Name</Description>
+								<LineNumber></LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<!-- Shareholder EIN -->
+					<xsd:element name="ShareholderEIN" type="EINType">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>Shareholder EIN</Description>
+								<LineNumber></LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:choice>
+
+			<!-- S Corporation Name -->
+			<xsd:element name="SCorporationName" type="BusinessNameType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>S Corporation Name</Description>
+						<LineNumber>Line A</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- S Corporation EIN -->
+			<xsd:element name="SCorporationEIN" type="EINType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>S Corporation EIN</Description>
+						<LineNumber>Line B</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Stock Block -->
+			<xsd:element name="StockBlockDesc" type="LineExplanationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Stock Block</Description>
+						<LineNumber>Line C</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Original Shareholder Indicator -->
+			<xsd:element name="OriginalShareholderInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Original Shareholder Indicator</Description>
+						<LineNumber>Line D (1)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Purchased Indicator -->
+			<xsd:element name="PurchasedInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Purchased Indicator</Description>
+						<LineNumber>Line D (2)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Inherited Indicator -->
+			<xsd:element name="InheritedInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Inherited Indicator</Description>
+						<LineNumber>Line D (3)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Gift Indicator -->
+			<xsd:element name="GiftInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Gift Indicator</Description>
+						<LineNumber>Line D (4)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Stock Acquired Other Group -->
+			<xsd:element name="StockAcquiredOtherGrp" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Stock Acquired Other Group</Description>
+						<LineNumber>Line D (5)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Other Indicator -->
+						<xsd:element name="OtherInd" type="CheckboxType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Other Indicator</Description>
+									<LineNumber>Line D (5)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Other Text -->
+						<xsd:element name="OtherTxt" type="LineExplanationType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Other Text</Description>
+									<LineNumber>Line D (5)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Section 1.1367-1(g) Indicator -->
+			<xsd:element name="Section113671gElectionInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Section 1.1367-1(g) Indicator</Description>
+						<LineNumber>Line E</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Part I  Shareholder Stock Basis -->
+
+			<!-- Stock Basis Begin Tax Year Amount -->
+			<xsd:element name="StockBasisBeginTaxYearAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Stock Basis Begin Tax Year Amount</Description>
+						<LineNumber>Part I Line 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Capital Contribution Basis Amount -->
+			<xsd:element name="CapitalContributionBasisAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Capital Contribution Basis Amount</Description>
+						<LineNumber>Part I Line 2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Ordinary Business Income Amount -->
+			<xsd:element name="OrdinaryBusinessIncomeAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Ordinary Business Income Amount</Description>
+						<LineNumber>Part I Line 3a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Net Rental Real Estate Income Amount -->
+			<xsd:element name="NetRentalRealEstateIncomeAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Net Rental Real Estate Income Amount</Description>
+						<LineNumber>Part I Line 3b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other Net Rental Income Amount -->
+			<xsd:element name="OtherNetRentalIncomeAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other Net Rental Income Amount</Description>
+						<LineNumber>Part I Line 3c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Interest Income Amount -->
+			<xsd:element name="InterestIncomeAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Interest Income Amount</Description>
+						<LineNumber>Part I Line 3d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Ordinary Income Amount -->
+			<xsd:element name="OrdinaryIncomeAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Ordinary Income Amount</Description>
+						<LineNumber>Part I Line 3e</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Royalties Amount -->
+			<xsd:element name="RoyaltiesAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Royalties Amount</Description>
+						<LineNumber>Part I Line 3f</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Net Capital Gains Amount -->
+			<xsd:element name="NetCapitalGainsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Net Capital Gains Amount</Description>
+						<LineNumber>Part I Line 3g</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Net Section 1231 Gain Amount -->
+			<xsd:element name="NetSection1231GainAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Net Section 1231 Gain Amount</Description>
+						<LineNumber>Part I Line 3h</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other Income Amount -->
+			<xsd:element name="OtherIncomeAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other Income Amount</Description>
+						<LineNumber>Part I Line 3i</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Excess Depletion Adjustment Amount -->
+			<xsd:element name="ExcessDepletionAdjAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Excess Depletion Adjustment Amount</Description>
+						<LineNumber>Part I Line 3j</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Tax Exempt Income Amount -->
+			<xsd:element name="TaxExemptIncomeAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Tax Exempt Income Amount</Description>
+						<LineNumber>Part I Line 3k</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Recapture Business Credits Amount -->
+			<xsd:element name="RecaptureBusinessCreditsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Recapture Business Credits Amount</Description>
+						<LineNumber>Part I Line 3l</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other Items Increase Stock Basis Amount -->
+			<xsd:element name="OthItemsIncreaseStockBasisAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other Items Increase Stock Basis Amount</Description>
+						<LineNumber>Part I Line 3m</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total K1 Income Amount -->
+			<xsd:element name="TotalK1IncomeAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total K1 Income Amount</Description>
+						<LineNumber>Part I Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Stock Basis Before Distributions Amount -->
+			<xsd:element name="StockBasisBfrDistributionsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Stock Basis Before Distributions Amount</Description>
+						<LineNumber>Part I Line 5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Distributions Amount -->
+			<xsd:element name="DistributionsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Distributions Amount</Description>
+						<LineNumber>Part I Line 6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Stock Basis After Distributions Amount -->
+			<xsd:element name="StockBasisAftrDistributionsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Stock Basis After Distributions Amount</Description>
+						<LineNumber>Part I Line 7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Nondeductible Expenses Amount -->
+			<xsd:element name="NondeductibleExpensesAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Nondeductible Expenses Amount</Description>
+						<LineNumber>Part I Line 8a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Oil Gas Depletion Amount -->
+			<xsd:element name="OilGasDepletionAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Oil Gas Depletion Amount</Description>
+						<LineNumber>Part I Line 8b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Business Credit 50c 1 and 5 Amount -->
+			<xsd:element name="BusinessCredit50c1And5Amt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Business Credit 50c 1 and 5 Amount</Description>
+						<LineNumber>Part I Line 8c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Credit Amount -->
+			<xsd:element name="TotalCreditAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Credit Amount</Description>
+						<LineNumber>Part I Line 9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Stock Basis Before Loss Deduction Amount -->
+			<xsd:element name="StockBasisBeforeLossDedAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Stock Basis Before Loss Deduction Amount</Description>
+						<LineNumber>Part I Line 10</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Part I Line 11 - Use value from Part III Line 47(c) TotalAllowableLossAmt from ShrAllwblLossFromStockBasisGrp -->
+
+			<!-- Part I Line 12 - Use value from Part II Line 23 Total TotDebtBasisRestorationAmt -->
+
+			<!-- Other Items Decrease Stock Basis Amount -->
+			<xsd:element name="OthItemsDecreaseStockBasisAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other Items Decrease Stock Basis Amount</Description>
+						<LineNumber>Part I Line 13</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Decrease Stock Basis Amount -->
+			<xsd:element name="TotalDecreaseStockBasisAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Decrease Stock Basis Amount</Description>
+						<LineNumber>Part I Line 14</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Stock Basis End Tax Year Amount -->
+			<xsd:element name="StockBasisEndTaxYearAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Stock Basis End Tax Year Amount</Description>
+						<LineNumber>Part I Line 15</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Part II  Shareholder Debt Basis -->
+
+			<!-- Shareholder Debt Basis Group -->
+			<xsd:element name="ShareholderDebtBasisGrp" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Shareholder Debt Basis Group</Description>
+						<LineNumber></LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<xsd:choice>
+							<!-- Formal Note Indicator -->
+							<xsd:element name="FormalNoteInd" type="CheckboxType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Formal Note Indicator</Description>
+										<LineNumber>Part II</LineNumber>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<!-- Open Account Debt Indicator -->
+							<xsd:element name="OpenAccountDebtInd" type="CheckboxType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Open Account Debt Indicator</Description>
+										<LineNumber>Part II</LineNumber>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+						</xsd:choice>
+
+						<!-- Loan Balance Begin Tax Year Amount -->
+						<xsd:element name="LoanBalanceBeginTaxYrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Loan Balance Begin Tax Year Amount</Description>
+									<LineNumber>Part II Line 16</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Additional Loans Amount -->
+						<xsd:element name="AdditionalLoansAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Additional Loans Amount</Description>
+									<LineNumber>Part II Line 17</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Loaned Beginning Balance Amount -->
+						<xsd:element name="LoanedBeginningBalAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Loaned Beginning Balance Amount</Description>
+									<LineNumber>Part II Line 18</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Principal Debt Repayment Amount -->
+						<xsd:element name="PrincipalDebtRepaymentAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Principal Debt Repayment Amount</Description>
+									<LineNumber>Part II Line 19</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Loan Balance End Tax Year Amount -->
+						<xsd:element name="LoanBalanceEndTaxYrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Loan Balance End Tax Year Amount</Description>
+									<LineNumber>Part II Line 20</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Debt Basis Begin Tax Year Amount -->
+						<xsd:element name="DebtBasisBeginTaxYrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Debt Basis Begin Tax Year Amount</Description>
+									<LineNumber>Part II Line 21</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Part II Line 22 - Use value from Part II Line 17 AdditionalLoansAmt -->
+
+						<!-- Debt Basis Restoration Amount -->
+						<xsd:element name="DebtBasisRestorationAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Debt Basis Restoration Amount</Description>
+									<LineNumber>Part II Line 23</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Debt Basis Before Repayment Amount -->
+						<xsd:element name="DebtBasisBfrRepaymentAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Debt Basis Before Repayment Amount</Description>
+									<LineNumber>Part II Line 24</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Debt Loan Repayment Percent -->
+						<xsd:element name="DebtLoanRepaymentPct" type="Decimal4RatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Debt Loan Repayment Percent</Description>
+									<LineNumber>Part II Line 25</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Nontaxable Debt Repayment Amount -->
+						<xsd:element name="NontaxableDebtRepaymentAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Nontaxable Debt Repayment Amount</Description>
+									<LineNumber>Part II Line 26</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Debt Basis Before Expenses Losses Amount -->
+						<xsd:element name="DebtBasisBfrExpnssLossAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Debt Basis Before Expenses Losses Amount</Description>
+									<LineNumber>Part II Line 27</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Nondeductible Expenses Oil Gas Depletion Amount -->
+						<xsd:element name="NondedExpnssOilGasDpltnAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Nondeductible Expenses Oil Gas Depletion Amount</Description>
+									<LineNumber>Part II Line 28</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Debt Basis Before Loss Deduction Amount -->
+						<xsd:element name="DebtBasisBeforeLossDedAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Debt Basis Before Loss Deduction Amount</Description>
+									<LineNumber>Part II Line 29</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Allowable Loss Amount -->
+						<xsd:element name="AllowableLossAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Allowable Loss Amount</Description>
+									<LineNumber>Part II Line 30</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Debt Basis End Tax Year Amount -->
+						<xsd:element name="DebtBasisEndTaxYrAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Debt Basis End Tax Year Amount</Description>
+									<LineNumber>Part II Line 31</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Part II Line 32 - Use value from Part II Line 19 PrincipalDebtRepaymentAmt -->
+
+						<!-- Part II Line 33 - Use value from Part II Line 26 NontaxableDebtRepaymentAmt -->
+
+						<!-- Reportable Gain Amount -->
+						<xsd:element name="ReportableGainAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Reportable Gain Amount</Description>
+									<LineNumber>Part II Line 34</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Total Loan Balance Begin Tax Year Amount -->
+			<xsd:element name="TotLoanBalanceBeginTaxYrAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Loan Balance Begin Tax Year Amount</Description>
+						<LineNumber>Part II Line 16 Total</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Additional Loans Amount -->
+			<xsd:element name="TotAdditionalLoansAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Additional Loans Amount</Description>
+						<LineNumber>Part II Line 17 Total</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Loaned Beginning Balance Amount -->
+			<xsd:element name="TotLoanedBeginningBalAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Loaned Beginning Balance Amount</Description>
+						<LineNumber>Part II Line 18 Total</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Principal Debt Repayment Amount -->
+			<xsd:element name="TotPrincipalDebtRepaymentAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Principal Debt Repayment Amount</Description>
+						<LineNumber>Part II Line 19 Total</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Loan Balance End Tax Year Amount -->
+			<xsd:element name="TotLoanBalanceEndTaxYrAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Loan Balance End Tax Year Amount</Description>
+						<LineNumber>Part II Line 20 Total</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Debt Basis Begin Tax Year Amount -->
+			<xsd:element name="TotDebtBasisBeginTaxYrAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Debt Basis Begin Tax Year Amount</Description>
+						<LineNumber>Part II Line 21 Total</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Part II Line 22 Total - Use value from Part II Line 17 Total TotAdditionalLoansAmt -->
+
+			<!-- Total Debt Basis Restoration Amount -->
+			<xsd:element name="TotDebtBasisRestorationAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Debt Basis Restoration Amount</Description>
+						<LineNumber>Part II Line 23 Total</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Debt Basis Before Repayment Amount -->
+			<xsd:element name="TotDebtBasisBfrRepaymentAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Debt Basis Before Repayment Amount</Description>
+						<LineNumber>Part II Line 24 Total</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Part II Line 25 Total - No entry -->
+
+			<!-- Total Nontaxable Debt Repayment Amount -->
+			<xsd:element name="TotNontaxableDebtRepaymentAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Nontaxable Debt Repayment Amount</Description>
+						<LineNumber>Part II Line 26 Total</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Debt Basis Before Expenses Losses Amount -->
+			<xsd:element name="TotDebtBasisBfrExpnssLossAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Debt Basis Before Expenses Losses Amount</Description>
+						<LineNumber>Part II Line 27 Total</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Nondeductible Expenses Oil Gas Depletion Amount -->
+			<xsd:element name="TotNondedExpnssOilGasDpltnAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Nondeductible Expenses Oil Gas Depletion Amount</Description>
+						<LineNumber>Part II Line 28 Total</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Debt Basis Before Loss Deduction Amount -->
+			<xsd:element name="TotDebtBasisBeforeLossDedAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Debt Basis Before Loss Deduction Amount</Description>
+						<LineNumber>Part II Line 29 Total</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Part II Line 30 Total - Use value from Part III Line 47(d) TotalAllowableLossAmt from ShrAllwblLossFromDebtBasisGrp -->
+
+			<!-- Total Debt Basis End Tax Year Amount -->
+			<xsd:element name="TotDebtBasisEndTaxYrAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Debt Basis End Tax Year Amount</Description>
+						<LineNumber>Part II Line 31 Total</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Part II Line 32 Total - Use value from Part II Line 19 Total TotPrincipalDebtRepaymentAmt -->
+
+			<!-- Part II Line 33 Total - Use value from Part II Line 26 Total TotNontaxableDebtRepaymentAmt -->
+
+			<!-- Total Reportable Gain Amount -->
+			<xsd:element name="TotReportableGainAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Reportable Gain Amount</Description>
+						<LineNumber>Part II Line 34 Total</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Part III  Shareholder Allowable Loss and Deduction Items -->
+
+			<!-- Shareholder Current Year Loss Deductions Group -->
+			<xsd:element name="ShrCurrentYrLossDeductionsGrp" type="ShrAllowableLossDeductionsGrpType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Shareholder Current Year Loss Deductions Group</Description>
+						<LineNumber>Part III Lines 35 - 47, Column (a)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Shareholder Carryover Amount Previous Year Group -->
+			<xsd:element name="ShrCarryoverAmtPreviousYrGrp" type="ShrAllowableLossDeductionsGrpType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Shareholder Carryover Amount Previous Year Group</Description>
+						<LineNumber>Part III Lines 35 - 47, Column (b)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Shareholder Allowable Loss From Stock Basis Group -->
+			<xsd:element name="ShrAllwblLossFromStockBasisGrp" type="ShrAllowableLossDeductionsGrpType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Shareholder Allowable Loss From Stock Basis Group</Description>
+						<LineNumber>Part III Lines 35 - 47, Column (c)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+
+			<!-- Shareholder Allowable Loss From Debt Basis Group -->
+			<xsd:element name="ShrAllwblLossFromDebtBasisGrp" type="ShrAllowableLossDeductionsGrpType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Shareholder Allowable Loss From Debt Basis Group</Description>
+						<LineNumber>Part III Lines 35 - 47, Column (d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+
+			<!-- Shareholder Carryover Amounts Group -->
+			<xsd:element name="ShrCarryoverAmountsGrp" type="ShrAllowableLossDeductionsGrpType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Shareholder Carryover Amounts Group</Description>
+						<LineNumber>Part III Lines 35 - 47, Column (e)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Type used for Part III Lines 35 - 47, Columns (a) - (e) -->
+	<xsd:complexType name="ShrAllowableLossDeductionsGrpType">
+		<xsd:sequence>
+
+			<!-- Ordinary Business Loss Amount -->
+			<xsd:element name="OrdinaryBusinessLossAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Ordinary Business Loss Amount</Description>
+						<LineNumber>Part III Line 35</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Net Rental Real Estate Loss Amount -->
+			<xsd:element name="NetRentalRealEstateLossAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Net Rental Real Estate Loss Amount</Description>
+						<LineNumber>Part III Line 36</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other Net Rental Loss Amount -->
+			<xsd:element name="OtherNetRentalLossAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other Net Rental Loss Amount</Description>
+						<LineNumber>Part III Line 37</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Net Capital Loss Amount -->
+			<xsd:element name="NetCapitalLossAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Net Capital Loss Amount</Description>
+						<LineNumber>Part III Line 38</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Net Section 1231 Loss Amount -->
+			<xsd:element name="NetSection1231LossAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Net Section 1231 Loss Amount</Description>
+						<LineNumber>Part III Line 39</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other Loss Amount -->
+			<xsd:element name="OtherLossAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other Loss Amount</Description>
+						<LineNumber>Part III Line 40</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Section 179 Deduction Amount -->
+			<xsd:element name="Section179DeductionAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Section 179 Deduction Amount</Description>
+						<LineNumber>Part III Line 41</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Charitable Contribution Amount -->
+			<xsd:element name="CharitableContributionAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Charitable Contribution Amount</Description>
+						<LineNumber>Part III Line 42</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Investment Interest Expense Amount -->
+			<xsd:element name="InvestmentInterestExpenseAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Investment Interest Expense Amount</Description>
+						<LineNumber>Part III Line 43</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Section 59e2 Expenditures Amount -->
+			<xsd:element name="Section59e2ExpendituresAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Section 59e2 Expenditures Amount</Description>
+						<LineNumber>Part III Line 44</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Other Deductions Amount -->
+			<xsd:element name="OtherDeductionsAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other Deductions Amount</Description>
+						<LineNumber>Part III Line 45</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Foreign Taxes Paid Or Accrued Amount -->
+			<xsd:element name="ForeignTaxesPaidOrAccruedAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Foreign Taxes Paid Or Accrued Amount</Description>
+						<LineNumber>Part III Line 46</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Allowable Loss Amount -->
+			<xsd:element name="TotalAllowableLossAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Allowable Loss Amount</Description>
+						<LineNumber>Part III Line 47</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

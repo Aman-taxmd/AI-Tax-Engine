@@ -1,0 +1,1167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form 1118 Schedule K</Description>
+			<TaxYear>2025</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>February 19 2026</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+
+	<!-- =============================================================== -->
+	<!-- ======================  IRS Form 1118 Schedule K ============== -->
+	<!-- =============================================================== -->
+
+
+	<xsd:element name="IRS1118ScheduleK">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 1118 Schedule K</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS1118ScheduleKType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS1118ScheduleK">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+
+					<xsd:attribute name="referenceDocumentId" type="IdListType">
+						<xsd:annotation>
+							<xsd:documentation>List of document ID's of forms, schedules, supporting info. etc. attached to this form</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="BinaryAttachment"/>
+
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS1118ScheduleKType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 1118 Schedule K</xsd:documentation>
+		</xsd:annotation>
+
+		<xsd:sequence>
+
+			<!-- Name of the Corporation -->
+			<xsd:element name="CorporationName" type="BusinessNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Name of the corporation</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Choice between Corporation EIN, or Missing EIN Reason -->
+			<xsd:choice minOccurs="0">
+
+				<!-- Employer Identification Number -->
+				<xsd:element name="EIN" type="EINType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Employer identification number</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<!-- Missing EIN Reason -->
+				<xsd:element name="MissingEINReasonCd">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Missing EIN reason</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="APPLD FOR"/>
+							<xsd:enumeration value="FOREIGNUS"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+
+			</xsd:choice>
+
+			<!-- Separate Category Code -->
+			<xsd:element name="SeparateCategoryCd">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Separate category code</Description>
+						<LineNumber>Line a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="TextType">
+						<xsd:enumeration value="PAS"/>
+						<xsd:enumeration value="GEN"/>
+						<xsd:enumeration value="901j"/>
+						<xsd:enumeration value="951A"/>
+						<xsd:enumeration value="FB"/>
+						<xsd:enumeration value="RBT PAS"/>
+						<xsd:enumeration value="RBT GEN"/>
+						<xsd:enumeration value="RBT FB"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			
+			<!-- Sanctioned Country Code -->
+			<xsd:element name="SanctionedCountryCd" type="CountryType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Sanctioned country code</Description>
+						<LineNumber>b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Treaty Country Code -->
+			<xsd:element name="TreatyCountryCd" type="CountryType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Treaty country code</Description>
+						<LineNumber>c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Description -->
+			<xsd:element name="OtherAdjustmentsDescription" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- OtherAdjustments -->
+						<xsd:element name="OtherAdjustmentsTxt" type="ShortDescriptionType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>OtherAdjustments</Description>
+									<LineNumber>Schedule K Line 2c</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+
+			<!-- Column (i) - 10th Preceding Tax Year -->
+			<xsd:element name="TenthPrecedingTaxYear" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Foreign Tax Carryover 10th Year -->
+						<xsd:element name="ForeignTaxCarryoverAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Foreign tax carryover 10th year</Description>
+									<LineNumber>Schedule K Line 1(i)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Adjustments For Section 905(c) Redeterminations -->
+						<xsd:element name="SectionRedeterminationAdjAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Adjustments for section 905(c) redeterminations (see instructions)</Description>
+									<LineNumber>Schedule K Line 2b(i)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Other Adjustments 10th Year -->
+						<xsd:element name="OtherAdjustmentsAmt" type="USAmountType" minOccurs="0" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Other adjustments 10th year</Description>
+									<LineNumber>Schedule K Line 2c(i)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Adjustment Foreign Tax Carryover 10th Year -->
+						<xsd:element name="AdjustmentToFrgnTxCarryOverAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Adjustment foreign tax carryover 10th year</Description>
+									<LineNumber>Schedule K Part I Line 3(i)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Foreign Tax Carryover Used 10th Year -->
+						<xsd:element name="ForeignTaxCarryOverUsedAmt" type="USAmountNegType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Foreign Tax carryover used 10th year</Description>
+									<LineNumber>Schedule K Part I Line 4(i)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Foreign Tax Carryover Expired -->
+						<xsd:element name="FrgnTaxCyovPrecedingTaxYrAmt" type="USAmountNegType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Foreign tax carryover expired</Description>
+									<LineNumber>Schedule K Part I Line 5(i)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Column (ii) - 9th Preceding Tax Year -->
+			<xsd:element name="NinthPrecedingTaxYear" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Foreign Tax Carryover 9th Year -->
+						<xsd:element name="ForeignTaxCarryoverAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Foreign tax carryover 9th yr</Description>
+									<LineNumber>Schedule K Line 1(ii)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Adjustments For Section 905(c) Redeterminations -->
+						<xsd:element name="SectionRedeterminationAdjAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Adjustments for section 905(c) redeterminations (see instructions)</Description>
+									<LineNumber>Schedule K Line 2b(ii)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Other Adjustments 9th Year -->
+						<xsd:element name="OtherAdjustmentsAmt" type="USAmountType" minOccurs="0" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Other adjustments 9th year</Description>
+									<LineNumber>Schedule K Line 2c(ii)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Adjustment Foreign Tax Carryover 9th Year -->
+						<xsd:element name="AdjustmentToFrgnTxCarryOverAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Adjustment foreign tax carryover 9th year</Description>
+									<LineNumber>Schedule K Part I Line 3(ii)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Foreign Tax Carryover Used 9th Year -->
+						<xsd:element name="ForeignTaxCarryOverUsedAmt" type="USAmountNegType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Foreign Tax carryover used 9th year</Description>
+									<LineNumber>Schedule K Part I Line 4(ii)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Foreign Tax Carryover Following 9th Year -->
+						<xsd:element name="FrgnTaxCyovPrecedingTaxYrAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Foreign tax carryover following 9th year</Description>
+									<LineNumber>Schedule K Part I Line 8(ii)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Column (iii) - 8th Preceding Tax Year -->
+			<xsd:element name="EighthPrecedingTaxYear" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Foreign Tax Carryover 8th Year -->
+						<xsd:element name="ForeignTaxCarryoverAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Foreign tax carryover 8th year</Description>
+									<LineNumber>Schedule K Line 1(iii)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Adjustments For Section 905(c) Redeterminations -->
+						<xsd:element name="SectionRedeterminationAdjAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Adjustments for section 905(c) redeterminations (see instructions)</Description>
+									<LineNumber>Schedule K Line 2b(iii)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Other Adjustments 8th Year -->
+						<xsd:element name="OtherAdjustmentsAmt" type="USAmountType" minOccurs="0" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Other adjustments 8th year</Description>
+									<LineNumber>Schedule K Line 2c(iii)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Adjustment Foreign Tax Carryover 8th Year -->
+						<xsd:element name="AdjustmentToFrgnTxCarryOverAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Adjustment foreign tax carryover 8th year</Description>
+									<LineNumber>Schedule K Part I Line 3(iii)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Foreign Tax Carryover Used 8th Year -->
+						<xsd:element name="ForeignTaxCarryOverUsedAmt" type="USAmountNegType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Foreign Tax carryover used 8th year</Description>
+									<LineNumber>Schedule K Part I Line 4(iii)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Foreign Tax Carryover Following 8th Year -->
+						<xsd:element name="FrgnTaxCyovPrecedingTaxYrAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Foreign tax carryover following 8th year</Description>
+									<LineNumber>Schedule K Part I Line 8(iii)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Column (iv) - 7th Preceding Tax Year -->
+			<xsd:element name="SeventhPrecedingTaxYear" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Foreign Tax Carryover 7th Year -->
+						<xsd:element name="ForeignTaxCarryoverAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Foreign tax carryover 7th year</Description>
+									<LineNumber>Schedule K Line 1(iv)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Adjustments For Section 905(c) Redeterminations -->
+						<xsd:element name="SectionRedeterminationAdjAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Adjustments for section 905(c) redeterminations (see instructions)</Description>
+									<LineNumber>Schedule K Line 2b(iv)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Other Adjustments 7th Year -->
+						<xsd:element name="OtherAdjustmentsAmt" type="USAmountType" minOccurs="0" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Other adjustments 7th year</Description>
+									<LineNumber>Schedule K Line 2c(iv)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Adjustment Foreign Tax Carryover 7th Year -->
+						<xsd:element name="AdjustmentToFrgnTxCarryOverAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Adjustment foreign tax carryover 7th year</Description>
+									<LineNumber>Schedule K Part I Line 3(iv)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Foreign Tax Carryover Used 7th Year -->
+						<xsd:element name="ForeignTaxCarryOverUsedAmt" type="USAmountNegType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Foreign Tax carryover used 7th year</Description>
+									<LineNumber>Schedule K Part I Line 4(iv)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Foreign Tax Carryover Following 7th Year -->
+						<xsd:element name="FrgnTaxCyovPrecedingTaxYrAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Foreign tax carryover following 7th year</Description>
+									<LineNumber>Schedule K Part I Line 8(iv)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Column (v) - 6th Preceding Tax Year -->
+			<xsd:element name="SixthPrecedingTaxYear" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Foreign Tax Carryover 6th Year -->
+						<xsd:element name="ForeignTaxCarryoverAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Foreign tax carryover 6th year</Description>
+									<LineNumber>Schedule K Line 1(v)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Adjustments For Section 905(c) Redeterminations -->
+						<xsd:element name="SectionRedeterminationAdjAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Adjustments for section 905(c) redeterminations (see instructions)</Description>
+									<LineNumber>Schedule K Line 2b(v)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Other Adjustments 6th Year -->
+						<xsd:element name="OtherAdjustmentsAmt" type="USAmountType" minOccurs="0" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Other adjustments 6th year</Description>
+									<LineNumber>Schedule K Line 2c(v)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Adjustment Foreign Tax Carryover 6th Year -->
+						<xsd:element name="AdjustmentToFrgnTxCarryOverAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Adjustment foreign tax carryover 6th year</Description>
+									<LineNumber>Schedule K Part I Line 3(v)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Foreign Tax Carryover Used 6th Year -->
+						<xsd:element name="ForeignTaxCarryOverUsedAmt" type="USAmountNegType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Foreign Tax carryover used 6th year</Description>
+									<LineNumber>Schedule K Part I Line 4(v)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Foreign Tax Carryover Following 6th Year -->
+						<xsd:element name="FrgnTaxCyovPrecedingTaxYrAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Foreign tax carryover following 6th year</Description>
+									<LineNumber>Schedule K Part I Line 8(v)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Column (vi) - 5th Preceding Tax Year -->
+			<xsd:element name="FifthPrecedingTaxYear" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Foreign Tax Carryover 5th Year -->
+						<xsd:element name="ForeignTaxCarryoverAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Foreign tax carryover 5th year</Description>
+									<LineNumber>Schedule K Line 1(vi)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Adjustments For Section 905(c) Redeterminations -->
+						<xsd:element name="SectionRedeterminationAdjAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Adjustments for section 905(c) redeterminations (see instructions)</Description>
+									<LineNumber>Schedule K Line 2b(vi)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Other Adjustments 5th Year -->
+						<xsd:element name="OtherAdjustmentsAmt" type="USAmountType" minOccurs="0" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Other adjustments 5th year</Description>
+									<LineNumber>Schedule K Line 2c(vi)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Adjustment Foreign Tax Carryover 5th Year -->
+						<xsd:element name="AdjustmentToFrgnTxCarryOverAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Adjustment foreign tax carryover 5th year</Description>
+									<LineNumber>Schedule K Part I Line 3(vi)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Foreign Tax Carryover Used 5th Year -->
+						<xsd:element name="ForeignTaxCarryOverUsedAmt" type="USAmountNegType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Foreign tax carryover used 5th year</Description>
+									<LineNumber>Schedule K Part I Line 4(vi)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Foreign Tax Carryover Following 5th Year -->
+						<xsd:element name="FrgnTaxCyovPrecedingTaxYrAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Foreign tax carryover following 5th year</Description>
+									<LineNumber>Schedule K Part I Line 8(vi)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Column (vii) - Subtotals (Add Columns (i) through (vi) -->
+			<xsd:element name="Subtotal" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Foreign Tax Carryover Subtotal -->
+						<xsd:element name="ForeignTaxCarryoverSubtotalAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Foreign tax carryover subtotal</Description>
+									<LineNumber>Schedule K Line 1(vii)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Adjustments For Section 905(c) Redeterminations -->
+						<xsd:element name="SectionRedeterminationAdjAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Adjustments for section 905(c) redeterminations (see instructions)</Description>
+									<LineNumber>Schedule K Line 2b(vii)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Other Adjustments Subtotal -->
+						<xsd:element name="OtherAdjustmentsTotalAmt" type="USAmountType" minOccurs="0" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Other adjustments subtotal</Description>
+									<LineNumber>Schedule K Line 2c(vii)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Adjustment Foreign Tax Carryover Subtotal -->
+						<xsd:element name="AdjustmentFrgnTxCyovSubtlAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Adjustment foreign tax carryover subtotal</Description>
+									<LineNumber>Schedule K Part I Line 3(vii)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Foreign Tax Carryover Used Subtotal -->
+						<xsd:element name="ForeignTaxCyovUsedSubtlAmt" type="USAmountNegType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Foreign tax carryover used subtotal</Description>
+									<LineNumber>Schedule K Part I Line 4(vii)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Foreign Tax Carryover Expired Subtotal -->
+						<xsd:element name="ForeignTaxCyovExpiredSubtlAmt" type="USAmountNegType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Foreign tax carryover expired subtotal</Description>
+									<LineNumber>Schedule K Part I Line 5(vii)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Foreign Tax Carryover Following Subtotal -->
+						<xsd:element name="FrgnTaxCyovFollowingSubtlAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Foreign tax carryover following subtotal</Description>
+									<LineNumber>Schedule K Part I Line 8(vii)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Column (viii) - Subtotals From Page 1(enter the amounts from column (vii) on page 1) -->
+			<xsd:element name="SubtotalFromPage1" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Foreign Tax Carryover Subtotal -->
+						<xsd:element name="ForeignTaxCarryoverSubtotalAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Foreign tax carryover subtotal</Description>
+									<LineNumber>Schedule K Line 1(viii)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Adjustments For Section 905(c) Redeterminations -->
+						<xsd:element name="SectionRedeterminationAdjAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Adjustments for section 905(c) redeterminations (see instructions)</Description>
+									<LineNumber>Schedule K Line 2b(viii)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Other Adjustments Subtotal -->
+						<xsd:element name="OtherAdjustmentsTotalAmt" type="USAmountType" minOccurs="0" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Other adjustments subtotal</Description>
+									<LineNumber>Schedule K Line 2c(viii)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Adjustment Foreign Tax Carryover Subtotal -->
+						<xsd:element name="AdjustmentFrgnTxCyovSubtlAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Adjustment foreign tax carryover subtotal</Description>
+									<LineNumber>Schedule K Part I Line 3(viii)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Foreign Tax Carryover Used Subtotal -->
+						<xsd:element name="ForeignTaxCyovUsedSubtlAmt" type="USAmountNegType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Foreign tax carryover used subtotal</Description>
+									<LineNumber>Schedule K Part I Line 4(viii)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Foreign Tax Carryover Expired Subtotal -->
+						<xsd:element name="ForeignTaxCyovExpiredSubtlAmt" type="USAmountNegType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Foreign tax carryover expired subtotal</Description>
+									<LineNumber>Schedule K Part I Line 5(viii)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Foreign Tax Carryover Following Subtotal -->
+						<xsd:element name="FrgnTaxCyovFollowingSubtlAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Foreign tax carryover following subtotal</Description>
+									<LineNumber>Schedule K Part I Line 8(viii)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Column (ix) - 4th Preceding Tax Year -->
+			<xsd:element name="FourthPrecedingTaxYear" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Foreign Tax Carryover 4th Year -->
+						<xsd:element name="ForeignTaxCarryoverAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Foreign tax carryover 4th yr</Description>
+									<LineNumber>Schedule K Line 1(ix)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Adjustments For Section 905(c) Redeterminations -->
+						<xsd:element name="SectionRedeterminationAdjAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Adjustments for section 905(c) redeterminations (see instructions)</Description>
+									<LineNumber>Schedule K Line 2b(ix)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Other Adjustments 4th Year -->
+						<xsd:element name="OtherAdjustmentsAmt" type="USAmountType" minOccurs="0" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Other adjustments 4th year</Description>
+									<LineNumber>Schedule K Line 2c(ix)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Adjustment Foreign Tax Carryover 4th Year -->
+						<xsd:element name="AdjustmentToFrgnTxCarryOverAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Adjustment foreign tax carryover 4th year</Description>
+									<LineNumber>Schedule K Part I Line 3(ix)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Foreign Tax Carryover Used 4th Year -->
+						<xsd:element name="ForeignTaxCarryOverUsedAmt" type="USAmountNegType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Foreign Tax carryover used 4th year</Description>
+									<LineNumber>Schedule K Part I Line 4(ix)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Foreign Tax Carryover Following 4th Year -->
+						<xsd:element name="FrgnTaxCyovPrecedingTaxYrAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Foreign tax carryover following 4th year</Description>
+									<LineNumber>Schedule K Part I Line 8(ix)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Column (x) - 3rd Preceding Tax Year -->
+			<xsd:element name="ThirdPrecedingTaxYear" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Foreign Tax Carryover 3rd Year -->
+						<xsd:element name="ForeignTaxCarryoverAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Foreign tax carryover 3rd yr</Description>
+									<LineNumber>Schedule K Line 1(x)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Adjustments For Section 905(c) Redeterminations -->
+						<xsd:element name="SectionRedeterminationAdjAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Adjustments for section 905(c) redeterminations (see instructions)</Description>
+									<LineNumber>Schedule K Line 2b(x)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Other Adjustments 3rd Year -->
+						<xsd:element name="OtherAdjustmentsAmt" type="USAmountType" minOccurs="0" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Other adjustments 3rd year</Description>
+									<LineNumber>Schedule K Line 2c(x)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Adjustment Foreign Tax Carryover 3rd Year -->
+						<xsd:element name="AdjustmentToFrgnTxCarryOverAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Adjustment foreign tax carryover 3rd year</Description>
+									<LineNumber>Schedule K Part I Line 3(x)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Foreign Tax Carryover Used 3rd Year -->
+						<xsd:element name="ForeignTaxCarryOverUsedAmt" type="USAmountNegType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Foreign Tax carryover used 3rd year</Description>
+									<LineNumber>Schedule K Part I Line 4(x)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Foreign Tax Carryover Following 3rd Year -->
+						<xsd:element name="FrgnTaxCyovPrecedingTaxYrAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Foreign tax carryover following 3rd year</Description>
+									<LineNumber>Schedule K Part I Line 8(x)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Column (xi) - 2nd Preceding Tax Year -->
+			<xsd:element name="SecondPrecedingTaxYear" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Foreign Tax Carryover 2nd Year -->
+						<xsd:element name="ForeignTaxCarryoverAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Foreign tax carryover 2nd yr</Description>
+									<LineNumber>Schedule K Line 1(xi)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Sect 905c Redetermination Adjustments -->
+						<xsd:element name="SectionRedeterminationAdjAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Sect905c redetermination adjustments</Description>
+									<LineNumber>Schedule K Part I Line 2b(xi)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Other Adjustments 2nd Year -->
+						<xsd:element name="OtherAdjustmentsAmt" type="USAmountType" minOccurs="0" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Other adjustments 2nd year</Description>
+									<LineNumber>Schedule K Line 2c(xi)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Adjustment Foreign Tax Carryover 2nd Year -->
+						<xsd:element name="AdjustmentToFrgnTxCarryOverAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Adjustment foreign tax carryover 2nd year</Description>
+									<LineNumber>Schedule K Part I Line 3(xi)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Foreign Tax Carryover Used 2nd Year -->
+						<xsd:element name="ForeignTaxCarryOverUsedAmt" type="USAmountNegType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Foreign Tax carryover used 2nd year</Description>
+									<LineNumber>Schedule K Part I Line 4(xi)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Foreign Tax Carryover Following 2nd Year -->
+						<xsd:element name="FrgnTaxCyovPrecedingTaxYrAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Foreign tax carryover following 2nd year</Description>
+									<LineNumber>Schedule K Part I Line 8(xi)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Column (xii) - 1st Preceding Tax Year -->
+			<xsd:element name="FirstPrecedingTaxYear" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Foreign Tax Carryover 1st Year -->
+						<xsd:element name="ForeignTaxCarryoverAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Foreign tax carryover 1st yr</Description>
+									<LineNumber>Schedule K Line 1(xii)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Carryback Adjustment -->
+						<xsd:element name="CarrybackAdjustmentAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Carryback adjustment</Description>
+									<LineNumber>Schedule K Part I Line 2a(xii)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Sect 905c Redetermination Adjustments -->
+						<xsd:element name="SectionRedeterminationAdjAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Sect905c redetermination adjustments</Description>
+									<LineNumber>Schedule K Part I Line 2b(xii)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Other Adjustments 1st Year -->
+						<xsd:element name="OtherAdjustmentsAmt" type="USAmountType" minOccurs="0" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Other adjustments 1st year</Description>
+									<LineNumber>Schedule K Line 2c(xii)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Adjustment Foreign Tax Carryover 1st Year -->
+						<xsd:element name="AdjustmentToFrgnTxCarryOverAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Adjustment foreign tax carryover 1st year</Description>
+									<LineNumber>Schedule K Part I Line 3(xii)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Foreign Tax Carryover Used 1st Year -->
+						<xsd:element name="ForeignTaxCarryOverUsedAmt" type="USAmountNegType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Foreign Tax Carryover Used 1st Year</Description>
+									<LineNumber>Schedule K Part I Line 4(xii)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Foreign Tax Carryover Following 1st Year -->
+						<xsd:element name="FrgnTaxCyovPrecedingTaxYrAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Foreign tax carryover following 1st year</Description>
+									<LineNumber>Schedule K Part I Line 8(xii)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Column (xiii) - Current Tax Year -->
+			<xsd:element name="CurrentTaxYear" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Foreign Tax Carryover Generated -->
+						<xsd:element name="ForeignTaxCarryoverGenAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Foreign tax carryover generated</Description>
+									<LineNumber>Schedule K Line 6(xiii)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Tentaive Amount To Be Carried Back -->
+						<xsd:element name="TentativeCarriedBackAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Tentaive Amount To Be Carried Back</Description>
+									<LineNumber>Schedule K Part I Line 7(xiii)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Foreign Tax Carryover Following Current Year -->
+						<xsd:element name="ForeignTaxCyovFollowingCYAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Foreign tax carryover following current year</Description>
+									<LineNumber>Schedule K Part I Line 8(xiii)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Column (xiv) - Totals (add columns (viii) through (xiii)) -->
+			<xsd:element name="Totals" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Foreign Tax Carryover Totals -->
+						<xsd:element name="ForeignTaxCarryoverTotalsAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Foreign tax carryover totals</Description>
+									<LineNumber>Schedule K Line 1(xiv)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Carryback Adjustment Total -->
+						<xsd:element name="CarrybackAdjustmentTotalAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Carryback adjustment total</Description>
+									<LineNumber>Schedule K Part I Line 2a(xiv)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Sect 905c Redetermination Adjustments Total -->
+						<xsd:element name="SectionRedeterminationAdjAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Sect905c redetermination adjustments total</Description>
+									<LineNumber>Schedule K Part I Line 2b(xiv)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Other Adjustments Total -->
+						<xsd:element name="OtherAdjustmentsTotal" type="USAmountType" minOccurs="0" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Other adjustments Total</Description>
+									<LineNumber>Schedule K Line 2c(xiv)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Adjustment Foreign Tax Carryover Total -->
+						<xsd:element name="AdjustmentsFrgnTxCyovTotAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Adjustment foreign tax carryover total</Description>
+									<LineNumber>Schedule K Part I Line 3(xiv)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Foreign Tax Carryover Used Total -->
+						<xsd:element name="ForeignTaxCarryoverUsedTotAmt" type="USAmountNegType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Foreign Tax carryover used total</Description>
+									<LineNumber>Schedule K Part I Line 4(xiv)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Foreign Tax Carryover Expired Total -->
+						<xsd:element name="ForeignTaxCarryoverExprTotAmt" type="USAmountNegType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Foreign tax carryover expired total</Description>
+									<LineNumber>Schedule K Part I Line 5(xiv)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Foreign Tax Carryover Generated Total -->
+						<xsd:element name="ForeignTaxCarryoverGenTotAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Foreign tax carryover generated total</Description>
+									<LineNumber>Schedule K Line 6(xiv)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Tentaive Amount To Be Carried Back Total -->
+						<xsd:element name="TentativeCarriedBackTotalAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Tentaive amount to be carried back total</Description>
+									<LineNumber>Schedule K Part I Line 7(xiv)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Foreign Tax Carryover Following Total -->
+						<xsd:element name="ForeignTaxCyovFollowingTotAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Foreign tax carryover following total</Description>
+									<LineNumber>Schedule K Part I Line 8(xiv)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

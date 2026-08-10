@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form 8978</Description>
+			<TaxYear>2025</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>February 19 2026</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../Common/efileTypes.xsd"/>
+
+	<!-- =============================================================== -->
+	<!-- =======================  IRS Form 8978  ======================= -->
+	<!-- =============================================================== -->
+
+	<xsd:element name="IRS8978">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 8978</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS8978Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="StringType" fixed="IRS8978">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="referenceDocumentId" type="IdListType">
+						<xsd:annotation>
+							<xsd:documentation>List of document ID's of forms, schedules, supporting info. etc. attached to this form</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="BinaryAttachment IRS8978ScheduleA"/>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS8978Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 8978</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<xsd:choice>
+				<!-- BBA Audit is the source of the review years adjustments -->
+				<xsd:element name="BBAAuditInd" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>BBA Audit is the source of the review years adjustments</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<!-- AAR Filing is the source of the review years adjustments -->
+				<xsd:element name="AARFilingInd" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>AAR Filing is the source of the review years adjustments</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+
+			<xsd:element name="TYAuditLiabilityCmptGrp" minOccurs="0" maxOccurs="4">
+				<xsd:complexType>
+					<xsd:annotation>
+						<xsd:documentation>TYAuditLiabilityCmptGrpType</xsd:documentation>
+					</xsd:annotation>
+					<xsd:sequence>
+
+						<!-- Part I  Computation of Additional Reporting Year Tax -->
+
+						<!-- Tax Year End Date -->
+						<xsd:element name="TaxYearEndDt" type="DateType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Tax Year End Date</Description>
+									<LineNumber>Tax Year Ended, (a) - (d)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Total Income Originally Reported Amount -->
+						<xsd:element name="TotalIncomeOriginallyRptAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total Income Originally Reported Amount</Description>
+									<LineNumber>1a, (a) - (d)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Total Adjustments To Income Amount -->
+						<xsd:element name="TotalAdjustmentsToIncomeAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total Adjustments To Income Amount</Description>
+									<LineNumber>1b, (a) - (d)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Combine Lines 1a and 1b and Enter the Corrected Income -->
+						<xsd:element name="TotalIncomeCorrectAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Combine Lines 1a and 1b and Enter the Corrected Income</Description>
+									<LineNumber>2, (a) - (d)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Total Deduction Originally Reported Amount -->
+						<xsd:element name="TotalDeductionOriginallyRptAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total Deduction Originally Reported Amount</Description>
+									<LineNumber>3a, (a) - (d)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Total Deduction Net Change Amount -->
+						<xsd:element name="TotalDeductionNetChangeAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total Deduction Net Change Amount</Description>
+									<LineNumber>3b, (a) - (d)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Combine Lines 3a and 3b and Enter the Corrected Deductions -->
+						<xsd:element name="TotalDeductionCorrectAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Combine Lines 3a and 3b and Enter the Corrected Deductions</Description>
+									<LineNumber>4, (a) - (d)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Taxable Income Corrected Amount -->
+						<xsd:element name="TaxableIncomeCorrectAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Taxable Income Corrected Amount</Description>
+									<LineNumber>5, (a) - (d)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Income Tax Amount -->
+						<xsd:element name="IncomeTaxAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Income Tax Amount</Description>
+									<LineNumber>6, (a) - (d)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Alternative Minimum Tax Amount -->
+						<xsd:element name="AlternativeMinimumTaxAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Alternative Minimum Tax Amount</Description>
+									<LineNumber>7, (a) - (d)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Total Tax Corrected Amount -->
+						<xsd:element name="TotalTaxCorrectAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total Tax Corrected Amount</Description>
+									<LineNumber>8, (a) - (d)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Total Credit Originally Reported Amount -->
+						<xsd:element name="TotalCreditOriginallyRptAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total Credit Originally Reported Amount</Description>
+									<LineNumber>9a, (a) - (d)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Total Adjustments To Credit Amount -->
+						<xsd:element name="TotalAdjustmentsToCreditAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total Adjustments To Credit Amount</Description>
+									<LineNumber>9b, (a) - (d)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Combine Lines 9a and 9b and Enter the Corrected Credits -->
+						<xsd:element name="TotalCreditsCorrectAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Combine Lines 9a and 9b and Enter the Corrected Credits</Description>
+									<LineNumber>10, (a) - (d)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Total Corrected Income Tax Liability After Credit Amount -->
+						<xsd:element name="TotalCorrIncmTaxLiabAfterCrAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total Corrected Income Tax Liability After Credit Amount</Description>
+									<LineNumber>11, (a) - (d)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Total Tax Originally Reported Amount -->
+						<xsd:element name="TotalTaxOriginallyRptAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total Tax Originally Reported Amount</Description>
+									<LineNumber>12, (a) - (d)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Tax Increase Or Decrease Amount -->
+						<xsd:element name="TaxIncreaseDecreaseAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Tax Increase Or Decrease Amount</Description>
+									<LineNumber>13, (a) - (d)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Part II  Penalties -->
+
+						<!-- Penalty Amount -->
+						<xsd:element name="PenaltyAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Penalty Amount</Description>
+									<LineNumber>15, (a) - (d)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Part III  Interest -->
+
+						<!-- Interest Amount -->
+						<xsd:element name="InterestAmt" type="USAmountNNType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Interest Amount</Description>
+									<LineNumber>17, (a) - (d)</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Total Reporting Year Tax Increase Or Decrease Amount -->
+			<xsd:element name="TotRptgYrTxIncreaseDecreaseAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Reporting Year Tax Increase Or Decrease Amount</Description>
+						<LineNumber>14</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Penalty Amount -->
+			<xsd:element name="TotalPenaltyAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Penalty Amount</Description>
+						<LineNumber>16</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Interest Amount -->
+			<xsd:element name="TotalInterestAmt" type="USAmountNNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Interest Amount</Description>
+						<LineNumber>18</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

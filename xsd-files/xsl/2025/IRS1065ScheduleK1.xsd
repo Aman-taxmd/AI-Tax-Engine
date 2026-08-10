@@ -1,0 +1,1075 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Partnership Income Return - IRS Form 1065 Schedule K-1</Description>
+			<TaxYear>2014</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>December 23, 2014</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+	<!-- ============================================================== -->
+	<!-- ================= IRS Form 1065 Schedule K-1 ================= -->
+	<!-- ============================================================== -->
+	<xsd:element name="IRS1065ScheduleK1">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 1065 Schedule K-1</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS1065ScheduleK1Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS1065ScheduleK1">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="PartnershipTaxYearChangeStatement ScheduleK11065MiscellaneousItemStatement LimitedPartnerSchedule GeneralDependencySmall SelfChargedInterestIncomeExpense Elect1141110gFlowThruEntStatement"/>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="IRS1065ScheduleK1Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 1065 Schedule K-1</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<!-- Final K-1 -->
+			<xsd:element name="FinalK1Ind" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Final K-1</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Ammended K-1 -->
+			<xsd:element name="AmendedK1Ind" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Ammended K-1</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- ===== Part I - Information About the Partnership ===== -->
+			<!-- Internal Revenue Service Center Where Corporation Filed Its Return -->
+			<xsd:element name="ServiceCenterWhereRetFiledCd" type="IRSServiceCenterType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Internal Revenue Service Center where Partnership filed return</Description>
+						<LineNumber>Schedule K-1 Part I Line C</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Publicly Traded Partnership -->
+			<xsd:element name="PubliclyTradedPartnershipInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Publicly traded partnership</Description>
+						<LineNumber>Schedule K-1 Part I Line D</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- ===== Part II - Information About the Partner ===== -->
+			<!-- Partner's Identification Number: choice between EIN or SSN or Missing SSN/EIN Reason -->
+			<xsd:choice>
+				<!-- Partner's EIN -->
+				<xsd:element name="PartnerEIN" type="EINType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Partner's EIN</Description>
+							<LineNumber>Schedule K-1 Part II Line E</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<!-- Partner's SSN -->
+				<xsd:element name="PartnerSSN" type="SSNType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Partner's SSN</Description>
+							<LineNumber>Schedule K-1 Part II Line E</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<!-- Missing SSN/EIN Reason -->
+				<xsd:element name="MissingSSNEINReasonCd">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Missing SSN/EIN Reason</Description>
+							<LineNumber>Schedule K-1 Part II Line E</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="StringType">
+							<xsd:enumeration value="APPLD FOR"/>
+							<xsd:enumeration value="FOREIGNUS"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+			</xsd:choice>
+			<!-- Partner's Name -->
+			<xsd:element name="PartnerName" type="BusinessNameType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Partner's name</Description>
+						<LineNumber>Schedule K-1 Part II Line F</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Partner's Address: choice between US and Foreign Address -->
+			<xsd:choice minOccurs="0">
+				<!-- Partner's US Address -->
+				<xsd:element name="PartnerUSAddress" type="USAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Partner's US address</Description>
+							<LineNumber>Schedule K-1 Part II Line F</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<!-- Partner's Foreign Address -->
+				<xsd:element name="PartnerForeignAddress" type="ForeignAddressType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Partner's foreign address</Description>
+							<LineNumber>Schedule K-1 Part II Line F</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+			<!-- General Partner/LLC Member-Manager -->
+			<xsd:element name="GeneralPartnerOrLLCMemMgrInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>General partner or LLC member-manager</Description>
+						<LineNumber>Schedule K-1 Part II Line G</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Limited Partner/Other LLC Member -->
+			<xsd:element name="LimitedPartnerOrOtherLLCMemInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Limited partner or other LLC member</Description>
+						<LineNumber>Schedule K-1 Part II Line G</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Choice between: Domestic or Foreign Partner -->
+			<xsd:choice minOccurs="1">
+				<xsd:element name="DomesticPartnerInd" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Domestic partner</Description>
+							<LineNumber>Schedule K-1 Part II Line h</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="ForeignPartnerInd" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Foreign partner</Description>
+							<LineNumber>Schedule K-1 Part II Line H</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+			<!-- Type of Partner -->
+			<xsd:element name="EntityPartnerTypeDesc" type="LineExplanationType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>What type of entity is this partner?</Description>
+						<LineNumber>Schedule K-1 Part II Line I1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Type of Partner -->
+			<xsd:element name="PartnerRetirmentPlanInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>If this partner is a retirement plan (IRA/SEP/Keogh/etc), check this box</Description>
+						<LineNumber>Schedule K-1 Part II Line I2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Partner's Share of Profit, Loss, and Capital -->
+			<xsd:element name="PartnersShareProfitLossCapGrp" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Partner's share of profit, loss, and capital</Description>
+						<LineNumber>Schedule K-1 Part II Line J</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<!-- Partner's Share of Profit Beginning of Year -->
+						<xsd:element name="PartnersInterestInProfitsBOYRt" type="LargeRatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Partner's share of profit beginning of year</Description>
+									<LineNumber>Schedule K-1 Part II Line J</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- Partner's Share of Profit End of Year -->
+						<xsd:element name="PartnersInterestInProfitsEOYRt" type="LargeRatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Partner's share of profit end of year</Description>
+									<LineNumber>Schedule K-1 Part II Line J</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- Partner's Share of Loss Beginning of Year -->
+						<xsd:element name="PartnersLossesBOYRt" type="LargeRatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Partner's share of loss beginning of year</Description>
+									<LineNumber>Schedule K-1 Part II Line J</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- Partner's Share of Loss End of Year -->
+						<xsd:element name="PartnersLossesEOYRt" type="LargeRatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Partner's share of loss end of year</Description>
+									<LineNumber>Schedule K-1 Part II Line J</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- Partner's Share of Capital Beginning of Year -->
+						<xsd:element name="PartnersCapitalBOYRt" type="LargeRatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Partner's share of capital beginning of year</Description>
+									<LineNumber>Schedule K-1 Part II Line J</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- Partner's Share of Capital End of Year -->
+						<xsd:element name="PartnersCapitalEOYRt" type="LargeRatioType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Partner's share of capital end of year</Description>
+									<LineNumber>Schedule K-1 Part II Line J</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+					<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="ChangesInProfitAndLossStatement"/>
+				</xsd:complexType>
+			</xsd:element>
+			<!-- Partner's Share of Liability End of Year -->
+			<xsd:element name="PartnersShareOfLiabilityEOYGrp" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Partner's share of liability end of year</Description>
+						<LineNumber>Schedule K-1 Part II Line K</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<!-- Partner's Share of Liability End of Year: NonRecourse -->
+						<xsd:element name="NonrecourseAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Partner's share of liability at year end: NonRecourse </Description>
+									<LineNumber>Schedule K-1 Part II Line K</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- Partner's Share of Liability End of Year: Qualified NonRecourse Financing -->
+						<xsd:element name="QualifiedNonRcrsFinancingAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Partner's share of liability at year end: Qualified NonRecourse Financing </Description>
+									<LineNumber>Schedule K-1 Part II Line K</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- Partner's Share of Liability End of Year: Recourse -->
+						<xsd:element name="RecourseAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Partner's share of liability at year end: Recourse </Description>
+									<LineNumber>Schedule K-1 Part II Line K</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+					<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="AtRiskActivitiesStatement LossesNotSubjectToAtRiskExceptionStatement QualifiedNonrecourseFinancingStatement"/>
+				</xsd:complexType>
+			</xsd:element>
+			<!-- Partner's Capital Account Analysis -->
+			<xsd:element name="PartnersCapitalAccountGrp" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Partner's capital account analysis</Description>
+						<LineNumber>Schedule K-1 Part II Line L</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<!-- Partner's Capital Account Analysis: Beginning Capital Account -->
+						<xsd:element name="CapitalAccountBOYAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Partner's capital account analysis: beginning capital account </Description>
+									<LineNumber>Schedule K-1 Part II Line L</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- Partner's Capital Account Analysis: Capital Contributed During the Year -->
+						<xsd:element name="CapitalContributedDuringYrAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Partner's capital account analysis: capital contributed during the year </Description>
+									<LineNumber>Schedule K-1 Part II Line L</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- Partner's Capital Account Analysis: Current Year Increase (Decrease) -->
+						<xsd:element name="CurrentYrIncreaseDecreaseAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Partner's capital account analysis: current year increase (decrease) </Description>
+									<LineNumber>Schedule K-1 Part II Line L</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- Partner's Capital Account Analysis: Withdraws & Distributions -->
+						<xsd:element name="WithdrawalsAndDstrbtnsAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Partner's capital account analysis: Withdraws &amp; Distributions</Description>
+									<LineNumber>Schedule K-1 Part II Line L</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- Partner's Capital Account Analysis: Ending Capital Account -->
+						<xsd:element name="CapitalAccountEOYAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Partner's capital account analysis: ending captial account</Description>
+									<LineNumber>Schedule K-1 Part II Line L</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- Tax Basis Box -->
+						<xsd:element name="TaxBasisInd" type="CheckboxType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Tax basis</Description>
+									<LineNumber>Schedule K-1 Part II Line L</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- GAAP Box -->
+						<xsd:element name="GAAPInd" type="CheckboxType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>GAAP</Description>
+									<LineNumber>Schedule K-1 Part II Line L</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- Section 704(b) Book Box -->
+						<xsd:element name="Section704bBookInd" type="CheckboxType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Section 704(b) book</Description>
+									<LineNumber>Schedule K-1 Part II Line L</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- Other (Explain) Box -->
+						<xsd:element name="OtherInd" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Other (explain)</Description>
+									<LineNumber>Schedule K-1 Part II Line L</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:simpleContent>
+									<xsd:extension base="CheckboxType">
+										<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+										<xsd:attribute name="referenceDocumentName" type="StringType" fixed="PartnersCapitalAccountStatement"/>
+									</xsd:extension>
+								</xsd:simpleContent>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<!-- Property contribution With Built-IN Gain Loss -->
+			<xsd:element name="PropContriBuiltInGainLossInd">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Did the partner contribute property with built-in gain or loss</Description>
+						<LineNumber>Schedule K-1 Part II Line M</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="BooleanType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="BuiltInGainLossStatement"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+			<!-- ===== Part III - Partner's Share of Current Year Income, Deductions, Credits, Other items ===== -->
+			<!-- Ordinary Business Income (Loss) -->
+			<xsd:element name="OrdinaryIncomeLossAmt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Ordinary business income (loss)</Description>
+						<LineNumber>Schedule K-1 Part III Line 1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<!-- Ordinary Business Income (Loss) Activity Statement -->
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="OrdinaryBusinessIncomeLossActivityStatement"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+			<!-- Net Rental Real Estate Income (Loss) -->
+			<xsd:element name="RealEstateNetIncomeLossAmt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Net rental real estate income (loss)</Description>
+						<LineNumber>Schedule K-1 Part III Line 2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<!-- Net Rental Real Estate Income (Loss) Activity Statement -->
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="NetRentalRealEstateIncomeLossActivityStatement"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+			<!-- Other Net Rental Income (Loss) -->
+			<xsd:element name="OtherRentalIncomeAmt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other net rental income (loss)</Description>
+						<LineNumber>Schedule K-1 Part III Line 3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<!-- Other Net Rental Income (Loss) Activity Statement -->
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="OtherNetRentalIncomeLossActivityStatement"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+			<!-- Guaranteed Payments -->
+			<xsd:element name="GuaranteedPymtsToPartnerAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Guaranteed payments</Description>
+						<LineNumber>Schedule K-1 Part III Line 4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Interest Income -->
+			<xsd:element name="InterestIncomeAmt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Interest income</Description>
+						<LineNumber>Schedule K-1 Part III Line 5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountNNType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="InterestIncomeExplanationStatement"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+			<!-- Ordinary Dividends -->
+			<xsd:element name="OrdinaryDividendsAmt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Ordinary dividends</Description>
+						<LineNumber>Schedule K-1 Part III Line 6a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="OrdinaryDividendsReceivedByCorporatePartnershipSec243"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+			<!-- Qualified Dividends -->
+			<xsd:element name="QualifiedDividendsAmt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Qualified dividends</Description>
+						<LineNumber>Schedule K-1 Part III Line 6b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="QualifiedDividendsReceivedByCorporatePartnershipSec243"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+			<!-- Royalties -->
+			<xsd:element name="PortfolioIncomeLossRyltsAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Royalties</Description>
+						<LineNumber>Schedule K-1 Part III Line 7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Net Short-Term Capital Gain (Loss) -->
+			<xsd:element name="NetSTCapitalGainOrLossAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Net short-term capital gain (loss)</Description>
+						<LineNumber>Schedule K-1 Part III Line 8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Net Long-Term Capital Gain (Loss) -->
+			<xsd:element name="NetLTCapitalGainOrLossAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Net long-term capital gain (loss)</Description>
+						<LineNumber>Schedule K-1 Part III Line 9a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Collectibles (28%) Gain (Loss) -->
+			<xsd:element name="CollectiblesGainLossAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Collectibles (28%) gain (loss)</Description>
+						<LineNumber>Schedule K-1 Part III Line 9b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Unrecaptured Section 1250 Gain -->
+			<xsd:element name="UnrecapturedSection1250GainAmt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Unrecaptured section 1250 gain</Description>
+						<LineNumber>Schedule K-1 Part III Line 9c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<!-- Unrecaptured Section 1250 Gain Statement -->
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="UnrecapturedSection1250GainStatement"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+			<!-- Net Section 1231 Gain (Loss) -->
+			<xsd:element name="NetSection1231GainLossAmt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Net section 1231 gain (loss)</Description>
+						<LineNumber>Schedule K-1 Part III Line 10</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<!-- Net Section 1231 Gain (Loss) Statement -->
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="NetSection1231GainLossStatement"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+			<!-- Other Income (Loss) -->
+			<xsd:element name="IRS1065K1OtherIncomeLossGrp" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other income (loss)</Description>
+						<LineNumber>Schedule K-1 Part III Line 11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="SchK1OtherIncomeLossGrp" minOccurs="0" maxOccurs="unbounded">
+							<xsd:complexType>
+								<xsd:sequence>
+									<!-- Code -->
+									<xsd:element name="SchK1OtherIncomeLossCd" type="IRS1065SchK1OtherIncomeLossCodeType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Code</Description>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<!-- Amount -->
+									<xsd:element name="Amt" type="USAmountType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Amount</Description>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+					<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="REMICStatement Section1202ExclusionStatement2 GainEligibleSection1045RolloverStatement DeferredSection1045RolloverStatement OilGasGeothermalMineralPropertiesGainLoss OtherIncomeLossStatement FannieMaeFreddieMacGainLoss InvoluntaryConversionStatement MiningExplorationCostRecaptureStatement"/>
+				</xsd:complexType>
+			</xsd:element>
+			<!-- Section 179 Deduction -->
+			<xsd:element name="Section179ExpenseDeductionAmt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Section 179 deduction</Description>
+						<LineNumber>Schedule K-1 Part III Line 12</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<!-- Section 179 Enterprise Zone Property Statement -->
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountNNType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="EnterpriseZonePropertyStatement"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+			<!-- Other Deductions -->
+			<xsd:element name="IRS1065K1OtherDeductionsGrp" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other deductions</Description>
+						<LineNumber>Schedule K-1 Part III Line 13</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="SchK1OtherDeductionsGrp" minOccurs="0" maxOccurs="unbounded">
+							<xsd:complexType>
+								<xsd:sequence>
+									<!-- Code -->
+									<xsd:element name="SchK1OtherDeductionsCd" type="IRS1065SchK1OtherDeductionsCodeType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Code</Description>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<!-- Amount -->
+									<xsd:element name="Amt" type="USAmountType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Amount</Description>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+					<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="QualifiedConservationContributionsStatement IRS8283 DefinedBenefitPlanStatement PartnersFilmAndTVProductionStmt Section59e2ExpendituresStatement2 ContributionsSubjectToAdjustedGrossIncomeLimitations"/>
+				</xsd:complexType>
+			</xsd:element>
+			<!-- Self-Employment Earnings (Loss) -->
+			<xsd:element name="IRS1065K1SelfEmplmnEarnLossGrp" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Self-employment earnings loss</Description>
+						<LineNumber>Schedule K-1 Part III Line 14</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="SchK1SelfEmploymentEarnLossGrp" minOccurs="0" maxOccurs="unbounded">
+							<xsd:complexType>
+								<xsd:sequence>
+									<!-- Code -->
+									<xsd:element name="SchK1SelfEmploymentEarnLossCd" type="IRS1065SchK1SelfEmploymentEarningsLossCodeType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Code</Description>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<!-- Amount -->
+									<xsd:element name="Amt" type="USAmountType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Amount</Description>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<!-- Credits & Credit Recapture -->
+			<xsd:element name="IRS1065K1CreditsAndCrRcptrGrp" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Credits &amp; credit recapture</Description>
+						<LineNumber>Schedule K-1 Part III Line 15</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="SchK1CreditsAndCrRcptrGrp" minOccurs="0" maxOccurs="unbounded">
+							<xsd:complexType>
+								<xsd:sequence>
+									<!-- Code -->
+									<xsd:element name="SchK1CreditsAndCrRcptrCd" type="IRS1065SchK1CreditsAndCreditRecaptureCodeType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Code</Description>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<!-- Amount -->
+									<xsd:element name="Amt" type="USAmountType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Amount</Description>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+					<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="AgriBiodieselProducerCreditStatement AlcoholFuelCreditStatement LowIncomeHousingStatement QualifiedRehabilitationExpendituresCreditStatement RenewableElectricityAndRefinedCoalProductionCreditStatement"/>
+				</xsd:complexType>
+			</xsd:element>
+			<!-- Foreign Transactions -->
+			<xsd:element name="SchK1ForeignTransactionsGrp" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Foreign transactions</Description>
+						<LineNumber>Schedule K-1 Part III Line 16</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<!-- Choice between combinations: Country/Possession Code + Country/Possession Name  OR  Code + Amount -->
+						<xsd:choice minOccurs="0">
+							<!-- Country/Possession Code + Country/Possession Name -->
+							<xsd:sequence>
+								<!-- Country or Possession Code -->
+								<xsd:element name="CountryOrPossessionCd" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>
+											<Description>Country or Possession Code</Description>
+										</xsd:documentation>
+									</xsd:annotation>
+									<xsd:complexType>
+										<xsd:simpleContent>
+											<xsd:extension base="IRS1065SchK1FrgnTransCountryPossCodeType">
+												<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+												<xsd:attribute name="referenceDocumentName" type="StringType" fixed="ExtraterritorialIncomeExclusionStatement OtherForeignTaxInformationStatement  ScheduleK1ForeignTransactionsSchedule"/>
+											</xsd:extension>
+										</xsd:simpleContent>
+									</xsd:complexType>
+								</xsd:element>
+								<!-- Country or Possession Name -->
+								<xsd:element name="ForeignCountryOrUSPossessionCd" type="CountryType" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>
+											<Description>Country or Possession Name</Description>
+										</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+							<!-- Code + Amount -->
+							<xsd:sequence>
+								<!-- Code -->
+								<xsd:element name="SchK1ForeignTransactionsCd" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>
+											<Description>Code</Description>
+										</xsd:documentation>
+									</xsd:annotation>
+									<xsd:complexType>
+										<xsd:simpleContent>
+											<xsd:extension base="IRS1065SchK1FrgnTransAmountCodeType">
+												<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+												<xsd:attribute name="referenceDocumentName" type="StringType" fixed="ExtraterritorialIncomeExclusionStatement OtherForeignTaxInformationStatement  ScheduleK1ForeignTransactionsSchedule"/>
+											</xsd:extension>
+										</xsd:simpleContent>
+									</xsd:complexType>
+								</xsd:element>
+								<!-- Amount -->
+								<xsd:element name="Amt" type="USAmountType" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>
+											<Description>Amount</Description>
+										</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:choice>
+					</xsd:sequence>
+					<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="ForeignTransactionsLimitation"/>
+				</xsd:complexType>
+			</xsd:element>
+			<!-- Alternative Minimum Tax (AMT) Items -->
+			<xsd:element name="IRS1065K1AMTItemsGrp" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Alternative minimum tax (AMT) items</Description>
+						<LineNumber>Schedule K-1 Part III Line 17</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="SchK1AMTItemsGrp" minOccurs="0" maxOccurs="unbounded">
+							<xsd:complexType>
+								<xsd:sequence>
+									<!-- Code -->
+									<xsd:element name="SchK1AMTItemsCd" type="IRS1065SchK1AMTItemsCodeType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Code</Description>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<!-- Amount -->
+									<xsd:element name="Amt" type="USAmountType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Amount</Description>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+					<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="OilGasAndGeothermalPropertiesStatement"/>
+				</xsd:complexType>
+			</xsd:element>
+			<!-- Tax-Exempt Income & NonDeductible Expenses -->
+			<xsd:element name="IRS1065K1TxExmptNondedExpnsGrp" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Tax-exempt income &amp; nondeductible expenses</Description>
+						<LineNumber>Schedule K-1 Part III Line 18</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="SchK1TxExmptNondedExpnsGrp" minOccurs="0" maxOccurs="unbounded">
+							<xsd:complexType>
+								<xsd:sequence>
+									<!-- Code -->
+									<xsd:element name="SchK1TxExmptNondedExpnsCd" type="IRS1065SchK1TaxExemptIncomeNonDedExpensesCodeType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Code</Description>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<!-- Amount -->
+									<xsd:element name="Amt" type="USAmountType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Amount</Description>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+					<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="OtherTaxExemptIncomeUnderSec892"/>
+				</xsd:complexType>
+			</xsd:element>
+			<!-- Distributions -->
+			<xsd:element name="IRS1065K1DistributionsGrp" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Distributions</Description>
+						<LineNumber>Schedule K-1 Part III Line 19</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="SchK1DistributionsGrp" minOccurs="0" maxOccurs="unbounded">
+							<xsd:complexType>
+								<xsd:sequence>
+									<!-- Code -->
+									<xsd:element name="SchK1DistributionsCd" type="IRS1065SchK1DistributionsCodeType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Code</Description>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<!-- Amount -->
+									<xsd:element name="Amt" type="USAmountType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Amount</Description>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+								</xsd:sequence>
+								<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+								<xsd:attribute name="referenceDocumentName" type="StringType" fixed="Section737PropertyStatement"/>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+					<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="DistributionsStatement Section737PropertyStatement"/>
+				</xsd:complexType>
+			</xsd:element>
+			<!-- Other Information -->
+			<xsd:element name="IRS1065K1OtherInformationGrp" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other information</Description>
+						<LineNumber>Schedule K-1 Part III Line 20</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="SchK1OtherInformationGrp" minOccurs="0" maxOccurs="unbounded">
+							<xsd:complexType>
+								<xsd:sequence>
+									<!-- Code -->
+									<xsd:element name="SchK1OtherInformationCd" type="IRS1065SchK1OtherInformationCodeType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Code</Description>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<!-- Amount -->
+									<xsd:element name="Amt" type="USAmountType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Amount</Description>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+					<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="AdvancedCoalProjectPropStmt BasisOfEnergyPropertyStatement NonrentalRealEstateQualifiedRehabilitationExpendituresCreditStatement PartnersInversionGainStatement RecaptureOfInvestmentCreditStatement RecaptureOfOtherCreditsStatement IRS8886 PrecontributionGainLoss"/>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- Code Type for Other Income (Loss) -->
+	<xsd:simpleType name="IRS1065SchK1OtherIncomeLossCodeType">
+		<xsd:restriction base="StringType">
+			<xsd:pattern value="[A-F,*]"/>
+			<xsd:pattern value="[A-F][*]"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- Code Type for Other Deductions -->
+	<xsd:simpleType name="IRS1065SchK1OtherDeductionsCodeType">
+		<xsd:restriction base="StringType">
+			<xsd:pattern value="[A-W,*]"/>
+			<xsd:pattern value="[A-W][*]"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- Code Type for Self Employment Earnings Loss -->
+	<xsd:simpleType name="IRS1065SchK1SelfEmploymentEarningsLossCodeType">
+		<xsd:restriction base="StringType">
+			<xsd:pattern value="[A-C,*]"/>
+			<xsd:pattern value="[A-C][*]"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- Code Type for Credits and Credit Recapture -->
+	<xsd:simpleType name="IRS1065SchK1CreditsAndCreditRecaptureCodeType">
+		<xsd:restriction base="StringType">
+			<xsd:pattern value="[A-P,*]"/>
+			<xsd:pattern value="[A-P][*]"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- Amount Code Type for Foreign Transactions -->
+	<xsd:simpleType name="IRS1065SchK1FrgnTransAmountCodeType">
+		<xsd:restriction base="StringType">
+			<xsd:pattern value="[B-Q,*]"/>
+			<xsd:pattern value="[B-Q][*]"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- Country or Possession Code Type for Foreign Transactions -->
+	<xsd:simpleType name="IRS1065SchK1FrgnTransCountryPossCodeType">
+		<xsd:restriction base="StringType">
+			<xsd:pattern value="[A,*]"/>
+			<xsd:pattern value="[A][*]"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- Code Type for AMT Items -->
+	<xsd:simpleType name="IRS1065SchK1AMTItemsCodeType">
+		<xsd:restriction base="StringType">
+			<xsd:pattern value="[A-F,*]"/>
+			<xsd:pattern value="[A-F][*]"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- Code Type for Tax Exempt Income and Nondeductible Expenses -->
+	<xsd:simpleType name="IRS1065SchK1TaxExemptIncomeNonDedExpensesCodeType">
+		<xsd:restriction base="StringType">
+			<xsd:pattern value="[A-C,*]"/>
+			<xsd:pattern value="[A-C][*]"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- Code Type for Distributions -->
+	<xsd:simpleType name="IRS1065SchK1DistributionsCodeType">
+		<xsd:restriction base="StringType">
+			<xsd:pattern value="[A-C,*]"/>
+			<xsd:pattern value="[A-C][*]"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- Code Type for Other Information -->
+	<xsd:simpleType name="IRS1065SchK1OtherInformationCodeType">
+		<xsd:restriction base="StringType">
+			<xsd:pattern value="[A-Z,*]"/>
+			<xsd:pattern value="[A-Z][*]"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+</xsd:schema>

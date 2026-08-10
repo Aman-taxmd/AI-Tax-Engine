@@ -1,0 +1,39 @@
+# Seed catalog for Schedule 1-A (Form 1040) — Additional Deductions, new for
+# tax year 2025 (OBBBA: qualified tips, qualified overtime, car loan
+# interest, enhanced deduction for seniors).
+#
+# Like Schedule 1, Schedule 1-A has no separate "About" page of its own
+# (confirmed https://www.irs.gov/forms-pubs/about-schedule-1-a-form-1040 ->
+# 404), so this catalog also crawls the About Form 1040 page and relies on
+# discovery.py's doc_id override to tag its PDF (f1040s1a.pdf) with the
+# distinct form_number "1040s1a".
+#
+# Its own e-file schema (IRS1040Schedule1A.xsd + matching .xsl) is staged
+# locally under this form identity in build/ingestion/download.py's
+# STAGED_LOCAL_FILES — every element in that XSD carries a clean
+# <LineNumber> annotation, so build/synthesis/canonical_field_writer.py's
+# existing XSD walk produces real canonical fields for this form exactly
+# like it already does for 1040/8889/1040s1, with no special-casing needed.
+#
+# Schedule 1-A's own line-by-line prose is cited directly out of the
+# already-fetched i1040gi ("Instructions for Schedule 1-A" section) rather
+# than as a separate fetched document — same reasoning as form_1040s1.yaml.
+form_number: "1040s1a"
+tax_year: 2025
+
+entry_points:
+  - url: https://www.irs.gov/forms-pubs/about-form-1040
+    role: primary_form
+
+include_doc_types:
+  - form
+
+# Scoped narrowly to Schedule 1-A's own PDF (doc_id "1040s1a" deliberately
+# left OUT of this list so it passes through as in-scope).
+excluded_doc_ids:
+  - "1040"
+  - 1040s     # Form 1040-SR
+  - 1040s1    # Schedule 1 — its own catalog, see form_1040s1.yaml
+  - 1040s2    # Schedule 2 (AMT / other taxes)
+  - 1040s3    # Schedule 3 (nonrefundable credits)
+  - 1040tt    # Tax and EIC tables

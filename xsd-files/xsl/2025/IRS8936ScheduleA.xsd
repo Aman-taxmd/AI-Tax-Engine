@@ -1,0 +1,554 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+    <xsd:annotation>
+        <xsd:documentation>
+            <Description>IRS e-file Schema - Form 8936 Schedule A - </Description>
+            <TaxYear>2025</TaxYear>
+            <MaturityLevel>Final Release</MaturityLevel>
+            <ReleaseDate>February 19 2026</ReleaseDate>
+        </xsd:documentation>
+    </xsd:annotation>
+    
+    <xsd:include schemaLocation="../../Common/efileTypes.xsd"/>
+    
+    <!-- ======================================================== -->
+    <!-- =============== IRS Form 8936 Schedule A =============== -->
+    <!-- ======================================================== -->
+    
+    <xsd:element name="IRS8936ScheduleA">
+        <xsd:annotation>
+            <xsd:documentation>IRS Form 8936 Schedule A - </xsd:documentation>
+        </xsd:annotation>
+        
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="IRS8936ScheduleAType">
+                    <xsd:attributeGroup ref="DocumentAttributes">
+                        <xsd:annotation>
+                            <xsd:documentation>Common return document attributes</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:attributeGroup>
+                    
+                    <xsd:attribute name="documentName" type="TextType" fixed="IRS8936ScheduleA">
+                        <xsd:annotation>
+                            <xsd:documentation>IRS internal use only. To avoid errors within the return, do not include the attribute name or value.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:attribute>
+                    
+                    <xsd:attribute name="referenceDocumentId" type="IdListType">
+                        <xsd:annotation>
+                            <xsd:documentation>List of document IDs of forms, schedules, supporting info. etc. attached to this form.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:attribute>
+                    
+                    <xsd:attribute name="referenceDocumentName" type="TextType" fixed="BinaryAttachment GeneralDependencySmall"/>
+                </xsd:extension>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+    
+    <xsd:complexType name="IRS8936ScheduleAType">
+        <xsd:sequence>
+            <!-- =============== Part I Vehicle Details =============== -->
+            
+            <xsd:element name="VehicleDescriptionGrp" type="VehicleDescriptionGrpType">
+            	<xsd:annotation>
+		    <xsd:documentation>
+                        <LineNumber>1a-1c</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>            
+            
+            <!-- Vehicle identification number -->
+            <xsd:element name="VIN" type="VINType">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Vehicle identification number</Description>
+                        <LineNumber>2</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Date vehicle was placed in service -->
+            <xsd:element name="VehiclePlacedInServiceDt" type="DateType">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Date vehicle was placed in service</Description>
+                        <LineNumber>3</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Did you transfer the credit to the dealer at the time of sale? -->
+            <xsd:element name="CrTrnsfrDlrSaleInd" type="BooleanType">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Did you transfer the credit to the dealer at the time of sale?</Description>
+                        <LineNumber>4a</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Enter the transferred amount shown on the seller's report -->
+            <xsd:element name="CrTrnsfrDlrSaleAmt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Enter the transferred amount shown on the seller's report</Description>
+                        <LineNumber>4a</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- If the specified line is "Yes," complete specified lines, as applicable, and check here if directed to do so -->
+            <xsd:element name="NotAllowedClaimClnVehCrInd" type="CheckboxType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>If the specified line is "Yes," complete specified lines, as applicable, and check here if directed to do so</Description>
+                        <LineNumber>4b</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <xsd:choice minOccurs="0">
+                <!-- New clean vehicle group -->
+                <xsd:element name="NewCleanVehicleGrp">
+                    <xsd:annotation>
+                        <xsd:documentation>
+                            <Description>New clean vehicle group</Description>
+                            <LineNumber>5</LineNumber>
+                        </xsd:documentation>
+                    </xsd:annotation>
+                    
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <!-- Yes, VIN entered belongs to a new clean vehicle placed in service during the tax year -->
+                            <xsd:element name="NewClnVehServiceTYYesInd" type="CheckboxType" minOccurs="0">
+                                <xsd:annotation>
+                                    <xsd:documentation>
+                                        <Description>Yes, VIN entered belongs to a new clean vehicle placed in service during the tax year</Description>
+                                        <LineNumber>5</LineNumber>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                            
+                            <!-- =============== Part II Credit Amount for Business/Investment Use Part of New Clean Vehicle =============== -->
+                            
+                            <!-- Did you resell the vehicle within 30 days of the placed in service date shown on specified line? -->
+                            <xsd:element name="ResellClnVeh30DaysInd" type="BooleanType">
+                                <xsd:annotation>
+                                    <xsd:documentation>
+                                        <Description>Did you resell the vehicle within 30 days of the placed in service date shown on specified line?</Description>
+                                        <LineNumber>8a</LineNumber>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                            
+                            <!-- Are you filing this form with an individual income tax return? -->
+                            <xsd:element name="FilingFormIITRInd" type="BooleanType" minOccurs="0">
+                                <xsd:annotation>
+                                    <xsd:documentation>
+                                        <Description>Are you filing this form with an individual income tax return?</Description>
+                                        <LineNumber>8b</LineNumber>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                            
+                            <!-- Complete Form 8936, specified lines.  Is the specified line more than the specified Part limit shown on the chart for your current year filing status? -->
+                            <xsd:element name="AmtGrtrThanCYFSLimitInd" type="BooleanType" minOccurs="0">
+                                <xsd:annotation>
+                                    <xsd:documentation>
+                                        <Description>Complete Form 8936, specified lines. Is the specified line more than the specified Part limit shown on the chart for your current year filing status?</Description>
+                                        <LineNumber>8c</LineNumber>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                            
+                            <!-- Complete Form 8936, specified lines.  Is specified line more than the specified Part limit shown on the chart for your prior year filing status? See instructions if your current year return is a joint return -->
+                            <xsd:element name="AmtGrtrThanPYFSLimitInd" type="BooleanType" minOccurs="0">
+                                <xsd:annotation>
+                                    <xsd:documentation>
+                                        <Description>Complete Form 8936, specified lines. Is specified line more than the specified Part limit shown on the chart for your prior year filing status? See instructions if your current year return is a joint return</Description>
+                                        <LineNumber>8d</LineNumber>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                            
+                            <!-- Acquire Vehicle For Use Or Lease And Not For Resale -->
+                            <xsd:element name="AcqVehUseOrLeaseNotResaleInd" type="BooleanType" minOccurs="0">
+                                <xsd:annotation>
+                                    <xsd:documentation>
+                                        <Description>Acquire Vehicle For Use Or Lease And Not For Resale</Description>
+                                        <LineNumber>8e</LineNumber>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                            
+                            <!-- Tentative credit amount -->
+                            <xsd:element name="TentativeCreditAmt" type="USAmountNNType" minOccurs="0">
+                                <xsd:annotation>
+                                    <xsd:documentation>
+                                        <Description>Tentative credit amount</Description>
+                                        <LineNumber>9</LineNumber>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                            
+                            <!-- Business investment use percentage -->
+                            <xsd:element name="BusinessInvestmentUsePct" type="RatioType" minOccurs="0">
+                                <xsd:annotation>
+                                    <xsd:documentation>
+                                        <Description>Business investment use percentage</Description>
+                                        <LineNumber>10</LineNumber>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                            
+                            <!-- Business investment use Amount -->
+                            <xsd:element name="BusinessInvestmentUseAmt" type="USAmountNNType" minOccurs="0">
+                                <xsd:annotation>
+                                    <xsd:documentation>
+                                        <Description>Business investment use Amount</Description>
+                                        <LineNumber>11</LineNumber>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                            
+                            <!-- =============== Part III Credit Amount for Personal Use Part of New Clean Vehicle =============== -->
+                            <xsd:element name="PrsnlUseNewCleanVehicleCrAmt" type="USAmountNNType" minOccurs="0">
+                                <xsd:annotation>
+                                    <xsd:documentation>
+                                        <LineNumber>12</LineNumber>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+                
+                <!-- Previously owned clean vehicle group -->
+                <xsd:element name="PrevOwnCleanVehicleGrp">
+                    <xsd:annotation>
+                        <xsd:documentation>
+                            <Description>Previously owned clean vehicle group</Description>
+                            <LineNumber>6</LineNumber>
+                        </xsd:documentation>
+                    </xsd:annotation>
+                    
+                    <xsd:complexType>
+                        <xsd:sequence>
+						    
+			    <!-- No, VIN entered does not belong to a new clean vehicle placed in service during the tax year -->
+                            <xsd:element name="NewClnVehServiceTYNoInd" type="CheckboxType" minOccurs="0">
+                                <xsd:annotation>
+                                    <xsd:documentation>
+                                        <Description>No, VIN entered does not belong to a new clean vehicle placed in service during the tax year</Description>
+                                        <LineNumber>5</LineNumber>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+							
+                            <!-- Yes, VIN entered does belong to a previously owned clean vehicle acquired after specified date and placed in service during the tax year -->
+                            <xsd:element name="PrevOwnClnVehServiceTYYesInd" type="CheckboxType" minOccurs="0">
+                                <xsd:annotation>
+                                    <xsd:documentation>
+                                        <Description>Yes, VIN entered does belong to a previously owned clean vehicle acquired after specified date and placed in service during the tax year</Description>
+                                        <LineNumber>6</LineNumber>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                            
+                            <!-- =============== Part IV Credit Amount for Previously Owned Clean Vehicle. =============== -->
+                            
+                            <!-- Did you resell the vehicle within 30 days of the placed in service date shown on specified line? -->
+                            <xsd:element name="PrevOwnResellClnVeh30DaysInd" type="BooleanType">
+                                <xsd:annotation>
+                                    <xsd:documentation>
+                                        <Description>Did you resell the vehicle within 30 days of the placed in service date shown on specified line?</Description>
+                                        <LineNumber>13a</LineNumber>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                            
+                            <!-- Complete Form 8936, specified lines.  Is the specified line more than the specified Part limit shown on the chart for your current year filing status? -->
+                            <xsd:element name="PrevOwnAmtGrtrThanCYFSLimitInd" type="BooleanType" minOccurs="0">
+                                <xsd:annotation>
+                                    <xsd:documentation>
+                                        <Description>Complete Form 8936, specified lines. Is the specified line more than the specified Part limit shown on the chart for your current year filing status?</Description>
+                                        <LineNumber>13b</LineNumber>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                            
+                            <!-- Complete Form 8936, specified lines.  Is the specified line more than the specified Part limit shown on the chart your prior year filing status? See instructions if your current year return is a joint return. -->
+                            <xsd:element name="PrevOwnAmtGrtrThanPYFSLimitInd" type="BooleanType" minOccurs="0">
+                                <xsd:annotation>
+                                    <xsd:documentation>
+                                        <Description>Complete Form 8936, specified lines.  Is the specified line more than the specified Part limit shown on the chart your prior year filing status? See instructions if your current year return is a joint return.</Description>
+                                        <LineNumber>13c</LineNumber>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                            
+                            <!-- Have you claimed a previously owned clean vehicle credit for another vehicle purchased in the 3-year period ending on the date you purchased the vehicle? -->
+                            <xsd:element name="ClmPrevOwnClnVeh3YrPeriodInd" type="BooleanType" minOccurs="0">
+                                <xsd:annotation>
+                                    <xsd:documentation>
+                                        <Description>Have you claimed a previously owned clean vehicle credit for another vehicle purchased in the 3-year period ending on the date you purchased the vehicle?</Description>
+                                        <LineNumber>13d</LineNumber>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                            
+                            <!-- Is the sales price of the vehicle more than than specified amount -->
+                            <xsd:element name="ClnVehSalePriceMoreSpcfdAmtInd" type="BooleanType" minOccurs="0">
+                                <xsd:annotation>
+                                    <xsd:documentation>
+                                        <Description>Is the sales price of the vehicle more than than specified amount</Description>
+                                        <LineNumber>13e</LineNumber>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                            
+                            <!-- Did you acquire the vehicle for use and not for resale -->
+                            <xsd:element name="AcqPrevOwnVehUseNotResaleInd" type="BooleanType" minOccurs="0">
+                                <xsd:annotation>
+                                    <xsd:documentation>
+                                        <Description>Did you acquire the vehicle for use and not for resale</Description>
+                                        <LineNumber>13f</LineNumber>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                            
+                            <!-- Can you be claimed as a dependent on another person's tax return -->
+                            <xsd:element name="ClaimedAsDependentInd" type="BooleanType" minOccurs="0">
+                                <xsd:annotation>
+                                    <xsd:documentation>
+                                        <Description>Can you be claimed as a dependent on another person's tax return</Description>
+                                        <LineNumber>13g</LineNumber>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                            
+                            <!-- Sales price of the vehicle -->
+                            <xsd:element name="SalePriceAmt" type="USAmountNNType" minOccurs="0">
+                                <xsd:annotation>
+                                    <xsd:documentation>
+                                        <Description>Sales price of the vehicle</Description>
+                                        <LineNumber>14</LineNumber>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                            
+                            <!-- Multiply the sales price by the specified percent -->
+                            <xsd:element name="SalePriceBySpecifiedPctAmt" type="USAmountNNType" minOccurs="0">
+                                <xsd:annotation>
+                                    <xsd:documentation>
+                                        <Description>Multiply the sales price by the specified percent</Description>
+                                        <LineNumber>15</LineNumber>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                            
+                            <!-- 16 MaxPrevOwnedCleanVehCrAmt - Not used -->
+                            
+                            <!-- Previously owned clean vehicle credit -->
+                            <xsd:element name="PrevOwnedCleanVehCreditAmt" type="USAmountNNType" minOccurs="0">
+                                <xsd:annotation>
+                                    <xsd:documentation>
+                                        <Description>Previously owned clean vehicle credit</Description>
+                                        <LineNumber>17</LineNumber>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+							
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+                
+                <!-- Qualified commercial clean vehicle yes group -->
+                <xsd:element name="QlfyCmrclCleanVehicleYesGrp">
+                    <xsd:annotation>
+                        <xsd:documentation>
+                            <Description>Qualified commercial clean vehicle yes group</Description>
+                            <LineNumber>7</LineNumber>
+                        </xsd:documentation>
+                    </xsd:annotation>
+                    
+                    <xsd:complexType>
+                        <xsd:sequence>
+						    
+			    <!-- No, VIN entered does not belong to a new clean vehicle placed in service during the tax year -->
+                            <xsd:element name="NewClnVehServiceTYNoInd" type="CheckboxType">
+                                <xsd:annotation>
+                                    <xsd:documentation>
+                                        <Description>No, VIN entered does not belong to a new clean vehicle placed in service during the tax year</Description>
+                                        <LineNumber>5</LineNumber>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                            
+                            <!-- No, VIN entered does belong to a previously owned clean vehicle acquired after specified date and placed in service during the tax year -->
+                            <xsd:element name="PrevOwnClnVehServiceTYNoInd" type="CheckboxType">
+                                <xsd:annotation>
+                                    <xsd:documentation>
+                                        <Description>No, VIN entered does belong to a previously owned clean vehicle acquired after specified date and placed in service during the tax year</Description>
+                                        <LineNumber>6</LineNumber>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+							
+                            <!-- Yes, VIN entered does belong to a qualified commercial clean vehicle acquired after specified date and placed in service during the tax year -->
+                            <xsd:element name="QlfyCmrclClnVehSrvcTYYesInd" type="CheckboxType">
+                                <xsd:annotation>
+                                    <xsd:documentation>
+                                        <Description>Yes, VIN entered does belong to a qualified commercial clean vehicle acquired after specified date and placed in service during the tax year</Description>
+                                        <LineNumber>7</LineNumber>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                            
+                            <!-- =============== Part V Credit Amount for Qualified Commercial Clean Vehicle =============== -->
+                            
+                            <!-- If making an elective payment election, enter the IRS-issued registration number for the vehicle -->
+                            <xsd:element name="IRSIssuedRegistrationNum" minOccurs="0">
+                                <xsd:annotation>
+                                    <xsd:documentation>
+                                        <Description>If making an elective payment election, enter the IRS-issued registration number for the vehicle</Description>
+                                        <LineNumber>18a</LineNumber>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                                
+                                <xsd:simpleType>
+                                    <xsd:restriction base="FacilityIRSIssdRegistrationNumType">
+                                        <xsd:pattern value="[CPT][A-M][A-Za-z0-9]{3}[0-9]{2}[A-Za-z0-9]{5}"/>
+                                    </xsd:restriction>
+                                </xsd:simpleType>
+                            </xsd:element>
+                            
+                            <!-- Is the vehicle of a character subject to the allowance for depreciation -->
+                            <xsd:element name="VehOfCharSubjToAllwncDeprecInd" type="BooleanType">
+                                <xsd:annotation>
+                                    <xsd:documentation>
+                                        <Description>Is the vehicle of a character subject to the allowance for depreciation</Description>
+                                        <LineNumber>18b</LineNumber>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                            
+                            <!-- Did you acquire the vehicle for use or to lease to others, and not for resale -->
+                            <xsd:element name="AcqCmrclClnVehUseNotResaleInd" type="BooleanType" minOccurs="0">
+                                <xsd:annotation>
+                                    <xsd:documentation>
+                                        <Description>Did you acquire the vehicle for use or to lease to others, and not for resale</Description>
+                                        <LineNumber>18c</LineNumber>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                            
+                            <!-- Is the vehicle also powered in part by gas or diesel -->
+                            <xsd:element name="VehiclePoweredByGasOrDieselInd" type="BooleanType" minOccurs="0">
+                                <xsd:annotation>
+                                    <xsd:documentation>
+                                        <Description>Is the vehicle also powered in part by gas or diesel</Description>
+                                        <LineNumber>18d</LineNumber>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                            
+                            <!-- The vehicle's gross vehicle weight rating (GVWR) -->
+                            <xsd:element name="GrossVehicleWeightRatingNum" type="IntegerPosType" minOccurs="0">
+                                <xsd:annotation>
+                                    <xsd:documentation>
+                                        <Description>The vehicle's gross vehicle weight rating (GVWR)</Description>
+                                        <LineNumber>18e</LineNumber>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                            
+                            <!-- Cost or other basis of the vehicle -->
+                            <xsd:element name="VehicleCostOrOtherBasisAmt" type="USAmountNNType" minOccurs="0">
+                                <xsd:annotation>
+                                    <xsd:documentation>
+                                        <Description>Cost or other basis of the vehicle</Description>
+                                        <LineNumber>19</LineNumber>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                            
+                            <!-- Section 179 expense deduction -->
+                            <xsd:element name="Section179ExpenseDeductionAmt" type="USAmountNNType" minOccurs="0">
+                                <xsd:annotation>
+                                    <xsd:documentation>
+                                        <Description>Section 179 expense deduction</Description>
+                                        <LineNumber>20</LineNumber>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                            
+                            <!-- Net section 179 expense deduction -->
+                            <xsd:element name="NetSect179ExpenseDedAmt" type="USAmountNNType" minOccurs="0">
+                                <xsd:annotation>
+                                    <xsd:documentation>
+                                        <Description>Net section 179 expense deduction</Description>
+                                        <LineNumber>21</LineNumber>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                            
+                            <!-- Multiply specified line by specified percent -->
+                            <xsd:element name="NetSect179ExpenseDedPctAmt" type="USAmountNNType" minOccurs="0">
+                                <xsd:annotation>
+                                    <xsd:documentation>
+                                        <Description>Multiply specified line by specified percent</Description>
+                                        <LineNumber>22</LineNumber>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                            
+                            <!-- Incremental cost of the vehicle -->
+                            <xsd:element name="VehicleIncrementalCostAmt" type="USAmountNNType" minOccurs="0">
+                                <xsd:annotation>
+                                    <xsd:documentation>
+                                        <Description>Incremental cost of the vehicle</Description>
+                                        <LineNumber>23</LineNumber>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                            
+                            <!-- Tentative qualified commercial clean vehicle credit -->
+                            <xsd:element name="TentQlfyCmrclCleanVehicleCrAmt" type="USAmountNNType" minOccurs="0">
+                                <xsd:annotation>
+                                    <xsd:documentation>
+                                        <Description>Tentative qualified commercial clean vehicle credit</Description>
+                                        <LineNumber>24</LineNumber>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                            
+                            <!-- Maximum credit -->
+                            <xsd:element name="MaxQlfyCmrclCleanVehCrAmt" type="USAmountNNType" minOccurs="0">
+                                <xsd:annotation>
+                                    <xsd:documentation>
+                                        <Description>Maximum credit</Description>
+                                        <LineNumber>25</LineNumber>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                            
+                            <!-- Qualified commercial clean vehicle credit -->
+                            <xsd:element name="QlfyCmrclCleanVehicleCrAmt" type="USAmountNNType" minOccurs="0">
+                                <xsd:annotation>
+                                    <xsd:documentation>
+                                        <Description>Qualified commercial clean vehicle credit</Description>
+                                        <LineNumber>26</LineNumber>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+							
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </xsd:choice>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>

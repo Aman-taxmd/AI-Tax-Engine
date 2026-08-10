@@ -1,0 +1,16 @@
+# Seed catalog for Schedule SE (Form 1040) — Self-Employment Tax.
+#
+# Same reasoning as form_1040sc.yaml: Schedule SE has its own dedicated
+# "About" page and its own standalone instructions document (i1040sse), so
+# this catalog crawls its own entry point rather than piggy-backing on
+# form_1040.yaml.
+form_number: "1040sse"
+tax_year: 2025
+
+entry_points:
+  - url: https://www.irs.gov/forms-pubs/about-schedule-se-form-1040
+    role: primary_form
+
+include_doc_types:
+  - instructions
+  - form

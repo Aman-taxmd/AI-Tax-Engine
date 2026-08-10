@@ -1,0 +1,623 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+    <xsd:annotation>
+        <xsd:documentation>
+            <Description>IRS e-file Schema - Form IRS172 - Net Operating Losses (NOLs)</Description>
+            <TaxYear>2025</TaxYear>
+            <MaturityLevel>Final Release</MaturityLevel>
+            <ReleaseDate>February 19 2026</ReleaseDate>
+        </xsd:documentation>
+    </xsd:annotation>
+    
+    <xsd:include schemaLocation="../../Common/efileTypes.xsd"/>
+    
+    <!-- =============================================== -->
+    <!-- =============== IRS Form IRS172 =============== -->
+    <!-- =============================================== -->
+    
+    <xsd:element name="IRS172">
+        <xsd:annotation>
+            <xsd:documentation>IRS Form 172</xsd:documentation>
+        </xsd:annotation>
+        
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="IRS172Type">
+                    <xsd:attributeGroup ref="DocumentAttributes">
+                        <xsd:annotation>
+                            <xsd:documentation>Common return document attributes</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:attributeGroup>
+                    
+                    <xsd:attribute name="documentName" type="TextType" fixed="IRS172">
+                        <xsd:annotation>
+                            <xsd:documentation>IRS internal use only. To avoid errors within the return, do not include the attribute name or value.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:attribute>
+                    
+                    <xsd:attribute name="referenceDocumentId" type="IdListType">
+                        <xsd:annotation>
+                            <xsd:documentation>List of document IDs of forms, schedules, supporting info. etc. attached to this form.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:attribute>
+                    
+                    <xsd:attribute name="referenceDocumentName" type="TextType" fixed="GeneralDependencySmall"/>
+                </xsd:extension>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+    
+    <xsd:complexType name="IRS172Type">
+        <xsd:sequence>
+            <!-- =============== Part I =============== -->
+            
+            <!-- Income -->
+            <xsd:element name="IncomeAmt" type="USAmountType">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Income</Description>
+                        <LineNumber>Part I, Line 1</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Capital loss -->
+            <xsd:element name="NBCapitalLossAmt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Capital loss</Description>
+                        <LineNumber>Part I, Line 2</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Capital gain -->
+            <xsd:element name="NBCapitalGainAmt" type="USAmountType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Capital gain</Description>
+                        <LineNumber>Part I, Line 3</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <xsd:element name="NBCapLossLessGainAmt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <LineNumber>Part I, Line 4</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <xsd:element name="NBCapGainLessLossAmt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <LineNumber>Part I, Line 5</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Nonbusiness deductions -->
+            <xsd:element name="NBDeductionsAmt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Nonbusiness deductions</Description>
+                        <LineNumber>Part I, Line 6</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Nonbusiness income other than capital gains -->
+            <xsd:element name="NBIncomeOthThanCapGainAmt" type="USAmountType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Nonbusiness income other than capital gains</Description>
+                        <LineNumber>Part I, Line 7</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <xsd:element name="TotNBCapGainLossIncmAmt" type="USAmountType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <LineNumber>Part I, Line 8</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <xsd:element name="NBDedLessTotCapGainLossIncmAmt" type="USAmountNNType">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <LineNumber>Part I, Line 9</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <xsd:element name="TotCapGainLossIncmLessNBDedAmt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <LineNumber>Part I, Line 10</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Business capital losses before limitation -->
+            <xsd:element name="BusinessCapitalLossAmt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Business capital losses before limitation</Description>
+                        <LineNumber>Part I, Line 11</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Business capital gains -->
+            <xsd:element name="BusinessCapitalGainsAmt" type="USAmountType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Business capital gains</Description>
+                        <LineNumber>Part I, Line 12</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <xsd:element name="TotCapGnLssIncmNBDedCapGnAmt" type="USAmountType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <LineNumber>Part I, Line 13</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <xsd:element name="BusCapLossTotCapGnAmt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <LineNumber>Part I, Line 14</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <xsd:element name="NBCapLossLessGainBusCapLossAmt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <LineNumber>Part I, Line 15</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Dollar amount/see instructions -->
+            <xsd:element name="CombNetSchDLossAmt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Dollar amount/see instructions</Description>
+                        <LineNumber>Part I, Line 16</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Section 1202 exclusion/enter as positive number -->
+            <xsd:element name="Section1202ExclusionAmt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Section 1202 exclusion/enter as positive number</Description>
+                        <LineNumber>Part I, Line 17</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <xsd:element name="CombNetSchDLossMns1202ExclAmt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <LineNumber>Part I, Line 18</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <xsd:element name="SmllrCombNetSchDLossOrFSAmt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <LineNumber>Part I, Line 19</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <xsd:element name="DiffCombNetSchDLossMns1202Amt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <LineNumber>Part I, Line 20</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <xsd:element name="DiffSmllrCombNetSchDLossFSAmt" type="USAmountNNType">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <LineNumber>Part I, Line 21</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <xsd:element name="MnsDiffCmbNetSchDLssMns1202Amt" type="USAmountNNType">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <LineNumber>Part I, Line 22</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- NOL deductions for losses -->
+            <xsd:element name="NOLDeductionLossOtherYearsAmt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>NOL deductions for losses</Description>
+                        <LineNumber>Part I, Line 23</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- NOL combined results -->
+            <xsd:element name="NetOperatingLossAmt" type="USAmountType">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>NOL combined results</Description>
+                        <LineNumber>Part I, Line 24</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- =============== Part II =============== -->
+            
+            <!-- Net operating loss (NOL) carryover preceding year group -->
+            <xsd:element name="NOLCarryoverPrecYrGrp" minOccurs="0" maxOccurs="2">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Net operating loss (NOL) carryover preceding year group</Description>
+                        <LineNumber>Part II</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+                
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <!-- Preceding year -->
+                        <xsd:element name="PrecedingYearNum">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Preceding year</Description>
+                                    <LineNumber>Part II</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                            
+                            <xsd:simpleType>
+                                <xsd:restriction base="AlphaNumericType">
+                                    <xsd:pattern value="(1st)|(2nd)|(3rd)|[4-9][t][h]|(10th)"/>
+                                </xsd:restriction>
+                            </xsd:simpleType>
+                        </xsd:element>
+                        
+                        <!-- Tax year ended -->
+                        <xsd:element name="TaxYearEndDt" type="DateType">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Tax year ended</Description>
+                                    <LineNumber>Part II</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- NOL deductions/positive number -->
+                        <xsd:element name="NetOperatingLossDeductionAmt" type="USAmountNNType">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>NOL deductions/positive number</Description>
+                                    <LineNumber>Part II, Line 1</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Taxable income before carryback -->
+                        <xsd:element name="TXIBeforeCYNOLCarrybackAmt" type="USAmountType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Taxable income before carryback</Description>
+                                    <LineNumber>Part II, Line 2</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Net capital loss -->
+                        <xsd:element name="NetCapitalLossDeductionAmt" type="USAmountType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Net capital loss</Description>
+                                    <LineNumber>Part II, Line 3</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Section 1202 exclusion -->
+                        <xsd:element name="Section1202ExclusionAmt" type="USAmountNNType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Section 1202 exclusion</Description>
+                                    <LineNumber>Part II, Line 4</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Qualified business income deduction -->
+                        <xsd:element name="QualifiedBusinessIncomeDedAmt" type="USAmountType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Qualified business income deduction</Description>
+                                    <LineNumber>Part II, Line 5</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Adjustment to AGI -->
+                        <xsd:element name="AGIAdjAmt" type="USAmountType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Adjustment to AGI</Description>
+                                    <LineNumber>Part II, Line 6</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Part II, Line 7 ItemizedDeductionsAdjAmt - Not used -->
+                        
+                        <!-- Estate/Trust exemption -->
+                        <xsd:element name="EstateTrustExemptionAmt" type="USAmountType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Estate/Trust exemption</Description>
+                                    <LineNumber>Part II, Line 8</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Modified taxable income -->
+                        <xsd:element name="ModifiedTaxableIncomeAmt" type="USAmountNNType">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Modified taxable income</Description>
+                                    <LineNumber>Part II, Line 9</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- NOL carryover to subsequent year -->
+                        <xsd:element name="NOLCarryoverAmt" type="USAmountNNType">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>NOL carryover to subsequent year</Description>
+                                    <LineNumber>Part II, Line 10</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- AGI before current year carryback -->
+                        <xsd:element name="AGIBeforeCYNOLCarrybackAmt" type="USAmountType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>AGI before current year carryback</Description>
+                                    <LineNumber>Part II, Line 11</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Sum of net capital loss, section 1202 exclusion, qualified business income (QBI), AGI Adjustment -->
+                        <xsd:element name="NetCapLoss1202QBIAGIAdjAmt" type="USAmountType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Sum of net capital loss, section 1202 exclusion, qualified business income (QBI), AGI Adjustment</Description>
+                                    <LineNumber>Part II, Line 12</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Modified AGI -->
+                        <xsd:element name="ModifiedAGIAmt" type="USAmountType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Modified AGI</Description>
+                                    <LineNumber>Part II, Line 13</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Med/Dental expenses after AGI limits/Sch A -->
+                        <xsd:element name="TotalMedicalAndDentalExpnssAmt" type="USAmountType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Med/Dental expenses after AGI limits/Sch A</Description>
+                                    <LineNumber>Part II, Line 14</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Med/Dental expenses before AGI limits/Sch A -->
+                        <xsd:element name="MedicalAndDentalExpensesAmt" type="USAmountType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Med/Dental expenses before AGI limits/Sch A</Description>
+                                    <LineNumber>Part II, Line 15</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <xsd:element name="ModifiedAGIMultiplyPctAmt" type="USAmountType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <LineNumber>Part II, Line 16</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Less modified AGI multiplied by specified percent -->
+                        <xsd:element name="LessModifiedAGIMultiplyPctAmt" type="USAmountNNType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Less modified AGI multiplied by specified percent</Description>
+                                    <LineNumber>Part II, Line 17</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Med/Dental expenses adjustment -->
+                        <xsd:element name="MedicalAndDentalExpensesAdjAmt" type="USAmountType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Med/Dental expenses adjustment</Description>
+                                    <LineNumber>Part II, Line 18</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Mortgage insurance premiums/Sch A -->
+                        <xsd:element name="MortgageInsurancePremiumsAmt" type="USAmountType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Mortgage insurance premiums/Sch A</Description>
+                                    <LineNumber>Part II, Line 19</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Refigure mortgage insurance premiums -->
+                        <xsd:element name="RefiguredMortgInsPremAmt" type="USAmountType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Refigure mortgage insurance premiums</Description>
+                                    <LineNumber>Part II, Line 20</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Mortgage insurance premiums adjustment -->
+                        <xsd:element name="MortgInsurancePremiumsAdjAmt" type="USAmountType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Mortgage insurance premiums adjustment</Description>
+                                    <LineNumber>Part II, Line 21</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Part II, Line 22 ModifiedAGIAmt - Not used -->
+                        
+                        <!-- See Instructions -->
+                        <xsd:element name="PYNOLCarrybackAmt" type="USAmountNNType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>See Instructions</Description>
+                                    <LineNumber>Part II, Line 23</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Modified adjusted gross income prior year net operating loss carryback -->
+                        <xsd:element name="ModifiedAGIPYNOLCarrybackAmt" type="USAmountType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Modified adjusted gross income prior year net operating loss carryback</Description>
+                                    <LineNumber>Part II, Line 24</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Total charitable contributions -->
+                        <xsd:element name="TotalCharitableContriAmt" type="USAmountType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Total charitable contributions</Description>
+                                    <LineNumber>Part II, Line 25</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Refigured charitable contributions -->
+                        <xsd:element name="RefiguredCharitableContriAmt" type="USAmountType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Refigured charitable contributions</Description>
+                                    <LineNumber>Part II, Line 26</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Total charitable contributions adjustment -->
+                        <xsd:element name="TotalCharitableContriAdjAmt" type="USAmountType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Total charitable contributions adjustment</Description>
+                                    <LineNumber>Part II, Line 27</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Casualty/theft losses/from 4684 -->
+                        <xsd:element name="CalcAdjGroIncmMnsTotNetLossAmt" type="USAmountType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Casualty/theft losses/from 4684</Description>
+                                    <LineNumber>Part II, Line 28</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Casualty/theft losses before AGI/from 4684 -->
+                        <xsd:element name="TotalLossLessTotalTheftGainAmt" type="USAmountType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Casualty/theft losses before AGI/from 4684</Description>
+                                    <LineNumber>Part II, Line 29</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Modified AGI times specified percent -->
+                        <xsd:element name="ModifiedAGITimesPctAmt" type="USAmountType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Modified AGI times specified percent</Description>
+                                    <LineNumber>Part II, Line 30</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Less modified AGI times specified percent -->
+                        <xsd:element name="LessModifiedAGITimesPctAmt" type="USAmountNNType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Less modified AGI times specified percent</Description>
+                                    <LineNumber>Part II, Line 31</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Casualty/theft losses adjustment -->
+                        <xsd:element name="CasualtyTheftLossAdjAmt" type="USAmountType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Casualty/theft losses adjustment</Description>
+                                    <LineNumber>Part II, Line 32</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Adjustment to itemized deductions -->
+                        <xsd:element name="ItemizedDeductionsAdjAmt" type="USAmountType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Adjustment to itemized deductions</Description>
+                                    <LineNumber>Part II, Line 33</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>

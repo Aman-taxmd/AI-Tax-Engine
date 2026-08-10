@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+    <xsd:annotation>
+        <xsd:documentation>
+            <Description>IRS e-file Schema - Form 7210 - Clean Hydrogen Production Credit</Description>
+            <TaxYear>2025</TaxYear>
+            <MaturityLevel>Final Release</MaturityLevel>
+            <ReleaseDate>February 19 2026</ReleaseDate>
+        </xsd:documentation>
+    </xsd:annotation>
+    
+    <xsd:include schemaLocation="../../Common/efileTypes.xsd"/>
+    
+    <!-- ============================================= -->
+    <!-- =============== IRS Form 7210 =============== -->
+    <!-- ============================================= -->
+    
+    <xsd:element name="IRS7210">
+        <xsd:annotation>
+            <xsd:documentation>IRS Form 7210 - Clean Hydrogen Production Credit</xsd:documentation>
+        </xsd:annotation>
+        
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="IRS7210Type">
+                    <xsd:attributeGroup ref="DocumentAttributes">
+                        <xsd:annotation>
+                            <xsd:documentation>Common return document attributes</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:attributeGroup>
+                    
+                    <xsd:attribute name="documentName" type="TextType" fixed="IRS7210">
+                        <xsd:annotation>
+                            <xsd:documentation>IRS internal use only. To avoid errors within the return, do not include the attribute name or value.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:attribute>
+                    
+                    <xsd:attribute name="referenceDocumentId" type="IdListType">
+                        <xsd:annotation>
+                            <xsd:documentation>List of document IDs of forms, schedules, supporting info. etc. attached to this form.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:attribute>
+                    
+                    <xsd:attribute name="referenceDocumentName" type="TextType" fixed="BinaryAttachment GeneralDependencySmall"/>
+                </xsd:extension>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+    
+    <xsd:complexType name="IRS7210Type">
+        <xsd:sequence>
+			
+			<!-- Enter the facility's emissions value or rate -->
+			<xsd:element name="FacilityEmissionsValueOrRt" type="LargeRatioType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Enter the facility's emissions value or rate</Description>
+						<LineNumber>A(i)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Department of Energy (DOE) control number if applicable (see instructions) -->
+			<xsd:element name="DOEControlNum" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Department of Energy (DOE) control number if applicable (see instructions)</Description>
+						<LineNumber>A(ii)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="TextType">
+						<xsd:pattern value="[0-9]{4}-[0-9]{4}" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			
+			
+            <!-- =============== Part I =============== -->
+            
+            <!-- IRS-issued registration number of the facility -->
+            <xsd:element name="FacilityIRSIssdRegistrationNum" type="FacilityIRSIssdRegistrationNumType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>IRS-issued registration number of the facility</Description>
+                        <LineNumber>1</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+			
+			<xsd:choice minOccurs="0">
+				<xsd:sequence>
+					<!-- If different than filer, enter owner's person name -->
+					<xsd:element name="FacilityOwnerPersonNm" type="PersonNameType">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>If different than filer, enter owner's person name</Description>
+								<LineNumber>2(i)</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<!-- If different than filer, enter owner's SSN -->
+					<xsd:element name="FacilityOwnerSSN" type="SSNType">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>If different than filer, enter owner's SSN</Description>
+								<LineNumber>2(ii)</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+				
+				<xsd:sequence>
+					<!-- If different than filer, enter owner's business name -->
+					<xsd:element name="FacilityOwnerBusinessName" type="BusinessNameType">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>If different than filer, enter owner's business name</Description>
+								<LineNumber>2(i)</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<!-- If different than filer, enter owner's EIN -->
+					<xsd:element name="FacilityOwnerEIN" type="EINType">
+						<xsd:annotation>
+							<xsd:documentation>
+								<Description>If different than filer, enter owner's EIN</Description>
+								<LineNumber>2(ii)</LineNumber>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:choice>
+            
+            <!-- Address and description of the facility -->
+            <xsd:element name="FacilityUSAddress" type="USAddressType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Address and description of the facility</Description>
+                        <LineNumber>2a</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Description of the facility -->
+            <xsd:element name="FacilityDesc" type="ShortExplanationType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Description of the facility</Description>
+                        <LineNumber>2a</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Location coordinates (Latitude) -->
+            <xsd:element name="FacilityLatitudeNum" type="LatitudeCoordinateType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Location coordinates (Latitude)</Description>
+                        <LineNumber>2b(i)</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+
+            </xsd:element>
+            
+            <!-- Location coordinates (Longitude) -->
+            <xsd:element name="FacilityLongitudeNum" type="LongitudeCoordinateType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Location coordinates (Longitude)</Description>
+                        <LineNumber>2b(ii)</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+                
+            </xsd:element>
+            
+            <!-- Date the construction began on the facility -->
+            <xsd:element name="FacilityConstructionStartDt" type="DateType" minOccurs="0" >
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Date the construction began on the facility</Description>
+                        <LineNumber>3</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>      
+            </xsd:element>
+            
+            <!-- Date the facility was placed in service -->
+            <xsd:element name="FacilityPlacedInServiceDt" type="DateType" minOccurs="0" >
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Date the facility was placed in service</Description>
+                        <LineNumber>4</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Check this box if the facility is eligible for the increased credit amount -->
+            <xsd:element name="FacilityEligIncreasedCrAmtInd" type="CheckboxType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Check this box if the facility is eligible for the increased credit amount</Description>
+                        <LineNumber>5</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+                
+             </xsd:element>
+            
+            <!-- =============== Part II Clean Hydrogen Production =============== -->
+            
+            <!-- Less than 0.45 -->
+            <xsd:element name="ClnHydrgnPrdcdLssThan45Grp" type="ClnHydrgnPrdcdType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Less than 0.45</Description>
+                        <LineNumber>6a</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+           
+            <!-- 0.45 to less than 1.5 -->
+            <xsd:element name="ClnHydrgnPrdcd45ToLssThan15Grp" type="ClnHydrgnPrdcdType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>0.45 to less than 1.5</Description>
+                        <LineNumber>6b</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- 1.5 to less than 2.5 -->
+            <xsd:element name="ClnHydrgnPrdcd15ToLssThan25Grp" type="ClnHydrgnPrdcdType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>1.5 to less than 2.5</Description>
+                        <LineNumber>6c</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- 2.5 to not greater than 4.0 -->
+            <xsd:element name="ClnHydrgnPrdcd25NotGrtr4Grp" type="ClnHydrgnPrdcdType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>2.5 to not greater than 4.0</Description>
+                        <LineNumber>6d</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Credit before reduction. Enter the amount from specified lines. See instructions -->
+            <xsd:element name="CreditBeforeReductionAmt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Credit before reduction. Enter the amount from specified lines. See instructions</Description>
+                        <LineNumber>7</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- =============== Part III Reduction for Tax Exempt Bonds =============== -->
+            
+            <!-- Divide. Sum, for the tax year and all prior tax years, of all proceeds of tax-exempt bonds( within the meaning of section 103), used to finance the qualified facility -->
+            <xsd:element name="CalcTaxExemptBondsPct" type="Decimal2RatioType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Divide. Sum, for the tax year and all prior tax years, of all proceeds of tax-exempt bonds( within the meaning of section 103), used to finance the qualified facility</Description>
+                        <LineNumber>8a</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Multiply specified lines. -->
+            <xsd:element name="CreditBeforeReductionFncAmt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Multiply specified lines.</Description>
+                        <LineNumber>8b</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Multiply specified line by specified percent. -->
+            <xsd:element name="CreditBeforeReductionPctAmt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Multiply specified line by specified percent.</Description>
+                        <LineNumber>8c</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Enter the smaller of specified lines. -->
+            <xsd:element name="SmllrCrBfrReductionFncPctAmt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Enter the smaller of specified lines.</Description>
+                        <LineNumber>8d</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Subtract specified lines. -->
+            <xsd:element name="TaxExemptBondsCrReductionAmt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Subtract specified lines. </Description>
+                        <LineNumber>9</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Increased credit amount for qualified clean hydrogen facilities. If you checked any "yes" check box on line 5, multiply the amount on line 9 by 5.0. Otherwise enter the amount from line 9 here ..... -->
+            <xsd:element name="IncrCrQlfyClnHydrgnFcltsAmt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Increased credit amount for qualified clean hydrogen facilities. If you checked any "yes" check box on line 5, multiply the amount on line 9 by 5.0. Otherwise enter the amount from line 9 here .....</Description>
+                        <LineNumber>10</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Clean hydrogen credit from partnerships and S corporations -->
+            <xsd:element name="PrtshpSCorpClnHydrgnCrAmt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Clean hydrogen credit from partnerships and S corporations</Description>
+                        <LineNumber>11</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Add 10 and 11. Partnerships and S corporations, stop here and report this amount on Schedule K. All others, stop here and report this amount on Form 3800, Part III, Line 1g.-->
+            <xsd:element name="ClnHydrgnProdCrAmt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Add 10 and 11. Partnerships and S corporations, stop here and report this amount on Schedule K. All others, stop here and report this amount on Form 3800, Part III, Line 1g.</Description>
+                        <LineNumber>12</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:complexType name="ClnHydrgnPrdcdType">
+        <xsd:sequence>
+            <!-- Kilograms of qualified clean hydrogen produced -->
+            <xsd:element name="KgProducedQty" type="LongIntegerType">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Kilograms of qualified clean hydrogen produced</Description>
+                        <LineNumber>6a-d(a)</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+			
+			<!-- 6a-d(b) Applicable amount - Not used -->    
+			
+            <!-- Multiply specified columns. -->
+            <xsd:element name="CalcQlfyClnHydrogenProducedAmt" type="USAmountNNType">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Multiply specified columns.</Description>
+                        <LineNumber>6a-d(c)</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>
+

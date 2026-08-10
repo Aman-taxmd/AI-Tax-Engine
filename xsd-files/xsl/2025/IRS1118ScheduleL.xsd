@@ -1,0 +1,1018 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - IRS Form 1118 Schedule L</Description>
+			<TaxYear>2025</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>February 19 2026</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../Common/efileTypes.xsd"/>
+
+	<!-- =========================================================== -->
+	<!-- ================ IRS Form 1118 Schedule L ================= -->
+	<!-- =========================================================== -->
+
+	<xsd:element name="IRS1118ScheduleL">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 1118 Schedule L</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS1118ScheduleLType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="StringType" fixed="IRS1118ScheduleL">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="referenceDocumentId" type="IdListType">
+						<xsd:annotation>
+							<xsd:documentation>List of document ID's of forms, schedules, supporting info. etc. attached to this form</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="GeneralDependencySmall"/>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS1118ScheduleLType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 1118 Schedule L</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<!-- Corporation Name -->
+			<xsd:element name="CorporationName" type="BusinessNameType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Corporation Name</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- EIN -->
+			<xsd:element name="CorporationEIN" type="EINType">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>EIN</Description>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Separate Category Code -->
+			<xsd:element name="SeparateCategoryCd">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Separate Category Code</Description>
+						<LineNumber>Line a</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="TextType">
+						<xsd:enumeration value="PAS"/>
+						<xsd:enumeration value="GEN"/>
+						<xsd:enumeration value="901j"/>
+						<xsd:enumeration value="951A"/>
+						<xsd:enumeration value="FB"/>
+						<xsd:enumeration value="RBT PAS"/>
+						<xsd:enumeration value="RBT GEN"/>
+						<xsd:enumeration value="RBT FB"/>
+						<xsd:enumeration value="RBT 951A"/>
+						<xsd:enumeration value="TOTAL"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<!-- Sanctioned Country Code -->
+			<xsd:element name="SanctionedCountryCd" type="CountryType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Sanctioned Country Code</Description>
+						<LineNumber>Line b</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Treaty Country Code -->
+			<xsd:element name="TreatyCountryCd" type="CountryType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Treaty Country Code</Description>
+						<LineNumber>Line c</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Section 1.905-5(e) Election Indicator -->
+			<xsd:element name="Section19055eElectionInd" type="CheckboxType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Section 1.905-5(e) Election Indicator</Description>
+						<LineNumber>Line d</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Part I  Increase in Amount of Foreign Taxes Accrued -->
+
+			<!-- Increase in Amount of Foreign Taxes Accrued Year Group -->
+			<xsd:element name="IncrAmtFrgnTaxesAccruedGrp" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Increase in Amount of Foreign Taxes Accrued Year Group</Description>
+						<LineNumber>Part I</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- US Tax Year Relation Back Year Date -->
+						<xsd:element name="USTaxYearEndDt" type="DateType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>US Tax Year Relation Back Year Date</Description>
+									<LineNumber>Part I Column 1</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Payor Entity Relation Back Year Group -->
+						<xsd:element name="PayorEntityRelationBackYearGrp" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Payor Entity Relation Back Year Group</Description>
+									<LineNumber>Part I Column 2a-14</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:sequence>
+
+									<!-- Payor Entity Name -->
+									<xsd:element name="PayorName" type="BusinessNameType">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Payor Entity Name</Description>
+												<LineNumber>Part I Column 2a</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+
+									<xsd:choice>
+										<!-- Payor Entity EIN -->
+										<xsd:element name="PayorEIN" type="EINType">
+											<xsd:annotation>
+												<xsd:documentation>
+													<Description>Payor Entity EIN</Description>
+													<LineNumber>Part I Column 2b</LineNumber>
+												</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<!-- Payor Entity Reference Number -->
+										<xsd:element name="ForeignEntityIdentificationGrp" type="ForeignEntityIdentificationGrpType">
+											<xsd:annotation>
+												<xsd:documentation>
+													<Description>Payor Entity Reference Number</Description>
+													<LineNumber>Part I Column 2b</LineNumber>
+												</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+									</xsd:choice>
+
+									<xsd:choice minOccurs="0">
+										<!-- Owner Person Name -->
+										<xsd:element name="OwnerNm" type="PersonNameType">
+											<xsd:annotation>
+												<xsd:documentation>
+													<Description>Owner Person Name</Description>
+													<LineNumber>Part I Column 2c</LineNumber>
+												</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<!-- Owner Business Name -->
+										<xsd:element name="BusinessOwnerName" type="BusinessNameType">
+											<xsd:annotation>
+												<xsd:documentation>
+													<Description>Owner Business Name</Description>
+													<LineNumber>Part I Column 2c</LineNumber>
+												</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+									</xsd:choice>
+
+									<xsd:choice minOccurs="0">
+										<!-- Owner EIN -->
+										<xsd:element name="OwnerEIN" type="EINType">
+											<xsd:annotation>
+												<xsd:documentation>
+													<Description>Owner EIN</Description>
+													<LineNumber>Part I Column 2d</LineNumber>
+												</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<!-- Owner Reference Number -->
+										<xsd:element name="OwnerFrgnEntIdentificationGrp" type="ForeignEntityIdentificationGrpType">
+											<xsd:annotation>
+												<xsd:documentation>
+													<Description>Owner Reference Number</Description>
+													<LineNumber>Part I Column 2d</LineNumber>
+												</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+									</xsd:choice>
+
+									<!-- Tax Paid Country Code -->
+									<xsd:element name="ForeignCountryOrUSPossessionCd" type="CountryType">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Tax Paid Country Code</Description>
+												<LineNumber>Part I Column 3</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+
+									<!-- Additional Foreign Tax Paid Date -->
+									<xsd:element name="AdditionalForeignTaxPaidDt" type="DateType">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Additional Foreign Tax Paid Date</Description>
+												<LineNumber>Part I Column 4</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+
+									<!-- Foreign Tax Year -->
+									<xsd:element name="ForeignTaxYearEndDt" type="DateType">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Foreign Tax Year</Description>
+												<LineNumber>Part I Column 5</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+
+									<!-- Payor Income Foreign Jurisdiction Amount -->
+									<xsd:element name="ForeignTaxableIncomeAmt" type="USAmountNNType">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Payor Income Foreign Jurisdiction Amount</Description>
+												<LineNumber>Part I Column 6</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+
+									<!-- Additional Tax Accrued in Local Currency Amount -->
+									<xsd:element name="AddnlTaxForeignCurrencyAmt" type="ForeignAmountNNType">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Additional Tax Accrued in Local Currency Amount</Description>
+												<LineNumber>Part I Column 7</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+
+									<!-- Additional Tax Accrued in Functional Currency of QBU Amount -->
+									<xsd:element name="AddnlTaxFunctionalCurrencyAmt" type="ForeignAmountNNType">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Additional Tax Accrued in Functional Currency of QBU Amount</Description>
+												<LineNumber>Part I Column 8</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+
+									<!-- Conversion of Local Currency to US Dollars Rate -->
+									<xsd:element name="ConversionRt" type="LargeRatioType">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Conversion of Local Currency to US Dollars Rate</Description>
+												<LineNumber>Part I Column 9</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+
+									<!-- Additional Tax Accrued in US Dollars Amount -->
+									<xsd:element name="AddnlTaxUSDollarsAmt" type="USAmountType">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Additional Tax Accrued in US Dollars Amount</Description>
+												<LineNumber>Part I Column 10</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+
+									<!-- US Dollar Tax of Payor Entity Reported On Original/Amended Return Amount -->
+									<xsd:element name="TaxOriginalAmdRetAmt" type="USAmountType">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>US Dollar Tax of Payor Entity Reported On Original/Amended Return Amount</Description>
+												<LineNumber>Part I Column 11</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+
+									<!-- Revised Tax Accrued Amount -->
+									<xsd:element name="RevisedTaxAccruedAmt" type="USAmountType">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Revised Tax Accrued Amount</Description>
+												<LineNumber>Part I Column 12</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+
+									<!-- Contested Tax Reference ID -->
+									<xsd:element name="ContestedTaxForeignEntityIdGrp" type="ForeignEntityIdentificationGrpType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Contested Tax Reference ID</Description>
+												<LineNumber>Part I Column 13</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+
+									<!-- High Tax Exception/Exclusion Indicator -->
+									<xsd:element name="HighTaxExceptionExclusionInd" type="CheckboxType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>High Tax Exception/Exclusion Indicator</Description>
+												<LineNumber>Part I Column 14</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+
+						<!-- Additional Tax Accrued in US Dollars Subtotal Amount -->
+						<xsd:element name="TotalAddnlTaxUSDollarsAmt" type="USAmountType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Additional Tax Accrued in US Dollars Subtotal Amount</Description>
+									<LineNumber>Part I Column 10 Subtotal</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- US Dollar Tax of Payor Entity Reported On Original/Amended Return Subtotal Amount -->
+						<xsd:element name="TotalTaxOriginalAmdRetAmt" type="USAmountType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>US Dollar Tax of Payor Entity Reported On Original/Amended Return Subtotal Amount</Description>
+									<LineNumber>Part I Column 11 Subtotal</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Revised Tax Accrued Subtotal Amount -->
+						<xsd:element name="TotalRevisedTaxAccruedAmt" type="USAmountType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Revised Tax Accrued Subtotal Amount</Description>
+									<LineNumber>Part I Column 12 Subtotal</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Part II  Decrease in Amount of Foreign Taxes Accrued -->
+
+			<!-- Decrease in Amount of Foreign Taxes Accrued Year Group -->
+			<xsd:element name="DecrAmtFrgnTaxesPdAccruedGrp" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Decrease in Amount of Foreign Taxes Accrued Year Group</Description>
+						<LineNumber>Part II</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- US Tax Year Relation Back Year Date -->
+						<xsd:element name="USTaxYearEndDt" type="DateType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>US Tax Year Relation Back Year Date</Description>
+									<LineNumber>Part II Column 1</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Decrease in Amount of Foreign Taxes Accrued Entity Group -->
+						<xsd:element name="DecrPayorEntRelationBackYrGrp" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Decrease in Amount of Foreign Taxes Accrued Entity Group</Description>
+									<LineNumber>Part II Column 2a-14</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:sequence>
+
+									<!-- Payor Entity Name -->
+									<xsd:element name="PayorName" type="BusinessNameType">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Payor Entity Name</Description>
+												<LineNumber>Part II Column 2a</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+
+									<xsd:choice>
+										<!-- Payor Entity EIN -->
+										<xsd:element name="PayorEIN" type="EINType">
+											<xsd:annotation>
+												<xsd:documentation>
+													<Description>Payor Entity EIN</Description>
+													<LineNumber>Part II Column 2b</LineNumber>
+												</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<!-- Payor Entity Reference Number -->
+										<xsd:element name="ForeignEntityIdentificationGrp" type="ForeignEntityIdentificationGrpType">
+											<xsd:annotation>
+												<xsd:documentation>
+													<Description>Payor Entity Reference Number</Description>
+													<LineNumber>Part II Column 2b</LineNumber>
+												</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+									</xsd:choice>
+
+									<xsd:choice minOccurs="0">
+										<!-- Owner Person Name -->
+										<xsd:element name="OwnerNm" type="PersonNameType">
+											<xsd:annotation>
+												<xsd:documentation>
+													<Description>Owner Person Name</Description>
+													<LineNumber>Part II Column 2c</LineNumber>
+												</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<!-- Owner Business Name -->
+										<xsd:element name="BusinessOwnerName" type="BusinessNameType">
+											<xsd:annotation>
+												<xsd:documentation>
+													<Description>Owner Business Name</Description>
+													<LineNumber>Part II Column 2c</LineNumber>
+												</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+									</xsd:choice>
+
+									<xsd:choice minOccurs="0">
+										<!-- Owner EIN -->
+										<xsd:element name="OwnerEIN" type="EINType">
+											<xsd:annotation>
+												<xsd:documentation>
+													<Description>Owner EIN</Description>
+													<LineNumber>Part II Column 2d</LineNumber>
+												</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<!-- Owner Reference Number -->
+										<xsd:element name="OwnerFrgnEntIdentificationGrp" type="ForeignEntityIdentificationGrpType">
+											<xsd:annotation>
+												<xsd:documentation>
+													<Description>Owner Reference Number</Description>
+													<LineNumber>Part II Column 2d</LineNumber>
+												</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+									</xsd:choice>
+
+									<!-- Tax Refunded Country Code -->
+									<xsd:element name="ForeignCountryOrUSPossessionCd" type="CountryType">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Tax Refunded Country Code</Description>
+												<LineNumber>Part II Column 3</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+
+									<!-- Foreign Tax Refunded Date -->
+									<xsd:element name="ForeignTaxRefundedDt" type="DateType">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Foreign Tax Refunded Date</Description>
+												<LineNumber>Part II Column 4</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+
+									<!-- Foreign Tax Year -->
+									<xsd:element name="ForeignTaxYearEndDt" type="DateType">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Foreign Tax Year</Description>
+												<LineNumber>Part II Column 5</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+
+									<!-- Payor's Income Subject to Tax in Foreign Jurisdiction Amount -->
+									<xsd:element name="ForeignTaxableIncomeAmt" type="USAmountNNType">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Payor's Income Subject to Tax in Foreign Jurisdiction Amount</Description>
+												<LineNumber>Part II Column 6</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+
+									<!-- Tax Refunded in Local Currency Amount -->
+									<xsd:element name="TxRefundedInForeignCurrencyAmt" type="ForeignAmountNNType">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Tax Refunded in Local Currency Amount</Description>
+												<LineNumber>Part II Column 7</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+
+									<!-- Tax Refunded in Functional Currency of QBU Amount -->
+									<xsd:element name="TxRefdInFunctionalCurrencyAmt" type="ForeignAmountNNType">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Tax Refunded in Functional Currency of QBU Amount</Description>
+												<LineNumber>Part II Column 8</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+
+									<!-- Conversion of Local Currency to US Dollars Rate -->
+									<xsd:element name="ConversionRt" type="LargeRatioType">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Conversion of Local Currency to US Dollars Rate</Description>
+												<LineNumber>Part II Column 9</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+
+									<!-- Tax Refunded in US Dollars Amount -->
+									<xsd:element name="RefundInUSDollarsAmt" type="USAmountNNType">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Tax Refunded in US Dollars Amount</Description>
+												<LineNumber>Part II Column 10</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+
+									<!-- US Dollar Tax of Payor Entity per Original/Amended Return Amount -->
+									<xsd:element name="TaxOriginalAmdRetAmt" type="USAmountType">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>US Dollar Tax of Payor Entity per Original/Amended Return Amount</Description>
+												<LineNumber>Part II Column 11</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+
+									<!-- Revised Tax Paid or Accrued Amount -->
+									<xsd:element name="RevisedTaxPaidAccruedAmt" type="USAmountType">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Revised Tax Paid or Accrued Amount</Description>
+												<LineNumber>Part II Column 12</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+
+									<!-- Section 905(c)(2) Two Year Rule Indicator -->
+									<xsd:element name="Section905c2TwoYrRuleInd" type="CheckboxType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>Section 905(c)(2) Two Year Rule Indicator</Description>
+												<LineNumber>Part II Column 13</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+
+									<!-- High Tax Exception/Exclusion Indicator -->
+									<xsd:element name="HighTaxExceptionExclusionInd" type="CheckboxType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>
+												<Description>High Tax Exception/Exclusion Indicator</Description>
+												<LineNumber>Part II Column 14</LineNumber>
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+
+						<!-- Tax Refunded in US Dollars Subtotal Amount -->
+						<xsd:element name="TotalRefundInUSDollarsAmt" type="USAmountNNType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Tax Refunded in US Dollars Subtotal Amount</Description>
+									<LineNumber>Part II Column 10 Subtotal</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- US Dollar Tax of Payor Entity per Original/Amended Return Subtotal Amount -->
+						<xsd:element name="TotalTaxOriginalAmdRetAmt" type="USAmountType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>US Dollar Tax of Payor Entity per Original/Amended Return Subtotal Amount</Description>
+									<LineNumber>Part II Column 11 Subtotal</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Revised Tax Paid or Accrued Subtotal Amount -->
+						<xsd:element name="TotalRevisedTaxPaidAccruedAmt" type="USAmountType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Revised Tax Paid or Accrued Subtotal Amount</Description>
+									<LineNumber>Part II Column 12 Subtotal</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Part III  Change in Inclusions; Change in Foreign Taxes Paid, Accrued, or Deemed Paid; and Change in Foreign Tax Credits Claimed -->
+
+			<!-- Change in Inclusions, Foreign Taxes Paid, and Credits Claimed Group -->
+			<xsd:element name="ChgInclsnTxsPdAccrDmdCrClmGrp" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Change in Inclusions, Foreign Taxes Paid, and Credits Claimed Group</Description>
+						<LineNumber>Part III</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Relation Back Year Date -->
+						<xsd:element name="USTaxYearEndDt" type="DateType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Relation Back Year Date</Description>
+									<LineNumber>Part III Column 1</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Redetermined Section 901 or 903 Taxes Paid or Accrued Amount -->
+						<xsd:element name="RedetermSect901Or903TaxesAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Redetermined Section 901 or 903 Taxes Paid or Accrued Amount</Description>
+									<LineNumber>Part III Column 2</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Direct Section 901 or 903 Taxes Paid or Accrued per Original/Amended Return Amount -->
+						<xsd:element name="DirectSect901Or903PerReturnAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Direct Section 901 or 903 Taxes Paid or Accrued per Original/Amended Return Amount</Description>
+									<LineNumber>Part III Column 3</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Redetermined Section 951(a)(1) Inclusion Amount -->
+						<xsd:element name="RedetermSect951a1InclsnAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Redetermined Section 951(a)(1) Inclusion Amount</Description>
+									<LineNumber>Part III Column 4</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Section 951(a)(1) Inclusion per Original/Amended Return Amount -->
+						<xsd:element name="Sect951a1InclsnPerReturnAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Section 951(a)(1) Inclusion per Original/Amended Return Amount</Description>
+									<LineNumber>Part III Column 5</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Redetermined Section 960(a) Deemed Paid Taxes Amount -->
+						<xsd:element name="RedetermDmdPdSect960aTxsAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Redetermined Section 960(a) Deemed Paid Taxes Amount</Description>
+									<LineNumber>Part III Column 6</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Section 960(a) Deemed Paid Taxes per Original/Amended Return Amount -->
+						<xsd:element name="Sect960aDmdPdTxsPerReturnAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Section 960(a) Deemed Paid Taxes per Original/Amended Return Amount</Description>
+									<LineNumber>Part III Column 7</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Redetermined Section 951A Inclusion Amount -->
+						<xsd:element name="RedetermSect951AInclsnAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Redetermined Section 951A Inclusion Amount</Description>
+									<LineNumber>Part III Column 8</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Section 951A Inclusion per Original/Amended Return Amount -->
+						<xsd:element name="Sect951AInclsnPerReturnAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Section 951A Inclusion per Original/Amended Return Amount</Description>
+									<LineNumber>Part III Column 9</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Redetermined Section 960(d) Deemed Paid Taxes Amount -->
+						<xsd:element name="RedetermDmdPdSect960dTxsAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Redetermined Section 960(d) Deemed Paid Taxes Amount</Description>
+									<LineNumber>Part III Column 10</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Section 960(d) Deemed Paid Taxes per Original/Amended Return Amount -->
+						<xsd:element name="Sect960dDmdPdTxsPerReturnAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Section 960(d) Deemed Paid Taxes per Original/Amended Return Amount</Description>
+									<LineNumber>Part III Column 11</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Redetermined Section 960(b)(1) Deemed Paid Taxes Amount -->
+						<xsd:element name="RedetermDmdPdSect960b1TxsAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Redetermined Section 960(b)(1) Deemed Paid Taxes Amount</Description>
+									<LineNumber>Part III Column 12</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Section 960(b)(1) Deemed Paid Taxes per Original/Amended Return Amount -->
+						<xsd:element name="Sect960b1DmdPdTxsPerReturnAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Section 960(b)(1) Deemed Paid Taxes per Original/Amended Return Amount</Description>
+									<LineNumber>Part III Column 13</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Redetermined Section 902 Deemed Paid Taxes Amount -->
+						<xsd:element name="RedetermDmdPdSect902TxsAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Redetermined Section 902 Deemed Paid Taxes Amount</Description>
+									<LineNumber>Part III Column 14</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Section 902 Deemed Paid Taxes per Original/Amended Return Amount -->
+						<xsd:element name="Sect902DmdPdTxsPerReturnAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Section 902 Deemed Paid Taxes per Original/Amended Return Amount</Description>
+									<LineNumber>Part III Column 15</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- FTC Claimed per Original/Amended Return Amount -->
+						<xsd:element name="FTCClmPerReturnAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>FTC Claimed per Original/Amended Return Amount</Description>
+									<LineNumber>Part III Column 16</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Redetermined FTC Claimed Amount -->
+						<xsd:element name="FTCClmRedetermAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Redetermined FTC Claimed Amount</Description>
+									<LineNumber>Part III Column 17</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Part IV  Change In U.S. Tax Liability -->
+
+			<!-- Change in US Tax Liability Group -->
+			<xsd:element name="ChgUSTxLiabilityGrp" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Change in US Tax Liability Group</Description>
+						<LineNumber>Part IV</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Relation Back Year or Affected Tax Year -->
+						<xsd:element name="RlnBackYrOrAffectedTaxYrEndDt" type="DateType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Relation Back Year or Affected Tax Year</Description>
+									<LineNumber>Part IV Column 1</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Total Redetermined US Tax Liability Amount -->
+						<xsd:element name="TotRedetermUSTaxLiabilityAmt" type="USAmountType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total Redetermined US Tax Liability Amount</Description>
+									<LineNumber>Part IV Column 2</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Total US Tax Liability per Original/Amended Return Amount -->
+						<xsd:element name="TotUSTaxLiabilityPerReturnAmt" type="USAmountType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Total US Tax Liability per Original/Amended Return Amount</Description>
+									<LineNumber>Part IV Column 3</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Difference Between Totals Amount -->
+						<xsd:element name="DifferenceBetweenTotalsAmt" type="USAmountType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Difference Between Totals Amount</Description>
+									<LineNumber>Part IV Column 4</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<!-- Part V  Annual Reporting for Contested Taxes -->
+
+			<!-- Annual Reporting for Contested Taxes Group -->
+			<xsd:element name="AnnualRptgContestedTaxesGrp" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Annual Reporting for Contested Taxes Group</Description>
+						<LineNumber>Part V</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<!-- Relation Back Year Date -->
+						<xsd:element name="USTaxYearEndDt" type="DateType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Relation Back Year Date</Description>
+									<LineNumber>Part V Column 1</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Payor Entity Name -->
+						<xsd:element name="PayorName" type="BusinessNameType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Payor Entity Name</Description>
+									<LineNumber>Part V Column 2</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Contested Tax Reference ID -->
+						<xsd:element name="ContestedTaxForeignEntityIdGrp" type="ForeignEntityIdentificationGrpType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Contested Tax Reference ID</Description>
+									<LineNumber>Part V Column 3</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Tax Paid Country Code -->
+						<xsd:element name="ForeignCountryOrUSPossessionCd" type="CountryType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Tax Paid Country Code</Description>
+									<LineNumber>Part V Column 4</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Contested Tax Provisionally Claimed as Credit Amount -->
+						<xsd:element name="ContestedTaxPrvsnClmdCrAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Contested Tax Provisionally Claimed as Credit Amount</Description>
+									<LineNumber>Part V Column 5</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<xsd:choice>
+							<!-- Contest Ongoing Indicator -->
+							<xsd:element name="ContestOngoingInd" type="CheckboxType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Contest Ongoing Indicator</Description>
+										<LineNumber>Part V Column 6</LineNumber>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<!-- Contest Resolved Indicator -->
+							<xsd:element name="ContestResolvedInd" type="CheckboxType">
+								<xsd:annotation>
+									<xsd:documentation>
+										<Description>Contest Resolved Indicator</Description>
+										<LineNumber>Part V Column 7</LineNumber>
+									</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+						</xsd:choice>
+
+						<!-- Contest Resolved Date -->
+						<xsd:element name="ContestResolvedDt" type="DateType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Contest Resolved Date</Description>
+									<LineNumber>Part V Column 8</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<!-- Tax Refunded Amount -->
+						<xsd:element name="RefundAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Tax Refunded Amount</Description>
+									<LineNumber>Part V Column 9</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<!-- Additional Tax Paid Amount -->
+						<xsd:element name="AdditionalTaxPaidAmt" type="USAmountType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Additional Tax Paid Amount</Description>
+									<LineNumber>Part V Column 10</LineNumber>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

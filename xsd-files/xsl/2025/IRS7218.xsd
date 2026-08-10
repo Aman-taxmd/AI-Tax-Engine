@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+    <xsd:annotation>
+        <xsd:documentation>
+            <Description>IRS e-file Schema - Form 7218 - Clean Fuel Production Credit </Description>
+            <TaxYear>2025</TaxYear>
+            <MaturityLevel>Final Release</MaturityLevel>
+            <ReleaseDate>February 19 2026</ReleaseDate>
+        </xsd:documentation>
+    </xsd:annotation>
+    
+       <xsd:include schemaLocation="../../Common/efileTypes.xsd"/>
+            
+    <!-- ============================================= -->
+    <!-- =============== IRS Form 7218 =============== -->
+    <!-- ============================================= -->
+    
+    <xsd:element name="IRS7218">
+        <xsd:annotation>
+            <xsd:documentation>IRS Form 7218 - Clean Fuel Production Credit </xsd:documentation>
+        </xsd:annotation>
+        
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="IRS7218Type">
+                    <xsd:attributeGroup ref="DocumentAttributes">
+                        <xsd:annotation>
+                            <xsd:documentation>Common return document attributes</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:attributeGroup>
+                    
+                    <xsd:attribute name="documentName" type="TextType" fixed="IRS7218">
+                        <xsd:annotation>
+                            <xsd:documentation>IRS internal use only. To avoid errors within the return, do not include the attribute name or value.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:attribute>
+                    
+                    <xsd:attribute name="referenceDocumentId" type="IdListType">
+                        <xsd:annotation>
+                            <xsd:documentation>List of document IDs of forms, schedules, supporting info. etc. attached to this form.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:attribute>
+                    
+                    <xsd:attribute name="referenceDocumentName" type="TextType" fixed="BinaryAttachment GeneralDependencySmall"/>
+                </xsd:extension>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+    
+    <xsd:complexType name="IRS7218Type">
+        <xsd:sequence>
+            <!-- =============== Part I =============== -->
+            
+            <!-- IRS-issued registration number for the facility -->
+       <xsd:element name="FacilityIRSIssdRegistrationNum" type="FacilityIRSIssdRegistrationNumType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>IRS-issued registration number for the facility</Description>
+                        <LineNumber>Part I Line 1</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>         
+              
+            </xsd:element>
+            
+            <!-- Name or description of clean fuel facility -->
+            <xsd:element name="FacilityDesc" type="ShortExplanationType">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Name or description of clean fuel facility</Description>
+                        <LineNumber>Part I Line 2a</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        <xsd:choice minOccurs="0">
+		<xsd:sequence>
+            <!-- If different than filer, enter owner's person name -->
+            <xsd:element name="FacilityOwnerPersonNm" type="PersonNameType">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>If different than filer, enter owner's person name</Description>
+                        <LineNumber>Part I Line 2b (i)</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- If different than filer, enter owner's SSN -->
+            <xsd:element name="FacilityOwnerSSN" type="SSNType">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>If different than filer, enter owner's SSN</Description>
+                        <LineNumber>Part I Line 2b (ii)</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+           </xsd:sequence>
+							
+		   <xsd:sequence>           
+            
+            <!-- If different than filer, enter owner's business name -->
+            <xsd:element name="FacilityOwnerBusinessName" type="BusinessNameType">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>If different than filer, enter owner's business name</Description>
+                        <LineNumber>Part I Line 2b (i)</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- If different than filer, enter owner's EIN -->
+            <xsd:element name="FacilityOwnerEIN" type="EINType">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>If different than filer, enter owner's EIN</Description>
+                        <LineNumber>Part I Line 2b (ii)</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+		</xsd:choice>
+    
+            <!-- Address of facility -->
+            <xsd:element name="FacilityUSAddress" type="USAddressType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Address of facility</Description>
+                        <LineNumber>Part I Line 2c</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Location coordinates (Latitude) -->
+            <xsd:element name="FacilityLatitudeNum" type="LatitudeCoordinateType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Location coordinates (Latitude)</Description>
+                        <LineNumber>Part I Line 2d (i)</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Location coordinates (Longitude) -->
+            <xsd:element name="FacilityLongitudeNum" type="LongitudeCoordinateType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Location coordinates (Longitude)</Description>
+                        <LineNumber>Part I Line 2d (ii)</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Date the construction began on the facility -->
+            <xsd:element name="FacilityConstructionStartDt" type="DateType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Date the construction began on the facility</Description>
+                        <LineNumber>Part I Line 3</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Date the facility was placed in service -->
+            <xsd:element name="FacilityPlacedInServiceDt" type="DateType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Date the facility was placed in service</Description>
+                        <LineNumber>Part I Line 4</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Producer registration information group -->
+            <xsd:element name="ProducerRegistrationInfoGrp" maxOccurs="unbounded">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Producer registration information group</Description>
+                        <LineNumber>Part I Lines 5a-5b</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+                
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <!-- Producer registration number -->
+                        <xsd:element name="ProducerRegistrationNum">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Producer registration number</Description>
+                                    <LineNumber>Part I Line 5a</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                            
+                            <xsd:simpleType>
+                                <xsd:restriction base="AlphaNumericType">
+                                    <xsd:maxLength value="42"/>
+                                </xsd:restriction>
+                            </xsd:simpleType>
+                        </xsd:element>
+                        
+                        <!-- Date of registration approval for activity letter "CA" and/or "CN" -->
+                        <xsd:element name="ActyLtrRegistrationApprvlDt" type="DateType">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Date of registration approval for activity letter "CA" and/or "CN"</Description>
+                                    <LineNumber>Part I Line 5b</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            
+            <!-- Check this box if you are using provisional emissions rate(s) (PER) to determine your amount of credit -->
+            <xsd:element name="ProvisionalEmissionsRateInd" type="CheckboxType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Check this box if you are using provisional emissions rate(s) (PER) to determine your amount of credit</Description>
+                        <LineNumber>Part I Line 6</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Does the facility satisfy IRC  45Z(f)(6) prevailing wage requirements and IRC 45Z(f)(7) apprenticeship requirements? -->
+            <xsd:element name="PWARequirementMetInd" type="BooleanType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Does the facility satisfy IRC  45Z(f)(6) prevailing wage requirements and IRC 45Z(f)(7) apprenticeship requirements?</Description>
+                        <LineNumber>Part I Line 7a &amp; 7b</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- =============== Part II =============== -->
+            
+            <!-- Part II Line 1 TotClnAvnNonAvnFuelProdCrAmt - Not used -->
+            
+            <!-- Clean fuel production credit from partnerships, S corporations, cooperatives, estates and trusts -->
+            <xsd:element name="ClnFuelProdCrAmt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Clean fuel production credit from partnerships, S corporations, cooperatives, estates and trusts</Description>
+                        <LineNumber>Part II Line 2</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Total of specified lines -->
+            <xsd:element name="TotalAllowedTaxCreditAmt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Total of specified lines</Description>
+                        <LineNumber>Part II Line 3</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Amount allocated to patrons of the cooperative or beneficiaries of the estate or trust -->
+            <xsd:element name="AllocatedToBeneficiariesAmt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Amount allocated to patrons of the cooperative or beneficiaries of the estate or trust</Description>
+                        <LineNumber>Part II Line 4</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- Patrons of the cooperative, estates and trusts -->
+            <xsd:element name="EstatesTrustsAndCoopsCreditAmt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Patrons of the cooperative, estates and trusts</Description>
+                        <LineNumber>Part II Line 5</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            
+            <!-- =============== Part III =============== -->
+            
+            <!-- Clean Aviation and Non-Aviation Transportation Fuel Produced and Sold Group -->
+            <xsd:element name="ClnAvnNonAvnFuelPrdcdSoldGrp" minOccurs="0" maxOccurs="24">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <Description>Clean Aviation and Non-Aviation Transportation Fuel Produced and Sold Group</Description>
+                        <LineNumber>Part III, Columns (a)-(h)</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+                
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <!-- Type of fuel -->
+                        <xsd:element name="FuelTypeTxt">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Type of fuel</Description>
+                                    <LineNumber>Part III, Column (a)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                            
+                            <xsd:simpleType>
+                                <xsd:restriction base="TextType">
+                                    <xsd:maxLength value="30"/>
+                                </xsd:restriction>
+                            </xsd:simpleType>
+                        </xsd:element>
+                        
+                        <!-- Type of feedstock -->
+                        <xsd:element name="FeedstockTypeTxt" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Type of feedstock</Description>
+                                    <LineNumber>Part III, Column (b)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                            
+                            <xsd:simpleType>
+                                <xsd:restriction base="TextType">
+                                    <xsd:maxLength value="30"/>
+                                </xsd:restriction>
+                            </xsd:simpleType>
+                        </xsd:element>
+                        
+                        <!-- Calendar year sold -->
+                        <xsd:element name="SoldCalendarYr" type="YearType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Calendar year sold</Description>
+                                    <LineNumber>Part III, Column (c)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Emissions Rate or PER Value in  kg of CO2e per mmBTU -->
+                        <xsd:element name="FacilityEmissionsValueOrRt" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Emissions Rate or PER Value in  kg of CO2e per mmBTU</Description>
+                                    <LineNumber>Part III, Column (d)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                            
+                            <xsd:simpleType>
+                                <xsd:restriction base="LargeRatioType">
+                                    <xsd:maxInclusive value="50"/>
+                                </xsd:restriction>
+                            </xsd:simpleType>
+                        </xsd:element>
+                        
+                        <!-- 50 kg of CO2e per mmBTU minus column (d) divided by 50 kg of CO2e per mmBTU -->
+                        <xsd:element name="CalcFacilityEmissionsValueOrRt" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>50 kg of CO2e per mmBTU minus column (d) divided by 50 kg of CO2e per mmBTU</Description>
+                                    <LineNumber>Part III, Column (e)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                            
+                            <xsd:simpleType>
+                                <xsd:restriction base="LargeRatioType">
+                                    <xsd:maxInclusive value="10"/>
+                                </xsd:restriction>
+                            </xsd:simpleType>
+                        </xsd:element>
+                        
+                        <!-- Gallons or gallons equivalents -->
+                        <xsd:element name="GallonsOrGallonsEquivalentQty" type="DecimalType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Gallons or gallons equivalents</Description>
+                                    <LineNumber>Part III, Column (f)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Inflation-adjusted applicable amount for fuel sold -->
+                        <xsd:element name="InflationAdjFuelSoldAmt" type="USLargeDecimalAmountType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Inflation-adjusted applicable amount for fuel sold</Description>
+                                    <LineNumber>Part III, Column (g)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        
+                        <!-- Multiply specified columns -->
+                        <xsd:element name="ClnAvnNonAvnFuelProdCrAmt" type="USAmountNNType" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    <Description>Multiply specified columns</Description>
+                                    <LineNumber>Part III, Column (h)</LineNumber>
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            
+            <xsd:element name="TotClnAvnNonAvnFuelProdCrAmt" type="USAmountNNType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <LineNumber>Part III, Total Column (h), Line 25</LineNumber>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>

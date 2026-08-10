@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - IRS Form 5074 Allocation of Individual Income Tax to Guam or the Commonwealth of the Northern Mariana Islands (CNMI)</Description>
+			<TaxYear>2025</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>February 19 2026</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!--==================================================================-->
+	<!--======================== IRS Form 5074 ===========================-->
+	<!--==================================================================-->
+
+	<xsd:element name="IRS5074">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 5074</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS5074Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS5074"/>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="IRS5074Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for IRS Form 5074</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="GUAMAllocationGroup" type="AllocationGroupType" minOccurs="0"/>
+			<xsd:element name="CNMIAllocationGroup" type="AllocationGroupType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="AllocationGroupType">
+		<xsd:sequence>
+			<!-- Part I Income From Guam or the CNMI -->
+			<!-- Wages Salaries And Tips Amount -->
+			<xsd:element name="WagesSalariesAndTipsAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Wages Salaries And Tips Amount</Description>
+						<LineNumber>1</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!--Taxable Interest Amount -->
+			<xsd:element name="TaxableInterestAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Taxable Interest Amount</Description>
+						<LineNumber>2</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!--Ordinary Dividends Amount -->
+			<xsd:element name="OrdinaryDividendsAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Ordinary Dividends Amount</Description>
+						<LineNumber>3</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!--Taxable Refund Credit Offset Local Income Tax Amount -->
+			<xsd:element name="TxblRefCrOffsetLocalIncmTaxAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Taxable Refund Credit Offset Local Income Tax Amount</Description>
+						<LineNumber>4</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!--Alimony Received Amount -->
+			<xsd:element name="AlimonyReceivedAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Alimony Received Amount</Description>
+						<LineNumber>5</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!--Business Income Loss Amount -->
+			<xsd:element name="BusinessIncomeLossAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Business Income Loss Amount</Description>
+						<LineNumber>6</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!--Capital Gain Or Loss Amount -->
+			<xsd:element name="CapitalGainLossAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Capital Gain Or Loss Amount</Description>
+						<LineNumber>7</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!--Other Gain Loss Amount -->
+			<xsd:element name="OtherGainLossAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other Gain Loss Amount</Description>
+						<LineNumber>8</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!--Taxable Individual Retirement Account Amount -->
+			<xsd:element name="TaxableIRAAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Taxable Individual Retirement Account Amount</Description>
+						<LineNumber>9</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!--Pensions Annuities Amount -->
+			<xsd:element name="PensionsAnnuitiesAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Pensions Annuities Amount</Description>
+						<LineNumber>10</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!--Rental Real Estate Income Loss Amount -->
+			<xsd:element name="RentalRealEstateIncomeLossAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Rental Real Estate Income Loss Amount</Description>
+						<LineNumber>11</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!--Farm Income Loss Amount -->
+			<xsd:element name="FarmIncomeLossAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Farm Income Loss Amount</Description>
+						<LineNumber>12</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!--Unemployment Compensation Amount -->
+			<xsd:element name="UnemploymentCompAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Unemployment Compensation Amount</Description>
+						<LineNumber>13</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!--Taxable Social Security Amount -->
+			<xsd:element name="TaxableSocSecAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Taxable Social Security Amount</Description>
+						<LineNumber>14</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!--Total Other Income Amount -->
+			<xsd:element name="TotalOtherIncomeAmt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Other Income Amount</Description>
+						<LineNumber>15</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="GUAMCNMIOtherIncomeStatement"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+			<!--Total Income Amount -->
+			<xsd:element name="TotalIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Income Amount</Description>
+						<LineNumber>16</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!-- Part II Adjustments to Income From Guam or the CNMI -->
+			
+			<!-- Educator Expense Amount -->
+			<xsd:element name="EducatorExpensesAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Educator Expense Amount</Description>
+						<LineNumber>17</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element> 
+			<!--Business Expense Reservists And Others Amount -->
+			<xsd:element name="BusExpnsReservistsAndOthersAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Business Expense Reservists And Others Amount</Description>
+						<LineNumber>18</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!--Health Savings Account Deduction Amount -->
+			<xsd:element name="HealthSavingsAccountDedAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Health Savings Account Deduction Amount</Description>
+						<LineNumber>19</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!--Moving Expense Amount -->
+			<xsd:element name="MovingExpenseAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Moving Expense Amount</Description>
+						<LineNumber>20</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Deductible Part Of Self Employment Tax Amount -->
+			<xsd:element name="DeductibleSelfEmploymentTaxAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Deductible Part Of Self Employment Tax Amount</Description>
+						<LineNumber>21</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!--Self Employed SEP SIMPLE Qualified Plans Amount -->
+			<xsd:element name="SelfEmpldSepSimpleQlfyPlansAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Self Employed SEP SIMPLE Qualified Plans Amount</Description>
+						<LineNumber>22</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!--Self Employed Health Insurance Deduction Amount -->
+			<xsd:element name="SelfEmpldHealthInsDedAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Self Employed Health Insurance Deduction Amount</Description>
+						<LineNumber>23</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!--Penalty On Early Withdrawal Of Savings Amount -->
+			<xsd:element name="PnltyOnErlyWthdrwOfSavingsAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Penalty On Early Withdrawal Of Savings Amount</Description>
+						<LineNumber>24</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!--Individual Retirement Account Deduction Amount -->
+			<xsd:element name="IRADeductionAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Individual Retirement Account Deduction Amount</Description>
+						<LineNumber>25</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!--Student Loan Interest Deduction Amount -->
+			<xsd:element name="StudentLoanInterestDedAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Student Loan Interest Deduction Amount</Description>
+						<LineNumber>26</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!--	Tuition And Fees Deduction Amount -->
+			<xsd:element name="TuitionAndFeesDedAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Tuition And Fees Deduction Amount</Description>
+						<LineNumber>27</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!--	Charitable Contribution Amount -->
+			<xsd:element name="CharitableContributionAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Charitable Contribution Amount</Description>
+						<LineNumber>28</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<!--Other Deductions From 1040 Total Amount -->
+			<xsd:element name="OtherDeductionsFrom1040TotAmt" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Other Deductions From 1040 Total Amount</Description>
+						<LineNumber>29</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="USAmountType">
+							<xsd:attribute name="referenceDocumentId" type="IdListType"/>
+							<xsd:attribute name="referenceDocumentName" type="StringType" fixed="GUAMCNMIOtherDeductionsFrom1040Statement"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+			<!--Total Adjustments Amount -->
+			<xsd:element name="TotalAdjustmentsAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Adjustments Amount</Description>
+						<LineNumber>29</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!--Adjusted Gross Income Amount -->
+			<xsd:element name="AdjustedGrossIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Adjusted Gross Income Amount</Description>
+						<LineNumber>30</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!-- Part III Payments of Income Tax to Guam or the CNMI -->
+			<!-- Estimated Tax Payment Filed With Territory Amount -->
+			<xsd:element name="EstTaxPymntFldWithTerritoryAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Estimated Tax Payment Filed With Territory Amount</Description>
+						<LineNumber>31</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!--United States Government Civilian Income Tax Withheld Amount -->
+			<xsd:element name="USGovCivIncomeTaxWithheldAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>United States Government Civilian Income Tax Withheld Amount</Description>
+						<LineNumber>32</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!--United States Armed Forces Income Tax Withholding Amount -->
+			<xsd:element name="USArmedForcesIncomeTaxWthldAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>United States Armed Forces Income Tax Withholding Amount</Description>
+						<LineNumber>33</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!--Territory Income Tax Withheld Amount -->
+			<xsd:element name="TerritoryIncomeTaxWithheldAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Territory Income Tax Withheld Amount</Description>
+						<LineNumber>34</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<!--Total Payments Amount -->
+			<xsd:element name="TotalPaymentsAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Payments Amount</Description>
+						<LineNumber>35</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

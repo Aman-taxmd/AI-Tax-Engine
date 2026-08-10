@@ -1,0 +1,38 @@
+# Hand-authored multi-instance taxpayer question(s) -- mirrors
+# profile_questions.yaml's shape, but for facts that are genuinely a *list*
+# (a taxpayer can have more than one Form W-2), not a single scalar answer.
+#
+# One question drives ui/pages/2_Answer_Questions.py's single "+ Add W-2"
+# widget, which -- per employer row -- actually fans out into SIX
+# `answers[...]` lists (Box 1/2/3/5/12-W amounts + employer name; see
+# build/consolidation/w2_bridge.py's module docstring for why Box 2/3/5/12-W
+# have no IntakeQuestion of their own even though they're genuinely
+# multi-instance-answered). `maps_to_canonical_field` only names the
+# "primary"/first one (Box 1) for backward-compatible justification-chain
+# purposes; `input_type: currency_multi_instance` is its own distinct value
+# (see db/models.py's IntakeQuestion.input_type CHECK constraint) rather
+# than reusing plain `currency`.
+questions:
+  - question_key: intake_w2_box1_wages
+    form_number: "1040"
+    prompt_text: "Enter each Form W-2 you received: employer name (for your own reference), Box 1 (wages), Box 2 (federal tax withheld), Box 3 (Social Security wages), and Box 12 Code W (employer HSA contribution), if any."
+    input_type: currency_multi_instance
+    justification: >-
+      Form 1040, Line 1a asks for your "Total amount from Form(s) W-2, box
+      1" and Line 25a asks for the total federal tax withheld from your
+      W-2(s) -- both single numbers, but you may have more than one
+      employer. Form 8889, Line 9 (employer HSA contributions) also comes
+      straight from your W-2's Box 12 Code W rather than being a separate
+      guess. This pilot asks for each W-2 separately and adds each box up
+      for you: Box 1 -> Line 1a -> Line 1z -> Line 9 (Total Income) -> Line
+      11a (AGI); Box 2 -> Line 25a (withholding); Box 12 Code W -> Form
+      8889, Line 9 -> ... -> Schedule 1, Line 13 -> Form 1040, Line 10.
+    irs_reference:
+      form: "1040"
+      line: "1a"
+      quote: "Total amount from Form(s) W-2, box 1 (see instructions)"
+      source: "2025 Form 1040, page 1 (form-printed line text)"
+    feeds_condition: null
+    shadows_canonical_field: intake_w2_box1_wages
+    order_index: 3
+    required: false

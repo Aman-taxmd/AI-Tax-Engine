@@ -1,0 +1,46 @@
+# Seed catalog for Schedule 1 (Form 1040) — Additional Income and Adjustments
+# to Income.
+#
+# Schedule 1 has no separate "About" page of its own (there is no
+# https://www.irs.gov/forms-pubs/about-schedule-1-form-1040 — confirmed 404),
+# so — exactly like form_1040.yaml already does implicitly — this catalog
+# also crawls the About Form 1040 page and relies on discovery.py's doc_id
+# override (see `discover()`'s `link_form_number` logic) to tag Schedule 1's
+# own PDF (f1040s1.pdf) with the distinct form_number "1040s1" rather than
+# "1040". This file exists purely for **source visibility** (per your ask —
+# so Schedule 1 shows up as its own auditable catalog entry rather than only
+# being a side-effect of Form 1040's crawl); running `discover --form 1040s1`
+# is idempotent with `discover --form 1040` and creates no new documents
+# beyond what that command already stores.
+#
+# Schedule 1's own LINE INSTRUCTIONS aren't a separate document either —
+# they're printed inside the general Form 1040 instructions booklet
+# (i1040gi, "Instructions for Schedule 1" section), same as form_1040.yaml
+# notes. Its e-file schema is staged separately under this distinct form
+# identity (see build/ingestion/download.py's STAGED_LOCAL_FILES) since it
+# has its own XSD (IRS1040Schedule1.xsd) and its own line numbering —
+# Schedule 1 and Form 1040 both happen to have an unrelated "line 13", for
+# example.
+form_number: "1040s1"
+tax_year: 2025
+
+entry_points:
+  - url: https://www.irs.gov/forms-pubs/about-form-1040
+    role: primary_form
+
+# Only the form PDF itself is in scope here — instructions are cited from
+# the already-catalogued i1040gi document (form_1040.yaml), not re-fetched.
+include_doc_types:
+  - form
+
+# Every other form-type link discoverable from the About Form 1040 page,
+# scoped out so this catalog stays narrowly about Schedule 1 (its own PDF's
+# doc_id, "1040s1", is deliberately left OUT of this list so it passes
+# through as in-scope).
+excluded_doc_ids:
+  - "1040"
+  - 1040s     # Form 1040-SR
+  - 1040s1a   # Schedule 1-A — its own catalog, see form_1040s1a.yaml
+  - 1040s2    # Schedule 2 (AMT / other taxes)
+  - 1040s3    # Schedule 3 (nonrefundable credits)
+  - 1040tt    # Tax and EIC tables

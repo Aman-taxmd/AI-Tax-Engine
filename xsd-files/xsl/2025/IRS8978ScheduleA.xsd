@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.irs.gov/efile" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Schema - Form 8978 Schedule A</Description>
+			<TaxYear>2025</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>February 19 2026</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../Common/efileTypes.xsd"/>
+
+	<!-- ================================================================= -->
+	<!-- =================== IRS Form 8978 Schedule A ==================== -->
+	<!-- ================================================================= -->
+
+	<xsd:element name="IRS8978ScheduleA">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 8978 Schedule A</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS8978ScheduleAType">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="StringType" fixed="IRS8978ScheduleA">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="referenceDocumentId" type="IdListType">
+						<xsd:annotation>
+							<xsd:documentation>List of document ID's of forms, schedules, supporting info. etc. attached to this form</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="BinaryAttachment"/>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="IRS8978ScheduleAType">
+		<xsd:annotation>
+			<xsd:documentation>Content model for Form 8978 Schedule A</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+
+			<xsd:choice>
+				<!-- BBA Audit is the source of the review years adjustments -->
+				<xsd:element name="BBAAuditInd" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>BBA Audit is the source of the review years adjustments</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<!-- AAR Filing is the source of the review years adjustments -->
+				<xsd:element name="AARFilingInd" type="CheckboxType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>AAR Filing is the source of the review years adjustments</Description>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+
+			<!-- Group corresponding to each of Columns (a) - (d) -->
+			<xsd:element name="PartnerAdditionalRptgYrTxGrp" type="PartnerAdditionalRptgYrTxGrpType" maxOccurs="4"/>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Type for PartnerAdditionalRptgYrTxGrp, the direct child element of IRS8978ScheduleA -->
+	<xsd:complexType name="PartnerAdditionalRptgYrTxGrpType">
+		<xsd:sequence>
+
+			<!-- Tax Year End Date -->
+			<xsd:element name="TaxYearEndDt" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Tax Year End Date</Description>
+						<LineNumber>Table Header, Column (a), (b), (c) or (d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Group for Lines 1a - 1g -->
+			<xsd:element name="AdjTaxableIncomeTxYrEndGrp" type="AdjustmentTaxYrEndGrpType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<LineNumber>1a - 1g</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Adjustments To Income Amount -->
+			<xsd:element name="TotalAdjustmentsToIncomeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Adjustments To Income Amount</Description>
+						<LineNumber>2, Column (a), (b), (c) or (d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Group for Lines 3a - 3g -->
+			<xsd:element name="AdjDeductionIncomeTxYrEndGrp" type="AdjustmentTaxYrEndGrpType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<LineNumber>3a - 3g</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Deduction Net Change Amount -->
+			<xsd:element name="TotalDeductionNetChangeAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Deduction Net Change Amount</Description>
+						<LineNumber>4, Column (a), (b), (c) or (d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Group for Lines 5a - 5g -->
+			<xsd:element name="AdjustmentCreditTaxYrEndGrp" type="AdjustmentTaxYrEndGrpType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<LineNumber>5a - 5g</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- Total Adjustments To Credit Amount -->
+			<xsd:element name="TotalAdjustmentsToCreditAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Adjustments To Credit Amount</Description>
+						<LineNumber>6, Column (a), (b), (c) or (d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Type for Lines 1a - 1g, 3a - 3g, and 5a - 5g -->
+	<xsd:complexType name="AdjustmentTaxYrEndGrpType">
+		<xsd:sequence>
+
+			<!-- Adjustments Description -->
+			<xsd:element name="AdjustmentsDesc">
+				<xsd:annotation>
+				  	<xsd:documentation>
+				  		<Description>Adjustments Description</Description>
+						<LineNumber>Column (Adjustments)</LineNumber>
+				  	</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="TextType">
+						<xsd:maxLength value="50"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:choice minOccurs="0">
+			  <!-- Tracking Number -->
+				<xsd:element name="TrackingNum" type="TrackingNumberType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Tracking Number</Description>
+							<LineNumber>Column (Tracking Number)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			  <!-- Tracking Number -->
+				<xsd:element name="AARTrackingNum" type="AARTrackingNumberType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>AAR (Administrative Adjustment Request) Tracking Number</Description>
+							<LineNumber>1, 3, 5(a-g)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>				
+			  <!-- Audit Control Number -->
+				<xsd:element name="AuditControlNum" type="AuditControlNumberType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>Person Name</Description>
+							<LineNumber>Column (Tracking Number)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<!-- EIN -->
+				<xsd:element name="EIN" type="EINType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>EIN</Description>
+							<LineNumber>Column (Tracking Number)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<!-- Missing EIN Reason Code -->
+				<xsd:element name="MissingEINReasonCd">
+					<xsd:annotation>
+					  	<xsd:documentation>
+					  		<Description>Missing EIN Reason Code</Description>
+							<LineNumber>Column (Tracking Number)</LineNumber>
+					  	</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="TextType">
+							<xsd:enumeration value="APPLD FOR"/>
+							<xsd:enumeration value="FOREIGNUS"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<!-- SSN -->
+				<xsd:element name="SSN" type="SSNType">
+					<xsd:annotation>
+						<xsd:documentation>
+							<Description>SSN</Description>
+							<LineNumber>Column (Tracking Number)</LineNumber>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+
+			<!-- Adjustment Amount -->
+			<xsd:element name="AdjustmentAmt" type="USAmountType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Adjustment Amount</Description>
+						<LineNumber>Column (a), (b), (c) or (d)</LineNumber>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Type for element TrackingNum -->
+	<xsd:simpleType name="TrackingNumberType">
+		<xsd:annotation>
+			<xsd:documentation>The date in the format where the first 4 numeric digits=Year (YYYY), the second 2 numeric digits=Month (MM), and the last 2 numeric digits=Day (DD), followed by a dash, followed by a 6 digit sequence number in the range of 000001 to 999999</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="StringType">
+			<xsd:pattern value="[1-9][0-9]{3}(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|3[01])-([0-9]{5}[1-9]|[0-9]{4}[1-9]0|[0-9]{3}[1-9]00|[0-9]{2}[1-9]000|[0-9][1-9]0000|[1-9]00000)"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<!-- Type for element AuditControlNum -->
+	<xsd:simpleType name="AuditControlNumberType">
+		<xsd:annotation>
+			<xsd:documentation>String representation for the audit control number of the format of YYMMNNNNNN, where YY=Year, MM=Month and NNNNNN=Sequence number (range 000001-999999)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="StringType">
+			<xsd:pattern value="[1-9][0-9](0[1-9]|1[0-2])([0-9]{5}[1-9]|[0-9]{4}[1-9]0|[0-9]{3}[1-9]00|[0-9]{2}[1-9]000|[0-9][1-9]0000|[1-9]00000)"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+</xsd:schema>

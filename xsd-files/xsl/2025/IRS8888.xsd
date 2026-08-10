@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.irs.gov/efile" targetNamespace="http://www.irs.gov/efile" elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<Description>IRS e-file Individual Income Tax Schema - IRS Form 8888 - Allocation of Refund</Description>
+			<TaxYear>2025</TaxYear>
+			<MaturityLevel>Final Release</MaturityLevel>
+			<ReleaseDate>February 19 2026</ReleaseDate>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:include schemaLocation="../../../Common/efileTypes.xsd"/>
+
+	<!-- ================================================================== -->
+	<!-- ======================== IRS Form 8888 =========================== -->
+	<!-- ================================================================== -->
+
+	<xsd:element name="IRS8888">
+		<xsd:annotation>
+			<xsd:documentation>IRS Form 8888</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="IRS8888Type">
+					<xsd:attributeGroup ref="DocumentAttributes">
+						<xsd:annotation>
+							<xsd:documentation>Common return document attributes</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attributeGroup>
+					<xsd:attribute name="documentName" type="xsd:string" fixed="IRS8888">
+						<xsd:annotation>
+							<xsd:documentation>IRS internal use only. To avoid error in the return, do not include the attribute name or value.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="referenceDocumentId" type="IdListType">
+						<xsd:annotation>
+							<xsd:documentation>List of document ID's of forms, schedules, supporting info. etc. attached to this form</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="referenceDocumentName" type="StringType" fixed="GeneralDependencySmall" />
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="IRS8888Type">
+		<xsd:annotation>
+			<xsd:documentation>Content model for IRS Form 8888</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+		
+			<!-- ========= Direct Deposit ========= -->		
+			
+			<xsd:element name="DirectDepositInfoGroup" minOccurs="0" maxOccurs="3">
+				<xsd:complexType>
+					<xsd:sequence>
+					
+						<!-- Direct Deposit Refund Amount -->
+						<xsd:element name="DirectDepositRefundAmt" type="USAmountPosType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Direct Deposit Refund Amount</Description>
+									<LineNumber>1a 2a 3a</LineNumber>									
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						
+						<!-- Routing Transit Number -->
+						<xsd:element name="RoutingTransitNum" type="RoutingTransitNumberType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Routing Transit Number</Description>
+									<LineNumber>1b 2b 3b</LineNumber>									
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						
+						<!-- Account Indicator -->
+						<xsd:element name="BankAccountTypeCd">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Account Type Code</Description>
+									<LineNumber>1c 2c 3c</LineNumber>									
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="BankAccountType">
+									<xsd:enumeration value="1"/>
+									<xsd:enumeration value="2"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						
+						<!-- Depositor Account Number -->
+						<xsd:element name="DepositorAccountNum" type="BankAccountNumberType">
+							<xsd:annotation>
+								<xsd:documentation>
+									<Description>Depositor Account Number</Description>
+									<LineNumber>1d 2d 3d</LineNumber>									
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+						
+			<!-- ========= Paper Check ========= -->		
+
+			<!-- Amount to be Refunded by Check -->
+			<xsd:element name="RefundByCheckAmt" type="USAmountPosType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Amount to be Refunded by Check</Description>
+						<LineNumber>4</LineNumber>						
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<!-- ========= Total Allocation Of Refund ========= -->		
+
+			<!-- Total Allocation of Refund -->
+			<xsd:element name="TotalAllocationOfRefundAmt" type="USAmountPosType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<Description>Total Allocation of Refund</Description>
+						<LineNumber>5</LineNumber>						
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>
