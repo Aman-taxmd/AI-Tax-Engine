@@ -67,6 +67,12 @@ STAGED_LOCAL_FILES = [
     # 4 and HSA additional taxes on lines 17c/17d).
     ("irs_xsd_schemas/ty2025/IRS1040Schedule2.xsd", "xsd", "1040s2"),
     ("irs_xsl_stylesheets/ty2025/IRS1040Schedule2.xsl", "xsl", "1040s2"),
+    # Form 4562 — Depreciation and Amortization (cost segregation pilot).
+    ("irs_xsd_schemas/ty2025/IRS4562.xsd", "xsd", "4562"),
+    ("irs_xsl_stylesheets/ty2025/IRS4562.xsl", "xsl", "4562"),
+    # Schedule E (Form 1040) — rental income (cost seg chain).
+    ("irs_xsd_schemas/ty2025/IRS1040ScheduleE.xsd", "xsd", "1040se"),
+    ("irs_xsl_stylesheets/ty2025/IRS1040ScheduleE.xsl", "xsl", "1040se"),
 ]
 
 # Primary e-file schema file for each form identity — the one actually walked
@@ -81,6 +87,8 @@ PRIMARY_XSD_FILENAME_BY_FORM = {
     "1040sc": "IRS1040ScheduleC.xsd",
     "1040sse": "IRS1040ScheduleSE.xsd",
     "1040s2": "IRS1040Schedule2.xsd",
+    "4562": "IRS4562.xsd",
+    "1040se": "IRS1040ScheduleE.xsd",
 }
 
 

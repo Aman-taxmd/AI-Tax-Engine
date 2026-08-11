@@ -50,6 +50,21 @@ PILOT_TERMINAL_FIELDS = [
     "form_1040_line_35a", "form_1040_line_37",
 ]
 
+# Cost segregation pilot terminals (see docs/plan cost_seg_ai_pipeline).
+COST_SEG_TERMINAL_FIELDS = [
+    "taxpayer.depreciation_summary.total_amount",
+    "taxpayer.depreciation_summary.summary_status",
+    "cost_seg.activity_001.depreciation.calculation_status",
+    "cost_seg.activity_001.depreciation.total_amount",
+    "cost_seg.activity_001.form_4562.instance_status",
+    "cost_seg.activity_001.form_4562.total_depreciation_amount",
+    "cost_seg.activity_001.schedule_e.depreciation_expense",
+    "cost_seg.activity_002.form_4562.total_depreciation_amount",
+    "cost_seg.activity_002.schedule_e.depreciation_expense",
+    "cost_seg.activity_001.limitations.passive_allowed_loss_amount",
+    "cost_seg.activity_002.limitations.passive_allowed_loss_amount",
+]
+
 # Fields that are NOT real dependency-graph ancestors of anything (nothing
 # depends on them, they depend on nothing) but that the actual IRS PDFs
 # still print as checkboxes the taxpayer should see reflect their answer --
@@ -113,6 +128,17 @@ def form_field_names(form: str) -> list[str] | None:
     return FORM_FIELD_NAME_OVERRIDES.get(form)
 
 
+_FORM_NAME_TO_FORM: dict[str, str] = {
+    name: form for form, names in FORM_FIELD_NAME_OVERRIDES.items() for name in names
+}
+
+# Cost seg multi-instance patterns (Phase 2) — no hardcoded activity IDs.
+_COST_SEG_FORM_PATTERNS: dict[str, str] = {
+    "4562": "cost_seg.%.form_4562.%",
+    "1040se": "cost_seg.%.schedule_e.%",
+}
+
+
 def form_field_condition(column, form: str):
     """SQLAlchemy filter condition selecting every canonical field (or calc
     rule, via `CalcRule.rule_id`, which is always kept equal to the field
@@ -122,12 +148,10 @@ def form_field_condition(column, form: str):
     names = FORM_FIELD_NAME_OVERRIDES.get(form)
     if names is not None:
         return column.in_(names)
+    pattern = _COST_SEG_FORM_PATTERNS.get(form)
+    if pattern is not None:
+        return column.like(pattern)
     return column.like(f"form_{form}_line_%")
-
-
-_FIELD_NAME_TO_FORM: dict[str, str] = {
-    name: form for form, names in FORM_FIELD_NAME_OVERRIDES.items() for name in names
-}
 
 
 def form_for_field_name(field_name: str) -> str | None:
@@ -136,7 +160,7 @@ def form_for_field_name(field_name: str) -> str | None:
     that derive a form token from `form_{form}_line_N` via regex (e.g.
     build/synthesis/question_registry.py's `_form_token`) should fall back to
     this for any field_name that doesn't match that pattern."""
-    return _FIELD_NAME_TO_FORM.get(field_name)
+    return _FORM_NAME_TO_FORM.get(field_name)
 
 
 def ancestor_closure(session, terminal_fields: list[str] | None = None) -> set[str]:
@@ -146,7 +170,7 @@ def ancestor_closure(session, terminal_fields: list[str] | None = None) -> set[s
     closure is never re-queued) -- see runtime/engine.py for how an actual
     cycle *within* this closure (a real, if rare, candidate-rule defect) is
     handled during evaluation."""
-    terminal_fields = terminal_fields or PILOT_TERMINAL_FIELDS
+    terminal_fields = terminal_fields or (PILOT_TERMINAL_FIELDS + COST_SEG_TERMINAL_FIELDS)
     edges = session.execute(select(DependencyEdge).where(DependencyEdge.depends_on_type == "field")).scalars().all()
     parents_of: dict[str, list[str]] = {}
     for e in edges:

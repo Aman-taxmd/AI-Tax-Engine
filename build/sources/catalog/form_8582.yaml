@@ -1,0 +1,17 @@
+# Seed catalog for Form 8582 (Passive Activity Loss Limitations) — cost seg pilot slice.
+#
+# Sprint 1: REPS / material participation gate + passive_allowed_loss_amount interface.
+form_number: "8582"
+tax_year: 2025
+
+entry_points:
+  - url: https://www.irs.gov/forms-pubs/about-form-8582
+    role: primary_form
+  - url: https://www.irs.gov/publications/p925
+    role: related_publication
+
+include_doc_types:
+  - instructions
+  - publication
+
+excluded_publications: []

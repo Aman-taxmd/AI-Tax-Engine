@@ -1,0 +1,17 @@
+# Seed catalog for Form 6198 (At-Risk Limitations) — cost seg pilot slice.
+#
+# Sprint 1: normalized loss_after_at_risk_amount interface only (pass-through when N/A).
+form_number: "6198"
+tax_year: 2025
+
+entry_points:
+  - url: https://www.irs.gov/forms-pubs/about-form-6198
+    role: primary_form
+  - url: https://www.irs.gov/publications/p925
+    role: related_publication
+
+include_doc_types:
+  - instructions
+  - publication
+
+excluded_publications: []

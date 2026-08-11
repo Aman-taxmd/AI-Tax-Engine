@@ -1,0 +1,19 @@
+# Seed catalog for Form 4562 (Depreciation and Amortization) — cost seg pilot slice.
+#
+# Scope: Parts II–IV (bonus, MACRS, summary). Part I (§179), Part V (listed
+# property), Part VI (amortization) deferred.
+form_number: "4562"
+tax_year: 2025
+
+entry_points:
+  - url: https://www.irs.gov/forms-pubs/about-form-4562
+    role: primary_form
+  - url: https://www.irs.gov/publications/p946
+    role: related_publication
+
+include_doc_types:
+  - instructions
+  - publication
+  - form
+
+excluded_publications: []

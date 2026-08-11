@@ -25,6 +25,7 @@ from build.synthesis.pdf_field_mapper import resolve_pdf_field_mapping_review
 from db.models import (
     CalcRule,
     CanonicalField,
+    CostSegFieldTemplate,
     Document,
     EvaluationRun,
     HumanReviewItem,
@@ -38,7 +39,7 @@ from runtime.engine import ComputedValue, compute
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 
-PILOT_FORMS = ["8889", "1040s1", "1040s1a", "1040sc", "1040sse", "1040s2", "1040"]
+PILOT_FORMS = ["8889", "1040s1", "1040s1a", "1040sc", "1040sse", "1040s2", "1040", "4562", "1040se"]
 
 FORM_DISPLAY_NAMES = {
     "8889": "Form 8889",
@@ -48,7 +49,11 @@ FORM_DISPLAY_NAMES = {
     "1040sse": "Schedule SE (Form 1040)",
     "1040s2": "Schedule 2 (Form 1040)",
     "1040": "Form 1040",
+    "4562": "Form 4562 (Cost Seg)",
+    "1040se": "Schedule E (Cost Seg)",
 }
+
+COST_SEG_FORMS = {"4562", "1040se"}
 
 # (cli_command, label, needs_form_arg). Order matches the pipeline's actual
 # phase sequence (build/cli.py's module docstring / run-pilot). Deliberately
@@ -75,17 +80,16 @@ PHASES: list[tuple[str, str, bool]] = [
     ("form-mapping", "Form Mapping", True),
     ("generate-questions", "Generate Questions", True),
     ("map-pdf-fields", "PDF Field Mapping", True),
+    ("cost-seg-setup", "6x. Cost Seg Setup (global)", False),
+    ("form-4562-pdf-bridge", "6x. Form 4562 PDF Bridge (global)", False),
+    ("schedule-e-pdf-bridge", "6x. Schedule E PDF Bridge (global)", False),
+    ("cost-seg-pdf-setup", "6x. Cost Seg PDF Setup (global)", False),
+    ("cost-seg-export", "6x. Cost Seg Export (global)", False),
+    ("seed-cost-seg-questions", "6x. Seed Cost Seg Questions (global)", False),
+    ("run-cost-seg-goldens", "6x. Run Cost Seg Goldens (global)", False),
 ]
 
-# Form W-2 has its own catalog/documents/canonical-fields/PDF mappings (see
-# build/sources/catalog/form_w2.yaml) but is deliberately NOT in PILOT_FORMS
-# -- it never gets its own "Answer Questions" line-by-line tab or the
-# generic single-instance render_filled_pdf view the way the other 4 forms
-# do (it's this pilot's one genuinely multi-instance form, rendered by its
-# own bespoke section -- see ui/pages/2_Answer_Questions.py's "Your W-2(s)"
-# section / ui/pdf_render.py's render_filled_w2_pdf). Listed separately so
-# Build Control can still show its discover/bridge/PDF-mapping status.
-ADDITIONAL_STATUS_FORMS = ["w2"]
+ADDITIONAL_STATUS_FORMS = ["w2", "4562", "1040se"]
 
 
 def form_display(form: str) -> str:
@@ -173,6 +177,10 @@ def _belongs_to_form(field_or_rule_name: str, form: str) -> bool:
     names = form_field_names(form)
     if names is not None:
         return field_or_rule_name in names
+    if form == "4562":
+        return ".form_4562." in field_or_rule_name
+    if form == "1040se":
+        return ".schedule_e." in field_or_rule_name
     return field_or_rule_name.startswith(f"form_{form}_line_")
 
 
@@ -190,7 +198,16 @@ def get_form_status(form: str, tax_year: int = 2025) -> dict[str, Any]:
                 form_field_condition(CanonicalField.field_name, form), CanonicalField.tax_year == tax_year
             )
         ).scalars().all()
-        n_fields = len(fields)
+        if form in COST_SEG_FORMS:
+            n_fields = session.execute(
+                select(CostSegFieldTemplate).where(
+                    CostSegFieldTemplate.source_form_number == form,
+                    CostSegFieldTemplate.tax_year == tax_year,
+                )
+            ).scalars().all()
+            n_fields = len(n_fields)
+        else:
+            n_fields = len(fields)
 
         rules = session.execute(
             select(CalcRule).where(
@@ -315,13 +332,25 @@ def get_pdf_field_mappings(form: str, tax_year: int = 2025) -> dict[str, list[Pd
     field); a checkbox-choice group (e.g. Form 8889 Line 1's self-only/family
     boxes, Form 1040's 5 filing-status boxes -- see build/consolidation/
     checkbox_field_bridge.py) has one entry per widget in the group, each
-    carrying the `checkbox_match_value` that should check THAT widget."""
+    carrying the `checkbox_match_value` that should check THAT widget.
+
+    When the catalogued form PDF has a content_hash, prefer mappings stamped
+    with that hash (hand-verified revision scoping for cost seg bridges)."""
     with get_session() as session:
+        doc = session.execute(
+            select(Document)
+            .where(Document.form_number == form, Document.doc_type == "form", Document.superseded_by.is_(None))
+            .order_by(Document.version.desc())
+        ).scalars().first()
         mappings = session.execute(
             select(PdfFieldMapping).where(
                 PdfFieldMapping.form_number == form, PdfFieldMapping.tax_year == tax_year
             )
         ).scalars().all()
+        if doc and doc.content_hash:
+            hash_matched = [m for m in mappings if m.pdf_content_hash == doc.content_hash]
+            if hash_matched:
+                mappings = hash_matched
         field_names = {
             f.id: f.field_name
             for f in session.execute(

@@ -47,10 +47,10 @@ def _field_pattern(form: str) -> str:
 def _field_condition(column, form: str):
     """The full filter condition for `form`'s canonical-field/calc-rule name
     column -- prefers runtime.chain's exact-name-list override (renamed
-    forms), then this module's own prefix override (e.g. w2), then the
-    default `form_{form}_line_%` prefix."""
-    if form in _FIELD_NAME_PATTERN_OVERRIDES:
-        return column.like(_field_pattern(form))
+    forms), then cost seg patterns, then this module's own prefix override (e.g. w2),
+    then the default `form_{form}_line_%` prefix."""
+    from runtime.chain import form_field_condition
+
     return form_field_condition(column, form)
 
 

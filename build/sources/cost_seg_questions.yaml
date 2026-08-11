@@ -1,0 +1,55 @@
+# Cost segregation intake questions.
+
+questions:
+  - question_key: cost_seg_activities
+    form_number: "4562"
+    prompt_text: >-
+      Rental and business activities for cost segregation / depreciation.
+    input_type: activities
+    justification: >-
+      Cost segregation operates per tax activity. Each activity receives its own
+      depreciation engine run and, when required, its own Form 4562 instance.
+    irs_reference:
+      form: "4562"
+      line: "header"
+      quote: >-
+        File a separate Form 4562 for each business or activity for which Form 4562
+        is required.
+      source: "2025 Form 4562 Instructions"
+    feeds_condition: null
+    shadows_canonical_field: null
+    order_index: 1
+    required: false
+
+  - question_key: taxpayer_is_real_estate_professional
+    form_number: "8582"
+    prompt_text: "Is the taxpayer a Real Estate Professional (REPS)?"
+    input_type: boolean
+    justification: >-
+      REPS status with material participation affects passive activity loss limits
+      (Pub 925, Form 8582). Does not change depreciation amounts.
+    irs_reference:
+      form: "8582"
+      line: "worksheet"
+      quote: "Real estate professional status affects passive loss treatment."
+      source: "IRS Publication 925"
+    feeds_condition: null
+    shadows_canonical_field: null
+    order_index: 2
+    required: false
+
+  - question_key: taxpayer_materially_participates_in_rental
+    form_number: "8582"
+    prompt_text: "Does the taxpayer materially participate in this rental activity?"
+    input_type: boolean
+    justification: >-
+      Material participation is required with REPS for nonpassive treatment.
+    irs_reference:
+      form: "8582"
+      line: "worksheet"
+      quote: "Active participation in a rental real estate activity."
+      source: "IRS Publication 925"
+    feeds_condition: null
+    shadows_canonical_field: null
+    order_index: 3
+    required: false

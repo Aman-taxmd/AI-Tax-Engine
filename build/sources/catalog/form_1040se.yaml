@@ -1,0 +1,18 @@
+# Seed catalog for Schedule E (Supplemental Income and Loss) — cost seg pilot slice.
+#
+# Scope: Part I rental real estate depreciation expense (Line 18 projection).
+form_number: "1040se"
+tax_year: 2025
+
+entry_points:
+  - url: https://www.irs.gov/forms-pubs/about-schedule-e-form-1040
+    role: primary_form
+  - url: https://www.irs.gov/publications/p925
+    role: related_publication
+
+include_doc_types:
+  - instructions
+  - publication
+  - form
+
+excluded_publications: []

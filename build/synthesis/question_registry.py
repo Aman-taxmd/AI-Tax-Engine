@@ -43,6 +43,7 @@ log = structlog.get_logger(__name__)
 
 PROFILE_QUESTIONS_PATH = Path(__file__).resolve().parent.parent / "sources" / "profile_questions.yaml"
 W2_QUESTIONS_PATH = Path(__file__).resolve().parent.parent / "sources" / "w2_questions.yaml"
+COST_SEG_QUESTIONS_PATH = Path(__file__).resolve().parent.parent / "sources" / "cost_seg_questions.yaml"
 
 _DATA_TYPE_TO_INPUT_TYPE = {
     "USAmountNNType": "currency",
@@ -158,6 +159,14 @@ def _prompt_for_field(field: CanonicalField, input_type: str) -> str:
     return f"Enter the value for {where} ({label})."
 
 
+def _is_cost_seg_computed_field(field_name: str) -> bool:
+    if not field_name.startswith("cost_seg."):
+        return False
+    if field_name.startswith("taxpayer.depreciation_summary."):
+        return True
+    return ".depreciation." in field_name or ".form_4562." in field_name or ".schedule_e." in field_name or ".limitations." in field_name
+
+
 def _build_auto_questions(session, form: str, tax_year: int) -> list[dict]:
     fields = session.execute(
         select(CanonicalField).where(
@@ -191,7 +200,9 @@ def _build_auto_questions(session, form: str, tax_year: int) -> list[dict]:
     questions = []
     for idx, field in enumerate(sorted(fields, key=_sort_key)):
         if field.field_name not in in_scope:
-            continue  # not an ancestor of the modeled HSA chain — see runtime/chain.py
+            continue
+        if _is_cost_seg_computed_field(field.field_name):
+            continue
         if field.id in rule_field_ids:
             continue  # has a calc rule — not a raw taxpayer input
         if field.field_name in CONDITION_FIELDS:
@@ -238,6 +249,30 @@ def _load_profile_questions(tax_year: int) -> list[dict]:
             "irs_reference": q.get("irs_reference") or {},
             "order_index": q.get("order_index", 0),
             "required": q.get("required", True),
+            "tax_year": tax_year,
+        })
+    return questions
+
+
+def _load_cost_seg_questions(tax_year: int) -> list[dict]:
+    """Cost segregation intake + REPS profile questions (see cost_seg_questions.yaml)."""
+    if not COST_SEG_QUESTIONS_PATH.exists():
+        return []
+    raw = yaml.safe_load(COST_SEG_QUESTIONS_PATH.read_text())
+    questions = []
+    for q in raw.get("questions", []):
+        questions.append({
+            "question_key": q["question_key"],
+            "form_number": q["form_number"],
+            "prompt_text": q["prompt_text"],
+            "input_type": q["input_type"],
+            "choices": q.get("choices"),
+            "maps_to_canonical_field": q.get("shadows_canonical_field"),
+            "maps_to_condition": {"condition_field": q["feeds_condition"]} if q.get("feeds_condition") else None,
+            "justification": q["justification"].strip(),
+            "irs_reference": q.get("irs_reference") or {},
+            "order_index": q.get("order_index", 0),
+            "required": q.get("required", False),
             "tax_year": tax_year,
         })
     return questions
@@ -305,10 +340,11 @@ def run_question_registry_synthesis(form: str, tax_year: int = 2025) -> None:
 
         profile_questions = _load_profile_questions(tax_year)
         w2_questions = _load_w2_questions(tax_year)
+        cost_seg_questions = _load_cost_seg_questions(tax_year)
 
         created = 0
         updated = 0
-        for payload in auto_questions + profile_questions + w2_questions:
+        for payload in auto_questions + profile_questions + w2_questions + cost_seg_questions:
             if _upsert(session, existing_by_key, payload):
                 created += 1
             else:
@@ -322,12 +358,14 @@ def run_question_registry_synthesis(form: str, tax_year: int = 2025) -> None:
         auto_questions=len(auto_questions),
         profile_questions=len(profile_questions),
         w2_questions=len(w2_questions),
+        cost_seg_questions=len(cost_seg_questions),
         created=created,
         updated=updated,
         stale_removed=len(stale),
     )
     print(
         f"question registry complete (form={form}): {len(auto_questions)} auto + "
-        f"{len(profile_questions)} profile + {len(w2_questions)} w2 questions "
+        f"{len(profile_questions)} profile + {len(w2_questions)} w2 + "
+        f"{len(cost_seg_questions)} cost-seg questions "
         f"({created} created, {updated} updated, {len(stale)} stale removed)"
     )

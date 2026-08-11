@@ -1,0 +1,15 @@
+# Seed catalog for Form 461 (Limitation on Business Losses) — cost seg pilot slice.
+#
+# Sprint 1: normalized loss_after_excess_business_loss_amount interface (pass-through when N/A).
+form_number: "461"
+tax_year: 2025
+
+entry_points:
+  - url: https://www.irs.gov/forms-pubs/about-form-461
+    role: primary_form
+
+include_doc_types:
+  - instructions
+  - form
+
+excluded_publications: []

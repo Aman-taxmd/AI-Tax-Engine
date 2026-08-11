@@ -332,6 +332,128 @@ def form1040_refund_bridge_cmd(tax_year: int = typer.Option(2025, "--tax-year"))
     run_form1040_refund_bridge(tax_year)
 
 
+@app.command("cost-seg-setup")
+def cost_seg_setup_cmd(tax_year: int = typer.Option(2025, "--tax-year")):
+    """Run all cost segregation bridge commands (fields, projections, limitations)."""
+    from build.consolidation.cost_seg_bridge import run_cost_seg_bridge
+    from build.consolidation.cost_seg_projection_fields_bridge import run_cost_seg_projection_fields_bridge
+    from build.consolidation.form_3115_lookback_bridge import run_form_3115_lookback_bridge
+    from build.consolidation.form_4562_pilot_bridge import run_form_4562_pilot_bridge
+    from build.consolidation.limitation_bridge import run_limitation_bridge
+    from build.consolidation.schedule_e_projection_bridge import run_schedule_e_projection_bridge
+
+    run_cost_seg_bridge(tax_year)
+    run_cost_seg_projection_fields_bridge(tax_year)
+    run_form_4562_pilot_bridge(tax_year)
+    run_schedule_e_projection_bridge(tax_year)
+    run_limitation_bridge(tax_year)
+    run_form_3115_lookback_bridge(tax_year)
+    typer.echo("cost-seg-setup complete.")
+
+
+@app.command("form-4562-pdf-bridge")
+def form_4562_pdf_bridge_cmd(tax_year: int = typer.Option(2025, "--tax-year")):
+    """Hand-verified Form 4562 PDF field mappings for cost seg pilot (Parts II–IV)."""
+    from build.consolidation.form_4562_pdf_bridge import run_form_4562_pdf_bridge
+
+    run_form_4562_pdf_bridge(tax_year)
+
+
+@app.command("schedule-e-pdf-bridge")
+def schedule_e_pdf_bridge_cmd(tax_year: int = typer.Option(2025, "--tax-year")):
+    """Hand-verified Schedule E line 18 A/B/C PDF field mappings."""
+    from build.consolidation.schedule_e_pdf_bridge import run_schedule_e_pdf_bridge
+
+    run_schedule_e_pdf_bridge(tax_year)
+
+
+@app.command("cost-seg-pdf-setup")
+def cost_seg_pdf_setup_cmd(tax_year: int = typer.Option(2025, "--tax-year")):
+    """Projection canonical fields + hand PDF bridges for 4562 and Schedule E."""
+    from build.consolidation.cost_seg_projection_fields_bridge import run_cost_seg_projection_fields_bridge
+    from build.consolidation.form_4562_pdf_bridge import run_form_4562_pdf_bridge
+    from build.consolidation.schedule_e_pdf_bridge import run_schedule_e_pdf_bridge
+
+    run_cost_seg_projection_fields_bridge(tax_year)
+    run_form_4562_pdf_bridge(tax_year)
+    run_schedule_e_pdf_bridge(tax_year)
+    typer.echo("cost-seg-pdf-setup complete.")
+
+
+@app.command("cost-seg-bridge")
+def cost_seg_bridge_cmd(tax_year: int = typer.Option(2025, "--tax-year")):
+    """Register cost segregation canonical fields and projection carryover rules
+    (activities[] engine output -> Form 4562 / Schedule E projections)."""
+    from build.consolidation.cost_seg_bridge import run_cost_seg_bridge
+
+    run_cost_seg_bridge(tax_year)
+
+
+@app.command("form-4562-pilot-bridge")
+def form_4562_pilot_bridge_cmd(tax_year: int = typer.Option(2025, "--tax-year")):
+    """Hand-specified Form 4562 Parts II–IV fields for the cost seg pilot."""
+    from build.consolidation.form_4562_pilot_bridge import run_form_4562_pilot_bridge
+
+    run_form_4562_pilot_bridge(tax_year)
+
+
+@app.command("schedule-e-projection-bridge")
+def schedule_e_projection_bridge_cmd(tax_year: int = typer.Option(2025, "--tax-year")):
+    """Schedule E Line 18 depreciation projection from engine (parallel to Form 4562)."""
+    from build.consolidation.schedule_e_projection_bridge import run_schedule_e_projection_bridge
+
+    run_schedule_e_projection_bridge(tax_year)
+
+
+@app.command("limitation-bridge")
+def limitation_bridge_cmd(tax_year: int = typer.Option(2025, "--tax-year")):
+    """Normalized limitation interfaces per activity (6198 / 8582 / 461 pass-through)."""
+    from build.consolidation.limitation_bridge import run_limitation_bridge
+
+    run_limitation_bridge(tax_year)
+
+
+@app.command("form-3115-lookback-bridge")
+def form_3115_lookback_bridge_cmd(tax_year: int = typer.Option(2025, "--tax-year")):
+    """Deferred: Form 3115 look-back branch stub (detection flag only)."""
+    from build.consolidation.form_3115_lookback_bridge import run_form_3115_lookback_bridge
+
+    run_form_3115_lookback_bridge(tax_year)
+
+
+@app.command("cost-seg-export")
+def cost_seg_export_cmd(tax_year: int = typer.Option(2025, "--tax-year")):
+    """Export template-based cost seg field metadata and form mappings (4562 / 1040se)."""
+    from build.export.cost_seg_export import run_cost_seg_export
+
+    run_cost_seg_export(tax_year)
+
+
+@app.command("seed-cost-seg-questions")
+def seed_cost_seg_questions_cmd(tax_year: int = typer.Option(2025, "--tax-year")):
+    """Seed cost segregation intake questions from cost_seg_questions.yaml."""
+    from build.evaluation.seed_cost_seg_questions import seed_cost_seg_questions
+
+    seed_cost_seg_questions(tax_year)
+
+
+@app.command("seed-cost-seg-goldens")
+def seed_cost_seg_goldens_cmd():
+    """Seed Sprint 1 cost segregation golden cases."""
+    from build.evaluation.cost_seg_golden_cases import seed_cost_seg_golden_cases
+
+    seed_cost_seg_golden_cases()
+
+
+@app.command("run-cost-seg-goldens")
+def run_cost_seg_goldens_cmd():
+    """Run Sprint 1 cost segregation golden cases through runtime.engine.compute()."""
+    from build.evaluation.cost_seg_golden_cases import run_cost_seg_golden_cases
+
+    ok = run_cost_seg_golden_cases()
+    raise typer.Exit(code=0 if ok else 1)
+
+
 @app.command("seed-golden-cases")
 def seed_golden_cases_cmd():
     """Populates db/models.py's GoldenCase table with hand-authored

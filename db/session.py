@@ -19,7 +19,7 @@ import os
 from pathlib import Path
 
 from dotenv import load_dotenv
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 from sqlalchemy.orm import Session, sessionmaker
 
 from db.models import Base
@@ -67,6 +67,54 @@ def get_session() -> Session:
     return _SessionLocal()
 
 
+def _apply_schema_patches() -> None:
+    """Apply idempotent ALTERs that create_all() cannot perform on existing DBs."""
+    engine = get_engine()
+    if not engine.url.drivername.startswith("postgresql"):
+        return
+
+    desired_intake_input_types = (
+        "input_type in ('currency','integer','boolean','choice','date',"
+        "'currency_multi_instance','activities')"
+    )
+    with engine.begin() as conn:
+        row = conn.execute(
+            text(
+                "SELECT pg_get_constraintdef(oid) FROM pg_constraint "
+                "WHERE conname = 'ck_intake_questions_input_type'"
+            )
+        ).first()
+        if row is not None and "activities" not in row[0]:
+            conn.execute(text("ALTER TABLE intake_questions DROP CONSTRAINT ck_intake_questions_input_type"))
+            conn.execute(
+                text(
+                    "ALTER TABLE intake_questions ADD CONSTRAINT ck_intake_questions_input_type "
+                    f"CHECK ({desired_intake_input_types})"
+                )
+            )
+
+        for col, col_type in (
+            ("form_revision", "VARCHAR(64)"),
+            ("pdf_content_hash", "VARCHAR(64)"),
+        ):
+            exists = conn.execute(
+                text(
+                    "SELECT 1 FROM information_schema.columns "
+                    "WHERE table_name = 'pdf_field_mappings' AND column_name = :col"
+                ),
+                {"col": col},
+            ).first()
+            if not exists:
+                conn.execute(text(f"ALTER TABLE pdf_field_mappings ADD COLUMN {col} {col_type}"))
+        conn.execute(
+            text(
+                "CREATE INDEX IF NOT EXISTS idx_pdf_field_mappings_content_hash "
+                "ON pdf_field_mappings (pdf_content_hash)"
+            )
+        )
+
+
 def init_db() -> None:
     """Create all tables if they do not exist. Idempotent."""
     Base.metadata.create_all(get_engine())
+    _apply_schema_patches()

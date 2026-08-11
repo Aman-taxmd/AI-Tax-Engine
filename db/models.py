@@ -203,6 +203,35 @@ class CanonicalField(Base):
     )
 
 
+class CostSegFieldTemplate(Base):
+    """Template metadata for cost seg multi-instance fields (Phase 2).
+
+    One row per logical field (template_id), not per taxpayer activity.
+    Runtime binds to cost_seg.{tax_activity_id}.{relative_field}.
+    """
+
+    __tablename__ = "cost_seg_field_templates"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=_uuid)
+    template_id: Mapped[str] = mapped_column(String(255), nullable=False)
+    instance_group: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    relative_field: Mapped[str] = mapped_column(String(255), nullable=False)
+    source_form_number: Mapped[str | None] = mapped_column(String(32), nullable=True, index=True)
+    source_form_line: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    section: Mapped[str] = mapped_column(Text, nullable=False)
+    data_type: Mapped[str] = mapped_column(String(32), nullable=False)
+    source_xsd_element: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    description: Mapped[str] = mapped_column(Text, nullable=False)
+    projection: Mapped[bool] = mapped_column(default=False)
+    calc_rule_type: Mapped[str | None] = mapped_column(String(32), nullable=True)
+    calc_rule_operand_relative: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    tax_year: Mapped[int] = mapped_column(Integer, nullable=False, default=2025)
+
+    __table_args__ = (
+        UniqueConstraint("template_id", "tax_year", name="uq_cost_seg_field_templates_id_year"),
+    )
+
+
 class CalcRule(Base):
     __tablename__ = "calc_rules"
 
@@ -334,7 +363,7 @@ class IntakeQuestion(Base):
 
     __table_args__ = (
         CheckConstraint(
-            "input_type in ('currency','integer','boolean','choice','date','currency_multi_instance')",
+            "input_type in ('currency','integer','boolean','choice','date','currency_multi_instance','activities')",
             name="ck_intake_questions_input_type",
         ),
         UniqueConstraint("question_key", "tax_year", name="uq_intake_questions_key_year"),
@@ -406,6 +435,8 @@ class PdfFieldMapping(Base):
     # already makes this row year-correct transitively, this just avoids
     # every read site having to join back to canonical_fields to filter.
     tax_year: Mapped[int] = mapped_column(Integer, nullable=False, default=2025, index=True)
+    form_revision: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    pdf_content_hash: Mapped[str | None] = mapped_column(String(64), nullable=True, index=True)
 
     __table_args__ = (
         UniqueConstraint(

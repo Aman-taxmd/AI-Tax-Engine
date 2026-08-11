@@ -14,6 +14,7 @@ import streamlit as st
 
 from build.graph import llm_client
 from ui import data_access as da
+from ui.cost_seg_ui import render_activities_input, render_cost_seg_results
 from ui.pdf_render import render_filled_pdf, render_filled_w2_pdf
 
 st.set_page_config(page_title="Answer Questions — AI Tax Engine", page_icon="\U0001F4DD", layout="wide")
@@ -145,9 +146,13 @@ def _render_multi_instance_input(q, store: dict) -> None:
 
 
 def _render_question_input(q) -> None:
-    is_profile = q.question_key.startswith("profile_")
+    is_profile = q.question_key.startswith("profile_") or q.question_key.startswith("taxpayer_")
     store = st.session_state["profile_answers"] if is_profile else st.session_state["answers"]
     key = f"widget_{q.question_key}"
+
+    if q.input_type == "activities":
+        render_activities_input(store)
+        return
 
     if q.input_type == "currency_multi_instance":
         _render_multi_instance_input(q, store)
@@ -206,12 +211,24 @@ with st.sidebar:
     # defaults to $0 either way), just tucked into a collapsed,
     # clearly-labeled group.
     w2_qs = [q for q in form_qs if q.input_type == "currency_multi_instance"]
+    cost_seg_qs = [q for q in form_qs if q.input_type == "activities" or q.question_key.startswith("taxpayer_")]
     hsa_qs = [q for q in form_qs if q.form_number == "8889"]
     schedc_qs = [q for q in form_qs if q.form_number == "1040sc"]
-    other_qs = [q for q in form_qs if q not in w2_qs and q not in hsa_qs and q not in schedc_qs]
+    other_qs = [
+        q for q in form_qs
+        if q not in w2_qs and q not in hsa_qs and q not in schedc_qs and q not in cost_seg_qs
+    ]
 
     st.subheader("About you")
     for q in profile_qs:
+        _render_question_input(q)
+
+    st.subheader("Cost segregation / depreciation")
+    activity_qs = [q for q in cost_seg_qs if q.input_type == "activities"]
+    reps_qs = [q for q in cost_seg_qs if q.question_key.startswith("taxpayer_")]
+    for q in activity_qs:
+        _render_question_input(q)
+    for q in reps_qs:
         _render_question_input(q)
 
     st.subheader("W-2 income")
@@ -265,10 +282,13 @@ profile_answers = dict(st.session_state["profile_answers"])
 computed = da.compute_return(answers, profile_answers, tax_year)
 fields_by_name = da.get_chain_canonical_fields(tax_year)
 
-st.markdown("### Your return, line by line")
-tabs = st.tabs([da.form_display(f) for f in da.PILOT_FORMS])
+render_cost_seg_results(answers, computed, tax_year, profile_answers)
 
-for tab, form in zip(tabs, da.PILOT_FORMS):
+st.markdown("### Your return, line by line")
+_core_forms = [f for f in da.PILOT_FORMS if f not in da.COST_SEG_FORMS]
+tabs = st.tabs([da.form_display(f) for f in _core_forms])
+
+for tab, form in zip(tabs, _core_forms):
     with tab:
         all_fields = sorted(
             da.get_all_canonical_fields_for_form(form, tax_year), key=lambda f: _line_sort_key(f.source_form_line)

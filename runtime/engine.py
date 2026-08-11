@@ -284,7 +284,18 @@ def compute(
             rule.id: _latest_evaluation(session, rule.id) for rule in rules_by_field_name.values()
         }
 
-        return _run_dag(closure, fields_by_name, rules_by_field_name, evaluations_by_rule_id, answers, profile_answers, tax_year)
+        from runtime.cost_seg import merge_cost_seg_into_answers
+
+        merged_answers = merge_cost_seg_into_answers(answers, profile_answers, tax_year)
+        return _run_dag(
+            closure,
+            fields_by_name,
+            rules_by_field_name,
+            evaluations_by_rule_id,
+            merged_answers,
+            profile_answers,
+            tax_year,
+        )
 
 
 def _run_dag(
@@ -467,6 +478,15 @@ def _evaluate_field(
     if rule is None:
         field_meta = fields_by_name.get(name)
         value = answers.get(name)
+        if name in answers:
+            return ComputedValue(
+                field_name=name,
+                value=value,
+                status=STATUS_OK,
+                source="answer",
+                explanation="Provided by taxpayer intake or cost segregation engine.",
+                irs_reference={"description": field_meta.description} if field_meta else None,
+            )
         status = STATUS_OK if value is not None else STATUS_MISSING_INPUT
         return ComputedValue(
             field_name=name, value=value, status=status, source="answer",
@@ -489,6 +509,22 @@ def _evaluate_field(
         )
 
     operand_values = {op: computed[op].value for op in operand_names}
+
+    if rule.formula.get("type") in ("carryover", "sum_instances_then_carryover"):
+        if any(operand_values.get(op) is None for op in operand_names):
+            return ComputedValue(
+                field_name=name,
+                value=None,
+                status=STATUS_OK,
+                source="calc_rule",
+                rule_id=rule.rule_id,
+                rule_status=rule.status,
+                formula=rule.formula,
+                irs_reference=rule.irs_reference,
+                upstream_field_names=operand_names,
+                explanation="Projection not applicable — upstream amount is null (blocked/unsupported activity).",
+                grounding=grounding,
+            )
 
     if rule.formula.get("type") == "federal_income_tax":
         return _evaluate_federal_income_tax(name, rule, operand_names, operand_values, computed, tax_year, grounding)
