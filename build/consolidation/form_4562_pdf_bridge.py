@@ -1,7 +1,7 @@
-"""Hand-verified PDF field mappings for Form 4562 (cost seg pilot Parts II–IV).
+"""DEPRECATED — regression reference for PDF ground truth (ADR 0012).
 
-Verified against catalogued f4562.pdf (2025) via scripts.inspect_pdf_widgets.
-Column (g) depreciation amount widgets on Part III line 19 table rows.
+Prefer: map-pdf-fields + promote-pdf-ground-truth --form 4562
+Ground truth codes live in hand_pdf_ground_truth.py.
 """
 from __future__ import annotations
 

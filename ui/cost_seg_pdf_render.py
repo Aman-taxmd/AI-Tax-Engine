@@ -4,18 +4,11 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
+from build.consolidation.cost_seg_field_templates import f4562_projection_relative_fields
 from runtime.cost_seg import instance_field_name, merge_cost_seg_into_answers
 from runtime.engine import ComputedValue
 
-_F4562_RELATIVE = [
-    "form_4562.special_allowance_amount",
-    "form_4562.macrs_5_year_amount",
-    "form_4562.macrs_7_year_amount",
-    "form_4562.macrs_15_year_amount",
-    "form_4562.residential_real_property_amount",
-    "form_4562.nonresidential_real_property_amount",
-    "form_4562.total_depreciation_amount",
-]
+_F4562_RELATIVE = f4562_projection_relative_fields()
 
 _SCHEDULE_E_SLOTS = ("a", "b", "c")
 

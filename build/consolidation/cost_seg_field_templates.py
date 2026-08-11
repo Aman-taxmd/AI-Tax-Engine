@@ -128,6 +128,39 @@ def all_templates() -> list[CostSegFieldTemplate]:
     return templates
 
 
+# XSD element -> (form_number, line) for cost seg template linking to synthesize catalog
+SYNTHESIZED_XSD_LINKS: dict[str, tuple[str, str]] = {
+    "SpecialAllowanceAmt": ("4562", "14"),
+    "TotalDepreciationAmt": ("4562", "22"),
+    "DepreciationExpenseAmt": ("1040se", "18"),
+}
+
+
+def projection_pdf_slots() -> list[tuple[str, str, str, str]]:
+    """Return (canonical_name, line, section, data_type) for PDF projection FK targets."""
+    slots: list[tuple[str, str, str, str]] = []
+    for tpl in all_templates():
+        if tpl.instance_group and tpl.projection and tpl.source_form_number == "4562":
+            slots.append(
+                (f"cost_seg_projection.{tpl.relative_field}", tpl.source_form_line or "", tpl.section, tpl.data_type)
+            )
+    slots.extend([
+        ("cost_seg_projection.schedule_e.depreciation_expense_a", "18", "Part I Column A", "USAmountType"),
+        ("cost_seg_projection.schedule_e.depreciation_expense_b", "18", "Part I Column B", "USAmountType"),
+        ("cost_seg_projection.schedule_e.depreciation_expense_c", "18", "Part I Column C", "USAmountType"),
+    ])
+    return slots
+
+
+def f4562_projection_relative_fields() -> list[str]:
+    """Relative field paths for Form 4562 PDF projection (derived from templates)."""
+    return [
+        tpl.relative_field
+        for tpl in all_templates()
+        if tpl.instance_group and tpl.projection and tpl.source_form_number == "4562"
+    ]
+
+
 def templates_for_form(form: str) -> list[CostSegFieldTemplate]:
     return [t for t in all_templates() if t.source_form_number == form]
 

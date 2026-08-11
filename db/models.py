@@ -181,7 +181,7 @@ class CanonicalField(Base):
     id: Mapped[str] = mapped_column(String(36), primary_key=True, default=_uuid)
     field_name: Mapped[str] = mapped_column(String(255), nullable=False)
     section: Mapped[str] = mapped_column(Text, nullable=False)
-    data_type: Mapped[str] = mapped_column(String(32), nullable=False)
+    data_type: Mapped[str] = mapped_column(String(128), nullable=False)
     cardinality: Mapped[str] = mapped_column(String(16), default="single")
     instance_dimension: Mapped[str | None] = mapped_column(String(64), nullable=True)
     source_xsd_element: Mapped[str | None] = mapped_column(String(255), nullable=True)
@@ -225,6 +225,9 @@ class CostSegFieldTemplate(Base):
     projection: Mapped[bool] = mapped_column(default=False)
     calc_rule_type: Mapped[str | None] = mapped_column(String(32), nullable=True)
     calc_rule_operand_relative: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    synthesized_canonical_field_id: Mapped[str | None] = mapped_column(
+        String(36), ForeignKey("canonical_fields.id"), nullable=True
+    )
     tax_year: Mapped[int] = mapped_column(Integer, nullable=False, default=2025)
 
     __table_args__ = (

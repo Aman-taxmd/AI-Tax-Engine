@@ -1,64 +1,16 @@
-"""Hand-authored bridge for W-2 multi-instance wage/withholding intake.
+"""Hand-specified W-2 multi-instance wage/withholding intake (ADR 0012).
 
-A taxpayer can have more than one Form W-2 even filing single (multiple
-employers in the same year) -- this is the one deliberate exception to the
-pilot's "single taxpayer, single instance" scope (see runtime/engine.py's
-module docstring). There is no IRS-side canonical field for "one taxpayer's
-list of W-2s": the XSD/PDF walk that produces every other canonical field
-keys off a single printed form line, and every one of this pilot's W-2-fed
-destination lines (Form 1040 Line 1a, Line 25a; Form 8889 Line 9) is printed
-as ONE line that already expects the taxpayer to have pre-summed multiple
-W-2s before entering a single number.
-
-This module hand-creates six multi-instance canonical fields, one per W-2
-box this pilot models (see build/sources/catalog/form_w2.yaml + the 2025
-General Instructions for Forms W-2 and W-3, cited per-field below):
-  1. `intake_w2_box1_wages` -- Box 1 wages -> summed into `form_1040_line_1a`.
-  2. `intake_w2_box2_fed_withholding` -- Box 2 federal income tax withheld ->
-     summed into `form_1040_line_25a`.
-  3. `intake_w2_box3_ss_wages` -- Box 3 Social Security wages. Not summed
-     into a destination calc rule by this module; Schedule SE Line 8a
-     (build/consolidation/schedule_se_bridge.py, Phase 7) reads it directly
-     so a taxpayer with both W-2 and self-employment income isn't
-     double-charged Social Security tax past the wage-base cap.
-  4. `intake_w2_box5_medicare_wages` -- Box 5 Medicare wages and tips.
-     Captured and displayed only -- not wired to any calc rule yet (only
-     matters once Additional Medicare Tax / Form 8959 is in scope).
-  5. `intake_w2_box12w_hsa_employer_contrib` -- Box 12 Code W (employer HSA
-     contributions) -- summed into `adjustments.hsa_employer_contribution_amount`
-     (Form 8889 line 9, renamed to TaxCore's dot-notation -- see docs/adr/0010),
-     REPLACING that line's former manual taxpayer question with its real legal
-     source ("Show any employer contributions ... to an HSA," per iw2w3 Code W)
-     -- once this calc rule exists, build/synthesis/question_registry.py's
-     `_build_auto_questions` automatically stops asking Line 9 directly (it
-     only asks fields that have no calc rule).
-  6. `intake_w2_employer_name` / `intake_w2_box12_code_w_label` --
-     presentation-only fields with no calc rule at all, that only exist so
-     ui/pdf_render.py's "realistic form view" can print the employer's name
-     (Box c) and the literal "W" Box-12 code letter next to its dollar
-     amount on the actual fw2.pdf AcroForm (see
-     build/consolidation/w2_pdf_bridge.py). They are populated directly by
-     the "+ Add W-2" UI widget alongside the real amounts, never asked as
-     their own question, and never participate in any tax calculation.
-
-Two real calc rules are (re)written here, both using the `sum_instances`
-formula type (runtime/engine.py):
-  - `form_1040_line_1a` (unchanged from the original single-box version).
-  - `form_1040_line_25a`.
-  - `adjustments.hsa_employer_contribution_amount` (Form 8889 line 9).
-
-`ui/pages/2_Answer_Questions.py`'s "+ Add W-2" widget writes one dict per
-W-2 row into `st.session_state`, then fans each box out into its own
-`answers[intake_w2_box*_*]` list -- this module only ever sees those already
-list-shaped answers, matching what `sum_instances` expects.
-
-Idempotent: re-running deletes and rewrites every rule/edge this module owns
-first (same pattern as hsa_worksheet_bridge.py).
+Intake field metadata is grounded via w2_synthesized_link_bridge after
+`synthesize --form w2`. This module writes sum_instances cross-form calc rules
+only — deterministic_parse evidence, status=validated.
 """
 from __future__ import annotations
 
 import structlog
 from sqlalchemy import select
+
+from build.consolidation.evidence_helpers import upsert_deterministic_evidence
+from build.consolidation.w2_synthesized_link_bridge import run_w2_synthesized_link_bridge
 
 from db.models import CalcRule, CanonicalField, DependencyEdge, Document, HumanReviewItem, RuleStatusTransition
 from db.session import get_session
@@ -154,6 +106,7 @@ _SUM_RULES: list[tuple[str, str, str]] = [
 
 
 def run_w2_bridge(tax_year: int = 2025) -> None:
+    run_w2_synthesized_link_bridge(tax_year)
     with get_session() as session:
         pdf_doc = session.execute(
             select(Document).where(Document.form_number == "1040", Document.doc_type == "form")
@@ -184,8 +137,6 @@ def run_w2_bridge(tax_year: int = 2025) -> None:
                 session.add(existing)
                 session.flush()
                 log.info("w2_bridge.created_canonical_field", field_name=field_name)
-            else:
-                existing.description = description  # keep description current on re-run
             intake_fields_by_name[field_name] = existing
 
         rules_written = 0
@@ -226,10 +177,15 @@ def run_w2_bridge(tax_year: int = 2025) -> None:
             session.flush()
 
             source_field = intake_fields_by_name[source_field_name]
+            evidence_id = upsert_deterministic_evidence(
+                quote=quote,
+                document_version_id=pdf_doc.id,
+                note=f"w2_bridge sum_instances -> {rule_id}",
+            )
             session.add(
                 CalcRule(
                     rule_id=rule_id,
-                    status="candidate",
+                    status="validated",
                     canonical_field_id=destination_field.id,
                     formula={"type": "sum_instances", "operand_names": [source_field_name]},
                     operands=[{
@@ -242,12 +198,14 @@ def run_w2_bridge(tax_year: int = 2025) -> None:
                         "document_id": pdf_doc.id,
                         "section_anchor": None,
                         "quote": quote,
+                        "computation_source": "sum_instances",
+                        "evidence_bundle_id": evidence_id,
                     },
                     confidence_breakdown={
-                        "extraction_confidence": 1.0,  # verbatim text off the form/instructions, not LLM-paraphrased
-                        "reference_resolution_confidence": 1.0,  # hand-resolved bridge -- see module docstring
-                        "formula_confidence": 0.95,
-                        "note": f"Sums every W-2 the taxpayer entered for {source_field_name}.",
+                        "extraction_confidence": 1.0,
+                        "reference_resolution_confidence": 1.0,
+                        "formula_confidence": 1.0,
+                        "note": f"Sums every W-2 row for {source_field_name}.",
                     },
                     tax_year=tax_year,
                 )

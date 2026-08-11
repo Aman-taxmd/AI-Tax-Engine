@@ -4,6 +4,8 @@ from __future__ import annotations
 import structlog
 from sqlalchemy import delete, select
 
+from build.consolidation.evidence_helpers import upsert_deterministic_evidence
+
 from build.consolidation.cost_seg_field_templates import (
     all_templates,
     instance_field_name,
@@ -133,12 +135,22 @@ def _write_carryover_rule(
     ).scalars().first()
     if out_f is None:
         return
+    evidence_id = upsert_deterministic_evidence(
+        quote=quote,
+        note="cost_seg_bridge carryover — engine authoritative (ADR 0012)",
+    )
     session.execute(delete(CalcRule).where(CalcRule.rule_id == rule_id))
     rule = CalcRule(
         rule_id=rule_id,
         canonical_field_id=out_f.id,
         formula={"type": "carryover", "operand_names": [operand]},
-        irs_reference={"quote": quote, "form": "4562", "source": "cost_seg_bridge"},
+        irs_reference={
+            "quote": quote,
+            "form": "4562",
+            "source": "cost_seg_bridge",
+            "computation_source": "engine",
+            "evidence_bundle_id": evidence_id,
+        },
         status="validated",
         tax_year=tax_year,
         version=1,

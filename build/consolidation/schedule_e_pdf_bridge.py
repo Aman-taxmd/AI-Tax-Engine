@@ -1,7 +1,6 @@
-"""Hand-verified PDF field mappings for Schedule E Part I line 18 (columns A/B/C).
+"""DEPRECATED — regression reference for PDF ground truth (ADR 0012).
 
-Verified against catalogued f1040se.pdf (2025) via scripts.inspect_pdf_widgets.
-A/B/C slots are reused for each additional Schedule E instance at render time.
+Prefer: map-pdf-fields + promote-pdf-ground-truth --form 1040se
 """
 from __future__ import annotations
 

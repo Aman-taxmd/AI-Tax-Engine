@@ -1,10 +1,4 @@
-"""Build Control — trigger and inspect the build pipeline per form.
-
-Runs each phase as `python -m build.cli <phase> --form <form>` in a
-subprocess (see ui/data_access.run_phase) so this page is never more than a
-thin, honest wrapper around the exact same CLI a developer would use —
-there is no separate "UI-only" code path for the pipeline itself.
-"""
+"""Build Control — trigger and inspect the build pipeline per form."""
 from __future__ import annotations
 
 import streamlit as st
@@ -15,8 +9,8 @@ st.set_page_config(page_title="Build Control — AI Tax Engine", page_icon="\U00
 tax_year = da.render_tax_year_selector()
 st.title("\U0001F6E0\uFE0F Build Control")
 st.caption(
-    "Trigger and inspect each phase of the build pipeline. Built around a form-agnostic "
-    "`run_phase(phase, form)` helper — onboarding a new form later is an additive catalog + button, not a rewrite."
+    "Trigger and inspect each phase of the build pipeline. Forms w2, 4562, and 1040se use the "
+    "IRS-grounded hybrid pipeline (ADR 0012): synthesize for catalog, engine/bridges for amounts."
 )
 st.caption(f"Operating on tax year **{tax_year}** (change via the sidebar).")
 
@@ -28,12 +22,6 @@ for col, form in zip(status_cols, all_forms):
     status = da.get_form_status(form, tax_year)
     with col:
         st.markdown(f"**{da.form_display(form)}**")
-        if form in da.ADDITIONAL_STATUS_FORMS:
-            st.caption(
-                "Intake-only form (no `form_w2_line_*` canonical fields of its own -- see "
-                "build/consolidation/w2_bridge.py). Canonical field/calc rule/question counts "
-                "below are 0 by design; only Documents and PDF field mappings are meaningful here."
-            )
         st.metric("Documents", status["documents"])
         st.metric("Canonical fields", status["canonical_fields"])
         rule_counts = status["calc_rule_status_counts"]
@@ -54,11 +42,6 @@ st.divider()
 st.markdown("### Run a phase")
 
 form_choice = st.selectbox("Form", all_forms, format_func=da.form_display, key="build_control_form")
-if form_choice in da.ADDITIONAL_STATUS_FORMS:
-    st.caption(
-        f"{da.form_display(form_choice)} only meaningfully uses **Discover** below (no XSD to synthesize "
-        "from, no LLM extraction) -- the other per-form buttons are safe no-ops for it, not useful ones."
-    )
 
 if "phase_output" not in st.session_state:
     st.session_state["phase_output"] = {}
@@ -83,17 +66,13 @@ for phase_key, label in global_phases:
         st.session_state["phase_output"][f"{phase_key}:global"] = result
 
 st.markdown("##### Run the whole sequence")
-if form_choice in da.ADDITIONAL_STATUS_FORMS:
-    st.caption(
-        f"{da.form_display(form_choice)} doesn't use the standard 12-phase `run-pilot` sequence (no XSD, no "
-        "LLM extraction -- it's a hand-authored intake bridge, see build/consolidation/w2_bridge.py). Use "
-        "`Discover` above, then the `W-2 Intake Bridge` / `W-2 PDF Field Bridge` global phases below instead."
-    )
-else:
-    if st.button(f"\u25B6 Run full pilot for {da.form_display(form_choice)}", type="primary"):
-        with st.spinner(f"Running `run-pilot --form {form_choice} --tax-year {tax_year}` (this runs every phase in order)..."):
-            result = da.run_phase("run-pilot", form_choice, tax_year)
-        st.session_state["phase_output"][f"run-pilot:{form_choice}"] = result
+if st.button(f"\u25B6 Run full pilot for {da.form_display(form_choice)}", type="primary"):
+    with st.spinner(f"Running `run-pilot --form {form_choice} --tax-year {tax_year}`..."):
+        result = da.run_phase("run-pilot", form_choice, tax_year)
+    st.session_state["phase_output"][f"run-pilot:{form_choice}"] = result
+
+if form_choice in ("4562", "1040se"):
+    st.caption("For cost seg forms, prefer **Cost Seg IRS Pipeline** global phase (uses `--canonical-only`).")
 
 if st.session_state["phase_output"]:
     st.divider()

@@ -95,6 +95,8 @@ DISPLAY_ONLY_FIELDS = ["deductions.hdhp_coverage_type", "form_1040_filing_status
 FORM_FIELD_NAME_OVERRIDES: dict[str, list[str]] = {
     "8889": [
         "deductions.hdhp_coverage_type",
+        "deductions.is_hdhp_self_only_coverage",
+        "deductions.is_hdhp_family_coverage",
         "adjustments.hsa_contribution_amount",
         "adjustments.hsa_limited_annual_deductible_amount",
         "adjustments.total_archer_msa_contribution_amount",
@@ -118,6 +120,15 @@ FORM_FIELD_NAME_OVERRIDES: dict[str, list[str]] = {
         "adjustments.hdhp_coverage_fail_fund_distribution_amount",
         "income.hdhp_coverage_income_amount",
         "taxes.hdhp_coverage_additional_tax_amount",
+    ],
+    "w2": [
+        "intake_w2_box1_wages",
+        "intake_w2_box2_fed_withholding",
+        "intake_w2_box3_ss_wages",
+        "intake_w2_box5_medicare_wages",
+        "intake_w2_box12w_hsa_employer_contrib",
+        "intake_w2_employer_name",
+        "intake_w2_box12_code_w_label",
     ],
 }
 

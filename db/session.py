@@ -113,6 +113,31 @@ def _apply_schema_patches() -> None:
             )
         )
 
+        col_exists = conn.execute(
+            text(
+                "SELECT 1 FROM information_schema.columns "
+                "WHERE table_name = 'cost_seg_field_templates' "
+                "AND column_name = 'synthesized_canonical_field_id'"
+            )
+        ).first()
+        if not col_exists:
+            conn.execute(
+                text(
+                    "ALTER TABLE cost_seg_field_templates "
+                    "ADD COLUMN synthesized_canonical_field_id VARCHAR(36) "
+                    "REFERENCES canonical_fields(id)"
+                )
+            )
+
+        dtype_row = conn.execute(
+            text(
+                "SELECT character_maximum_length FROM information_schema.columns "
+                "WHERE table_name = 'canonical_fields' AND column_name = 'data_type'"
+            )
+        ).first()
+        if dtype_row is not None and dtype_row[0] is not None and int(dtype_row[0]) < 128:
+            conn.execute(text("ALTER TABLE canonical_fields ALTER COLUMN data_type TYPE VARCHAR(128)"))
+
 
 def init_db() -> None:
     """Create all tables if they do not exist. Idempotent."""

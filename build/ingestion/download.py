@@ -73,6 +73,9 @@ STAGED_LOCAL_FILES = [
     # Schedule E (Form 1040) — rental income (cost seg chain).
     ("irs_xsd_schemas/ty2025/IRS1040ScheduleE.xsd", "xsd", "1040se"),
     ("irs_xsl_stylesheets/ty2025/IRS1040ScheduleE.xsl", "xsl", "1040se"),
+    # Form W-2 — employer wage statement (multi-instance intake pilot).
+    ("irs_xsd_schemas/ty2025/IRSW2.xsd", "xsd", "w2"),
+    ("irs_xsl_stylesheets/ty2025/IRSW2.xsl", "xsl", "w2"),
 ]
 
 # Primary e-file schema file for each form identity — the one actually walked
@@ -89,6 +92,7 @@ PRIMARY_XSD_FILENAME_BY_FORM = {
     "1040s2": "IRS1040Schedule2.xsd",
     "4562": "IRS4562.xsd",
     "1040se": "IRS1040ScheduleE.xsd",
+    "w2": "IRSW2.xsd",
 }
 
 

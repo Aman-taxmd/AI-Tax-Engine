@@ -79,6 +79,15 @@ python -m build.cli evaluate --form 1040s1 && python -m build.cli evaluate --for
 python -m build.cli export --form 1040s1 && python -m build.cli form-mapping --form 1040s1
 ```
 
+Cost segregation + W-2 (IRS-grounded hybrid — see `docs/adr/0012-irs-grounded-hybrid-provenance.md`):
+
+```bash
+python -m build.cli cost-seg-irs-setup --tax-year 2025   # 4562 + 1040se pipeline + bridges + PDF promotion
+python -m build.cli w2-irs-setup --tax-year 2025         # W-2 XSD catalog + w2-bridge + PDF promotion
+python -m build.cli cost-seg-setup --tax-year 2025       # bridges only (after synthesize)
+python -m build.cli promote-pdf-ground-truth --form 4562 # re-apply verified widget codes after map-pdf-fields
+```
+
 ## Streamlit app
 
 A taxpayer-facing app and a reviewer-facing queue, both built entirely on
@@ -164,7 +173,9 @@ identity string, not just the literal form number:
 | `1040sc` | Schedule C (Form 1040) | `build/sources/catalog/form_1040sc.yaml` | yes (`i1040sc`) |
 | `1040sse`| Schedule SE (Form 1040) | `build/sources/catalog/form_1040sse.yaml` | yes (`i1040sse`) — though its own worksheet lines are hand-authored, see below |
 | `1040s2` | Schedule 2 (Form 1040) | `build/sources/catalog/form_1040s2.yaml` | no — same situation as Schedule 1 |
-| `w2`     | Form W-2 (multi-instance, one per employer) | `build/sources/catalog/form_w2.yaml` | yes (`iw2w3`) — intake/PDF view are hand-authored (`w2_bridge.py`/`w2_pdf_bridge.py`), not LLM-synthesized, since a W-2's "line" numbers are box labels, not a worksheet |
+| `4562`   | Form 4562 (cost seg pilot) | `build/sources/catalog/form_4562.yaml` | yes — `synthesize --canonical-only`; engine authoritative (ADR 0012) |
+| `1040se` | Schedule E (cost seg pilot) | `build/sources/catalog/form_1040se.yaml` | yes — `synthesize --canonical-only`; engine authoritative (ADR 0012) |
+| `w2`     | Form W-2 (multi-instance) | `build/sources/catalog/form_w2.yaml` | yes (`iw2w3` + `IRSW2.xsd`) — `run-pilot --form w2` + `w2-bridge` for sum_instances (ADR 0012) |
 
 Cross-form connections that aren't separately extractable line-by-line
 (because the destination form's own instructions don't restate the source

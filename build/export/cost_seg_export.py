@@ -52,6 +52,11 @@ def _template_form_mapping(form: str, tax_year: int) -> dict:
 
 
 def run_cost_seg_export(tax_year: int = 2025) -> None:
+    from sqlalchemy import select
+
+    from db.models import CanonicalField, CostSegFieldTemplate, PdfFieldMapping
+    from db.session import get_session
+
     templates = all_templates()
     engine_templates = [t for t in templates if t.source_form_number is None and t.instance_group]
 
@@ -104,6 +109,53 @@ def run_cost_seg_export(tax_year: int = 2025) -> None:
         ],
     }
     (out_cost_seg / "instance_examples.json").write_text(json.dumps(examples, indent=2) + "\n")
+
+    provenance: dict = {"tax_year": tax_year, "fields": []}
+    with get_session() as session:
+        tpl_rows = session.execute(
+            select(CostSegFieldTemplate).where(CostSegFieldTemplate.tax_year == tax_year)
+        ).scalars().all()
+        synth_by_id = {
+            f.id: f
+            for f in session.execute(
+                select(CanonicalField).where(CanonicalField.tax_year == tax_year)
+            ).scalars().all()
+        }
+        pdf_by_field = {
+            m.canonical_field_id: m
+            for m in session.execute(
+                select(PdfFieldMapping).where(
+                    PdfFieldMapping.tax_year == tax_year,
+                    PdfFieldMapping.form_number.in_(("4562", "1040se")),
+                )
+            ).scalars().all()
+        }
+        for row in tpl_rows:
+            synth = synth_by_id.get(row.synthesized_canonical_field_id) if row.synthesized_canonical_field_id else None
+            provenance["fields"].append({
+                "template_id": row.template_id,
+                "relative_field": row.relative_field,
+                "xsd_element": row.source_xsd_element,
+                "synthesized_field_name": synth.field_name if synth else None,
+                "computation_source": "engine" if row.instance_group and not row.projection else (
+                    "projection" if row.projection else "analytics"
+                ),
+            })
+        provenance["projection_pdf"] = [
+            {
+                "field_name": f.field_name,
+                "pdf_field_code": pdf_by_field[f.id].pdf_field_code,
+                "model_version": pdf_by_field[f.id].model_version,
+            }
+            for f in session.execute(
+                select(CanonicalField).where(
+                    CanonicalField.tax_year == tax_year,
+                    CanonicalField.field_name.like("cost_seg_projection.%"),
+                )
+            ).scalars().all()
+            if f.id in pdf_by_field
+        ]
+    (out_cost_seg / "provenance.json").write_text(json.dumps(provenance, indent=2) + "\n")
 
     print(
         f"cost_seg_export complete: {len(templates)} templates, "

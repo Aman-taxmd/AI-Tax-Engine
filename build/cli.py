@@ -152,13 +152,17 @@ def bridge_forms_cmd(tax_year: int = typer.Option(2025, "--tax-year")):
 def synthesize_cmd(
     form: str = typer.Option(..., "--form"),
     tax_year: int = typer.Option(2025, "--tax-year"),
+    canonical_only: bool = typer.Option(False, "--canonical-only", help="Skip LLM calc rule synthesis"),
 ):
     """Phase 7: canonical field + calc rule synthesis."""
     from build.synthesis.canonical_field_writer import run_canonical_field_synthesis
     from build.synthesis.calc_rule_writer import run_calc_rule_synthesis
 
     run_canonical_field_synthesis(form, tax_year)
-    run_calc_rule_synthesis(form, tax_year)
+    if not canonical_only:
+        run_calc_rule_synthesis(form, tax_year)
+    else:
+        typer.echo(f"synthesize: skipped calc rules for form={form} (--canonical-only)")
 
 
 @app.command("hsa-worksheet-bridge")
@@ -337,6 +341,7 @@ def cost_seg_setup_cmd(tax_year: int = typer.Option(2025, "--tax-year")):
     """Run all cost segregation bridge commands (fields, projections, limitations)."""
     from build.consolidation.cost_seg_bridge import run_cost_seg_bridge
     from build.consolidation.cost_seg_projection_fields_bridge import run_cost_seg_projection_fields_bridge
+    from build.consolidation.cost_seg_synthesized_link_bridge import run_cost_seg_synthesized_link_bridge
     from build.consolidation.form_3115_lookback_bridge import run_form_3115_lookback_bridge
     from build.consolidation.form_4562_pilot_bridge import run_form_4562_pilot_bridge
     from build.consolidation.limitation_bridge import run_limitation_bridge
@@ -344,11 +349,74 @@ def cost_seg_setup_cmd(tax_year: int = typer.Option(2025, "--tax-year")):
 
     run_cost_seg_bridge(tax_year)
     run_cost_seg_projection_fields_bridge(tax_year)
+    run_cost_seg_synthesized_link_bridge(tax_year)
     run_form_4562_pilot_bridge(tax_year)
     run_schedule_e_projection_bridge(tax_year)
     run_limitation_bridge(tax_year)
     run_form_3115_lookback_bridge(tax_year)
     typer.echo("cost-seg-setup complete.")
+
+
+@app.command("cost-seg-irs-setup")
+def cost_seg_irs_setup_cmd(tax_year: int = typer.Option(2025, "--tax-year")):
+    """Full IRS-grounded pipeline for 4562 + 1040se, then cost seg bridges + PDF promotion."""
+    for form in ("4562", "1040se"):
+        discover_cmd(form)
+        parse_cmd(form)
+        detect_patterns_cmd(form)
+        extract_cmd(form)
+        consolidate_cmd(form)
+        synthesize_cmd(form, tax_year, canonical_only=True)
+        map_pdf_fields_cmd(form, tax_year)
+    from build.consolidation.promote_pdf_ground_truth import promote_all_cost_seg_and_w2
+
+    cost_seg_setup_cmd(tax_year)
+    promote_all_cost_seg_and_w2(tax_year)
+    typer.echo("cost-seg-irs-setup complete.")
+
+
+@app.command("w2-irs-setup")
+def w2_irs_setup_cmd(tax_year: int = typer.Option(2025, "--tax-year")):
+    """Full IRS-grounded pipeline for W-2: XSD catalog + sum_instances + PDF promotion."""
+    from build.consolidation.promote_pdf_ground_truth import promote_pdf_mappings_from_ground_truth
+    from build.consolidation.w2_synthesized_link_bridge import run_w2_synthesized_link_bridge
+
+    init_db_cmd()
+    discover_cmd("w2")
+    # Instructions parse separately; XSD canonical fields come from staged IRSW2.xsd
+    synthesize_cmd("w2", tax_year, canonical_only=True)
+    run_w2_synthesized_link_bridge(tax_year)
+    w2_bridge_cmd(tax_year)
+    map_pdf_fields_cmd("w2", tax_year)
+    promote_pdf_mappings_from_ground_truth("w2", tax_year)
+    typer.echo("w2-irs-setup complete.")
+
+
+@app.command("promote-pdf-ground-truth")
+def promote_pdf_ground_truth_cmd(
+    form: str = typer.Option(..., "--form"),
+    tax_year: int = typer.Option(2025, "--tax-year"),
+):
+    """Promote hand-verified PDF widget codes into PdfFieldMapping (human_review)."""
+    from build.consolidation.promote_pdf_ground_truth import promote_pdf_mappings_from_ground_truth
+
+    promote_pdf_mappings_from_ground_truth(form, tax_year)
+
+
+@app.command("cost-seg-synthesized-link")
+def cost_seg_synthesized_link_cmd(tax_year: int = typer.Option(2025, "--tax-year")):
+    """Link cost seg templates to IRS-grounded synthesized canonical fields."""
+    from build.consolidation.cost_seg_synthesized_link_bridge import run_cost_seg_synthesized_link_bridge
+
+    run_cost_seg_synthesized_link_bridge(tax_year)
+
+
+@app.command("w2-synthesized-link")
+def w2_synthesized_link_cmd(tax_year: int = typer.Option(2025, "--tax-year")):
+    """Ground intake_w2_* fields in synthesized W-2 XSD catalog."""
+    from build.consolidation.w2_synthesized_link_bridge import run_w2_synthesized_link_bridge
+
+    run_w2_synthesized_link_bridge(tax_year)
 
 
 @app.command("form-4562-pdf-bridge")
@@ -369,14 +437,12 @@ def schedule_e_pdf_bridge_cmd(tax_year: int = typer.Option(2025, "--tax-year")):
 
 @app.command("cost-seg-pdf-setup")
 def cost_seg_pdf_setup_cmd(tax_year: int = typer.Option(2025, "--tax-year")):
-    """Projection canonical fields + hand PDF bridges for 4562 and Schedule E."""
+    """Projection canonical fields + IRS-grounded PDF mappings for 4562 and Schedule E."""
     from build.consolidation.cost_seg_projection_fields_bridge import run_cost_seg_projection_fields_bridge
-    from build.consolidation.form_4562_pdf_bridge import run_form_4562_pdf_bridge
-    from build.consolidation.schedule_e_pdf_bridge import run_schedule_e_pdf_bridge
+    from build.consolidation.promote_pdf_ground_truth import promote_all_cost_seg_and_w2
 
     run_cost_seg_projection_fields_bridge(tax_year)
-    run_form_4562_pdf_bridge(tax_year)
-    run_schedule_e_pdf_bridge(tax_year)
+    promote_all_cost_seg_and_w2(tax_year)
     typer.echo("cost-seg-pdf-setup complete.")
 
 
@@ -629,6 +695,7 @@ def map_pdf_fields_cmd(
 def run_pilot_cmd(
     form: str = typer.Option("8889", "--form"),
     tax_year: int = typer.Option(2025, "--tax-year"),
+    canonical_only: bool = typer.Option(False, "--canonical-only", help="Skip LLM calc rule synthesis"),
 ):
     """Run every phase in order for the pilot form."""
     init_db_cmd()
@@ -637,7 +704,7 @@ def run_pilot_cmd(
     detect_patterns_cmd(form)
     extract_cmd(form)
     consolidate_cmd(form)
-    synthesize_cmd(form, tax_year)
+    synthesize_cmd(form, tax_year, canonical_only=canonical_only)
     evaluate_cmd(form, tax_year)
     export_cmd(form, tax_year)
     form_mapping_cmd(form, tax_year)

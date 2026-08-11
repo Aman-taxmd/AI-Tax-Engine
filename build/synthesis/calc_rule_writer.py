@@ -45,6 +45,9 @@ from runtime.chain import form_field_condition
 
 log = structlog.get_logger(__name__)
 
+# Forms where calc rules are deterministic (engine or hand bridges) — skip LLM synthesis.
+CALC_RULE_SKIP_FORMS = frozenset({"4562", "1040se", "w2"})
+
 
 def _form_document_ids(session, form: str) -> list[str]:
     return list(session.execute(select(Document.id).where(Document.form_number == form)).scalars().all())
@@ -105,6 +108,12 @@ def _clear_existing(session, form: str, field_names: list[str], tax_year: int) -
 
 
 def run_calc_rule_synthesis(form: str, tax_year: int = 2025) -> None:
+    if form in CALC_RULE_SKIP_FORMS:
+        print(
+            f"calc rule synthesis: skipped for form={form} "
+            f"(deterministic engine/bridge — use synthesize --canonical-only or w2-bridge)"
+        )
+        return
     with get_session() as session:
         doc_ids = _form_document_ids(session, form)
 
